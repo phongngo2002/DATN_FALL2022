@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlansModel;
 use Illuminate\Http\Request;
 
 class PlansController extends Controller
@@ -12,9 +13,26 @@ class PlansController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
-    {
-        return view('admin.Plans.index');
+    {   //select data plans 
+        $plans = PlansModel::select(
+            'id',
+            'name',
+            'desc',
+            'priority_level',
+            'type',
+            'time',
+            'price',
+            'created_at'
+        )->orderBy('id', 'desc')->paginate(5);
+
+        return view('admin.Plans.index', [
+            // trả dữ liệu về trang danh sách 
+            'plans' => $plans
+        ]);
     }
 
     /**
@@ -24,7 +42,7 @@ class PlansController extends Controller
      */
     public function create()
     {
-        return view('admin.Plans.create');
+        return view('admin.Plans.form');
     }
 
     /**
@@ -35,7 +53,7 @@ class PlansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -80,6 +98,10 @@ class PlansController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PlansModel::find($id)->delete();
+
+        return response()->json([
+            'success' => 'User Deleted Successfully!'
+        ]);
     }
 }

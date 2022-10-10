@@ -21,6 +21,8 @@ Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+
+    // Route::get('/data', [PlansController::class, 'data'])->name('plans.data');
     Route::resource('plans', PlansController::class);
 });
 // end quản lý các gói dịch vụ
