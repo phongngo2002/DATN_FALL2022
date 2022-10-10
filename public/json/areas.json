@@ -1,0 +1,104 @@
+{
+  "RECORDS": [
+    {
+      "id": "1",
+      "name": "Nhà trọ Quang Minh",
+      "address": "Hà Nội",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Nhà trọ Quang Minh 2",
+      "address": "Hà Nội",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "2"
+    },
+    {
+      "id": "3",
+      "name": "Nhà trọ Xuân Quỳnh",
+      "address": "Bắc Giang",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "3"
+    },
+    {
+      "id": "4",
+      "name": "Nhà trọ Xuân Bắc",
+      "address": "Thái Bình",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "4"
+    },
+    {
+      "id": "5",
+      "name": "Nhà trọ Cà Mau",
+      "address": "Vĩnh Phúc",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "5"
+    },
+    {
+      "id": "6",
+      "name": "Nhà trọ Nghệ An",
+      "address": "Vũng Tàu",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "1"
+    },
+    {
+      "id": "7",
+      "name": "Nhà trọ Xuân Thủy",
+      "address": "Hà Nội",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "2"
+    },
+    {
+      "id": "8",
+      "name": "Nhà trọ Chí Phèo",
+      "address": "Trung Quốc",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "3"
+    },
+    {
+      "id": "9",
+      "name": "Nhà trọ ABC",
+      "address": "Nam Định",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "4"
+    },
+    {
+      "id": "10",
+      "name": "Nhà trọ HJK",
+      "address": "Thanh Hóa",
+      "link_gg_map": "",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": "",
+      "user_id": "5"
+    }
+  ]
+}

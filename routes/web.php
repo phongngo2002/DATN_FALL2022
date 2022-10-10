@@ -13,4 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
+    Route::prefix('khu-tro')->group(function () {
+        Route::get('/', 'App\Http\Controllers\Admin\AreaController@index')->name('backend_get_list_area');
+    });
+    Route::prefix('dat-coc')->group(function () {
+        Route::get('/', 'App\Http\Controllers\Admin\DepositController@index')->name('backend_get_list_deposit');
+    });
+});
+
+

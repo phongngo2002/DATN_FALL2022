@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('link_gg_map');
+            $table->string('link_gg_map')->default('');
+            $table->integer('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,18 +15,18 @@ return new class extends Migration {
         Schema::create('motels', function (Blueprint $table) {
             $table->id();
             $table->string('room_number');
-            $table->float('price', 11, 3);
-            $table->float('area', 11, 3);
+            $table->float('price', 11, 3)->default(0);
+            $table->float('area', 11, 3)->default(0);
             $table->integer('area_id');
-            $table->longText('description');
-            $table->text('image_360');
-            $table->text('photo_gallery');
-            $table->longText('services');
+            $table->longText('description')->nullable();
+            $table->text('image_360')->nullable();
+            $table->text('photo_gallery')->nullable();
+            $table->longText('services')->nullable();
             $table->integer('status')->default('0');
-            $table->integer('max_people');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->integer('category_id');
+            $table->integer('max_people')->default(0);
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->integer('category_id')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
