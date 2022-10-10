@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PlansController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
+
+
+//  route crud quản lý các gói dịc vụ 
+
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('plans', PlansController::class);
+});
+// end quản lý các gói dịch vụ
