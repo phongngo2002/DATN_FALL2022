@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class DatabaseSeeder extends Seeder
 {
@@ -51,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 [
                     "name" => $item["name"],
                     "email" => $item["email"],
-                    "password" => $item['password'],
+                    "password" => Hash::make('123456'),
                     "role_id" => $item['role_id'],
                     'created_at' => Carbon::now()
                 ]
