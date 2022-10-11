@@ -36,12 +36,23 @@ class LoginRequest extends FormRequest
                             'g-recaptcha-response' => 'required|recaptcha'
                         ];
                         break;
-//                    case 'save_update':
-//                        $rules = [
-//                            'title' => 'required',
-//                            'desc' => 'required'
-//                        ];
-//                        break;
+                    case 'getCodeForgotPassword':
+                        $rules = [
+                            'email' => 'required|email',
+                            'g-recaptcha-response' => 'required|recaptcha'
+                        ];
+                        break;
+                    case 'postCodeConfirmAcc':
+                        $rules = [
+                            'code' => 'required'
+                        ];
+                        break;
+                    case 'changePassword':
+                        $rules = [
+                            'password' => 'required|confirmed',
+                            'password_confirmation' => 'required'
+                        ];
+                        break;
                     default:
                         break;
                 }
@@ -59,7 +70,10 @@ class LoginRequest extends FormRequest
             'email.email' => 'Email chưa đúng định dạng',
             'password.required' => 'Mật khẩu bắt buộc nhập',
             'g-recaptcha-response.required' => 'Bắt buộc xác minh',
-            'g-recaptcha-response.recaptcha' => 'Form đăng nhập không dành cho robot'
+            'g-recaptcha-response.recaptcha' => 'Form đăng nhập không dành cho robot',
+            'code.required' => 'Mã xác minh bắt buộc nhập',
+            'password.confirmed' => 'Xác nhận mật khẩu không chính xác',
+            'password_confirmation.required' => 'Xác nhận mật khẩu bắt buộc nhập'
         ];
     }
 }

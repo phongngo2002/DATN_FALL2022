@@ -31,7 +31,7 @@
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                 <div class="d-table-cell align-middle">
                     <div class="text-center mt-4">
-                        <h1 class="h1 text-white">Đăng nhập hệ thống</h1>
+                        <h1 class="h1 text-white">Quên mật khẩu</h1>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -39,31 +39,14 @@
                                 <form action="" method="post" id="content">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label">Email</label>
+                                        <label class="form-label">Email đã đăng ký</label>
                                         <input class="form-control form-control-lg" type="email" name="email" id="email"
-                                               placeholder="Email"/>
+                                               placeholder="phong@gmail.com"/>
                                     </div>
                                     @error('email')
                                     <p class="text-danger">{{$message}}</p>
                                     @enderror
-                                    <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input class="form-control form-control-lg" type="password" name="password"
-                                               id="password"
-                                               placeholder="Mật khẩu"/>
-                                    </div>
-                                    <small>
-                                        <a href="{{route('get_form_forgot_password')}}">Quên mật khẩu?</a>
-                                    </small>
-                                    @error('password')
-                                    <p class="text-danger">{{$message}}</p>
-                                    @enderror
                                     <div>
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="remember-me"
-                                                   name="remember-me" checked>
-                                            <span class="form-check-label">Ghi nhớ tài khoản</span>
-                                        </label>
                                         <div class="col-md-6 pull-center">
                                             {!! app('captcha')->display() !!}
                                             @if ($errors->has('g-recaptcha-response'))
@@ -73,10 +56,9 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{--                                    @php dd(app('captcha')) @endphp--}}
 
                                     <div class="text-center mt-3">
-                                        <button class="btn btn-lg btn-primary">Đăng nhập</button>
+                                        <button class="btn btn-lg btn-primary">Lấy mã</button>
                                         <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                     </div>
                                 </form>
@@ -92,76 +74,63 @@
 
 @include('layouts.admin._js')
 
-<script>
-    $("#content").validate({
-        rules: {
-            "email": {
-                required: true,
-                email: true
-            },
-            "password": {
-                required: true
-            }
-        },
-        messages: {
-            "password": {
-                required: 'Mật khẩu bắt buộc nhập'
-            },
-            "email": {
-                required: 'Email bắt buộc nhập',
-                email: 'Email không đúng định dạng'
-            },
+{{--<script>--}}
+{{--    $("#content").validate({--}}
+{{--        rules: {--}}
+{{--            "email": {--}}
+{{--                required: true,--}}
+{{--                email: true--}}
+{{--            },--}}
+{{--            "password": {--}}
+{{--                required: true--}}
+{{--            }--}}
+{{--        },--}}
+{{--        messages: {--}}
+{{--            "password": {--}}
+{{--                required: 'Mật khẩu bắt buộc nhập'--}}
+{{--            },--}}
+{{--            "email": {--}}
+{{--                required: 'Email bắt buộc nhập',--}}
+{{--                email: 'Email không đúng định dạng'--}}
+{{--            },--}}
 
-        },
-        submitHandler: function (form) {
+{{--        },--}}
+{{--        submitHandler: function (form) {--}}
 
-            form.submit();
+{{--            form.submit();--}}
 
-        }
+{{--        }--}}
 
-    });
-</script>
+{{--    });--}}
+{{--</script>--}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if (\Illuminate\Support\Facades\Session::has('failed'))
-    <script>
-        function modal() {
-            Swal.fire(
-                'Đăng nhập thất bại!',
-                'Thông tin đăng nhập không chính xác.',
-                'error'
-            )
-        }
+{{--@if (\Illuminate\Support\Facades\Session::has('failed'))--}}
+{{--    <script>--}}
+{{--        function modal() {--}}
+{{--            Swal.fire(--}}
+{{--                'Đăng nhập thất bại!',--}}
+{{--                'Thông tin đăng nhập không chính xác.',--}}
+{{--                'error'--}}
+{{--            )--}}
+{{--        }--}}
 
-        modal();
-    </script>
-@endif
-@if (\Illuminate\Support\Facades\Session::has('change'))
-    <script>
-        function modal() {
-            Swal.fire(
-                'Lấy lại mật khẩu thành công',
-                '',
-                'success'
-            )
-        }
+{{--        modal();--}}
+{{--    </script>--}}
+{{--@endif--}}
+{{--@if(\Illuminate\Support\Facades\Session::has('logout'))--}}
+{{--    <script>--}}
+{{--        function modal() {--}}
+{{--            Swal.fire(--}}
+{{--                'Đăng xuất thành công!',--}}
+{{--                '',--}}
+{{--                'success'--}}
+{{--            )--}}
+{{--        }--}}
 
-        modal();
-    </script>
-@endif
-@if(\Illuminate\Support\Facades\Session::has('logout'))
-    <script>
-        function modal() {
-            Swal.fire(
-                'Đăng xuất thành công!',
-                '',
-                'success'
-            )
-        }
-
-        modal();
-    </script>
-@endif
+{{--        modal();--}}
+{{--    </script>--}}
+{{--@endif--}}
 </body>
 
 </html>
