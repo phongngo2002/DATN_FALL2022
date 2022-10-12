@@ -22,7 +22,14 @@ Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
-    // Route::get('/data', [PlansController::class, 'data'])->name('plans.data');
-    Route::resource('plans', PlansController::class);
+    Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
+
+    Route::get('/plans/create', [PlansController::class, 'create'])->name('plans.create');
+    Route::post('/plans/store', [PlansController::class, 'store'])->name('plans.store');
+
+    Route::get('/plans/update/{plan}/edit', [PlansController::class, 'edit'])->name('plans.edit');
+    Route::post('/plans/update/{plan}', [PlansController::class, 'update'])->name('plans.update');
+
+    Route::post('/plans/destroy/{plan}', [PlansController::class, 'destroy'])->name('plans.destroy');
 });
 // end quản lý các gói dịch vụ

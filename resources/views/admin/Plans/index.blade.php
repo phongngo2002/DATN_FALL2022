@@ -52,9 +52,9 @@
 
                                 {{-- phân loại gói dich vụ --}}
                                 <td>
-                                    @if ($item->priority_level == 1)
+                                    @if ($item->type == 1)
                                         <span class="badge bg-secondary">thuê trọ</span>
-                                    @elseif($item->priority_level == 2)
+                                    @elseif($item->type == 2)
                                         <span class="badge bg-secondary">tim ở ghép</span>
                                     @endif
                                 </td>
@@ -76,9 +76,7 @@
                                         class="badge bg-danger delete_plans">xóa</a>
 
 
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-                                        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-                                        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
                                     {{-- sweet alert --}}
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.all.min.js"></script>
@@ -90,29 +88,31 @@
                                             let url = $(this).data('url');
 
                                             swal.fire({
-                                                title: 'Are you sure?',
-                                                text: "You won't be able to revert this!",
+                                                title: 'Bạn có muốn xóa ?',
+                                                text: "Bạn sẽ không thể khôi phục lại dữ liệu",
                                                 icon: 'warning',
                                                 showCancelButton: true,
                                                 confirmButtonColor: '#3085d6',
                                                 cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Yes, delete it!'
+                                                confirmButtonText: 'Tôi đồng ý!'
                                             }).then(function(result) {
+
                                                 if (result.value) {
                                                     $.ajax({
-                                                        type: "delete",
+                                                        type: "POST",
                                                         url: url,
                                                         data: {
                                                             _token: '{!! csrf_token() !!}',
                                                         },
                                                         dataType: "json",
                                                         success: function(data) {
-                                                            Swal.fire(
-                                                                'Deleted!',
-                                                                'Your file has been deleted.',
-                                                                'success'
-                                                            )
-
+                                                            Swal.fire({
+                                                                title: 'Bạn có muốn xóa ?',
+                                                                text: "Bạn sẽ không thể khôi phục lại dữ liệu",
+                                                                icon: 'success',
+                                                            }).then(function(result) {
+                                                                window.location.reload();
+                                                            })
                                                         },
                                                         error: function() {
 
@@ -128,10 +128,6 @@
                                             $('.delete_plans').on('click', delete_plans)
                                         })
                                     </script>
-
-
-
-
                                 </td>
 
                                 <script></script>

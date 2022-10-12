@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlansRequest;
 use App\Models\PlansModel;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class PlansController extends Controller
      */
     public function create()
     {
-        return view('admin.Plans.form');
+        return view('admin.Plans.create');
     }
 
     /**
@@ -51,9 +52,8 @@ class PlansController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlansRequest $request)
     {
-        dd($request->all());
     }
 
     /**

@@ -8,34 +8,35 @@
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
     <meta name="keywords"
-          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     @include('layouts.admin._css')
 </head>
 
 <body>
-<div class="wrapper">
-    @include('layouts.admin.sidebar')
 
-    <div class="main">
-        @include('layouts.admin.header')
+    <div class="wrapper">
+        @include('layouts.admin.sidebar')
 
-        <main class="content">
-            <div class="container-fluid p-0">
-                {{--                <strong>Analytics</strong> Dashboard--}}
-                <h1 class="h3 mb-3">@yield('title_page')</h1>
+        <div class="main">
+            @include('layouts.admin.header')
 
-                @yield('content')
+            <main class="content">
+                <div class="container-fluid p-0">
+                    {{--                <strong>Analytics</strong> Dashboard --}}
+                    <h1 class="h3 mb-3">@yield('title_page')</h1>
 
-            </div>
-        </main>
+                    @yield('content')
 
-        @include('layouts.admin.footer')
+                </div>
+            </main>
+
+            @include('layouts.admin.footer')
+        </div>
     </div>
-</div>
 
-@include('layouts.admin._js')
+    @include('layouts.admin._js')
 
-@yield('custom_js')
+    @yield('custom_js')
 
 </body>
 
