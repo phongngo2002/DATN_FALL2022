@@ -22,6 +22,10 @@ Route::get('/xac-minh', 'App\Http\Controllers\Auth\LoginController@getFormConfir
 Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConfirmAcc')->name('get_post_code_confirm_account');
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
+
+Route::get('/account','App\Http\Controllers\Admin\AccountController@getAll')->name('backend_account_getAll');
+Route::match(['get','post'],'/account/add','App\Http\Controllers\Admin\AccountController@add')->name('backend_account_add');
+
 Route::get('/', function () {
     return view('test', []);
 });
@@ -36,5 +40,6 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
+
 
 
