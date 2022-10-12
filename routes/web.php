@@ -23,8 +23,8 @@ Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConf
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
-Route::get('/account','App\Http\Controllers\Admin\AccountController@getAll')->name('backend_account_getAll');
-Route::match(['get','post'],'/account/add','App\Http\Controllers\Admin\AccountController@add')->name('backend_account_add');
+Route::get('/user','App\Http\Controllers\Admin\UserController@getAll')->name('backend_user_getAll');
+Route::match(['get','post'],'/user/add','App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
 
 Route::get('/', function () {
     return view('test', []);
