@@ -28,8 +28,8 @@ class PlansRequest extends FormRequest
             'desc' => 'required|min:20',
             'priority_level' => 'required|not_in: 0',
             'type' => 'required|not_in:0',
-            'time' => 'required',
-            'price' => 'required',
+            'time' => 'required|max:11',
+            'price' => 'required|max:8',
         ];
     }
 
@@ -44,7 +44,10 @@ class PlansRequest extends FormRequest
             'priority_level.not_in' => 'Chưa chọn mức độ ưu tiên !',
             'type.not_in' => 'Chưa chọn loại cho dịch vụ !',
             'time.required' => 'Không để trống thời hạn !',
+            'time.max' => 'nhập quá quá giới hạn tối đa của gói !',
+
             'price.required' => 'Không để trống giá của gói !',
+            'price.max' => 'nhập quá số trị giá của gói !',
         ];
     }
 }

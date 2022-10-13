@@ -21,4 +21,8 @@ class PlansModel extends Model
         'price',
         'created_at'
     ];
+
+    public function plans()
+    {
+    }
 }

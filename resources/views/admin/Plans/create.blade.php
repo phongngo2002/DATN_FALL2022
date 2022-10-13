@@ -131,7 +131,7 @@
                         </div>
                         <div class="body m-2 p-2">
                             <input type="text" name="time" class="form-control" id="time"
-                                placeholder="nhập thời hạn của gói dịch vụ">
+                                value="{{ old('time') }}" placeholder="nhập thời hạn của gói dịch vụ">
                         </div>
                         {{-- input time plans  --}}
                         {{-- input description plans  --}}
@@ -155,12 +155,13 @@
                 </div>
     </form>
     @include('layouts.admin._js')
+    {{-- validate jquery form plans --}}
     <script>
         $("#plans_form").validate({
             rules: {
                 "name": {
                     required: true,
-                    min: 6
+                    minlength: 6
                 },
                 "desc": {
                     required: true,
@@ -176,18 +177,22 @@
                 },
 
                 'time': {
-                    required: true
+                    required: true,
+                    maxlength: 10,
+                    digits: true,
                 },
 
                 'price': {
-                    required: true
+                    digits: true,
+                    required: true,
+                    maxlength: 8,
                 }
             },
             messages: {
 
                 "name": {
                     required: 'Bắt buộc nhập tên gói',
-                    min: 'Tối thiểu 6 ký tự',
+                    minlength: 'Tối thiểu 6 ký tự',
                 },
                 "priority_level": {
                     required: 'Bạn chưa chon mức ưu tiên',
@@ -204,11 +209,15 @@
                 },
 
                 'time': {
-                    required: 'Bạn chưa nhập thời hạn'
+                    required: 'Bạn chưa nhập thời hạn',
+                    maxlength: 'Nhập quá giới hạn tối đa',
+                    digits: "Chỉ nhập số không nhập các ký tự khác"
                 },
 
                 'price': {
-                    required: "Bạn chưa nhập giá sản phẩm"
+                    required: "Bạn chưa nhập giá sản phẩm",
+                    digits: "Chỉ nhập số không nhập các ký tự khác",
+                    maxlength: 'Nhập quá giới hạn tối đa',
                 }
             },
             submitHandler: function(form) {
@@ -216,5 +225,31 @@
             }
         });
     </script>
+
+    {{-- sweet alert --}}
+
+    @if (Session::has('save_plans'))
+        <script>
+            function modal() {
+                Swal.fire(
+                    'Success fully',
+                    'Thêm gói dịch vụ thành công.',
+                    'success'
+                )
+            }
+            modal();
+        </script>
+    @elseif(Session::has('not_plans'))
+        <script>
+            function modal() {
+                Swal.fire(
+                    'Error',
+                    'Thêm gói dịch vụ không thành công.',
+                    'error'
+                )
+            }
+            modal();
+        </script>
+    @endif
 
 @endsection

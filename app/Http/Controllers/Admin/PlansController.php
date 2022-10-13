@@ -54,6 +54,25 @@ class PlansController extends Controller
      */
     public function store(PlansRequest $request)
     {
+        $plans = new PlansModel;
+        //Điền thông tin vào model với một mảng các thuộc tính.
+        $plans->fill($request->all());
+        // ép kiểu đúng với các trường trong table 
+        $plans->priority_level = (int) $request->priority_level;
+        $plans->type = (int) $request->type;
+        $plans->time = (int) $request->time;
+        $plans->price = (float) $request->price;
+
+        // lưu dữ liệu
+        $plans->save();
+
+
+
+        if ($this->create($request->all)) {
+            return redirect()->route('admin.plans.create')->with('save_plans', 'thêm thành công');
+        } else {
+            return redirect()->route('admin.plans.create')->with('not_plans', 'thêm ko thành công');
+        }
     }
 
     /**

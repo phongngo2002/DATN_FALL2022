@@ -26,7 +26,7 @@
                             <th class="d-none d-md-table-cell" colspan="2">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="plans-table">
+                    <tbody class="text-center display-block">
                         @foreach ($plans as $item)
                             <tr>
                                 {{-- tên của dịch vụ --}}
@@ -34,7 +34,9 @@
                                 {{-- tên của dịch vụ --}}
 
                                 {{-- mô tả dịch vụ  --}}
-                                <td class="d-none d-md-table-cell">{{ $item->desc }}</td>
+                                <td class="d-none d-md-table-cell">
+                                    {!! htmlspecialchars_decode($item->desc) !!}
+                                </td>
                                 {{-- mô tả dịch vụ  --}}
 
                                 {{-- mực độ ưu tiên của gói  --}}
@@ -61,7 +63,7 @@
                                 {{-- phân loại gói dich vụ --}}
 
                                 {{-- thời gian hiệu lực --}}
-                                <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                <td class="d-none d-xl-table-cell">{{ $item->time }}Ngày</td>
                                 {{-- end thời gian --}}
 
                                 {{-- giá của dịch vụ --}}
