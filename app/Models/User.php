@@ -24,8 +24,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number',
+        'avatar',
+        'money',
+        'address',
         'role_id',
-        'confirm_code',
         'token',
     ];
 
@@ -77,5 +80,21 @@ class User extends Authenticatable
     public function getUserByEmail($email)
     {
         return DB::table($this->table)->where('email', $email)->first();
+    }
+
+    public function getAll(){
+        $query = DB::table($this->table)->select($this->fillable);
+        $users = $query->get();
+        return $users;
+    }
+    public function getOne($id){
+        $query = DB::table($this->table)->where('id',$id)->select($this->fillable);
+        $user = $query->first();
+        return $user;
+    }
+    public function saveNew($params){
+        $data = array_merge($params['cols']);
+        $request = DB::table($this->table)->insertGetId($data);
+        return $request;
     }
 }
