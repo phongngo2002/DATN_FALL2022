@@ -18,11 +18,14 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number');
-            $table->string('avatar');
-            $table->float('money', 11, 3);
-            $table->string('address');
+            $table->string('phone_number')->nullable();
+            $table->string('avatar')->nullable();
+            $table->float('money', 11, 3)->nullable();
+            $table->string('address')->nullable();
             $table->integer('role_id');
+            $table->string('token')->nullable();
+            $table->string('confirmation_code')->nullable();
+            $table->dateTime('confirmation_code_expired_in')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

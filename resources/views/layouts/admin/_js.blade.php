@@ -6,3 +6,4 @@
 
 {{-- sweet alert link --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.all.min.js"></script>
+<script src="{{ asset('assets/admin/js/app.js') }}"></script>

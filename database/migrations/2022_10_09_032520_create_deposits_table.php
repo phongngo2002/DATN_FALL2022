@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->integer('user_id');
             $table->float('value', 11, 3);
+            $table->integer('status')->default(0);
             $table->integer('motel_id');
             $table->softDeletes();
             $table->timestamps();

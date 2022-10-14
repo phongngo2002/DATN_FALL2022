@@ -1,0 +1,23 @@
+{
+  "RECORDS": [
+    {
+      "id": "1",
+      "room_number": "P301",
+      "price": "1",
+      "area": "1",
+      "area_id": "1",
+      "description": "1",
+      "image_360": "1",
+      "photo_gallery": "1",
+      "services": "1",
+      "status": "0",
+      "max_people": "0",
+      "start_time": "0/1/2000 00:00:00",
+      "end_time": "0/1/2000 00:00:00",
+      "category_id": "1",
+      "deleted_at": "",
+      "created_at": "",
+      "updated_at": ""
+    }
+  ]
+}

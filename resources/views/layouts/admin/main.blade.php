@@ -9,34 +9,57 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <style>
+        .loader-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            background: #ffffff url("https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340") center no-repeat;
+            z-index: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     @include('layouts.admin._css')
 </head>
 
 <body>
-
+    <div class="loader-container">
+        <div class="spinner"></div>
+    </div>
     <div class="wrapper">
         @include('layouts.admin.sidebar')
 
-        <div class="main">
-            @include('layouts.admin.header')
 
-            <main class="content">
-                <div class="container-fluid p-0">
-                    {{--                <strong>Analytics</strong> Dashboard --}}
-                    <h1 class="h3 mb-3">@yield('title_page')</h1>
+        <div class="wrapper">
+            @include('layouts.admin.sidebar')
 
-                    @yield('content')
+            <div class="main">
+                @include('layouts.admin.header')
 
-                </div>
-            </main>
+                <main class="content">
+                    <div class="container-fluid p-0">
+                        {{--                <strong>Analytics</strong> Dashboard --}}
+                        <h1 class="h3 mb-3">@yield('title_page')</h1>
 
-            @include('layouts.admin.footer')
+                        @yield('content')
+
+                    </div>
+                </main>
+
+                @include('layouts.admin.footer')
+            </div>
         </div>
-    </div>
 
-    @include('layouts.admin._js')
+        @include('layouts.admin._js')
 
-    @yield('custom_js')
+        @yield('custom_js')
+        <script !src="">
+            const loaderContainer = document.querySelector('.loader-container');
+            window.addEventListener('load', () => {
+                loaderContainer.style.display = 'none';
+            });
+        </script>
 
 </body>
 

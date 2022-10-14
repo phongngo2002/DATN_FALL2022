@@ -2,6 +2,7 @@
 <link rel="shortcut icon" href="{{ asset('assets/admin/img/icons/icon-48x48.png') }}" />
 
 <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+{{-- <link rel="canonical" href="https://demo-basic.adminkit.io/"/> --}}
 
 <title>Chợ phòng trọ - ADMIN</title>
 
