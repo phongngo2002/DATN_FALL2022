@@ -109,9 +109,9 @@
                                 placeholder="Nhập giá của gói dịch vụ" value="{{ old('price') }}">
                         </div>
                         {{-- input price plans  --}}
-                        <div class="m-2 p-2">
-                            <button type="submit" class="btn btn-primary btn-block"> thêm </button>
-                            <a href="{{ route('admin.plans.index') }}" class="btn btn-warning btn-block"> quay lại </a>
+                        <div class=" d-flex bd-highlight col-md-7 m-2 p-2">
+                            <button type="submit" class="btn btn-primary btn-block m-2"> thêm </button>
+                            <a href="{{ route('admin.plans.index') }}" class="btn btn-warning btn-block m-2"> quay lại </a>
                         </div>
 
                     </div>

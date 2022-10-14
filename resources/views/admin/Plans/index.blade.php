@@ -34,8 +34,8 @@
                                 {{-- tên của dịch vụ --}}
 
                                 {{-- mô tả dịch vụ  --}}
-                                <td class="d-none d-md-table-cell">
-                                    {!! htmlspecialchars_decode($item->desc) !!}
+                                <td>
+                                    {!! $item->desc !!}
                                 </td>
                                 {{-- mô tả dịch vụ  --}}
 
@@ -63,7 +63,7 @@
                                 {{-- phân loại gói dich vụ --}}
 
                                 {{-- thời gian hiệu lực --}}
-                                <td class="d-none d-xl-table-cell">{{ $item->time }}Ngày</td>
+                                <td class="d-none d-xl-table-cell">{{ $item->time }} ngày</td>
                                 {{-- end thời gian --}}
 
                                 {{-- giá của dịch vụ --}}
@@ -73,9 +73,11 @@
 
                                 {{-- button action --}}
                                 <td>
-                                    <a href="#" class="badge bg-success">cập nhật</a>
+                                    <a href="{{ route('admin.plans.edit', $item->id) }}"
+                                        class=" text-white badge bg-success">
+                                        cập nhật</a>
                                     <a type="submit" data-url="{{ route('admin.plans.destroy', $item->id) }}"
-                                        class="badge bg-danger delete_plans">xóa</a>
+                                        class="text-white badge bg-danger delete_plans">xóa</a>
 
 
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

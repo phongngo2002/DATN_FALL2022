@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlansRequest;
-use App\Models\PlansModel;
+use App\Models\Plans;
 use Illuminate\Http\Request;
 
 class PlansController extends Controller
@@ -19,20 +19,10 @@ class PlansController extends Controller
 
     public function index()
     {   //select data plans 
-        $plans = PlansModel::select(
-            'id',
-            'name',
-            'desc',
-            'priority_level',
-            'type',
-            'time',
-            'price',
-            'created_at'
-        )->orderBy('id', 'desc')->paginate(5);
-
+        $plans = new Plans;
         return view('admin.Plans.index', [
             // trả dữ liệu về trang danh sách 
-            'plans' => $plans
+            'plans' => $plans->list()
         ]);
     }
 
@@ -54,7 +44,7 @@ class PlansController extends Controller
      */
     public function store(PlansRequest $request)
     {
-        $plans = new PlansModel;
+        $plans = new Plans;
         //Điền thông tin vào model với một mảng các thuộc tính.
         $plans->fill($request->all());
         // ép kiểu đúng với các trường trong table 
@@ -62,11 +52,8 @@ class PlansController extends Controller
         $plans->type = (int) $request->type;
         $plans->time = (int) $request->time;
         $plans->price = (float) $request->price;
-
         // lưu dữ liệu
         $plans->save();
-
-
 
         if ($this->create($request->all)) {
             return redirect()->route('admin.plans.create')->with('save_plans', 'thêm thành công');
@@ -83,7 +70,6 @@ class PlansController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -94,7 +80,10 @@ class PlansController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plans = new Plans;
+        return view('admin.Plans.edit', [
+            'plan' => $plans->show_plans($id)
+        ]);
     }
 
     /**
@@ -104,9 +93,23 @@ class PlansController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PlansRequest $request, $id)
     {
-        //
+        $plans = Plans::find($id);
+
+        $plans->fill($request->all());
+        // ép kiểu đúng với các trường trong table
+        $plans->priority_level = (int) $request->priority_level;
+        $plans->type = (int) $request->type;
+        $plans->time = (int) $request->time;
+        $plans->price = (float) $request->price;
+
+        $plans->save();
+
+
+
+
+        return redirect(route('admin.plans.index'))->with('success', "Insert successfully");
     }
 
     /**
@@ -117,7 +120,7 @@ class PlansController extends Controller
      */
     public function destroy($id)
     {
-        PlansModel::find($id)->delete();
+        Plans::find($id)->delete();
 
         return response()->json([
             'success' => 'User Deleted Successfully!'

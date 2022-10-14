@@ -16,9 +16,10 @@
         }
     </style>
 
-    <form id="plans_form" action="{{ route('admin.plans.store') }}" method="POST">
+    <form id="plans_form" action="{{ route('admin.plans.update', $plan->id) }}" method="POST">
         <div class="container-fluid p-0">
             @csrf
+            @method('PUT')
             <div class="row shadow p-3 mb-5 bg-white rounded ">
                 <div class="col-12 col-lg-6">
                     <div class="">
@@ -36,7 +37,7 @@
                         </div>
                         <div class="body m-2 p-2">
                             <input type="text" name="name" id="name" class="form-control"
-                                placeholder="nhập tên của gói dịch vụ" value="{{ old('name') }}">
+                                placeholder="nhập tên của gói dịch vụ" value="{{ $plan->name }}">
                         </div>
                         {{-- input name plans  --}}
                         {{-- ////// --}}
@@ -54,13 +55,13 @@
                         <div class="body m-2 p-2">
                             <select name="priority_level" id="priority_level" class="form-select mb-1">
                                 <option value="0">Chọn mức ưu tiên cho gói dịch vụ</option>
-                                <option value="1" @if (old('priority_level') == '1') {{ 'selected' }} @endif>
+                                <option value="1" @if ($plan->priority_level == 1) {{ 'selected' }} @endif>
                                     level 1
                                 </option>
-                                <option value="2" @if (old('priority_level') == '2') {{ 'selected' }} @endif>
+                                <option value="2" @if ($plan->priority_level == 2) {{ 'selected' }} @endif>
                                     level 2
                                 </option>
-                                <option value="3" @if (old('priority_level') == '3') {{ 'selected' }} @endif>
+                                <option value="3" @if ($plan->priority_level == 3) {{ 'selected' }} @endif>
                                     level 3
                                 </option>
                             </select>
@@ -83,10 +84,10 @@
                         <div class="body m-2 p-2">
                             <select name="type" id="type" class="form-select mb-1">
                                 <option value="0">Chọn loại dùng cho gói</option>
-                                <option value="1" @if (old('type') == '1') {{ 'selected' }} @endif>
+                                <option value="1" @if ($plan->type == 1) {{ 'selected' }} @endif>
                                     Tìm người thuê trọ
                                 </option>
-                                <option value="2" @if (old('type') == '2') {{ 'selected' }} @endif>
+                                <option value="2" @if ($plan->type == 2) {{ 'selected' }} @endif>
                                     Tìm người ở ghép
                                 </option>
                             </select>
@@ -106,12 +107,12 @@
                         </div>
                         <div class="body m-2 p-2">
                             <input name="price" type="text" id="price" class="form-control"
-                                placeholder="Nhập giá của gói dịch vụ" value="{{ old('price') }}">
+                                placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
                         </div>
                         {{-- input price plans  --}}
-                        <div class="m-2 p-2">
-                            <button type="submit" class="btn btn-primary btn-block"> thêm </button>
-                            <a href="{{ route('admin.plans.index') }}" class="btn btn-warning btn-block"> quay lại </a>
+                        <div class=" d-flex bd-highlight col-md-6 m-2 p-2">
+                            <button type="submit" class="btn btn-primary btn-block m-2"> thêm </button>
+                            <a href="{{ route('admin.plans.index') }}" class="btn btn-warning btn-block m-2"> quay lại </a>
                         </div>
 
                     </div>
@@ -131,7 +132,7 @@
                         </div>
                         <div class="body m-2 p-2">
                             <input type="text" name="time" class="form-control" id="time"
-                                placeholder="nhập thời hạn của gói dịch vụ">
+                                placeholder="nhập thời hạn của gói dịch vụ" value="{{ $plan->time }}">
                         </div>
                         {{-- input time plans  --}}
                         {{-- input description plans  --}}
@@ -147,7 +148,7 @@
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
-                            <textarea id="desc" name="desc" class="form-control" rows="2" placeholder="Mô tả của gói dịch vụ"></textarea>
+                            <textarea id="desc" name="desc" class="form-control" rows="2" placeholder="Mô tả của gói dịch vụ">{!! $plan->desc !!}</textarea>
                         </div>
                         {{-- input description plans  --}}
                     </div>
@@ -160,7 +161,7 @@
             rules: {
                 "name": {
                     required: true,
-                    min: 6
+                    minlength: 6
                 },
                 "desc": {
                     required: true,
@@ -176,18 +177,22 @@
                 },
 
                 'time': {
-                    required: true
+                    required: true,
+                    maxlength: 10,
+                    digits: true,
                 },
 
                 'price': {
-                    required: true
+                    digits: true,
+                    required: true,
+                    maxlength: 8,
                 }
             },
             messages: {
 
                 "name": {
                     required: 'Bắt buộc nhập tên gói',
-                    min: 'Tối thiểu 6 ký tự',
+                    minlength: 'Tối thiểu 6 ký tự',
                 },
                 "priority_level": {
                     required: 'Bạn chưa chon mức ưu tiên',
@@ -204,11 +209,15 @@
                 },
 
                 'time': {
-                    required: 'Bạn chưa nhập thời hạn'
+                    required: 'Bạn chưa nhập thời hạn',
+                    maxlength: 'Nhập quá giới hạn tối đa',
+                    digits: "Chỉ nhập số không nhập các ký tự khác"
                 },
 
                 'price': {
-                    required: "Bạn chưa nhập giá sản phẩm"
+                    required: "Bạn chưa nhập giá sản phẩm",
+                    digits: "Chỉ nhập số không nhập các ký tự khác",
+                    maxlength: 'Nhập quá giới hạn tối đa',
                 }
             },
             submitHandler: function(form) {
@@ -216,5 +225,30 @@
             }
         });
     </script>
+
+    @if (Session::has('success'))
+        <script>
+            function modal() {
+                Swal.fire(
+                    'Success fully',
+                    'Thêm gói dịch vụ thành công.',
+                    'success'
+                )
+            }
+            modal();
+        </script>
+    @elseif(Session::has('not_plans'))
+        <script>
+            function modal() {
+                Swal.fire(
+                    'Error',
+                    'Thêm gói dịch vụ không thành công.',
+                    'error'
+                )
+            }
+            modal();
+        </script>
+    @endif
+
 
 @endsection

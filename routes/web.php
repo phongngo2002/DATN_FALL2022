@@ -19,8 +19,6 @@ Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 
 //  route crud quản lý các gói dịc vụ 
-
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
@@ -29,7 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/plans/store', [PlansController::class, 'store'])->name('plans.store');
 
     Route::get('/plans/update/{plan}/edit', [PlansController::class, 'edit'])->name('plans.edit');
-    Route::post('/plans/update/{plan}', [PlansController::class, 'update'])->name('plans.update');
+    Route::put('/plans/update/{plan}', [PlansController::class, 'update'])->name('plans.update');
 
     Route::post('/plans/destroy/{plan}', [PlansController::class, 'destroy'])->name('plans.destroy');
 });
@@ -47,7 +45,9 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 Route::get('/', function () {
     return view('test', []);
 });
+
 Route::middleware(['auth'])->group(function () {
+
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
         Route::prefix('khu-tro')->group(function () {
