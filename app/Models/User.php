@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 
 class User extends Authenticatable
 {
@@ -24,8 +26,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number',
+        'avatar',
+        'money',
+        'address',
         'role_id',
+<<<<<<< HEAD
         'confirmation_code',
+=======
+>>>>>>> 66844c85a409d3e268614f0d09fab54380629ec4
         'token',
     ];
 
@@ -77,5 +86,21 @@ class User extends Authenticatable
     public function getUserByEmail($email)
     {
         return DB::table($this->table)->where('email', $email)->first();
+    }
+
+    public function getAll(){
+        $query = DB::table($this->table)->select($this->fillable);
+        $users = $query->get();
+        return $users;
+    }
+    public function getOne($id){
+        $query = DB::table($this->table)->where('id',$id)->select($this->fillable);
+        $user = $query->first();
+        return $user;
+    }
+    public function saveNew($params){
+        $data = array_merge($params);
+        $request = DB::table($this->table)->insertGetId($data);//$request sẽ trả về id của bản ghi vừa được tạo trong db
+        return $request;
     }
 }
