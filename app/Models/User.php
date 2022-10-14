@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 
 class User extends Authenticatable
 {
@@ -93,8 +95,8 @@ class User extends Authenticatable
         return $user;
     }
     public function saveNew($params){
-        $data = array_merge($params['cols']);
-        $request = DB::table($this->table)->insertGetId($data);
+        $data = array_merge($params);
+        $request = DB::table($this->table)->insertGetId($data);//$request sẽ trả về id của bản ghi vừa được tạo trong db
         return $request;
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -38,8 +39,7 @@ class UserController extends Controller
         $this->v['title'] = "Add user";
         $method_route = 'route_backend_user_add';
         if ($request->isMethod('post')) {
-            // dd($request->post());
-            $params['cols'] = array_map(function($item){
+            $params= array_map(function($item){
                 if($item==''){
                     $item = null;
                 }
@@ -48,12 +48,26 @@ class UserController extends Controller
                 }
                 return $item;
             },$request->post());
-            unset($params['cols']['_token']);
-            // dd($params['cols']);
+            unset($params['_token']);
+            //xử lý ảnh
+            if($request->hasFile('avatar') && $request->file('avatar')->isValid()){
+                $params['image'] = $this->uploadFile($request->file('avatar'));
+            }
+            $user = new User();
+            $request = $user->saveNew($params);
+            if($request == null){
+                redirect()->route($method_route);
+            }else if($request > 0){
+                Session::flash('success','Thêm mới thành công');
+            }else{
+                Session::flash('error','Thêm mới thất bại');
+                redirect()->route($method_route);
+            }
         }
-        $user = new User();
-        
-
         return view('admin.user.add',$this->v);
+    }
+    public function uploadFile($file){
+        $fileName = time().'_'.$file->getClientOriginalName();//getClientOriginalName: trả về tên tệp gốc
+        return $file->storeAs('avatar',$fileName,'public');
     }
 }
