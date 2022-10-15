@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Area extends Model
@@ -17,7 +19,7 @@ class Area extends Model
         $params['order_by'] = $params['order_by'] ?? 'desc';
         $params['name'] = $params['name'] ?? '';
         $params['limit'] = $params['limit'] ?? 10;
-        $query = DB::table($this->table);
+        $query = DB::table($this->table)->where('user_id', Auth::id());
 
         if ($params['name']) {
             $query->where('name', 'like', '%' . $params['name'] . '%');
@@ -25,5 +27,39 @@ class Area extends Model
         return $query
             ->orderBy('id', $params['order_by'])
             ->paginate($params['limit']);
+    }
+
+    public function admin_create_area($params = [])
+    {
+        $result = DB::table($this->table)->insert([
+            'name' => $params['cols']['name'],
+            'address' => $params['cols']['address'],
+            'link_gg_map' => $params['cols']['link_gg_map'],
+            'user_id' => Auth::id(),
+            'created_at' => Carbon::now()
+        ]);
+
+        return $result;
+    }
+
+    public function getArea($id)
+    {
+        return DB::table($this->table)->where('id', $id)->first();
+    }
+
+    public function admin_update_area($params = [])
+    {
+        $result = DB::table($this->table)->where('id', $params['cols']['id'])->update([
+            'name' => $params['cols']['name'],
+            'address' => $params['cols']['address'],
+            'link_gg_map' => $params['cols']['link_gg_map'],
+        ]);
+
+        return $result;
+    }
+
+    public function adminDeteletArea($id)
+    {
+        DB::table($this->table)->delete($id);
     }
 }

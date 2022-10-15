@@ -51,7 +51,7 @@
             <th>#</th>
             <th>Tên khu trọ</th>
             <th>Địa chỉ</th>
-            <th>Chức năng</th>
+            <th><a href="{{route('backend_get_create_area')}}" class="btn-link">Thêm mới</a></th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +62,9 @@
                 <td>{{$area->address}}</td>
                 <td>
                     <a href="" class="btn btn-info">Chi tiết</a>
+                    <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning">Sửa</a>
+                    <a href="{{route('backend_delete_area',['id' => $area->id])}}"
+                       onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         @endforeach

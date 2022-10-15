@@ -30,6 +30,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index')->name('backend_get_list_area');
+            Route::get('/tao-moi', 'App\Http\Controllers\Admin\AreaController@create')->name('backend_get_create_area');
+            Route::post('/tao-moi', 'App\Http\Controllers\Admin\AreaController@store')->name('backend_get_post_create_area');
+            Route::get('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@edit')->name('backend_get_edit_area');
+            Route::post('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@update')->name('backend_get_post_edit_area');
+            Route::get('/{id}/xoa', 'App\Http\Controllers\Admin\AreaController@delete')->name('backend_delete_area');
+
         });
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index')->name('backend_get_list_deposit');
