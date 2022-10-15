@@ -53,7 +53,6 @@
             <th>Tiền cọc</th>
             <th>Mã phòng</th>
             <th>Khu trọ</th>
-            <th>Chủ trọ</th>
             <th>Thời gian</th>
             <th>Trạng thái</th>
             <th>Chức năng</th>
@@ -67,7 +66,6 @@
                 <td>{{$deposit->value}}</td>
                 <td>{{$deposit->room_number}}</td>
                 <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>
-                <td>{{\Illuminate\Support\Facades\DB::table('users')->select('name')->where('id',$deposit->boss_id)->first()->name}}</td>
                 <td>
                     {{\Carbon\Carbon::parse($deposit->date)->format('d/m/Y H:i:s')}}
                 </td>
