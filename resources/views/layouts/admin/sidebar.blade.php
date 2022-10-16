@@ -16,14 +16,14 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                <a class="sidebar-link" href="{{ route("admin.motel.list", 1)}}">
+                    <i class="align-middle" data-feather="home"></i> <span class="align-middle">Quản lý khu trọ</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                <a class="sidebar-link" href="{{ route("admin.plan-history.list") }}">
+                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Lịch sử nạp tiền</span>
                 </a>
             </li>
 
