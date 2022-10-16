@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use Illuminate\Http\Request;
+use DataTables;
+use Yajra\DataTables\Contracts\DataTable;
 
 class DepositController extends Controller
 {

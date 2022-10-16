@@ -1,15 +1,15 @@
 @extends('layouts.admin.main')
 
 
-@section('title_page','Danh sách khu trọ')
+@section('title_page','Lịch sử nạp tiền')
 
 @section('content')
     <form action="" class="my-4">
         <div class="row">
-            <div class="col-3">
+            <div class="col-5">
                 <input class="form-control" name="name"
-                       value="{{$params['name'] ?? ''}}"
-                       placeholder="Tìm kiếm theo tên khu trọ">
+                       value="{{isset($params['email']) && $params['email'] ? $params['email'] : ''}}"
+                       placeholder="Tìm kiếm theo email">
 
             </div>
             <div class="col-2">
@@ -41,35 +41,53 @@
             </div>
             <div class="col-2">
                 <button class="btn btn-primary">Tìm kiếm</button>
-                <a class="btn btn-danger" href="{{route('backend_get_list_area')}}">Bỏ chọn</a>
+                <a class="btn btn-danger" href="{{route('backend_get_list_recharge')}}">Bỏ chọn</a>
             </div>
         </div>
     </form>
     <table class="table text-center">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Tên khu trọ</th>
-            <th>Địa chỉ</th>
-            <th><a href="{{route('backend_get_create_area')}}" class="btn-link">Thêm mới</a></th>
+            <th>Mã giao dịch</th>
+            <th>Email</th>
+            <th>Họ tên</th>
+            <th>Số điện thoại</th>
+            <th>Phương thức</th>
+            <th>Số tiền</th>
+            <th>Trạng thái</th>
+            <th>Ghi chú</th>
+            <th>Thời gian</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($areas as $area)
+        @foreach($recharges as $item)
             <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$area->name) :  $area->name!!}</td>
-                <td>{{$area->address}}</td>
+                <td>#{{$item->recharge_code}}</td>
+                <td>{{$item->email}}</td>
+                <td>{{$item->name}}</td>
+                <td>{{$item->phone_number ? $item->phone_number : 'Chưa cập nhật'}}</td>
                 <td>
-                    <a href="" class="btn btn-info">Chi tiết</a>
-                    <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning">Sửa</a>
-                    <a href="{{route('backend_delete_area',['id' => $area->id])}}"
-                       onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger">Xóa</a>
+                    @if($item->payment_type)
+                        <span class="text-success font-weight-bold">Chuyển khoán</span>
+                    @elseif($item->payment_type == 2)
+                        <span class="text-info font-weight-bold">Tiền mặt</span>
+                    @endif
                 </td>
+                <td>{{$item->value}}</td>
+                <td>
+                    @if($item->tt)
+                        <span class="badge text-bg-success text-light p-2">Thành công</span>
+                    @elseif($item->tt == 2)
+                        <span class="badge text-bg-warning text-light p-2">Chờ xử lý</span>
+                    @elseif($item->tt == 3)
+                        <span class="badge text-bg-danger text-light p-2">Hoàn tiền</span>
+                    @endif
+                </td>
+                <td>{{$item->note}}</td>
+                <td>{{\Carbon\Carbon::parse($item->date)->format('d/m/Y H:i:s')}}</td>
             </tr>
         @endforeach
-
         </tbody>
     </table>
-    {{$areas->links()}}
+    {{$recharges->links()}}
 @endsection

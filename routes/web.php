@@ -40,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index')->name('backend_get_list_deposit');
         });
+        Route::prefix('lich-su-nap-tien')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\RechargeController@index')->name('backend_get_list_recharge');
+        });
     });
 });
 

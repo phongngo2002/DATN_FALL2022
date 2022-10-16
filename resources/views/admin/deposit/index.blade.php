@@ -4,7 +4,7 @@
 @section('title_page','Lịch sử đặt cọc phòng trọ')
 
 @section('content')
-    <form action="">
+    <form action="" class="my-4">
         <div class="row">
             <div class="col-5">
                 <input class="form-control" name="name"
