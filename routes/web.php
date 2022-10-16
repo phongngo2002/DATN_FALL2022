@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PlansController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
+
+
+//  route crud quản lý các gói dịc vụ 
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+
+    Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
+
+    Route::get('/plans/create', [PlansController::class, 'create'])->name('plans.create');
+    Route::post('/plans/store', [PlansController::class, 'store'])->name('plans.store');
+
+    Route::get('/plans/update/{plan}/edit', [PlansController::class, 'edit'])->name('plans.edit');
+    Route::put('/plans/update/{plan}', [PlansController::class, 'update'])->name('plans.update');
+
+    Route::post('/plans/destroy/{plan}', [PlansController::class, 'destroy'])->name('plans.destroy');
+});
+// end quản lý các gói dịch vụ
+
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
 Route::post('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@postLogin')->name('post_login');
 Route::get('/dang-xuat', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
@@ -25,7 +45,9 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 Route::get('/', function () {
     return view('test', []);
 });
+
 Route::middleware(['auth'])->group(function () {
+
     Route::prefix('admin')->group(function () {
         Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
         Route::prefix('khu-tro')->group(function () {
@@ -45,5 +67,3 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
-
-
