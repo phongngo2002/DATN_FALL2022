@@ -159,8 +159,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Yajra\Datatables\DatatablesServiceProvider::class,
-
+        JD\Cloudder\CloudderServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -213,8 +212,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
     ])->toArray(),
 
 ];

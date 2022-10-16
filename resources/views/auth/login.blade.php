@@ -121,7 +121,7 @@
 
     });
 </script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (\Illuminate\Support\Facades\Session::has('failed'))
     <script>

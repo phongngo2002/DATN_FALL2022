@@ -62,7 +62,7 @@
         @foreach($deposits as $deposit)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) :  $deposit->userName!!}</td>
+                <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) : $deposit->userName!!}</td>
                 <td>{{$deposit->value}}</td>
                 <td>{{$deposit->room_number}}</td>
                 <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>

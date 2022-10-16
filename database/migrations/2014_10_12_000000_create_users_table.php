@@ -28,7 +28,9 @@ return new class extends Migration {
             $table->dateTime('confirmation_code_expired_in')->nullable();
             $table->softDeletes();
             $table->rememberToken();
+            $table->integer('status')->default(1);
             $table->timestamps();
+
         });
     }
 

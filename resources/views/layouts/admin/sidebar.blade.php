@@ -56,6 +56,12 @@
                         class="align-middle">Lịch sử nạp tiền</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('backend_user_getAll')}}">
+                    <i class="align-middle" data-feather="user"></i> <span
+                        class="align-middle">User</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
