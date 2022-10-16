@@ -17,10 +17,10 @@ class MotelController extends Controller
 
     public function list($id, Request $request){
         $motel = new Motel();
-        $this->v['extParams'] = $request->all();
-        $this->v['motels'] = $motel->LoadMotelsWithPage($this->v['extParams'], $id);
+        $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
         $this->v['idCate'] = $id;
-
+        $this->v['params'] = $request->all() ?? [];
+        // dd($this->v['params']);
         return view('admin.motels.list', $this->v);
     }
 
