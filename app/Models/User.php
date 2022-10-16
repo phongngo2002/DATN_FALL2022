@@ -32,10 +32,7 @@ class User extends Authenticatable
         'money',
         'address',
         'role_id',
-<<<<<<< HEAD
         'confirmation_code',
-=======
->>>>>>> 66844c85a409d3e268614f0d09fab54380629ec4
         'token',
     ];
 
