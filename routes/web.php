@@ -23,6 +23,8 @@ Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConf
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
+
+
 Route::get('/', function () {
     return view('test', []);
 });
@@ -32,12 +34,13 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index')->name('backend_get_list_area');
         });
-
         Route::prefix('user')->group(function() {
             Route::get('/','App\Http\Controllers\Admin\UserController@getAll')->name('backend_user_getAll');
-            Route::get('/detail/{id}','App\Http\Controllers\Admin\UserController@getUser')->name('backend_user_getUser');
+            Route::get('/detail/{id}/{used_to}','App\Http\Controllers\Admin\UserController@getUser')->name('backend_user_detail');
             Route::match(['get','post'],'/add','App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
+            Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@update')->name('backend_user_update');
         });
+       
 
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index')->name('backend_get_list_deposit');

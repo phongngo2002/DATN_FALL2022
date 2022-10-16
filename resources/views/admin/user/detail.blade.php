@@ -3,16 +3,6 @@
 @section('title_page',$title)
 
 @section('content')
-        {{-- <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Name</h5>
-                </div>
-                <div class="card-body">
-                    <input type="text" class="form-control" placeholder="Input">
-                </div>
-            </div>    
-        </div> --}}
         <div class="form-group row" id="">
             <h5 for="" class="col-2 fw-bold" style="padding-top: 0px">
                 Id :
@@ -50,7 +40,11 @@
                 Avatar :
             </h5>
             <div class="col-sm-8 word_break">
-                {{$user->avatar ?? '-'}}
+                @if ($user->avatar == null)
+                    {{"-"}}
+                @else    
+                    <img src="{{$user->avatar}}" alt="" width="100px">
+                @endif
             </div>
         </div>
         <div class="form-group row" id="">

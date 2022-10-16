@@ -33,7 +33,7 @@ class LoginRequest extends FormRequest
                         $rules = [
                             'email' => 'required|email',
                             'password' => 'required',
-                            'g-recaptcha-response' => 'required|recaptcha'
+                            // 'g-recaptcha-response' => 'required|recaptcha'
                         ];
                         break;
                     case 'getCodeForgotPassword':
