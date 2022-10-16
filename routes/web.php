@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\MotelController;
+use App\Http\Controllers\Admin\PlanHistoryController;
 use App\Http\Controllers\Admin\PlansController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 
-//  route crud quản lý các gói dịc vụ 
+//  route crud quản lý các gói dịc vụ
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
@@ -67,3 +69,7 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
+Route::get('/phong-tro/{id}', [MotelController::class, "list"])->name("admin.motel.list");
+Route::get('/phong-tro/{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
+
+Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");

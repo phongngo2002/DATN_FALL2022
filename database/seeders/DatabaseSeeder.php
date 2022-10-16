@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Motel;
+use App\Models\PlanHistory;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +38,14 @@ class DatabaseSeeder extends Seeder
         $data = File::get(public_path('json/areas.json'));
         $data = json_decode($data, true);
 
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        Motel::factory(10)->create();
+
+        // PlanHistory::factory(10)->create();
         foreach (array_shift($data) as $item) {
             DB::table('areas')->insert(
                 [

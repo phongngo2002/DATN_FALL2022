@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,4 +64,12 @@ class Area extends Model
     {
         DB::table($this->table)->where('id', $id)->update(['status' => 0]);
     }
+=======
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Area extends Model
+{
+    use HasFactory;
+>>>>>>> origin/branch_Trang
 }
