@@ -21,7 +21,7 @@ class PlansController extends Controller
 
     public function create()
     {
-        return view('admin.Plans.create');
+        return view('admin.plan.create');
     }
 
     public function store(PlansRequest $request)
