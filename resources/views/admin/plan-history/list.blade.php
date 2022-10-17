@@ -1,43 +1,53 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Lịch sử nạp tiền')
+@section('title_page', 'Lịch sử giao dịch')
 
 @section('content')
-    <div class="row">
-        <div class="card flex-fill">
-            <table class="table table-hover my-0">
-                <thead>
-                    <tr>
-                        <th class="col-3">#</th>
-                        <th class="col-3">Motel</th>
-                        <th class="col-3">Plane</th>
-                        <th class="col-3">Active</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($plansHistory as $planHistory)
-                        <tr>
-                            <td>#</td>
-                            <td>{{ $planHistory->motelRoomNumber }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $planHistory->planName }}</td>
-                            <td class="d-none d-md-table-cell">
-                                <a href="" class="me-5">
-                                    <i class="align-middle" data-feather="edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
 
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th class="">#</th>
+            <th class="">Phòng trọ</th>
+            <th class="">Khu trọ</th>
+            <th class="">Gói dịch vụ</th>
+            <th class="">Ngày mua</th>
+            <th class="">Ngày hết hạn</th>
+            <th class="">Trạng thái</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($plansHistory as $planHistory)
+            <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>{{ $planHistory->areaName }}</td>
+                <td class="">{{ $planHistory->planName }}</td>
+                <td class="">{{ $planHistory->planName }}</td>
+                <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
+                <td>{{ \Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->time)->format('d/m/Y H:i:s') }}</td>
+                <td>
+                    @if(\Carbon\Carbon::parse($planHistory->date)->diffInSeconds(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->time)) > 0)
+                        <span class="text-success">Đang hoạt động</span>
+                    @else
+                        <span class="text-danger">Hết hạn</span>
+                    @endif
+                </td>
+                <td class="">
+                    <a href="" class="btn btn-success">
+                        Gia hạn
+                    </a>
+                </td>
+            </tr>
+        @endforeach
 
+        </tbody>
+    </table>
 @endsection
 
 @section('custom_js')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
             var gradient = ctx.createLinearGradient(0, 0, 0, 225);
             gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -109,7 +119,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Pie chart
             new Chart(document.getElementById("chartjs-dashboard-pie"), {
                 type: "pie",
@@ -137,7 +147,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
@@ -183,11 +193,11 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var markers = [{
-                    coords: [31.230391, 121.473701],
-                    name: "Shanghai"
-                },
+                coords: [31.230391, 121.473701],
+                name: "Shanghai"
+            },
                 {
                     coords: [28.704060, 77.102493],
                     name: "Delhi"
@@ -250,7 +260,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
             var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
             document.getElementById("datetimepicker-dashboard").flatpickr({

@@ -55,7 +55,6 @@
             <th>Khu trọ</th>
             <th>Thời gian</th>
             <th>Trạng thái</th>
-            <th>Chức năng</th>
         </tr>
         </thead>
         <tbody>
@@ -71,18 +70,11 @@
                 </td>
                 <td>
                     @if($deposit->deStatus == 0)
-                        <span class="badge text-bg-secondary p-2">Chờ xử lý</span>
+                        <span class="badge text-bg-secondary p-2">Chờ ký hợp đồng</span>
                     @elseif($deposit->deStatus == 1)
                         <span class="badge text-bg-primary p-2">Đã ký hợp đồng</span>
                     @else
                         <span class="badge text-bg-success p-2">Đã chuyển tiền</span>
-                    @endif
-                </td>
-                <td>
-                    @if($deposit->deStatus == 2)
-                        <a href="" class="btn btn-success">Chuyển cọc</a>
-                    @else
-                        <button href="" class="btn btn-success" disabled>Chuyển cọc</button>
                     @endif
                 </td>
             </tr>

@@ -14,16 +14,16 @@ class Motel extends Model
         "room_number",
         "price",
         "area",
+        'status',
         "area_id",
         "description",
         "image_360",
         "photo_gallery",
         "services",
-        "status",
         "max_people",
         "start_time",
         "end_time",
-        "category_id"
+        "category_id",
     ];
 
     protected $table = "motels";
@@ -38,10 +38,10 @@ class Motel extends Model
 
         $motels = DB::table($this->table)
             ->select($this->fillable)
-            ->where('category_id', $id);
+            ->where('area_id', $id);
 
         if ($params['name']) {
-            $motels->where('name', 'like', '%' . $params['name'] . '%');
+            $motels->where('room_number', 'like', '%' . $params['name'] . '%');
         }
 
         return $motels->orderBy('id', $params['order_by'])
@@ -52,10 +52,11 @@ class Motel extends Model
     {
         $this->fillable[] = "areas.name as areaName";
         $this->fillable[] = "categories.name as categoryName";
+        $this->fillable[3] = "motels.status as motel_status";
         $motel = DB::table($this->table)
-            ->join('areas', 'areas.id', 'motels.area_id', "=")
-            ->join('categories', 'motels.category_id', 'categories.id')
             ->select($this->fillable)
+            ->join('areas', 'areas.id', '=', "motels.area_id")
+            ->join('categories', 'motels.category_id', '=', 'categories.id')
             ->where('motels.id', $idMotel)->first();
         return $motel;
     }

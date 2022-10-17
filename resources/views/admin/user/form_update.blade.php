@@ -38,81 +38,84 @@
         @endif
         <form action="" method="POST" enctype="multipart/form-data" id="content">
             @csrf
-            <div class="row">
-                <div class="col-xl-6 col-12">
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Name</h5>
+            <div class="bg-white shadow-lg p-4">
+                <div class="row">
+                    <div class="col-xl-6 col-12">
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Họ tên</h5>
+                            </div>
+                            <div class="card-body">
+                                <input value="{{$user->name}}" name="name" id="name" type="text" class="form-control mb-4">
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <input value="{{$user->name}}" name="name" id="name" type="text" class="form-control mb-4">
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Email</h5>
+                            </div>
+                            <div class="card-body">
+                                <input value="{{$user->email}}" readonly name="email" type="email" class="form-control mb-4">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Số điện thoại</h5>
+                            </div>
+                            <div class="card-body">
+                                <input value="{{$user->phone_number}}" id="phone_number" name="phone_number" type="number" class="form-control mb-4">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Địa chỉ</h5>
+                            </div>
+                            <div class="card-body">
+                                <input value="{{$user->address}}" name="address" id="address" type="text" class="form-control mb-4">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Mật khẩu</h5>
+                            </div>
+                            <div class="card-body">
+                                <input value="{{$user->password}}" readonly name="password" type="password" class="form-control mb-4">
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Email</h5>
-                        </div>
-                        <div class="card-body">
-                            <input value="{{$user->email}}" readonly name="email" type="email" class="form-control mb-4">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Phone number</h5>
-                        </div>
-                        <div class="card-body">
-                            <input value="{{$user->phone_number}}" id="phone_number" name="phone_number" type="number" class="form-control mb-4">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Address</h5>
-                        </div>
-                        <div class="card-body">
-                            <input value="{{$user->address}}" name="address" id="address" type="text" class="form-control mb-4">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Password</h5>
-                        </div>
-                        <div class="card-body">
-                            <input value="{{$user->password}}" readonly name="password" type="password" class="form-control mb-4">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-12">
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Avatar</h5>
-                        </div>
-                        <div class="card-body">
+                    <div class="col-xl-6 col-12">
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Ảnh đại diện</h5>
+                            </div>
+                            <div class="card-body">
                                 <img id="avt_preview" src="{{$user->avatar ?? "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-avatar-vector-isolated-on-white-background-png-image_1694546.jpg"}}" alt="your image" style="max-width: 200px; height:95px;" class="img-fluid mb-2"/>
                                 <input name="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror mb-4">
-                            <input type="hidden" value="{{$user->avatar}}" name="avatar_old">
+                                <input type="hidden" value="{{$user->avatar}}" name="avatar_old">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-header">
+                                <h5 class="card-title mb-4">Quyền</h5>
+                            </div>
+                            <div class="card-body">
+                                <select class="form-select mb-3" name="role_id" id="role_id">
+                                    @foreach ($role as $key => $value)
+                                        @if ($user->role_id === $key)
+                                            <option value="{{$key}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card-header">
-                            <h5 class="card-title mb-4">Roles</h5>
-                        </div>
-                        <div class="card-body">
-                            <select class="form-select mb-3" name="role_id" id="role_id">
-                                @foreach ($role as $key => $value)
-                                    @if ($user->role_id === $key)
-                                        <option value="{{$key}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <input type="hidden" name="id" id="id" value="{{$user->id}}">
-                    <button class="btn btn-primary mt-4">Cập nhật</button>
-                    <a href="{{route('backend_user_getAll')}}" class="btn btn-secondary mt-4"><< Quay lại</a>
                 </div>
             </div>
+            <input type="hidden" name="id" id="id" value="{{$user->id}}">
+            <button class="btn btn-success mt-4">Lưu</button>
+            <a href="{{route('backend_user_getAll')}}" class="btn btn-secondary mt-4">Quay lại</a>
+
         </form>
     </div>
 </div>

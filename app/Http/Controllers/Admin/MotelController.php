@@ -27,7 +27,7 @@ class MotelController extends Controller
     public function detail($idMotel){
         $motel = new Motel();
         $this->v['motel'] = $motel->detailMotel($idMotel);
-        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
+        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
 
         return view('admin.motels.detail', $this->v);
     }

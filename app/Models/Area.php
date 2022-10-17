@@ -21,7 +21,7 @@ class Area extends Model
         $params['order_by'] = $params['order_by'] ?? 'desc';
         $params['name'] = $params['name'] ?? '';
         $params['limit'] = $params['limit'] ?? 10;
-        $query = DB::table($this->table)->where('user_id', Auth::id())->where('status','!=',0);
+        $query = DB::table($this->table)->where('user_id', Auth::id())->where('status', '!=', 0);
 
         if ($params['name']) {
             $query->where('name', 'like', '%' . $params['name'] . '%');
@@ -64,12 +64,4 @@ class Area extends Model
     {
         DB::table($this->table)->where('id', $id)->update(['status' => 0]);
     }
-=======
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Area extends Model
-{
-    use HasFactory;
->>>>>>> origin/branch_Trang
 }

@@ -23,10 +23,10 @@ return new class extends Migration {
             $table->float('money', 11, 3)->nullable();
             $table->string('address')->nullable();
             $table->integer('role_id');
+            $table->integer('status')->default(0);
             $table->string('token')->nullable();
             $table->string('confirmation_code')->nullable();
             $table->dateTime('confirmation_code_expired_in')->nullable();
-            $table->softDeletes();
             $table->rememberToken();
             $table->integer('status')->default(1);
             $table->timestamps();

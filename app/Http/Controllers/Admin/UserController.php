@@ -12,7 +12,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class UserController extends Controller
 {
     private $v;
-    
+
     public function __construct()
     {
         $this->v = [];
@@ -29,10 +29,10 @@ class UserController extends Controller
         $user = $objUser->getOne($id);
         $this->v['user'] = $user;
         if($used_to == 'detail'){
-            $this->v['title'] = "Detail user";
+            $this->v['title'] = "Chi tiết tài khoản";
             return view('admin.user.detail',$this->v);
         }else{
-            $this->v['title'] = "Update user";
+            $this->v['title'] = "Cập nhật tài khoản";
             $this->v['role'] = [
                 '1' => "Admin",
                 '2' => "Chủ trọ",
@@ -42,7 +42,7 @@ class UserController extends Controller
         }
     }
     public function add(UserRequest $request) {
-        $this->v['title'] = "Add user";
+        $this->v['title'] = "Thêm mới tài khoản";
         $this->v['role'] = [
             '1' => "Admin",
             '2' => "Chủ trọ",
@@ -88,7 +88,7 @@ class UserController extends Controller
             }
             return $item;
         },$request->post());
-        $params['id'] = $id;    
+        $params['id'] = $id;
         if($request->file('avatar') == null){
             $params['avatar'] = $request->avatar_old;
         }else{

@@ -21,8 +21,6 @@ return new class extends Migration {
             $table->integer('status');
             $table->string('note');
             $table->float('value', 11, 3);
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

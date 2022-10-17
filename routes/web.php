@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\MotelController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanHistoryController;
 use App\Http\Controllers\Admin\PlansController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,23 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
-
 //  route crud quản lý các gói dịc vụ
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-
-    Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
-
-    Route::get('/plans/create', [PlansController::class, 'create'])->name('plans.create');
-    Route::post('/plans/store', [PlansController::class, 'store'])->name('plans.store');
-
-    Route::get('/plans/update/{plan}/edit', [PlansController::class, 'edit'])->name('plans.edit');
-    Route::put('/plans/update/{plan}', [PlansController::class, 'update'])->name('plans.update');
-
-    Route::post('/plans/destroy/{plan}', [PlansController::class, 'destroy'])->name('plans.destroy');
-});
 // end quản lý các gói dịch vụ
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -44,7 +30,6 @@ Route::get('/xac-minh', 'App\Http\Controllers\Auth\LoginController@getFormConfir
 Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConfirmAcc')->name('get_post_code_confirm_account');
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
-
 
 
 Route::get('/', function () {
@@ -64,10 +49,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/xoa', 'App\Http\Controllers\Admin\AreaController@delete')->name('backend_delete_area');
 
         });
-        Route::prefix('user')->group(function() {
-            Route::get('/','App\Http\Controllers\Admin\UserController@getAll')->name('backend_user_getAll');
-            Route::get('/detail/{id}/{used_to}','App\Http\Controllers\Admin\UserController@getUser')->name('backend_user_detail');
-            Route::match(['get','post'],'/add','App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
+        Route::prefix('user')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\UserController@getAll')->name('backend_user_getAll');
+            Route::get('/detail/{id}/{used_to}', 'App\Http\Controllers\Admin\UserController@getUser')->name('backend_user_detail');
+            Route::match(['get', 'post'], '/add', 'App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
             Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@update')->name('backend_user_update');
         });
 
@@ -78,10 +63,20 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('lich-su-nap-tien')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\RechargeController@index')->name('backend_get_list_recharge');
         });
+        Route::prefix('goi-dich-vu')->group(function () {
+            Route::get('/', [PlansController::class, 'index'])->name('backend_admin_get_list_plans');
+            Route::get('/tao-moi', [PlansController::class, 'create'])->name('backend_admin_create_plans');
+            Route::post('/tao-moi', [PlansController::class, 'store'])->name('backend_admin_post_create_plans');
+            Route::get('/{id}/cap-nhat', [PlansController::class, 'edit'])->name('backend_admin_edit_plans');
+            Route::post('/{id}/cap-nhat', [PlansController::class, 'update'])->name('backend_admin_update_plans');
+            Route::get('/{id}/xoa', [PlansController::class, 'destroy'])->name('backend_admin_delete_plans');
+        });
+
     });
 });
 Route::get('/phong-tro/{id}', [MotelController::class, "list"])->name("admin.motel.list");
 Route::get('/phong-tro/{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
 
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
+
 

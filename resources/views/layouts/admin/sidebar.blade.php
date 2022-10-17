@@ -14,25 +14,6 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route("admin.motel.list", 1)}}">
-                    <i class="align-middle" data-feather="home"></i> <span class="align-middle">Quản lý khu trọ</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route("admin.plan-history.list") }}">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Lịch sử nạp tiền</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                </a>
-            </li>
-
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('backend_get_list_area') }}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Khu trọ</span>
@@ -46,7 +27,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.plans.index') }}">
+                <a class="sidebar-link" href="{{route('backend_admin_get_list_plans')}}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Gói dịch vụ</span>
                 </a>
             </li>
@@ -57,9 +38,15 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route("admin.plan-history.list") }}">
+                    <i class="align-middle" data-feather="log-in"></i> <span
+                        class="align-middle">Lịch sử giao dịch</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('backend_user_getAll')}}">
                     <i class="align-middle" data-feather="user"></i> <span
-                        class="align-middle">User</span>
+                        class="align-middle">Tài khoản</span>
                 </a>
             </li>
         </ul>

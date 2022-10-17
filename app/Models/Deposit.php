@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Deposit extends Model
@@ -24,7 +25,7 @@ class Deposit extends Model
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('users.id', Auth::id());
+            ->where('areas.user_id', Auth::id());
         if (isset($params['name']) && $params['name']) {
             $query = $query->where('users.name', 'like', '%' . $params['name'] . '%')
                 ->orWhere('areas.name', 'like', '%' . $params['name'] . '%');

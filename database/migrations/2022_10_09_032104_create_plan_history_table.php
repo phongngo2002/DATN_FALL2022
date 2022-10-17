@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->id();
             $table->integer('plan_id');
             $table->integer('motel_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

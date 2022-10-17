@@ -67,7 +67,7 @@
                     <div class="my-2">
                         <label for="">Tình trạng</label>
                         <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->status }}">
+                            value="{{ $motel->motel_status }}">
                     </div>
                     <div class="my-2">
                         <label for="">Số người</label>

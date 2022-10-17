@@ -1,6 +1,6 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Thêm mới gói dịch vụ')
+@section('title_page', 'Cập nhật gói dịch vụ')
 
 @section('content')
     <script>
@@ -8,15 +8,8 @@
             selector: 'textarea#desc',
         });
     </script>
-    <style>
-        .error {
-            color: red !important;
-            margin-top: 4px;
-            padding: 3px;
-        }
-    </style>
 
-    <form id="plans_form" action="{{ route('admin.plans.update', $plan->id) }}" method="POST">
+    <form id="plans_form" action="" method="POST">
         <div class="container-fluid p-0">
             @csrf
             @method('PUT')
@@ -28,16 +21,16 @@
                             <h5 class="card-title mb-0">
                                 Tên gói dịch vụ
                                 @error('name')
-                                    <a class="  text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
+                                <a class="  text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
                                 @enderror
                             </h5>
 
                         </div>
                         <div class="body m-2 p-2">
                             <input type="text" name="name" id="name" class="form-control"
-                                placeholder="nhập tên của gói dịch vụ" value="{{ $plan->name }}">
+                                   placeholder="nhập tên của gói dịch vụ" value="{{ $plan->name }}">
                         </div>
                         {{-- input name plans  --}}
                         {{-- ////// --}}
@@ -46,22 +39,28 @@
                             <h5 class="card-title mb-0">
                                 Mức độ ưu tiên
                                 @error('priority_level')
-                                    <a class="  text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
+                                <a class="  text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
                                 @enderror
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
                             <select name="priority_level" id="priority_level" class="form-select mb-1">
                                 <option value="0">Chọn mức ưu tiên cho gói dịch vụ</option>
-                                <option value="1" @if ($plan->priority_level == 1) {{ 'selected' }} @endif>
+                                <option value="1" @if ($plan->priority_level == 1)
+                                    {{ 'selected' }}
+                                    @endif>
                                     level 1
                                 </option>
-                                <option value="2" @if ($plan->priority_level == 2) {{ 'selected' }} @endif>
+                                <option value="2" @if ($plan->priority_level == 2)
+                                    {{ 'selected' }}
+                                    @endif>
                                     level 2
                                 </option>
-                                <option value="3" @if ($plan->priority_level == 3) {{ 'selected' }} @endif>
+                                <option value="3" @if ($plan->priority_level == 3)
+                                    {{ 'selected' }}
+                                    @endif>
                                     level 3
                                 </option>
                             </select>
@@ -73,9 +72,9 @@
                             <h5 class="card-title mb-0">
                                 Loại của gói dịch vụ
                                 @error('type')
-                                    <a class=" text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
+                                <a class=" text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
                                 @enderror
 
                             </h5>
@@ -84,10 +83,14 @@
                         <div class="body m-2 p-2">
                             <select name="type" id="type" class="form-select mb-1">
                                 <option value="0">Chọn loại dùng cho gói</option>
-                                <option value="1" @if ($plan->type == 1) {{ 'selected' }} @endif>
+                                <option value="1" @if ($plan->type == 1)
+                                    {{ 'selected' }}
+                                    @endif>
                                     Tìm người thuê trọ
                                 </option>
-                                <option value="2" @if ($plan->type == 2) {{ 'selected' }} @endif>
+                                <option value="2" @if ($plan->type == 2)
+                                    {{ 'selected' }}
+                                    @endif>
                                     Tìm người ở ghép
                                 </option>
                             </select>
@@ -99,21 +102,17 @@
                             <h5 class="card-title mb-0">
                                 Giá của gói dịch vụ
                                 @error('price')
-                                    <a class="text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
+                                <a class="text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
                                 @enderror
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
                             <input name="price" type="text" id="price" class="form-control"
-                                placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
+                                   placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
                         </div>
                         {{-- input price plans  --}}
-                        <div class=" d-flex bd-highlight col-md-6 m-2 p-2">
-                            <button type="submit" class="btn btn-primary btn-block m-2"> thêm </button>
-                            <a href="{{ route('admin.plans.index') }}" class="btn btn-warning btn-block m-2"> quay lại </a>
-                        </div>
 
                     </div>
                 </div>
@@ -124,15 +123,15 @@
                             <h5 class="card-title mb-0">
                                 Thời gian
                                 @error('time')
-                                    <a class="text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
+                                <a class="text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
                                 @enderror
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
                             <input type="text" name="time" class="form-control" id="time"
-                                placeholder="nhập thời hạn của gói dịch vụ" value="{{ $plan->time }}">
+                                   placeholder="nhập thời hạn của gói dịch vụ" value="{{ $plan->time }}">
                         </div>
                         {{-- input time plans  --}}
                         {{-- input description plans  --}}
@@ -140,20 +139,25 @@
                             <h5 class="card-title mb-0">
                                 Mô tả của gói dịch vụ
                                 @error('desc')
-                                    <a class="text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }}
-                                    </a>
+                                <a class="text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }}
+                                </a>
                                 @enderror
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
-                            <textarea id="desc" name="desc" class="form-control" rows="2" placeholder="Mô tả của gói dịch vụ">{!! $plan->desc !!}</textarea>
+                            <textarea id="desc" name="desc" class="form-control" rows="2"
+                                      placeholder="Mô tả của gói dịch vụ">{!! $plan->desc !!}</textarea>
                         </div>
                         {{-- input description plans  --}}
                     </div>
 
                 </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a href="{{route('backend_admin_get_list_plans')}}" class="btn btn-success">Quay lại</a>
     </form>
     @include('layouts.admin._js')
     <script>
@@ -220,7 +224,7 @@
                     maxlength: 'Nhập quá giới hạn tối đa',
                 }
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 form.submit();
             }
         });
@@ -235,6 +239,7 @@
                     'success'
                 )
             }
+
             modal();
         </script>
     @elseif(Session::has('not_plans'))
@@ -246,9 +251,9 @@
                     'error'
                 )
             }
+
             modal();
         </script>
     @endif
-
 
 @endsection

@@ -61,7 +61,7 @@
                 <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$area->name) :  $area->name!!}</td>
                 <td>{{$area->address}}</td>
                 <td>
-                    <a href="" class="btn btn-info">Chi tiết</a>
+                    <a href="{{route('admin.motel.list',['id' => $area->id])}}" class="btn btn-info">Chi tiết</a>
                     <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning">Sửa</a>
                     <a href="{{route('backend_delete_area',['id' => $area->id])}}"
                        onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger">Xóa</a>

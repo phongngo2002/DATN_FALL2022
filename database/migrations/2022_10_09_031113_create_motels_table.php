@@ -22,12 +22,11 @@ return new class extends Migration {
             $table->text('image_360')->nullable();
             $table->text('photo_gallery')->nullable();
             $table->longText('services')->nullable();
-            $table->integer('status')->default('0');
+            $table->integer('status')->default(0);
             $table->integer('max_people')->default(0);
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->integer('category_id')->default(1);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
