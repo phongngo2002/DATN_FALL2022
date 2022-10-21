@@ -75,7 +75,14 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 Route::get('/phong-tro/{id}', [MotelController::class, "list"])->name("admin.motel.list");
+Route::get('/phong-tro/{id}/create', [MotelController::class, "create"])->name("admin.motel.create");
+Route::post('/phong-tro/{id}/create', [MotelController::class, "store"])->name("admin.motel.store");
+
 Route::get('/phong-tro/{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
+Route::get('/phong-tro/{id}/{idMotel}/chi-tiet', [MotelController::class, "info_motel"])->name("admin.motel.info");
+Route::post('/phong-tro/{id}/{idMotel}/chi-tiet', [MotelController::class, "add_people"])->name("admin.motel.add_people");
+Route::get('/phong-tro/{id}/{idMotel}/dang-tin', [MotelController::class, "create_post"])->name("admin.motel.post");
+Route::post('/phong-tro/{id}/{idMotel}/dang-tin', [MotelController::class, "post_post"])->name("admin.motel.post_post");
 
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
 

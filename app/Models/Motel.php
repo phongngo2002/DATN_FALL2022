@@ -20,9 +20,11 @@ class Motel extends Model
         "image_360",
         "photo_gallery",
         "services",
+        "address",
         "max_people",
         "start_time",
         "end_time",
+        "desc",
         "category_id",
     ];
 
@@ -37,15 +39,17 @@ class Motel extends Model
         $params['limit'] = $params['limit'] ?? 10;
 
         $motels = DB::table($this->table)
-            ->select($this->fillable)
+            ->select(['room_number', 'price', 'max_people', 'status', 'id', 'area_id'])
             ->where('area_id', $id);
 
-        if ($params['name']) {
-            $motels->where('room_number', 'like', '%' . $params['name'] . '%');
-        }
+//        if ($params['name']) {
+//            $motels->where('room_number', 'like', '%' . $params['name'] . '%');
+//        }
+//
+//        return $motels->orderBy('id', $params['order_by'])
+//            ->paginate($params['limit']);
 
-        return $motels->orderBy('id', $params['order_by'])
-            ->paginate($params['limit']);
+        return $motels->get();
     }
 
     public function detailMotel($idMotel)
@@ -60,4 +64,33 @@ class Motel extends Model
             ->where('motels.id', $idMotel)->first();
         return $motel;
     }
+
+    public function createMotel($data = [])
+    {
+        $query = DB::table($this->table)->insert([
+            'room_number' => $data['room_number'],
+            'price' => $data['price'],
+            'area' => $data['area'],
+            'area_id' => $data['area_id'],
+            'description' => $data['desc'],
+            'image_360' => $data['image360'],
+            'photo_gallery' => $data['img'],
+            'services' => $data['service'],
+            'max_people' => $data['max_people'],
+            'status' => 1
+        ]);
+        return 1;
+    }
+
+    public function info_motel($id)
+    {
+        return DB::table('users')
+            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('motel_id', $id)
+            ->where('user_motel.status', 1)
+            ->get();
+    }
+
+
 }

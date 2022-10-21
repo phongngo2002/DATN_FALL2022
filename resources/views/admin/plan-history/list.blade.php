@@ -21,22 +21,30 @@
         @foreach ($plansHistory as $planHistory)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ $planHistory->areaName }}</td>
-                <td class="">{{ $planHistory->planName }}</td>
+                <td>{{ $planHistory->motelRoomNumber }}</td>
+                <td class="">{{ $planHistory->areaName }}</td>
                 <td class="">{{ $planHistory->planName }}</td>
                 <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
                 <td>{{ \Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->time)->format('d/m/Y H:i:s') }}</td>
                 <td>
-                    @if(\Carbon\Carbon::parse($planHistory->date)->diffInSeconds(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->time)) > 0)
+                    @if(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInSeconds(\Carbon\Carbon::now()) > 0)
                         <span class="text-success">Đang hoạt động</span>
                     @else
                         <span class="text-danger">Hết hạn</span>
                     @endif
                 </td>
                 <td class="">
-                    <a href="" class="btn btn-success">
-                        Gia hạn
-                    </a>
+                    @if(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInSeconds(\Carbon\Carbon::now()) > 0)
+                        <a  href="" class="btn btn-success">
+                            Nâng cấp gói
+                        </a>
+                    @else
+
+                        <a href="" class="btn btn-success">
+                            Gia hạn
+                        </a>
+                    @endif
+
                 </td>
             </tr>
         @endforeach
