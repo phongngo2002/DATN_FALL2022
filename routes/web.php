@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\MotelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanHistoryController;
 use App\Http\Controllers\Admin\PlansController;
+use App\Http\Controllers\Admin\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,3 +88,17 @@ Route::post('/phong-tro/{id}/{idMotel}/dang-tin', [MotelController::class, "post
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
 
 
+
+
+Route::get('/create','App\Http\Controllers\Admin\RoleController@add_roles')->name('create_role');
+Route::prefix('admin')->group(function(){
+  Route::prefix('role')->group(function(){
+       Route::get('/list',[RoleController::class, 'index_roles'])->name('list_role');
+       Route::get('/create',[RoleController::class, 'add_roles'])->name('create_role');
+       Route::post('/create',[RoleController::class, 'saveAdd_roles'])->name('saveAdd_role');
+       Route::get('/update/{id}',[RoleController::class, 'update_roles'])->name('edit_role');
+       Route::post('/update',[RoleController::class, 'saveUpdate_roles'])->name('saveEdit_role');
+       Route::get('/delete/{id}',[RoleController::class, 'delete_roles'])->name('del_role');
+  });
+
+});

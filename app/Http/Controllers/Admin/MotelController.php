@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -210,5 +211,12 @@ class MotelController extends Controller
         }
 
 
+    }
+    public function add_Motels(){
+        $modelArea = new Area();
+        $area = $modelArea->getAll() ;
+        return view('admin.motels.add',[
+            'area'=>$area
+        ]);
     }
 }

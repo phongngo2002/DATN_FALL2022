@@ -45,12 +45,16 @@ class Motel extends Model
         if ($params['name']) {
             $motels->where('room_number', 'like', '%' . $params['name'] . '%');
         }
-
+    
         return $motels->orderBy('id', $params['order_by'])
             ->paginate($params['limit']);
 
     }
-
+    
+    public function saveNew($data){
+        $res = DB::table($this->table)->insertGetId($data);
+        return $res;
+    }
     public function detailMotel($idMotel)
     {
         $this->fillable[] = "areas.name as areaName";
