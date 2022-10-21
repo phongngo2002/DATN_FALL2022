@@ -27,28 +27,7 @@ class MotelController extends Controller
     public function list($id, Request $request)
     {
         $motel = new Motel();
-        if ($request->ajax()) {
-            $data = $motel->LoadMotelsWithPage($request->all(), $id);
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $string = "return confirm('Bạn có chăc muốn xóa khu trọ này')";
-                    $btn = '
-                    <a class="btn btn-info text-light" href="' . route('admin.motel.info', ['id' => $row->area_id, 'idMotel' => $row->id]) . '"">Chi tiết</a>
-                     <a class="btn btn-warning text-light">Sửa</a>
-                       <a class="btn btn-danger text-light">Xóa</a>
-                    ';
-                    return $btn;
-                })
-                ->addColumn('tt_phong', function ($row) {
-                    $btn = '<span class="text-success font-weight-bold">Đã có người thuê</span>';
-                    if (!$row->status) {
-                        $btn = '<span class="text-danger font-weight-bold">Chưa cho thuê</span>';
-                    }
-                    return $btn;
-                })
-                ->rawColumns(['action', 'tt_phong'])
-                ->make(true);
-        }
+        $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(),$id);
         $this->v['id'] = $id;
         return view('admin.motel.list', $this->v);
     }

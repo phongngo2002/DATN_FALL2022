@@ -39,17 +39,16 @@ class Motel extends Model
         $params['limit'] = $params['limit'] ?? 10;
 
         $motels = DB::table($this->table)
-            ->select(['room_number', 'price', 'max_people', 'status', 'id', 'area_id'])
+            ->select(['room_number', 'price', 'max_people', 'status', 'id', 'area_id', 'image_360'])
             ->where('area_id', $id);
 
-//        if ($params['name']) {
-//            $motels->where('room_number', 'like', '%' . $params['name'] . '%');
-//        }
-//
-//        return $motels->orderBy('id', $params['order_by'])
-//            ->paginate($params['limit']);
+        if ($params['name']) {
+            $motels->where('room_number', 'like', '%' . $params['name'] . '%');
+        }
 
-        return $motels->get();
+        return $motels->orderBy('id', $params['order_by'])
+            ->paginate($params['limit']);
+
     }
 
     public function detailMotel($idMotel)

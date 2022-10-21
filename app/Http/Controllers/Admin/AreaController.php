@@ -22,27 +22,11 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         $areas = new Area();
-        if ($request->ajax()) {
-            $data = $areas->admin_get_list_area($request->all());
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $string = "return confirm('Bạn có chăc muốn xóa khu trọ này')";
-                    $btn = '
-                    <a href = "' . route('admin.motel.list', ['id' => $row->id]) . '" class="btn btn-info" > Chi tiết </a >
-                           <a href = "' . route('backend_get_edit_area', ['id' => $row->id]) . '" class="btn btn-warning" > Sửa</a >
-                           <a href = "' . route('backend_delete_area', ['id' => $row->id]) . '"onclick = "' . $string . '" class="btn btn-danger" > Xóa</a
-                    ';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
         $this->v['params'] = $request->all() ?? [];
+
+        $this->v['areas'] = $areas->admin_get_list_area($request->all());
+
         return view('admin.area.index', $this->v);
-
-//        $this->v['areas'] = $areas->admin_get_list_area($request->all());
-
-//        return view('admin.area.index', $this->v);
     }
 
     public function create()

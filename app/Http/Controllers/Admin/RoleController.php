@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
-{   
+{
     public function index_roles(){
         $modelRole = new Role();
         $Role = $modelRole->getRoles();
-        
+
         return view('admin.role.index',['Role'=>$Role]);
     }
     public function add_roles(){
@@ -32,7 +32,7 @@ class RoleController extends Controller
         $all = $modelRole->getAll();
         $roleDetail = $modelRole->getDetail($id);
         $permission_role = $modelRole->getPermissionRole($id);
-        
+
         return view('admin.role.edit',[
             '_title'=>'Sửa quyền',
             'all'=>$all,
@@ -43,20 +43,19 @@ class RoleController extends Controller
     public function saveUpdate_roles(RoleRequest $request){
       $id = $request->id;
       $id_ud = session('id');
-      dd($id_ud);
     if(empty($id)){
         return back()->with('msg','Liên kết không tồn tại');
 
     }
-       
+
     $dataUpdate =[
         'name'=> $request->name,
         'desc'=> $request->desc,
         'status'=> $request->status,
         'updated_at'=>date('Y-m-d H:i:s')
     ];
-   
-        
+
+
         $modelRole = new Role();
         $modelRole->delete_Permission_Role($id);
         $res =  $modelRole->saveUpdate_Role($dataUpdate,$id);
@@ -64,27 +63,27 @@ class RoleController extends Controller
         return redirect()->route('list_role')->with('msg','Cập nhật quyền thành công');
     }
     public function saveAdd_roles(RoleRequest $request){
-        
-       
+
+
        $dataInsert =[
         'name'=> $request->name,
         'desc'=> $request->desc,
         'status'=> $request->status,
         'created_at'=>date('Y-m-d H:i:s')
        ];
-       
+
        $modelRole = new Role();
-       
+
        $res =  $modelRole->saveNew($dataInsert);
-       
+
        $modelRole->saveNew_Permission_Role($res,$request->permission);
-        
+
        return redirect()->route('list_role')->with('msg','Thêm quyền thành công');
-   
+
     }
-    
+
     public function delete_roles($id){
-    
+
         if(!empty($id)){
             $modelRole = new Role();
            $role = $modelRole->getDetail($id);

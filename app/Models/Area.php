@@ -18,22 +18,17 @@ class Area extends Model
 
     public function admin_get_list_area($params = [])
     {
-//        $params['order_by'] = $params['order_by'] ?? 'desc';
-//        $params['name'] = $params['name'] ?? '';
-//        $params['limit'] = $params['limit'] ?? 10;
-//        $query = DB::table($this->table)->where('user_id', Auth::id())->where('status', '!=', 0);
-//
-//        if ($params['name']) {
-//            $query->where('name', 'like', '%' . $params['name'] . '%');
-//        }
-//        return $query
-//            ->orderBy('id', $params['order_by'])
-//            ->paginate($params['limit']);
-        return DB::table($this->table)
-            ->select(['name', 'address','id'])
-            ->where('user_id', Auth::id())
-            ->where('areas.status', '!=', 0)
-            ->get();
+        $params['order_by'] = $params['order_by'] ?? 'desc';
+        $params['name'] = $params['name'] ?? '';
+        $params['limit'] = $params['limit'] ?? 10;
+        $query = DB::table($this->table)->where('user_id', Auth::id())->where('status', '!=', 0);
+
+        if ($params['name']) {
+            $query->where('name', 'like', '%' . $params['name'] . '%');
+        }
+        return $query
+            ->orderBy('id', $params['order_by'])
+            ->paginate($params['limit']);
     }
 
     public function admin_create_area($params = [])
