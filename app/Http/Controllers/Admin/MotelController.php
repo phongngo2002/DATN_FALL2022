@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Motel;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,12 @@ class MotelController extends Controller
         $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
 
         return view('admin.motels.detail', $this->v);
+    }
+    public function add_Motels(){
+        $modelArea = new Area();
+        $area = $modelArea->getAll() ;
+        return view('admin.motels.add',[
+            'area'=>$area
+        ]);
     }
 }

@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Area extends Model
+class Category extends Model
 {
     use HasFactory;
     public function getAll(){
-        return DB::table('Areas')->get();
+        return DB::table('categories')->get();
     }
 }
