@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\MotelController;
+use App\Http\Controllers\Admin\PlanHistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
+
+Route::get('/phong-tro/{id}', [MotelController::class, "list"])->name("admin.motel.list");
+Route::get('/phong-tro/{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
+
+Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
