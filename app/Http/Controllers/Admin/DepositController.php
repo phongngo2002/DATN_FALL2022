@@ -17,7 +17,7 @@ class DepositController extends Controller
         $this->v = [];
     }
 
-    public function index(Request $request)
+    public function index_deposits(Request $request)
     {
         $areas = new Deposit();
         $this->v['deposits'] = $areas->get_list_admin_deposit($request->all());

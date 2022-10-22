@@ -23,7 +23,7 @@ class Recharge extends Model
         $limit = $params['limit'] ?? 10;
 
         $query = DB::table($this->table)
-            ->select(['recharge_code', 'email', 'date', 'value', 'recharges.status as tt', 'payment_type', 'name', 'phone_number', 'note'])
+            ->select(['recharge_code', 'email', 'date', 'value', 'recharges.status as tt', 'payment_type', 'name', 'note'])
             ->join('users', 'recharges.user_id', '=', 'users.id')
             ->where('user_id', Auth::id());
 

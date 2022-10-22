@@ -12,9 +12,8 @@
             <th class="">Khu trọ</th>
             <th class="">Gói dịch vụ</th>
             <th class="">Ngày mua</th>
-            <th class="">Ngày hết hạn</th>
-            <th class="">Trạng thái</th>
-            <th></th>
+            <th>Tiền</th>
+            <th>Ghi chú</th>
         </tr>
         </thead>
         <tbody>
@@ -25,26 +24,29 @@
                 <td class="">{{ $planHistory->areaName }}</td>
                 <td class="">{{ $planHistory->planName }}</td>
                 <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
-                <td>{{ \Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->time)->format('d/m/Y H:i:s') }}</td>
+                <th>
+                    @if($planHistory->tt == 2)
+                        <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
+                            class="fa-brands fa-bitcoin text-warning"></i>
+
+                    @elseif($planHistory->tt ==1)
+                        <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
+                            class="fa-brands fa-bitcoin text-warning"></i>
+                    @else
+                        <span
+                            class="text-success mx-1">+{{$planHistory->gia * (\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}</span>
+                        <i
+                            class="fa-brands fa-bitcoin text-warning"></i>
+                    @endif
+                </th>
                 <td>
-                    @if(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInSeconds(\Carbon\Carbon::now()) > 0)
-                        <span class="text-success">Đang hoạt động</span>
+                    @if($planHistory->is_first)
+                        <span class="text-success font-weight-bold">Mua mới</span>
+                    @elseif($planHistory->tt == 2)
+                        <span class="text-warning font-weight-bold">Gia hạn</span>
                     @else
-                        <span class="text-danger">Hết hạn</span>
+                        <span class="text-danger font-weight-bold">Chuyển gói</span>
                     @endif
-                </td>
-                <td class="">
-                    @if(\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInSeconds(\Carbon\Carbon::now()) > 0)
-                        <a  href="" class="btn btn-success">
-                            Nâng cấp gói
-                        </a>
-                    @else
-
-                        <a href="" class="btn btn-success">
-                            Gia hạn
-                        </a>
-                    @endif
-
                 </td>
             </tr>
         @endforeach

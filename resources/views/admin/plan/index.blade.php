@@ -3,6 +3,7 @@
 @section('title_page', 'Quản lý các gói dịch vụ')
 
 @section('content')
+    <a href="{{route('backend_admin_create_plans')}}" class="btn btn-primary my-2">Thêm mới</a>
     <table class="table text-center">
         <thead>
         <tr>
@@ -10,10 +11,9 @@
             <th>Tên gói</th>
             <th>Độ ưu tiên</th>
             <th>Loại gói</th>
-            <th>Thời hạn</th>
             <th>Giá</th>
             <th>Trạng thái</th>
-            <th><a href="{{route('backend_admin_create_plans')}}" class="btn-link">Thêm mới</a></th>
+            <th>Chức năng</th>
         </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$plan->name}}</td>
-                <td class="text-danger font-weight-bold">{{$plan->priority_level ? 'Cao nhất' : 'Bình thường'}}</td>
+                <td class="text-danger font-weight-bold">{{$plan->priority_level}}</td>
                 <td>
                     @if($plan->type)
                         <span class="badge bg-success p-2 text-xl">Gói đăng bài</span>
@@ -29,8 +29,9 @@
                         <span class="badge bg-dange p-2 text-xl">Gói tìm ngưởi ờ ghép</span>
                     @endif
                 </td>
-                <td>{{$plan->time}}</td>
-                <td>{{$plan->price}}</td>
+                <td><span
+                        class="text-success mx-1">{{$plan->price}}</span><i
+                        class="fa-brands fa-bitcoin text-warning"></i></td>
                 <td>
                     @if($plan->status)
                         <span class="text-success font-weight-bold">Hoạt động</span>

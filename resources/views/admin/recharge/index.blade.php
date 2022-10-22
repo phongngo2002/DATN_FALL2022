@@ -51,9 +51,9 @@
             <th>Mã giao dịch</th>
             <th>Email</th>
             <th>Họ tên</th>
-            <th>Số điện thoại</th>
             <th>Phương thức</th>
             <th>Số tiền</th>
+            <th>Số xu nhận đc</th>
             <th>Trạng thái</th>
             <th>Ghi chú</th>
             <th>Thời gian</th>
@@ -65,7 +65,6 @@
                 <td>#{{$item->recharge_code}}</td>
                 <td>{{$item->email}}</td>
                 <td>{{$item->name}}</td>
-                <td>{{$item->phone_number ? $item->phone_number : 'Chưa cập nhật'}}</td>
                 <td>
                     @if($item->payment_type)
                         <span class="text-success font-weight-bold">Chuyển khoán</span>
@@ -74,6 +73,9 @@
                     @endif
                 </td>
                 <td>{{$item->value}}</td>
+                <td><span
+                        class="text-success mx-1">+{{$item->value/1000}}</span><i
+                        class="fa-brands fa-bitcoin text-warning"></i></td>
                 <td>
                     @if($item->tt)
                         <span class="badge text-bg-success text-light p-2">Thành công</span>

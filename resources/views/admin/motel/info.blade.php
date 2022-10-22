@@ -118,7 +118,9 @@
     <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên</button>
     <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
        class="btn btn-primary my-2">Đăng tin</a>
-    <div class="bg-white p-4 shadow-md rounded-4">
+    <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+       class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+    <div class="bg-white p-4 shadow-md rounded-4 my-4">
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
             <thead>

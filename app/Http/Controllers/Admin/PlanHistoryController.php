@@ -13,7 +13,7 @@ class PlanHistoryController extends Controller
         $this->v = [];
     }
 
-    public function list(Request $request)
+    public function index_plan_history(Request $request)
     {
         $planHistory = new PlanHistory();
         $this->v['extParams'] = $request->all();

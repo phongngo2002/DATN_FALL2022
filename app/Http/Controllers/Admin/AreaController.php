@@ -11,15 +11,28 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AreaController extends Controller
 {
-    //
+
     private $v;
 
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'index_areas',
+                'add_areas',
+                'saveAdd_areas',
+                'update_areas',
+                'saveUpdate_areas',
+                'delete_areas'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function index(Request $request)
+    public function index_areas(Request $request)
     {
         $areas = new Area();
         $this->v['params'] = $request->all() ?? [];
@@ -29,14 +42,14 @@ class AreaController extends Controller
         return view('admin.area.index', $this->v);
     }
 
-    public function create()
+    public function add_areas()
     {
 
 
         return view('admin.area.add', $this->v);
     }
 
-    public function store(Request $request)
+    public function saveAdd_areas(Request $request)
     {
 
         $params = [];
@@ -59,7 +72,7 @@ class AreaController extends Controller
 
     }
 
-    public function edit($id)
+    public function update_areas($id)
     {
         $model = new Area();
 
@@ -69,7 +82,7 @@ class AreaController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function saveUpdate_areas(Request $request, $id)
     {
 
         $params = [];
@@ -91,7 +104,7 @@ class AreaController extends Controller
 
     }
 
-    public function delete($id)
+    public function delete_areas($id)
     {
         $model = new Area();
 

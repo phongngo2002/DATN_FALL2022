@@ -88,7 +88,7 @@
                 <th class="">Tiền</th>
                 <th class="">Ảnh đại diện</th>
                 <th class="">Quyền</th>
-                <th class=""><a href="{{route('backend_user_add')}}"class="btn btn-success">Thêm mới</a></th>
+                <th class="">Chức năng</th>
             </tr>
             </thead>
             <tbody>
@@ -112,8 +112,6 @@
                         @endif
                     </td>
                     <td class=" d-xl-table-cell d-flex justify-content-around text-center">
-                        <a href="{{route('backend_user_detail',['id'=>$user->id,'used_to'=>'update'])}}"
-                           class="btn btn-primary">Sửa</a>
                         <a href=" {{route('backend_user_detail',['id'=>$user->id,'used_to'=>'detail'])}} "
                            class="btn btn-info">Chi tiết</a>
                     </td>

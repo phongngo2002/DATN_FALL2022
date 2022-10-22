@@ -15,7 +15,7 @@ class RechargeController extends Controller
         $this->v = [];
     }
 
-    public function index(Request $request)
+    public function index_recharges(Request $request)
     {
         $model = new Recharge();
         $this->v['recharges'] = $model->admin_get_list_recharges($request->all());

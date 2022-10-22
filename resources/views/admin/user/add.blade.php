@@ -41,47 +41,9 @@
             @csrf
             <div class="bg-white shadow-lg p-4">
                 <div class="row">
-                    <div class="col-xl-6 col-12">
-                        <div>
-                            <div class="card-header">
-                                <h5 class="card-title mb-4">Họ tên</h5>
-                            </div>
-                            <div class="card-body">
-                                <input name="name" type="text" class="form-control mb-4">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="card-header">
-                                <h5 class="card-title mb-4">Email</h5>
-                            </div>
-                            <div class="card-body">
-                                <input name="email" type="email" class="form-control mb-4">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="card-header">
-                                <h5 class="card-title mb-4">Số điện thoại</h5>
-                            </div>
-                            <div class="card-body">
-                                <input name="phone_number" type="number" id="phone_number" class="form-control mb-4">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="card-header">
-                                <h5 class="card-title mb-4">Địa chỉ</h5>
-                            </div>
-                            <div class="card-body">
-                                <input name="address" type="text" class="form-control mb-4">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="card-header">
-                                <h5 class="card-title mb-4">Mật khẩu</h5>
-                            </div>
-                            <div class="card-body">
-                                <input name="password" type="password" class="form-control mb-4">
-                            </div>
-                        </div>
+                    <div>
+                        <label for="">Họ tên</label>
+                        <input name="name" type="text" class="form-control mb-4">
                     </div>
                     <div class="col-xl-6 col-12">
                         <div>
@@ -116,33 +78,10 @@
             <button class="btn btn-success mt-4">Thêm mới</button>
             <a href="{{route('backend_user_getAll')}}" class="btn btn-secondary mt-4">Quay lại</a>
         </form>
-        <style>
-            label.error {
-                color: red;
-            }
-        </style>
-        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
-                type="text/javascript"></script>
         <script>
-            const urlDefault = $("#avt_preview").attr('src');
-            $(function () {
-                function readURL(input, selector) {
-                    if (input.files && input.files[0]) {
-                        let reader = new FileReader();
-                        reader.onload = function (e) {
-                            $(selector).attr('src', e.target.result);
-                        };
-                        reader.readAsDataURL(input.files[0]);
-                    } else {
-                        $(selector).attr('src', urlDefault);
-                    }
-                }
-
-                $("#avatar").change(function () {
-                    readURL(this, '#avt_preview');
-                });
-            });
+            document.getElementsByName('avatar')[0].addEventListener('change', (e) => {
+                document.getElementById('avt_preview').src = URL.createObjectURL(e.target.files[0]);
+            })
         </script>
         <script>
             $("#content").validate({

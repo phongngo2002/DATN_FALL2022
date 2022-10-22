@@ -24,8 +24,11 @@ class PlanHistory extends Model
         "areas.name as areaName",
         "motels.room_number as motelRoomNumber",
         'parent_id',
-        'status',
-        'created_at'
+        'plan_history.created_at as created_at',
+        'plan_history.status as tt',
+        'parent_id',
+        'plans.price as gia',
+        'is_first'
     ];
 
     protected $table = "plan_history";
@@ -39,6 +42,8 @@ class PlanHistory extends Model
             ->join('users', 'areas.user_id', '=', 'users.id')
             ->select($this->fillable)
             ->where('users.id', Auth::id())
+            ->where('plan_history.status', '!=', 1)
+            ->where('plan_history.status', '!=', 0)
             ->get();
         return $plansHistory;
     }
@@ -52,6 +57,7 @@ class PlanHistory extends Model
             'day' => $data['day'],
             'status' => $data['status'],
             'parent_id' => $data['parent_id'],
+            'is_first' => $data['is_first'],
             'created_at' => Carbon::now()
         ]);
 

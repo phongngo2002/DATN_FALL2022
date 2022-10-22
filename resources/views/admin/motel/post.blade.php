@@ -16,9 +16,6 @@
             selector: 'textarea#desc',
         });
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <div class="row gap-2" style="display: grid;grid-template-columns: 8fr 3fr;">
         <div class="bg-white p-4 shadow-lg rounded-4">
@@ -224,8 +221,10 @@
                     @if($current_plan_motel)
                         <input type="hidden" id="ID" name="ID" value="{{$current_plan_motel->ID}}">
                         <input type="hidden" id="plan_id_o" name="plan_id_o" value="{{$current_plan_motel->plan_id}}">
+                        <input type="hidden" name="old_day" id="old_day"
+                               value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
                         <input type="hidden" id="money_plan_old" name="money_plan_old"
-                               value="{{$current_plan_motel->price * \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now())}}">
+                               value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
                         <input type="hidden" id="change_plan" name="change_plan" value="123132">
                     @endif
                     <input type="hidden" id="post_day" name="post_day">
@@ -330,10 +329,10 @@
             title.innerText = obj.title;
             money.innerText = obj.price;
             day_plan.innerText = day.value;
-            const abc = document.getElementById('moneyO') ? document.getElementById('moneyO').innerText : 0;
+            const abc = document.getElementById('moneyO') ? Number(document.getElementById('moneyO').innerText) : 0;
             total.innerText = obj.price * day.value;
             document.getElementById('post_money').value = obj.price * day.value;
-            if (Number(total.innerText) > currentMoney + abc) {
+            if (Number(total.innerText) > Number(currentMoney) + abc) {
                 document.getElementById('tt').setAttribute('disabled', 'true');
                 document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
             } else {
@@ -354,8 +353,10 @@
                 return;
             }
             document.getElementById('post_day').value = e.target.value;
-            const abc = document.getElementById('moneyO') ? document.getElementById('moneyO').innerText : 0;
-            if (Number(total.innerText) > currentMoney + abc) {
+
+            const abc = document.getElementById('moneyO') ? Number(document.getElementById('moneyO').innerText) : 0;
+            console.log(currentMoney)
+            if (Number(total.innerText) > Number(currentMoney) + abc) {
                 document.getElementById('tt').setAttribute('disabled', 'true');
                 document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
             } else {

@@ -25,31 +25,31 @@ class MotelController extends Controller
         $this->v = [];
     }
 
-    public function list($id, Request $request)
+    public function index_motels($id, Request $request)
     {
         $motel = new Motel();
-        $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(),$id);
+        $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
         $this->v['id'] = $id;
         return view('admin.motel.list', $this->v);
     }
 
-    public function detail($idMotel)
-    {
-        $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($idMotel);
-        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
+//    public function detail($idMotel)
+//    {
+//        $motel = new Motel();
+//        $this->v['motel'] = $motel->detailMotel($idMotel);
+//        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
+//
+//        return view('admin.motel.detail', $this->v);
+//    }
 
-        return view('admin.motel.detail', $this->v);
-    }
 
-
-    public function create($id)
+    public function add_motels($id)
     {
         $this->v['area_id'] = $id;
         return view('admin.motel.add', $this->v);
     }
 
-    public function store(Request $request, $id)
+    public function saveAdd_motels(Request $request, $id)
     {
         $params['cols'] = array_map(function ($item) {
             if ($item == '') {
@@ -78,7 +78,7 @@ class MotelController extends Controller
         return redirect()->route('admin.motel.list', ['id' => $id]);
     }
 
-    public function info_motel($id, $idMotel)
+    public function info_user_motels($id, $idMotel)
     {
         $model = new Motel();
 
@@ -96,7 +96,7 @@ class MotelController extends Controller
         return view('admin.motel.info', $this->v);
     }
 
-    public function add_people(Request $request, $id, $idMotel)
+    public function add_peolpe_of_motels(Request $request, $id, $idMotel)
     {
         $model = new UserMotel();
 
@@ -105,7 +105,7 @@ class MotelController extends Controller
         return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel]);
     }
 
-    public function create_post(Request $request, $id, $idMotel)
+    public function create_post_motels(Request $request, $id, $idMotel)
     {
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -136,7 +136,7 @@ class MotelController extends Controller
         return view('admin.motel.post', $this->v);
     }
 
-    public function post_post(Request $request, $id, $idMotel)
+    public function save_create_post_motels(Request $request, $id, $idMotel)
     {
         $model = new PlanHistory();
         if ($request->gia_han) {
@@ -146,6 +146,7 @@ class MotelController extends Controller
                 'day' => $request->post_day_more,
                 'status' => 2,
                 'parent_id' => $request->ID,
+                'is_first' => 0
             ]);
 
             $planHistory = PlanHistory::find($request->ID);
@@ -160,12 +161,21 @@ class MotelController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Gia hạn bài đăng thành công');
         } else if ($request->change_plan) {
+            $model->create([
+                'plan_id' => $request->plan_id_o,
+                'motel_id' => $idMotel,
+                'day' => $request->old_day,
+                'status' => 4,
+                'parent_id' => 0,
+                'is_first' => 0
+            ]);
             $id = $model->create([
                 'plan_id' => $request->post_plan_id,
                 'motel_id' => $idMotel,
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'is_first' => 0
             ]);
             $model->create([
                 'plan_id' => $request->post_plan_id,
@@ -173,10 +183,11 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'is_first' => 1
             ]);
 
             PlanHistory::where('id', $request->ID)->update([
-                'status' => 3
+                'status' => 0,
             ]);
 
             $tien = $request->money_plan_old - $request->post_money;
@@ -193,6 +204,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'is_first' => 0
             ]);
             $model->create([
                 'plan_id' => $request->post_plan_id,
@@ -200,6 +212,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'is_first' => 1
             ]);
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
@@ -212,11 +225,21 @@ class MotelController extends Controller
 
 
     }
-    public function add_Motels(){
-        $modelArea = new Area();
-        $area = $modelArea->getAll() ;
-        return view('admin.motels.add',[
-            'area'=>$area
-        ]);
+
+    public function contact_motel(Request $request, $id, $idMotel)
+    {
+        $model = new Motel();
+
+        $this->v['list'] = $model->get_list_contact($idMotel,$id);
+        return view('admin.motel.list_contact_motel', $this->v);
     }
+
+//    public function add_Motels()
+//    {
+//        $modelArea = new Area();
+//        $area = $modelArea->getAll();
+//        return view('admin.motels.add', [
+//            'area' => $area
+//        ]);
+//    }
 }

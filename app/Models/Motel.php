@@ -45,16 +45,18 @@ class Motel extends Model
         if ($params['name']) {
             $motels->where('room_number', 'like', '%' . $params['name'] . '%');
         }
-    
+
         return $motels->orderBy('id', $params['order_by'])
             ->paginate($params['limit']);
 
     }
-    
-    public function saveNew($data){
+
+    public function saveNew($data)
+    {
         $res = DB::table($this->table)->insertGetId($data);
         return $res;
     }
+
     public function detailMotel($idMotel)
     {
         $this->fillable[] = "areas.name as areaName";
@@ -95,5 +97,15 @@ class Motel extends Model
             ->get();
     }
 
-
+    public function get_list_contact($motel_id, $area_id)
+    {
+        return DB::table('users')
+            ->select(['name', 'email', 'phone_number', 'contact_motel_history.status as tt', 'contact_motel_history.created_at as tg'])
+            ->join('contact_motel_history', 'users.id', '=', 'contact_motel_history.user_id')
+            ->join('motels', 'contact_motel_history.motel_id', '=', 'motels.id')
+            ->where('area_id', $area_id)
+            ->where('motel_id', $motel_id)
+            ->orderBy('contact_motel_history.created_at', 'desc')
+            ->paginate(10);
+    }
 }

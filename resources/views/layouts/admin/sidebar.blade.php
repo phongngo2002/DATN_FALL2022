@@ -25,7 +25,17 @@
                         cọc</span>
                 </a>
             </li>
-
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('list_role') }}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quyền</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('backend_user_getAll')}}">
+                    <i class="align-middle" data-feather="user"></i> <span
+                        class="align-middle">Tài khoản</span>
+                </a>
+            </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('backend_admin_get_list_plans')}}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Gói dịch vụ</span>
@@ -43,12 +53,7 @@
                         class="align-middle">Lịch sử giao dịch</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('backend_user_getAll')}}">
-                    <i class="align-middle" data-feather="user"></i> <span
-                        class="align-middle">Tài khoản</span>
-                </a>
-            </li>
+
         </ul>
     </div>
 </nav>

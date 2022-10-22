@@ -52,7 +52,6 @@
         <tr>
             <th>#</th>
             <th>Room Number</th>
-            <th class="">Image 360</th>
             <th class="">Price</th>
             <th>Max people</th>
             <th>Status</th>
@@ -70,23 +69,27 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{ $motel->room_number }}</td>
-                    <td class="">
-                        <img src="{{ $motel->image_360 }}" width="200px" alt="">
-                    </td>
                     <td class="">{{ $motel->price }}</td>
                     <td class="">{{ $motel->max_people }}</td>
                     <td>
-                        @if($motel->status)
+                        @if($motel->status == 1)
                             <span class="badge bg-success p-2">Trống</span>
                         @else
                             <span class="badge bg-danger p-2">Đầy</span>
                         @endif
                     </td>
                     <td class="">
-                        <a class="btn btn-info" href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}">Chi tiết</a>
-                        <a href="{{ route('admin.motel.detail', [$motel->area_id, $motel->id]) }}" class="btn btn-warning">
+                        <a class="btn btn-info"
+                           href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}">Chi
+                            tiết</a>
+                        <a href="{{ route('admin.motel.detail', [$motel->area_id, $motel->id]) }}"
+                           class="btn btn-warning">
                             Sửa
                         </a>
+                        <button class="btn btn-danger "
+                                {{$motel->status == 2 ? 'disabled' : ''}}>
+                            <a
+                                href=""  onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')" class="text-white">Xóa</a></button>
                     </td>
                 </tr>
             @endforeach

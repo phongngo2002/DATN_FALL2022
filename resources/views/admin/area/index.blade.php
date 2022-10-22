@@ -24,7 +24,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <select class="form-control" name="limit">
                     <option value="" {{ !isset($params['limit']) ? 'selected' : ''}}>Số lượng bản ghi hiển thị</option>
                     <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : ''}}>10
@@ -39,9 +39,10 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <button class="btn btn-primary">Tìm kiếm</button>
                 <a class="btn btn-danger" href="{{route('backend_get_list_area')}}">Bỏ chọn</a>
+                <a href="{{route('backend_get_create_area')}}" class="btn btn-secondary">Thêm mới</a>
             </div>
         </div>
     </form>
@@ -51,7 +52,7 @@
             <th>#</th>
             <th>Tên khu trọ</th>
             <th>Địa chỉ</th>
-            <th><a href="{{route('backend_get_create_area')}}" class="btn-link">Thêm mới</a></th>
+            <th>Chức năng</th>
         </tr>
         </thead>
         <tbody>
