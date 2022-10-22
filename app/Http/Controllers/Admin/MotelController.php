@@ -23,6 +23,21 @@ class MotelController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'index_motels',
+                'add_motels',
+                'saveAdd_motels',
+                'info_user_motels',
+                'add_people_of_motels',
+                'create_post_motels',
+                'save_create_post_motels',
+                'contact_motel'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function index_motels($id, Request $request)
@@ -230,7 +245,7 @@ class MotelController extends Controller
     {
         $model = new Motel();
 
-        $this->v['list'] = $model->get_list_contact($idMotel,$id);
+        $this->v['list'] = $model->get_list_contact($idMotel, $id);
         return view('admin.motel.list_contact_motel', $this->v);
     }
 

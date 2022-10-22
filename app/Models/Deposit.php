@@ -24,8 +24,11 @@ class Deposit extends Model
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
-            ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('areas.user_id', Auth::id());
+            ->join('areas', 'motels.area_id', '=', 'areas.id');
+        if (!Auth::user()->is_admin) {
+            $query = $query->where('areas.user_id', Auth::id());
+        }
+
         if (isset($params['name']) && $params['name']) {
             $query = $query->where('users.name', 'like', '%' . $params['name'] . '%')
                 ->orWhere('areas.name', 'like', '%' . $params['name'] . '%');

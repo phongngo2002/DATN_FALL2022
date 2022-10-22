@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+
+        $arr = [
+            'function' => [
+                'index_roles',
+                'add_roles',
+                'update_roles',
+                'saveUpdate_roles',
+                'saveAdd_roles',
+                'delete_roles',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
+    }
+
     public function index_roles()
     {
         $modelRole = new Role();

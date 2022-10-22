@@ -17,7 +17,6 @@ use App\Http\Controllers\Admin\RoleController;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 //  route crud quản lý các gói dịc vụ
 // end quản lý các gói dịch vụ
@@ -35,7 +34,7 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 
 Route::get('/', function () {
     return view('test', []);
-});
+})->name('home');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -80,12 +79,12 @@ Route::middleware(['auth'])->group(function () {
         // Chỉ có admin
         // Quản lý gói dịch vụ
         Route::prefix('goi-dich-vu')->group(function () {
-            Route::get('/', [PlansController::class, 'index'])->name('backend_admin_get_list_plans');
-            Route::get('/tao-moi', [PlansController::class, 'create'])->name('backend_admin_create_plans');
-            Route::post('/tao-moi', [PlansController::class, 'store'])->name('backend_admin_post_create_plans');
-            Route::get('/{id}/cap-nhat', [PlansController::class, 'edit'])->name('backend_admin_edit_plans');
-            Route::post('/{id}/cap-nhat', [PlansController::class, 'update'])->name('backend_admin_update_plans');
-            Route::get('/{id}/xoa', [PlansController::class, 'destroy'])->name('backend_admin_delete_plans');
+            Route::get('/', [PlansController::class, 'index_plans'])->name('backend_admin_get_list_plans');
+            Route::get('/tao-moi', [PlansController::class, 'add_plans'])->name('backend_admin_create_plans');
+            Route::post('/tao-moi', [PlansController::class, 'saveAdd_plans'])->name('backend_admin_post_create_plans');
+            Route::get('/{id}/cap-nhat', [PlansController::class, 'update_plans'])->name('backend_admin_edit_plans');
+            Route::post('/{id}/cap-nhat', [PlansController::class, 'saveUpdate_plans'])->name('backend_admin_update_plans');
+            Route::get('/{id}/xoa', [PlansController::class, 'delete_plans'])->name('backend_admin_delete_plans');
         });
 
         // Quản lý quyền
@@ -99,14 +98,17 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('tai-khoan')->group(function () {
-            Route::get('/', 'App\Http\Controllers\Admin\UserController@getAll')->name('backend_user_getAll');
-            Route::get('/chi-tiet/{id}/{used_to}', 'App\Http\Controllers\Admin\UserController@getUser')->name('backend_user_detail');
+            Route::get('/', 'App\Http\Controllers\Admin\UserController@index_users')->name('backend_user_getAll');
+            Route::get('/chi-tiet/{id}/{used_to}', 'App\Http\Controllers\Admin\UserController@update_users')->name('backend_user_detail');
             Route::match(['get', 'post'], '/add', 'App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
-            Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@update')->name('backend_user_update');
+            Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@saveUpdate_users')->name('backend_user_update');
         });
     });
 });
 
+Route::get('/403', function () {
+    return view('error.403');
+})->name('403');
 
 
 

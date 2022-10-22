@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('token')->nullable();
             $table->string('confirmation_code')->nullable();
             $table->dateTime('confirmation_code_expired_in')->nullable();
+            $table->integer('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
 

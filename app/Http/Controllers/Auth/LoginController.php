@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function postLogin(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            if (Auth::user()->role_id !== 2) {
+            if (Auth::user()->role_id != 3) {
                 return redirect()->route('backend_get_dashboard')->with('login_success', 'Đăng nhập thành công');
             }
         } else {

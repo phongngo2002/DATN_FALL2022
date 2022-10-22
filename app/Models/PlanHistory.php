@@ -22,7 +22,7 @@ class PlanHistory extends Model
         'plan_history.created_at as date',
         "plans.name as planName",
         "areas.name as areaName",
-        "motels.room_number as motelRoomNumber",
+        "room_number",
         'parent_id',
         'plan_history.created_at as created_at',
         'plan_history.status as tt',
@@ -35,17 +35,17 @@ class PlanHistory extends Model
 
     public function LoadPlansHistoryWithPage($params = [])
     {
-        $plansHistory = DB::table($this->table)
-            ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
+        $plansHistory = DB::table('plans')
+            ->select($this->fillable)
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->join('users', 'areas.user_id', '=', 'users.id')
-            ->select($this->fillable)
-            ->where('users.id', Auth::id())
-            ->where('plan_history.status', '!=', 1)
-            ->where('plan_history.status', '!=', 0)
+            ->join('users', 'areas.user_id', '=', 'users.id');
+        if (!Auth::user()->is_admin) {
+            $plansHistory = $plansHistory->where('users.id', Auth::id());
+        }
+        return $plansHistory->where('plan_history.status', '>', 1)
             ->get();
-        return $plansHistory;
     }
 
 

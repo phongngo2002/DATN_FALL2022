@@ -24,9 +24,10 @@ class Recharge extends Model
 
         $query = DB::table($this->table)
             ->select(['recharge_code', 'email', 'date', 'value', 'recharges.status as tt', 'payment_type', 'name', 'note'])
-            ->join('users', 'recharges.user_id', '=', 'users.id')
-            ->where('user_id', Auth::id());
-
+            ->join('users', 'recharges.user_id', '=', 'users.id');
+        if (!Auth::user()->is_admin) {
+            $query = $query->where('user_id', Auth::id());
+        }
         if ($email) {
             $query = $query->where('email', $email);
         }

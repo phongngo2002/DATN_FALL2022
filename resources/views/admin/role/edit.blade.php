@@ -19,7 +19,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <div id="plans_form" action="{{route('saveEdit_role')}}" method="POST">
+    <form id="plans_form" action="{{route('saveEdit_role')}}" method="POST">
 
 
         @csrf
@@ -98,7 +98,7 @@
             @endforeach
         @endforeach
     </div>
-    <button type="submit" class="btn btn-primary my-2"> Thêm</button>
+    <button type="submit" class="btn btn-primary my-2">Lưu</button>
     <a href="{{route('list_role')}}" class="btn btn-warning my-2"> Quay lại </a>
     </form>
     @include('layouts.admin._js')

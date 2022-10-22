@@ -20,7 +20,7 @@
         @foreach ($plansHistory as $planHistory)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ $planHistory->motelRoomNumber }}</td>
+                <td>{{ $planHistory->room_number }}</td>
                 <td class="">{{ $planHistory->areaName }}</td>
                 <td class="">{{ $planHistory->planName }}</td>
                 <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>

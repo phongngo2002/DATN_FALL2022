@@ -37,7 +37,8 @@
                 </button>
             </div>
         @endif
-        <form action="" method="POST" enctype="multipart/form-data" id="content">
+        <form action="{{route('backend_user_update',['id' => $user->id])}}" method="POST" enctype="multipart/form-data"
+              id="content">
             @csrf
             <div class="bg-white shadow-lg p-4 rounded-4">
                 <div class="">

@@ -17,9 +17,20 @@ class UserController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'index_users',
+                'update_users',
+                'saveAdd_areas',
+                'saveUpdate_users',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function getAll(UserRequest $request)
+    public function index_users(UserRequest $request)
     {
         $this->v['title'] = "List user";
         $objUser = new User();
@@ -28,7 +39,7 @@ class UserController extends Controller
         return view('admin.user.index', $this->v);
     }
 
-    public function getUser($id, $used_to)
+    public function update_users($id, $used_to)
     {
         $objUser = new User();
         $user = $objUser->getOne($id);
@@ -43,45 +54,45 @@ class UserController extends Controller
         }
     }
 
-    public function add(UserRequest $request)
-    {
-        $this->v['title'] = "Thêm mới tài khoản";
-        $this->v['role'] = [
-            '1' => "Admin",
-            '2' => "Chủ trọ",
-            '3' => "Thành viên",
-        ];
-        $method_route = 'backend_user_add';
-        if ($request->isMethod('post')) {
-            $params = array_map(function ($item) {
-                if ($item == '') {
-                    $item = null;
-                }
-                if (is_string($item)) {
-                    $item = trim($item);
-                }
-                return $item;
-            }, $request->post());
-            unset($params['_token']);
-            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-                $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
-                $params['avatar'] = $uploadedFileUrl;
-            }
-            $user = new User();
-            $request = $user->saveNew($params);
-            if ($request == null) {
-                redirect()->route($method_route);
-            } else if ($request > 0) {
-                Session::flash('success', 'Thêm mới thành công');
-            } else {
-                Session::flash('error', 'Thêm mới thất bại');
-                redirect()->route($method_route);
-            }
-        }
-        return view('admin.user.add', $this->v);
-    }
+//    public function add(UserRequest $request)
+//    {
+//        $this->v['title'] = "Thêm mới tài khoản";
+//        $this->v['role'] = [
+//            '1' => "Admin",
+//            '2' => "Chủ trọ",
+//            '3' => "Thành viên",
+//        ];
+//        $method_route = 'backend_user_add';
+//        if ($request->isMethod('post')) {
+//            $params = array_map(function ($item) {
+//                if ($item == '') {
+//                    $item = null;
+//                }
+//                if (is_string($item)) {
+//                    $item = trim($item);
+//                }
+//                return $item;
+//            }, $request->post());
+//            unset($params['_token']);
+//            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+//                $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
+//                $params['avatar'] = $uploadedFileUrl;
+//            }
+//            $user = new User();
+//            $request = $user->saveNew($params);
+//            if ($request == null) {
+//                redirect()->route($method_route);
+//            } else if ($request > 0) {
+//                Session::flash('success', 'Thêm mới thành công');
+//            } else {
+//                Session::flash('error', 'Thêm mới thất bại');
+//                redirect()->route($method_route);
+//            }
+//        }
+//        return view('admin.user.add', $this->v);
+//    }
 
-    public function update(UserRequest $request, $id)
+    public function saveUpdate_users(UserRequest $request, $id)
     {
         // dd($id);
         $params = [];
@@ -95,13 +106,9 @@ class UserController extends Controller
             return $item;
         }, $request->post());
         $params['id'] = $id;
-        if ($request->file('avatar') == null) {
-            $params['avatar'] = $request->avatar_old;
-        } else {
-            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
                 $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
                 $params['avatar'] = $uploadedFileUrl;
-            }
         }
         unset($params['_token']);
         unset($params['avatar_old']);

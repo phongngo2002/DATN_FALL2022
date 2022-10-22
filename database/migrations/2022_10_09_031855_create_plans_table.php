@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->integer('time');
             $table->float('price', 11, 3);
             $table->integer('status')->default(1);
-
             $table->timestamps();
         });
     }

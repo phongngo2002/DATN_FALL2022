@@ -10,7 +10,24 @@ use App\Models\Plans;
 class PlansController extends Controller
 
 {
-    public function index()
+    public function __construct()
+    {
+        $arr = [
+            'function' => [
+                'index_plans',
+                'add_plans',
+                'saveAdd_plans',
+                'update_plans',
+                'saveUpdate_plans',
+                'delete_plans',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
+    }
+
+    public function index_plans()
     {   //select data plans
         $plans = new Plans;
         return view('admin.plan.index', [
@@ -19,12 +36,12 @@ class PlansController extends Controller
         ]);
     }
 
-    public function create()
+    public function add_plans()
     {
         return view('admin.plan.create');
     }
 
-    public function store(PlansRequest $request)
+    public function saveAdd_plans(PlansRequest $request)
     {
         $plans = new Plans;
         //Điền thông tin vào model với một mảng các thuộc tính.
@@ -42,7 +59,7 @@ class PlansController extends Controller
     }
 
 
-    public function edit($id)
+    public function update_plans($id)
     {
         $plans = new Plans;
         return view('admin.plan.edit', [
@@ -50,7 +67,7 @@ class PlansController extends Controller
         ]);
     }
 
-    public function update(PlansRequest $request, $id)
+    public function saveUpdate_plans(PlansRequest $request, $id)
     {
         $plans = Plans::find($id);
 
@@ -67,7 +84,7 @@ class PlansController extends Controller
         return redirect()->route('backend_admin_get_list_plans')->with('success', "Insert successfully");
     }
 
-    public function destroy($id)
+    public function delete_plans($id)
     {
         Plan::where('id', $id)->update(['status' => 0]);
 
