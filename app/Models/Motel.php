@@ -59,9 +59,6 @@ class Motel extends Model
 
     public function detailMotel($idMotel)
     {
-        $this->fillable[] = "areas.name as areaName";
-        $this->fillable[] = "categories.name as categoryName";
-        $this->fillable[3] = "motels.status as motel_status";
         $motel = DB::table($this->table)
             ->select(['room_number','price','services','end_time','max_people','address','description'])
             ->join('areas', 'areas.id', '=', "motels.area_id")
