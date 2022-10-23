@@ -19,8 +19,9 @@ Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 Route::get('/phong-tro/{id}', [MotelController::class, "list"])->name("admin.motel.list");
 Route::get('/phong-tro/{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
-
+Route::get('/phong-tro/{id}/del/{idMotel}', [MotelController::class, "delete_motel"])->name("admin.motel.delete");
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
+Route::post('phongtro/{id}/update',[MotelController::class,'saveUpdate'])->name('saveUpdate_motel');
 
 
 Route::get('/create','App\Http\Controllers\Admin\RoleController@add_roles')->name('create_role');

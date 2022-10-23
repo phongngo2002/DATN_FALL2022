@@ -49,7 +49,7 @@
         </form>
         <div class="card flex-fill">
             <table class="table table-hover my-0">
-                <thead>
+                <thead style="text-align: center">
                     <tr>
                         <th>#</th>
                         <th>Room Number</th>
@@ -60,7 +60,7 @@
                         <th class="d-none d-md-table-cell">Active</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align: center">
                     @foreach ($motels as $motel)
                         <tr>
                             <td>{{$loop->iteration}}</td>
@@ -71,9 +71,12 @@
                             <td class="d-none d-xl-table-cell">{{ $motel->price }}</td>
                             <td class="d-none d-md-table-cell">{{ $motel->max_people }}</td>
                             <td><span class="badge bg-success">{{ $motel->status }}</span></td>
-                            <td class="d-none d-md-table-cell">
-                                <a href="{{ route('admin.motel.detail', [$idCate, $motel->id]) }}" class="me-5">
-                                    <i class="align-middle" data-feather="edit"></i>
+                            <td class="d-none d-md-table-cell" colspan="2">
+                                <a href="{{ route('admin.motel.detail', [$idCate, $motel->id]) }}" class="btn btn-info">
+                                    Cập nhật
+                                </a>
+                                <a href="{{ route('admin.motel.delete', [$idCate, $motel->id]) }}" class="btn btn-danger" onclick="myFunction()">
+                                    Xóa
                                 </a>
                             </td>
                         </tr>
@@ -85,5 +88,9 @@
             
         </div>
     </div>
-
+    <script>
+        function myFunction() {
+          confirm("Bạn có chắc muốn xóa!");
+        }
+        </script>
 @endsection

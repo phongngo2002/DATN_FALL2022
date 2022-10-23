@@ -4,12 +4,13 @@
 @section('title_page', 'Chi tiết phòng trọ')
 
 @section('content')
-    <form action="" method="POST">
+    <form action="{{route('saveUpdate_motel',$motel->id)}}" method="POST">
         <div class="bg-white shadow-lg p-4">
             <div class="row">
                 @csrf
                 <div class="col-6">
                     <div class="my-2">
+                        <input type="hidden" name="id" value="{{ $motel->id }}" id="id">
                         <label for="">Số phòng</label>
                         <input type="text" class="form-control" name="room_number" id="room_number"
                             value="{{ $motel->room_number }}">
@@ -21,12 +22,12 @@
                     </div>
                     <div class="my-2">
                         <label for="">Diện tích</label>
-                        <input type="text" class="form-control" name="area" id="area"
-                            value="{{ $motel->area }}">
+                        <input type="text" class="form-control" name="area"  id="area"
+                            value="{{ $motel->area }} ">
                     </div>
                     <div class="my-2">
                         <label for="">Địa chỉ</label>
-                        <input type="text" class="form-control" name="area" id="area"
+                        <input type="text" class="form-control" readonly name="areaName" id="areaName"
                             value="{{ $motel->areaName }}">
                     </div>
                     <div class="my-2">
@@ -56,38 +57,42 @@
                     </div>
                     <div class="my-2">
                         <label for="">Khu trọ</label>
-                        <input type="text" class="form-control" name="area" id="area"
+                        <input type="text" class="form-control" name="categoryName" readonly id="categoryName"
                             value="{{ $motel->categoryName }}">
                     </div>
                     <div class="my-2">
                         <label for="">Dịch vụ</label>
-                        <input type="text" class="form-control" name="address" id="address"
+                        <input type="text" class="form-control" name="services" id="services"
                             value="{{ $motel->services }}">
                     </div>
                     <div class="my-2">
                         <label for="">Tình trạng</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->status }}">
+                        <select name="status" id="" class="form-control">
+                            <option value="0" {{old('status')==0|| $motel->status==0?'selected':false}}>Chưa có người ở</option>
+                            <option value="1" {{old('status')==1|| $motel->status==1?'selected':false}}>Đang có người ở</option>
+                           </select>
                     </div>
                     <div class="my-2">
                         <label for="">Số người</label>
-                        <input type="text" class="form-control" name="address" id="address"
+                        <input type="number" class="form-control" name="max_people" id="max_people"
                             value="{{ $motel->max_people }}">
                     </div>
                     <div class="my-2">
                         <label for="">Thời gian bắt đầu</label>
-                        <input type="text" class="form-control" name="address" id="address"
+                        <input type="datetime-local" class="form-control" name="start_time" id="start_time"
                             value="{{ $motel->start_time }}">
                     </div>
                     <div class="my-2">
                         <label for="">Thời gian kết thúc</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->end_time }}">
+                        <input type="datetime-local" class="form-control" name="end_time" id="end_time"
+                            value="{{ $motel->end_time}}">
                     </div>
                 </div>
             </div>
         </div>
-        <a class="btn btn-success my-4" href="{{ route("admin.motel.list", $motel->area_id) }}">Quay lại</a>
+        
+        <a class="btn btn-warning my-4" href="{{ route("admin.motel.list", $motel->area_id) }}">Quay lại</a>
+        <button type="submit" class="btn btn-primary btn-block m-2"> Cập nhật </button>
     </form>
     <script>
         var siteMagnificPopup = function() {

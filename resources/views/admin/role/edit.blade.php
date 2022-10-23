@@ -100,7 +100,7 @@
         @endforeach
         
         <div class=" d-flex bd-highlight col-md-7 m-2 p-2">
-            <button type="submit" class="btn btn-primary btn-block m-2"> Thêm </button>
+            <button type="submit" class="btn btn-primary btn-block m-2"> Cập nhật </button>
             <a href="{{route('list_role')}}" class="btn btn-warning btn-block m-2"> Quay lại </a>
         </div>
  

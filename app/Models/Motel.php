@@ -11,6 +11,7 @@ class Motel extends Model
     use HasFactory;
 
     protected $fillable = [
+        
         "room_number",
         "price",
         "area",
@@ -52,8 +53,11 @@ class Motel extends Model
         $res = DB::table($this->table)->insertGetId($data);
         return $res;
     }
+    public function saveUpdate_motel($data, $id){
+        return DB::table('motels')->where('id',$id)->update($data);
+    }
     public function detailMotel($idMotel)
-    {
+    {   $this->fillable[]="motels.id";
         $this->fillable[] = "areas.name as areaName";
         $this->fillable[] = "categories.name as categoryName";
         $motel = DB::table($this->table)
@@ -62,5 +66,9 @@ class Motel extends Model
             ->select($this->fillable)
             ->where('motels.id', $idMotel)->first();
         return $motel;
+    }
+
+    public function delete_motels($id){
+        return DB::table('motels')->where('id',$id)->delete();
     }
 }
