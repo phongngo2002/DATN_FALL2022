@@ -63,9 +63,8 @@ class Motel extends Model
         $this->fillable[] = "categories.name as categoryName";
         $this->fillable[3] = "motels.status as motel_status";
         $motel = DB::table($this->table)
-            ->select($this->fillable)
+            ->select(['room_number','price','services','end_time','max_people','address','description'])
             ->join('areas', 'areas.id', '=', "motels.area_id")
-            ->join('categories', 'motels.category_id', '=', 'categories.id')
             ->where('motels.id', $idMotel)->first();
         return $motel;
     }
