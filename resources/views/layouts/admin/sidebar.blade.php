@@ -1,57 +1,59 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">AdminKit</span>
+            <span class="align-middle">Chợ Phòng Trọ</span>
         </a>
 
         <ul class="sidebar-nav">
-            <li class="sidebar-header">
-                Pages
-            </li>
-
-            <li class="sidebar-item active">
-                <a class="sidebar-link" href="{{ route('backend_get_dashboard') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            <li class="sidebar-item">
+                <a class="sidebar-link" data-index="dashboard" data-href="{{ route('backend_get_dashboard') }}"
+                   href="#">
+                    <i class="fa-solid fa-chart-column"></i><span class="align-middle">Dashboard</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('backend_get_list_area') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Khu trọ</span>
+                <a class="sidebar-link" data-index="area" data-href="{{ route('backend_get_list_area') }}" href="#">
+                    <i class="fa-solid fa-house-user"></i><span class="align-middle">Khu trọ</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('backend_get_list_deposit') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Lịch sử đặt
+                <a class="sidebar-link" data-index="deposit" data-href="{{ route('backend_get_list_deposit') }}"
+                   href="#">
+                    <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch sử đặt
                         cọc</span>
                 </a>
             </li>
-         @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+            @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('list_role') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quyền</span>
+                    <a class="sidebar-link" data-index="role" data-href="{{ route('list_role') }}" href="#">
+                        <i class="fa-brands fa-critical-role"></i><span class="align-middle">Quyền</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('backend_user_getAll')}}">
-                        <i class="align-middle" data-feather="user"></i> <span
+                    <a class="sidebar-link" data-index="user" data-href="{{route('backend_user_getAll')}}" href="#">
+                        <i class="fa-solid fa-users"></i><span
                             class="align-middle">Tài khoản</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('backend_admin_get_list_plans')}}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Gói dịch vụ</span>
+                    <a class="sidebar-link" data-index="service" data-href="{{route('backend_admin_get_list_plans')}}"
+                       href="#">
+                        <i class="fa-solid fa-earth-asia"></i><span class="align-middle">Gói dịch vụ</span>
                     </a>
                 </li>
             @endif
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('backend_get_list_recharge')}}">
-                    <i class="align-middle" data-feather="sliders"></i> <span
+                <a class="sidebar-link" data-index="recharge" data-href="{{route('backend_get_list_recharge')}}"
+                   href="#">
+                    <i class="fa-solid fa-piggy-bank"></i><span
                         class="align-middle">Lịch sử nạp tiền</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route("admin.plan-history.list") }}">
-                    <i class="align-middle" data-feather="log-in"></i> <span
+                <a class="sidebar-link" data-index="plan"
+                   data-href="{{ route("admin.plan-history.list") }}"
+                   href="#">
+                    <i class="fa-solid fa-clock-rotate-left"></i><span
                         class="align-middle">Lịch sử giao dịch</span>
                 </a>
             </li>
@@ -59,3 +61,29 @@
         </ul>
     </div>
 </nav>
+<script !src="">
+    const a = document.querySelectorAll('.sidebar-link');
+    const li = document.querySelectorAll('.sidebar-item');
+
+    li.forEach(item => {
+        item.classList.remove('active');
+    })
+    const currentPage = localStorage.getItem('sidebar_active') ? localStorage.getItem('sidebar_active') : 'dashboard';
+    a.forEach(item => {
+        const {index} = item.dataset;
+        const {href} = item.dataset;
+        item.addEventListener('click', (e) => {
+            localStorage.setItem('sidebar_active', index);
+            document.location = href;
+        })
+
+
+        if (index === currentPage) {
+            const li = item.parentNode;
+
+            li.classList.add('active');
+        }
+    });
+
+
+</script>

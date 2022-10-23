@@ -152,7 +152,7 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{asset('assets/admin/img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1"
+                    <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}" class="avatar img-fluid rounded me-1"
                          alt="Charles Hall"/> <span
                         class="text-dark">{{\Illuminate\Support\Facades\Auth::user()->name ?? 'Tài khoản ảo'}}</span>
                 </a>
