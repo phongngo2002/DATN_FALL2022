@@ -31,8 +31,6 @@ class DepositController extends Controller
         $areas = new Deposit();
         $this->v['deposits'] = $areas->get_list_admin_deposit($request->all());
         $this->v['params'] = $request->all() ?? [];
-        if (!Auth::user()->is_admin) {
-            return view('admin.deposit.index', $this->v);
-        }
+        return view('admin.deposit.index', $this->v);
     }
 }

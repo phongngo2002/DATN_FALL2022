@@ -27,8 +27,6 @@ class PlanHistoryController extends Controller
         $planHistory = new PlanHistory();
         $this->v['extParams'] = $request->all();
         $this->v['plansHistory'] = $planHistory->LoadPlansHistoryWithPage($this->v['extParams']);
-        if (Auth::user()->is_admin == 0) {
-            return view("admin.plan-history.list", $this->v);
-        }
+        return view("admin.plan-history.list", $this->v);
     }
 }

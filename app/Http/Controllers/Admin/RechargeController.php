@@ -29,8 +29,6 @@ class RechargeController extends Controller
         $model = new Recharge();
         $this->v['recharges'] = $model->admin_get_list_recharges($request->all());
         $this->v['params'] = $request->all();
-        if (!Auth::user()->is_admin) {
-            return view('admin.recharge.index', $this->v);
-        }
+        return view('admin.recharge.index', $this->v);
     }
 }
