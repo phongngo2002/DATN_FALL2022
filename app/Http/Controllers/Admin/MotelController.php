@@ -29,7 +29,6 @@ class MotelController extends Controller
         
         $motel = new Motel();
         $this->v['motel'] = $motel->detailMotel($idMotel);
-       
         $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
 
         return view('admin.motels.detail', $this->v);
@@ -43,8 +42,6 @@ class MotelController extends Controller
     }
     public function saveUpdate(Request $request,$id){
        $modelMotel = new Motel();
-       
-       
        $data=[
         'room_number'=>$request->room_number,
         'price'=>$request->price,
