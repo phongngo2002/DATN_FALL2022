@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
         Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
+        Route::get('thong-tin-tai-khoan', 'App\Http\Controllers\Admin\DashboardController@profile')->name('backend_get_profile');
         // Lịch sửa mua gói dịch vụ
         Route::get('/lich-su-mua-goi', [PlanHistoryController::class, "index_plan_history"])->name("admin.plan-history.list");
         // Lịch sử đặt cọc
