@@ -13,8 +13,8 @@
         });
     </script>
     <form action="" method="POST" enctype="multipart/form-data">
-        <div style="display: grid !important;grid-template-columns: 10fr 1fr !important;gap: 12px">
-            <div class="bg-white p-4 shadow-lg rounded-4">
+        <div class="row" >
+            <div class="bg-white p-4 shadow-lg rounded-4 col-6">
                 <div class="mt-4">
                     <div class="row">
                         <div class="col-6">
@@ -68,10 +68,10 @@
                 </div>
                 <div class="mt-4">
                     <label for="">Mô tả</label>
-                    <textarea name="desc" id="desc" cols="30" rows="32" class="form-control"></textarea>
+                    <textarea name="desc" id="desc" cols="30" rows="20" class="form-control"></textarea>
                 </div>
             </div>
-            <div style="display: grid;grid-template-rows: 1fr 0.25fr;gap: 12px">
+            <div class="col-6">
                 <div class="bg-white p-4 shadow-lg rounded-4">
                     <div class="mt-4">
                         <div class="row">
@@ -105,7 +105,6 @@
                     <div id="drag-drop-area"></div>
                 </div>
                 @csrf
-
             </div>
         </div>
         <button class="btn btn-primary mt-4">Thêm mới</button>
