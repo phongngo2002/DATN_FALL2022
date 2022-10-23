@@ -25,8 +25,8 @@ class PlanHistoryController extends Controller
     public function index_plan_history(Request $request)
     {
         $planHistory = new PlanHistory();
-        $this->v['extParams'] = $request->all();
-        $this->v['plansHistory'] = $planHistory->LoadPlansHistoryWithPage($this->v['extParams']);
+        $this->v['params'] = $request->all();
+        $this->v['plansHistory'] = $planHistory->LoadPlansHistoryWithPage($this->v['params']);
         return view("admin.plan-history.list", $this->v);
     }
 }

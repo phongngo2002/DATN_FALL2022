@@ -35,17 +35,22 @@ class PlanHistory extends Model
 
     public function LoadPlansHistoryWithPage($params = [])
     {
+        $order_by = $params['order_by'] ?? 'desc';
+        $limit = $params['limit'] ?? 10;
         $plansHistory = DB::table('plans')
             ->select($this->fillable)
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
             ->join('users', 'areas.user_id', '=', 'users.id');
+        if (isset($params['name'])) {
+            $plansHistory = $plansHistory->Where('room_number', $params['name']);
+        }
         if (!Auth::user()->is_admin) {
             $plansHistory = $plansHistory->where('users.id', Auth::id());
         }
         return $plansHistory->where('plan_history.status', '>', 1)
-            ->get();
+            ->orderBy('plan_history.id', $order_by)->paginate($limit);
     }
 
 

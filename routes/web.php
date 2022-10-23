@@ -53,7 +53,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('lich-su-nap-tien')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\RechargeController@index_recharges')->name('backend_get_list_recharge');
         });
-
+        Route::prefix('nap-tien')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\RechargeController@get_form_recharge')->name('backend_get_form_recharge');
+        });
         // Chỉ chủ trọ
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index_areas')->name('backend_get_list_area');

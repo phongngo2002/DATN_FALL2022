@@ -31,4 +31,9 @@ class RechargeController extends Controller
         $this->v['params'] = $request->all();
         return view('admin.recharge.index', $this->v);
     }
+
+    public function get_form_recharge()
+    {
+        return view('admin.recharge.form', $this->v);
+    }
 }
