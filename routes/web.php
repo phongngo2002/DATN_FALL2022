@@ -106,6 +106,11 @@ Route::middleware(['auth'])->group(function () {
             Route::match(['get', 'post'], '/add', 'App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');
             Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@saveUpdate_users')->name('backend_user_update');
         });
+        Route::get('pay', 'App\Http\Controllers\PayPalPaymentController@pay')->name('make.payment');
+
+        Route::get('error', 'App\Http\Controllers\PayPalPaymentController@error')->name('cancel.payment');
+
+        Route::get('success', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
 });
 

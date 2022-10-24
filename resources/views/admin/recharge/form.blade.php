@@ -14,7 +14,6 @@
         }
 
 
-
         .card {
 
             border: none;
@@ -117,164 +116,124 @@
 
         }
     </style>
-        <div class="row g-3">
+    <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
+        @if ( Session::has('recharge_success') )
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <strong>{{ Session::get('recharge_success') }}</strong>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Đóng</span>
+                </button>
+            </div>
+        @endif
+        <?php //Hiển thị thông báo lỗi?>
+        @if ( Session::has('recharge_error') )
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong>{{ Session::get('recharge_error') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Đóng</span>
+                </button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+        @endif
+        <form action="{{route('make.payment')}}">
 
-            <div class="col-md-6">
 
-                <span>Phương thức thanh toán</span>
-                <div class="card">
+            <div class="row g-3">
 
-                    <div class="accordion" id="accordionExample">
+                <div class="col-md-6">
 
-                        <div class="card">
-                            <div class="card-header p-0" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button
-                                        class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
-                                        type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo">
-                                        <div class="d-flex align-items-center justify-content-between">
+                    <span>Phương thức thanh toán</span>
+                    <div class="card">
 
-                                            <span>Paypal</span>
-                                            <img src="https://i.imgur.com/7kQEsHU.png" width="30">
+                        <div class="accordion" id="accordionExample">
 
-                                        </div>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                 data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <input type="text" class="form-control" placeholder="Paypal email">
-                                    <input type="text" class="form-control my-4" placeholder="Số tiền nạp">
+                            <div class="card">
+                                <div class="card-header p-0" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button
+                                            class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
+                                            type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            <div class="d-flex align-items-center justify-content-between">
+
+                                                <span>Paypal</span>
+                                                <img src="https://i.imgur.com/7kQEsHU.png" width="30">
+
+                                            </div>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <div class="card-body">
+                                        <input type="text" class="form-control my-4" name="amount"
+                                               placeholder="Số tiền nạp">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header p-0">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-light btn-block text-left p-3 rounded-0"
-                                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                        <div class="d-flex align-items-center justify-content-between">
-
-                                            <span>Thẻ tìn dụng</span>
-                                            <div class="icons">
-                                                <img src="https://i.imgur.com/2ISgYja.png" width="30">
-                                                <img src="https://i.imgur.com/W1vtnOV.png" width="30">
-                                                <img src="https://i.imgur.com/35tC99g.png" width="30">
-                                                <img src="https://i.imgur.com/2ISgYja.png" width="30">
-                                            </div>
-
-                                        </div>
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                 data-parent="#accordionExample">
-                                <div class="card-body payment-card-body">
-
-                                    <span class="font-weight-normal card-text">Mã số thẻ</span>
-                                    <div class="input">
-
-                                        <i class="fa fa-credit-card"></i>
-                                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
-
-                                    </div>
-
-                                    <div class="row mt-3 mb-3">
-
-                                        <div class="col-md-6">
-
-                                            <span class="font-weight-normal card-text">Expiry Date</span>
-                                            <div class="input">
-
-                                                <i class="fa fa-calendar"></i>
-                                                <input type="text" class="form-control" placeholder="MM/YY">
-
-                                            </div>
-
-                                        </div>
 
 
-                                        <div class="col-md-6">
-
-                                            <span class="font-weight-normal card-text">CVC/CVV</span>
-                                            <div class="input">
-
-                                                <i class="fa fa-lock"></i>
-                                                <input type="text" class="form-control" placeholder="000">
-
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                    <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Giao dịch của bạn được bảo mật bằng chứng chỉ ssl</span>
-
-                                </div>
-                            </div>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="col-md-6">
+                    <span>Chi tiết</span>
 
-            <div class="col-md-6">
-                <span>Chi tiết</span>
+                    <div class="card">
 
-                <div class="card">
+                        <hr class="mt-0 line">
 
-                    <hr class="mt-0 line">
+                        <hr class="mt-0 line">
 
-                    <div class="p-3">
 
-                        <div class="d-flex justify-content-between mb-2">
+                        <div class="p-3 d-flex justify-content-between">
 
-                            <span>Thuế</span>
-                            <span>-13.000 VNĐ</span>
+                            <div class="d-flex flex-column">
 
-                        </div>
+                                <span>Số tiền nạp</span>
+                            </div>
+                            <span id="total">0 $</span>
 
-                        <div class="d-flex justify-content-between">
-
-                            <span>Vat <i class="fa fa-clock-o"></i></span>
-                            <span>-20%</span>
 
                         </div>
 
 
-                    </div>
-
-                    <hr class="mt-0 line">
-
-
-                    <div class="p-3 d-flex justify-content-between">
-
-                        <div class="d-flex flex-column">
-
-                            <span>Số tiền nạp</span>
+                        <div class="p-3">
+                            <button class="btn btn-primary btn-block free-button">Nạp tiền</button>
                         </div>
-                        <span>1.000.000 VNĐ</span>
 
 
                     </div>
-
-
-                    <div class="p-3">
-                        <button class="btn btn-primary btn-block free-button">Nạp tiền</button>
-                    </div>
-
-
                 </div>
+
             </div>
+        </form>
 
-        </div>
+        <script>
+            document.getElementsByName('amount')[0].addEventListener('keyup', (e) => {
+                if (e.target.value) {
+                    document.getElementById('total').innerText = e.target.value + ' $';
+                } else {
+                    document.getElementById('total').innerText = 0 + ' $';
+                }
 
+
+            })
+        </script>
 @endsection

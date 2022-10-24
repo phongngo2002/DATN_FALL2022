@@ -11,11 +11,13 @@
                     <i class="fa-solid fa-chart-column"></i><span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" data-index="area" data-href="{{ route('backend_get_list_area') }}" href="#">
-                    <i class="fa-solid fa-house-user"></i><span class="align-middle">Khu trọ</span>
-                </a>
-            </li>
+            @if(!\Illuminate\Support\Facades\Auth::user()->is_admin)
+                <li class="sidebar-item">
+                    <a class="sidebar-link" data-index="area" data-href="{{ route('backend_get_list_area') }}" href="#">
+                        <i class="fa-solid fa-house-user"></i><span class="align-middle">Khu trọ</span>
+                    </a>
+                </li>
+            @endif
             <li class="sidebar-item">
                 <a class="sidebar-link" data-index="deposit" data-href="{{ route('backend_get_list_deposit') }}"
                    href="#">

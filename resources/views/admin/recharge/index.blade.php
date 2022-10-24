@@ -67,14 +67,14 @@
                 <td>{{$item->name}}</td>
                 <td>
                     @if($item->payment_type)
-                        <span class="text-success font-weight-bold">Chuyển khoán</span>
+                        <span class="text-primary font-weight-bold">PayPal</span>
                     @elseif($item->payment_type == 2)
                         <span class="text-info font-weight-bold">Tiền mặt</span>
                     @endif
                 </td>
-                <td>{{$item->value}}</td>
+                <td>{{$item->value}} $</td>
                 <td><span
-                        class="text-success mx-1">+{{$item->value/1000}}</span><i
+                        class="text-success mx-1">+{{$item->value * 24.855}}</span><i
                         class="fa-brands fa-bitcoin text-warning"></i></td>
                 <td>
                     @if($item->tt)
