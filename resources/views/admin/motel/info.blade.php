@@ -122,9 +122,11 @@
        class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
     <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
        class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
-            class="btn btn-dark my-2">Xuất hóa đơn
-    </button>
+    @if(!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id',$params['motel_id'])->first()->start_time)
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                class="btn btn-dark my-2">Xuất hóa đơn
+        </button>
+    @endif
     <div class="bg-white p-4 shadow-md rounded-4 my-4">
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
@@ -208,30 +210,32 @@
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xuất hóa hơn</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xuất hóa hơn</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
-                            <input type="date" name="start_time" class="form-control">
+                            <input type="date" name="start_time"
+                                   class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
-                            <input type="date" name="end_time" class="form-control">
+                            <input type="date" name="end_time"
+                                   class="form-control">
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Xuất hóa đơn</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Xuất hóa đơn</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
     <script>
