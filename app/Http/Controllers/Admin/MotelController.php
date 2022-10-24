@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
+use App\Models\PrintPdf;
 use App\Models\User;
 use App\Models\UserMotel;
 use Carbon\Carbon;
@@ -256,5 +257,17 @@ class MotelController extends Controller
         $this->v['histories'] = $model->historyMotel($idMotel);
         $this->v['id'] = [$id, $idMotel];
         return view('admin.motel.history', $this->v);
+    }
+
+    public function print(Request $request, $motelId)
+    {
+        Motel::where('id', $motelId)->update([
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time
+        ]);
+        $model = new PrintPdf();;
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
+        return $pdf->stream();
     }
 }

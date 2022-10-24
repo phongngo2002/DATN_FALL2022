@@ -194,6 +194,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

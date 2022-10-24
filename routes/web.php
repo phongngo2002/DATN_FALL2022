@@ -68,6 +68,8 @@ Route::middleware(['auth'])->group(function () {
 
         // Quản lý phòng trọ
         Route::prefix('phong-tro')->group(function () {
+            Route::post('{motelId}/xuat-hoa-don', [MotelController::class, "print"])->name("admin.print.motel");
+
             Route::get('{id}/{idMotel}/lich-su-thue', [MotelController::class, "history_motel"])->name("admin.motel.history");
             Route::get('{id}', [MotelController::class, "index_motels"])->name("admin.motel.list");
             Route::get('{id}/create', [MotelController::class, "add_motels"])->name("admin.motel.create");
