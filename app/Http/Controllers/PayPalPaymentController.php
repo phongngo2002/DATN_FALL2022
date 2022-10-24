@@ -16,16 +16,21 @@ use PHPUnit\Exception;
 class PayPalPaymentController extends Controller
 
 {
-
     private $gateway;
 
     public function __construct()
     {
-        $this->gateway = Omnipay::create('PayPal_Rest');
-        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-        $this->gateway->setTestMode(true);
+        $gateway1 = Omnipay::create('PayPal_Express');
+//        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
+//        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
+//        $this->gateway->setTestMode(true);
 
+        $gateway1->setUsername('sb-vpcms21975520_api1.business.example.com');
+        $gateway1->setPassword('YSJASYLTR44CMXST');
+        $gateway1->setSignature('AIsNObN1SyNNjqJjWf1oEu4qD6WYAAFzyPYHt.2lRLj4X8fj6L4UgBhX');
+        $gateway1->setTestMode(true);
+
+        $this->gateway = $gateway1;
     }
 
     public function pay(Request $request)
