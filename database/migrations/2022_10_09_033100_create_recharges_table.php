@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->integer('status');
             $table->string('note');
             $table->float('value', 11, 3);
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 
