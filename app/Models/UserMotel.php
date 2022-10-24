@@ -32,4 +32,13 @@ class UserMotel extends Model
 
         return 1;
     }
+
+    public function historyMotel($motel_id)
+    {
+        return DB::table($this->table)
+            ->select(['name', 'email', 'phone_number', 'user_motel.status as tt', 'user_motel.start_time as bd', 'user_motel.end_time as kt'])
+            ->join('users', 'user_motel.user_id', '=', 'users.id')
+            ->where('motel_id', $motel_id)
+            ->paginate(10);
+    }
 }

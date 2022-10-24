@@ -85,7 +85,7 @@
                 <th class="">Họ tên</th>
                 <th class="">Email</th>
                 <th class="">Số điện thoại</th>
-                <th class="">Tiền</th>
+                <th class="">Xu</th>
                 <th class="">Ảnh đại diện</th>
                 <th class="">Quyền</th>
                 <th class="">Chức năng</th>
@@ -98,7 +98,8 @@
                     <td class="">{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$user->name) : $user->name!!}</td>
                     <td class="">{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$user->email) : $user->email!!}</td>
                     <td class="">{{$user->phone_number}}</td>
-                    <td class=""><span>{{number_format($user->money,0,'','.')}}</span></td>
+                    <td class=""><span>{{number_format($user->money,0,'','.')}} <i
+                                class="fa-brands fa-bitcoin text-warning"></i></span></td>
                     <td class="">
                         <img src="{{$user->avatar}}" alt="" width="100px">
                     </td>

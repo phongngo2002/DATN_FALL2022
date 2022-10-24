@@ -60,7 +60,7 @@ class Motel extends Model
     public function detailMotel($idMotel)
     {
         $motel = DB::table($this->table)
-            ->select(['room_number','price','services','end_time','max_people','address','description'])
+            ->select(['room_number', 'price', 'services', 'end_time', 'max_people', 'address', 'description'])
             ->join('areas', 'areas.id', '=', "motels.area_id")
             ->where('motels.id', $idMotel)->first();
         return $motel;
@@ -104,4 +104,6 @@ class Motel extends Model
             ->orderBy('contact_motel_history.created_at', 'desc')
             ->paginate(10);
     }
+
+
 }

@@ -249,12 +249,12 @@ class MotelController extends Controller
         return view('admin.motel.list_contact_motel', $this->v);
     }
 
-//    public function add_Motels()
-//    {
-//        $modelArea = new Area();
-//        $area = $modelArea->getAll();
-//        return view('admin.motels.add', [
-//            'area' => $area
-//        ]);
-//    }
+    public function history_motel($id, $idMotel)
+    {
+        $model = new UserMotel();
+
+        $this->v['histories'] = $model->historyMotel($idMotel);
+        $this->v['id'] = [$id, $idMotel];
+        return view('admin.motel.history', $this->v);
+    }
 }

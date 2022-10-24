@@ -68,10 +68,12 @@ Route::middleware(['auth'])->group(function () {
 
         // Quản lý phòng trọ
         Route::prefix('phong-tro')->group(function () {
+            Route::get('{id}/{idMotel}/lich-su-thue', [MotelController::class, "history_motel"])->name("admin.motel.history");
             Route::get('{id}', [MotelController::class, "index_motels"])->name("admin.motel.list");
             Route::get('{id}/create', [MotelController::class, "add_motels"])->name("admin.motel.create");
             Route::post('{id}/create', [MotelController::class, "saveAdd_motels"])->name("admin.motel.store");
             Route::get('{id}/{idMotel}', [MotelController::class, "detail"])->name("admin.motel.detail");
+
             Route::get('{id}/{idMotel}/chi-tiet', [MotelController::class, "info_user_motels"])->name("admin.motel.info");
             Route::post('{id}/{idMotel}/chi-tiet', [MotelController::class, "add_peolpe_of_motels"])->name("admin.motel.add_people");
             Route::get('{id}/{idMotel}/dang-tin', [MotelController::class, "create_post_motels"])->name("admin.motel.post");

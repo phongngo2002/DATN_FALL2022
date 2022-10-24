@@ -120,6 +120,10 @@
        class="btn btn-primary my-2">Đăng tin</a>
     <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
        class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+    <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+       class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+    <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+       class="btn btn-dark my-2">Xuất hóa đơn</a>
     <div class="bg-white p-4 shadow-md rounded-4 my-4">
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
