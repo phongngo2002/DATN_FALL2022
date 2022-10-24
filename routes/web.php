@@ -114,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('error', 'App\Http\Controllers\PayPalPaymentController@error')->name('cancel.payment');
 
-        Route::get('success', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
+        Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
 });
 

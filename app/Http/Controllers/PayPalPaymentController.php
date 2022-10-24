@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Faker\Provider\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 use Omnipay\Omnipay;
 use PHPUnit\Exception;
 
@@ -36,13 +38,15 @@ class PayPalPaymentController extends Controller
     public function pay(Request $request)
     {
         try {
+            $payment = Recharge::insertGetId([
+                'value' => $request->input('amount')
+            ]);
             $response = $this->gateway->purchase(array(
-                'amount' => $request->amount,
+                'amount' => $request->input('amount'),
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => route('success.payment'),
+                'returnUrl' => route('success.payment', ['id' => $payment]),
                 'cancelUrl' => route('cancel.payment')
             ))->send();
-
             if ($response->isRedirect()) {
                 $response->redirect();
             } else {
@@ -54,30 +58,28 @@ class PayPalPaymentController extends Controller
         }
     }
 
-    public function success(Request $request)
+    public function success(Request $request, $id)
     {
-        if ($request->input('paymentId') && $request->input('PayerID')) {
+        $payment = Recharge::find($id);
+        if ($request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id' => $request->input('PayerID'),
-                'transactionReference' => $request->input('paymentId')
+                'amount' => Recharge::find($id)->value
             ));
-
             $response = $transaction->send();
 
             if ($response->isSuccessful()) {
                 $arr = $response->getData();
                 $time = Carbon::now();
-                $payment = new Recharge();
 
                 $payment->user_id = Auth::id();
                 $payment->date = $time;
-                $payment->recharge_code = $arr['id'];
+                $payment->recharge_code = $request->input('PayerID') . '-' . Random::generate(5);
                 $payment->payment_type = 1;
                 $payment->note = 'Nap tien ' . $time->format('H:i d/m/Y');
-                $payment->value = $arr['transactions'][0]['amount']['total'];
                 $payment->save();
 
-                $money = 24.855 * $arr['transactions'][0]['amount']['total'];
+                $money = 24.855 * $payment->value;
 
                 $user = User::find(Auth::id());
 
