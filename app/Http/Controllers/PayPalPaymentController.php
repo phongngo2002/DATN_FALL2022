@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Omnipay\Omnipay;
 use PHPUnit\Exception;
+use Nette\Utils\Random;
 use App\Models\Recharge;
 use Faker\Provider\Payment;
 use Illuminate\Http\Request;
@@ -20,10 +21,15 @@ class PayPalPaymentController extends Controller
 
     public function __construct()
     {
-        $this->gateway = Omnipay::create('PayPal_Rest');
-        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-        $this->gateway->setTestMode(true);
+        $gateway1 = Omnipay::create('PayPal_Express');
+
+
+        $gateway1->setUsername('sb-mu6jw21994813_api1.business.example.com');
+        $gateway1->setPassword('A7LMCN2WVW34GBBU');
+        $gateway1->setSignature('A8XXPo0CmklE67u1JvC3Vw9ivgguASbN-XATaT6BU6cQpTrNvt-7.Rsj');
+        $gateway1->setTestMode(true);
+
+        $this->gateway = $gateway1;
     }
 
     public function pay(Request $request)
