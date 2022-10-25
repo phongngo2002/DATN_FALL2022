@@ -76,6 +76,7 @@ class PayPalPaymentController extends Controller
                 $payment->date = $time;
                 $payment->recharge_code = $request->input('PayerID') . '-' . Random::generate(5);
                 $payment->payment_type = 1;
+                $payment->status = 1;
                 $payment->note = 'Nap tien ' . $time->format('H:i d/m/Y');
                 $payment->save();
 

@@ -3,8 +3,10 @@
         <div class="sidebar-header"><img src="{{asset('assets/client/images/logo-blue.svg')}}"
                                          alt="header-logo2.png"></div>
         <div class="header clearfix">
-            <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj'}}" alt="avatar"
-                 class="img-fluid profile-img">
+            <img
+                src="{{\Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj'}}"
+                alt="avatar"
+                class="img-fluid profile-img">
         </div>
         <div class="active-user">
             <h2>    {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
@@ -44,7 +46,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="index.html">
+                    <a href="{{route('logout')}}">
                         <i class="fas fa-sign-out-alt"></i>Đăng xuất
                     </a>
                 </li>
