@@ -39,7 +39,7 @@ class Motel extends Model
 
         $motels = DB::table($this->table)
             ->select($this->fillable)
-            ->where('category_id', $id);
+            ->where('area_id', $id);
 
         if ($params['name']) {
             $motels->where('name', 'like', '%' . $params['name'] . '%');
@@ -49,14 +49,29 @@ class Motel extends Model
             ->paginate($params['limit']);
     }
     
-    public function saveNew($data){
-        $res = DB::table($this->table)->insertGetId($data);
-        return $res;
+    public function createMotel($data = [])
+    {
+        $query = DB::table($this->table)->insert([
+            'room_number' => $data['room_number'],
+            'price' => $data['price'],
+            'area' => $data['area'],
+            'area_id' => $data['area_id'],
+            'description' => $data['desc'],
+            'image_360' => $data['image360'],
+            'photo_gallery' => $data['img'],
+            'services' => $data['service'],
+            'max_people' => $data['max_people'],
+            'status' => 1,
+            'start_time'=>now()->toDateTimeString(),
+            'category_id'=>$data['category_id']
+            
+        ]);
+        return 1;
     }
-    public function saveUpdate_motel($data, $id){
+    public function saveUpdate_motels($data, $id){
         return DB::table('motels')->where('id',$id)->update($data);
     }
-    public function detailMotel($idMotel)
+    public function detail_motels($idMotel)
     {   $this->fillable[]="motels.id";
         $this->fillable[] = "areas.name as areaName";
         $this->fillable[] = "categories.name as categoryName";
@@ -65,6 +80,7 @@ class Motel extends Model
             ->join('categories', 'motels.category_id', 'categories.id')
             ->select($this->fillable)
             ->where('motels.id', $idMotel)->first();
+          
         return $motel;
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Category;
 use App\Models\Motel;
 use Illuminate\Http\Request;
 
@@ -15,32 +16,63 @@ class MotelController extends Controller
     {
         $this->v = [];
     }
-
-    public function list($id, Request $request){
+    
+    
+    public function index_motels($id, Request $request){
         $motel = new Motel();
         $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
-        $this->v['idCate'] = $id;
+        $this->v['idArea'] = $id;
         $this->v['params'] = $request->all() ?? [];
         // dd($this->v['params']);
         return view('admin.motels.list', $this->v);
     }
 
-    public function detail($idMotel){
+    public function detail_motels($id,$idMotel){
         
         $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($idMotel);
+        $this->v['motel'] = $motel->detail_motels($idMotel);
         $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
 
         return view('admin.motels.detail', $this->v);
     }
-    public function add_Motels(){
-        $modelArea = new Area();
-        $area = $modelArea->getAll() ;
+    public function add_motels($id){
+       $category = new Category();
+       $res =  $category->getAll();
+    
         return view('admin.motels.add',[
-            'area'=>$area
+            'id'=>$id,
+            'category'=>$res
         ]);
     }
-    public function saveUpdate(Request $request,$id){
+    public function saveAdd_motels(Request $request, $id)
+    {
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+
+            return $item;
+        }, $request->all());
+
+        unset($params['cols']['_token']);
+        $params['cols']['service'] = json_encode([
+            'bed' => $request->bed,
+            'bedroom' => $request->bedroom,
+            'toilet' => $request->toilet,
+            'more' => $request->service_more,
+            'actor' => $request->actor
+        ]);
+        $params['cols']['area_id'] = $request->id;
+        $model = new Motel();
+       
+        $result = $model->createMotel($params['cols']);
+       
+        return redirect()->route('admin.motel.list', ['id' => $id]);
+    }
+    public function saveUpdate_motels(Request $request,$id){
        $modelMotel = new Motel();
        $data=[
         'room_number'=>$request->room_number,
@@ -53,10 +85,10 @@ class MotelController extends Controller
         'updated_at'=>date('Y-m-d H:i:s')
        ];
        
-       $modelMotel->saveUpdate_motel($data,$request->id);
+       $modelMotel->saveUpdate_motels($data,$request->id);
        return redirect()->route('admin.motel.list',$id)->with('msg','Cập nhật quyền thành công');
     }
-    public function delete_motel($id,$idMotel){
+    public function delete_motels($id,$idMotel){
        
         if(!empty($idMotel)){
             $modelMotel = new Motel();            

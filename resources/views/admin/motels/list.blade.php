@@ -72,10 +72,10 @@
                             <td class="d-none d-md-table-cell">{{ $motel->max_people }}</td>
                             <td><span class="badge bg-success">{{ $motel->status }}</span></td>
                             <td class="d-none d-md-table-cell" colspan="2">
-                                <a href="{{ route('admin.motel.detail', [$idCate, $motel->id]) }}" class="btn btn-info">
+                                <a href="{{ route('admin.motel.detail', [$idArea, $motel->id]) }}" class="btn btn-info">
                                     Cập nhật
                                 </a>
-                                <a href="{{ route('admin.motel.delete', [$idCate, $motel->id]) }}" class="btn btn-danger" onclick="myFunction()">
+                                <a href="{{ route('admin.motel.delete', [$idArea, $motel->id]) }}" class="btn btn-danger" onclick="myFunction()">
                                     Xóa
                                 </a>
                             </td>
