@@ -124,3 +124,4 @@ Route::get('/403', function () {
 
 
 
+Route::get('/', 'App\Http\Controllers\Client\HomeController@index');
