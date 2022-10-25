@@ -76,7 +76,8 @@
                                     {{--                                    @php dd(app('captcha')) @endphp--}}
 
                                     <div class="text-center mt-3">
-                                        <button class="btn btn-lg btn-primary">Đăng nhập</button>
+                                        <a href="{{route('home')}}" class="btn btn-success">Về trang chủ</a>
+                                        <button class="btn btn-primary">Đăng nhập</button>
                                         <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                     </div>
                                 </form>
@@ -121,7 +122,7 @@
 
     });
 </script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (\Illuminate\Support\Facades\Session::has('failed'))
     <script>
