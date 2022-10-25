@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\RoleController;
 
 //  route crud quản lý các gói dịc vụ
 // end quản lý các gói dịch vụ
+Route::get('/', 'App\Http\Controllers\Client\HomeController@index')->name('home');
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
 Route::post('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@postLogin')->name('post_login');
@@ -32,12 +33,8 @@ Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passw
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
 
-Route::get('/', function () {
-    return view('test', []);
-})->name('home');
-
 Route::middleware(['auth'])->group(function () {
-
+    Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
@@ -123,5 +120,3 @@ Route::get('/403', function () {
 })->name('403');
 
 
-
-Route::get('/', 'App\Http\Controllers\Client\HomeController@index');

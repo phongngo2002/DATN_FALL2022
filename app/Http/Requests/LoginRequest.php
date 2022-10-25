@@ -39,7 +39,7 @@ class LoginRequest extends FormRequest
                     case 'getCodeForgotPassword':
                         $rules = [
                             'email' => 'required|email',
-                            'g-recaptcha-response' => 'required|recaptcha'
+                            'g-recaptcha-response' => 'required'
                         ];
                         break;
                     case 'postCodeConfirmAcc':

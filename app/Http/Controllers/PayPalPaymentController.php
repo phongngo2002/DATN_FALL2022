@@ -87,12 +87,25 @@ class PayPalPaymentController extends Controller
 
                 $user->save();
 
-                return redirect()->route('backend_get_form_recharge')->with('recharge_success', 'Nạp tiền thành công');
+                if (Auth::user()->role_id !== 3) {
+                    return redirect()->route('backend_get_form_recharge')->with('recharge_success', 'Nạp tiền thành công');
+                } else {
+                    return redirect()->route('getRecharge')->with('recharge_success', 'Nạp tiền thành công');
+                }
             } else {
-                return redirect()->route('backend_get_form_recharge')->with('recharge_error', 'Nạp tiền thất bại');
+                if (Auth::user()->role_id !== 3) {
+                    return redirect()->route('backend_get_form_recharge')->with('recharge_error', 'Nạp tiền thất bại');
+                } else {
+                    return redirect()->route('getRecharge')->with('recharge_error', 'Nạp tiền thất bại');
+                }
+
             }
         } else {
-            return redirect()->route('backend_get_form_recharge')->with('recharge_error', 'Nạp tiền thất bại');
+            if (Auth::user()->role_id !== 3) {
+                return redirect()->route('backend_get_form_recharge')->with('recharge_error', 'Nạp tiền thất bại');
+            } else {
+                return redirect()->route('getRecharge')->with('recharge_error', 'Nạp tiền thất bại');
+            }
         }
     }
 

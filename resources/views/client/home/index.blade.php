@@ -56,7 +56,7 @@
                                                     </div>
                                                     <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
                                                         <span>Advanced Search</span></div>
-                                                    <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
+                                                    <div class="pl-0">
                                                         <a class="btn btn-yellow" href="#">Search Now</a>
                                                     </div>
                                                     <div
