@@ -6,7 +6,7 @@
 @section('content')
     <form action="" class="my-4">
         <div class="row">
-            <div class="col-5">
+            <div class="col-4">
                 <input class="form-control" name="name"
                     value="{{ isset($params['email']) && $params['email'] ? $params['email'] : '' }}"
                     placeholder="Tìm kiếm theo email">
@@ -40,58 +40,15 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2 d-flex">
-                <button class="btn btn-primary">Tìm kiếm</button>
+            <div class="col-3 d-flex">
+                <button class="btn btn-primary mr-2">Tìm kiếm</button>
                 <a class="btn btn-danger" href="{{ route('backend_get_list_recharge') }}">Bỏ chọn</a>
             </div>
         </div>
     </form>
     <table class="table text-center">
-        <thead>
-<<<<<<< HEAD
-        <tr>
-            <th>Mã giao dịch</th>
-            <th>Email</th>
-            <th>Họ tên</th>
-            <th>Phương thức</th>
-            <th>Số tiền</th>
-            <th>Số xu nhận đc</th>
-            <th>Trạng thái</th>
-            <th>Ghi chú</th>
-            <th>Thời gian</th>
-        </tr>
-        </thead>
+
         <tbody>
-        @foreach($recharges as $item)
-            <tr>
-                <td>#{{$item->recharge_code}}</td>
-                <td>{{$item->email}}</td>
-                <td>{{$item->name}}</td>
-                <td>
-                    @if($item->payment_type)
-                        <span class="text-primary font-weight-bold">PayPal</span>
-                    @elseif($item->payment_type == 2)
-                        <span class="text-info font-weight-bold">Tiền mặt</span>
-                    @endif
-                </td>
-                <td>{{$item->value}} $</td>
-                <td><span
-                        class="text-success mx-1">+{{$item->value * 24.855}}</span><i
-                        class="fa-brands fa-bitcoin text-warning"></i></td>
-                <td>
-                    @if($item->tt)
-                        <span class="badge text-bg-success text-light p-2">Thành công</span>
-                    @elseif($item->tt == 2)
-                        <span class="badge text-bg-warning text-light p-2">Chờ xử lý</span>
-                    @elseif($item->tt == 3)
-                        <span class="badge text-bg-danger text-light p-2">Hoàn tiền</span>
-                    @endif
-                </td>
-                <td>{{$item->note}}</td>
-                <td>{{\Carbon\Carbon::parse($item->date)->format('d/m/Y H:i:s')}}</td>
-            </tr>
-        @endforeach
-=======
             <tr>
                 <th>Mã giao dịch</th>
                 <th>Email</th>
@@ -103,7 +60,7 @@
                 <th>Ghi chú</th>
                 <th>Thời gian</th>
             </tr>
-        </thead>
+            </thead>
         <tbody>
             @foreach ($recharges as $item)
                 <tr>
@@ -132,7 +89,9 @@
                     <td>{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y H:i:s') }}</td>
                 </tr>
             @endforeach
->>>>>>> 0221aad (index)
+            <<<<<<< HEAD>>>>>>> 0221aad (index)
+                =======
+                >>>>>>> 10fa816 (first commit)
         </tbody>
     </table>
     {{ $recharges->links() }}
