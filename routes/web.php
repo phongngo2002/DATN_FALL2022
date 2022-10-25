@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
+Route::get('/', 'App\Http\Controllers\Client\HomeController@index');
