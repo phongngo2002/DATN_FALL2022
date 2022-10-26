@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('desc');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->integer('parent_id');
             $table->timestamps();
         });
