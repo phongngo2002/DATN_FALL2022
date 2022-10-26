@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->dateTime('date');
             $table->string('recharge_code');
             $table->integer('payment_type');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->string('note');
             $table->float('value', 11, 3);
             $table->timestamps();
