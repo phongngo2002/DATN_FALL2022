@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\RoleController;
 //  route crud quản lý các gói dịc vụ
 // end quản lý các gói dịch vụ
 Route::get('/', 'App\Http\Controllers\Client\HomeController@index')->name('home');
+Route::get('/test', function () {
+    return view('test');
+});
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
 Route::post('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@postLogin')->name('post_login');
