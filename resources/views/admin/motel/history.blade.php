@@ -2,7 +2,7 @@
 
 @section('title_page', 'Lịch sử thuê phòng')
 @section('content')
-    <div class="">
+    <div class="bg-white shadow-lg p-4 rounded-4">
         <table class="table text-center">
             <thead>
             <tr>
@@ -35,7 +35,8 @@
             @endforeach
             </tbody>
         </table>
+        {{$histories->links()}}
+        <a href="{{route('admin.motel.info',['id' => $id[0],'idMotel' => $id[1]])}}" class="btn btn-success">Quay lại</a>
     </div>
-    {{$histories->links()}}
-    <a href="{{route('admin.motel.info',['id' => $id[0],'idMotel' => $id[1]])}}" class="btn btn-success">Quay lại</a>
+
 @endsection

@@ -3,9 +3,10 @@
 @section('title_page', 'Danh sách phòng trọ')
 
 @section('content')
+    <div class="bg-white shadow-lg p-4 rounded-4">
     <form action="" class="my-4">
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
                 <input class="form-control" name="name" value="{{ $params['name'] ?? '' }}"
                        placeholder="Tìm kiếm theo tên phòng trọ">
             </div>
@@ -41,9 +42,10 @@
                     </option>
                 </select>
             </div>
-            <div class="col-3 row">
-                <button class="btn btn-primary col-5 me-3">Tìm kiếm</button>
-                <a class="btn btn-danger col-5" href="{{route('admin.motel.list',['id' => 1])}}">Bỏ chọn</a>
+            <div class="col-4">
+                <button class="btn btn-primary">Tìm kiếm</button>
+                <a class="btn btn-danger" href="{{route('admin.motel.list',['id' => 1])}}">Bỏ chọn</a>
+                <a href="{{route('admin.motel.create',['id' => $id])}}" class="btn btn-secondary"><i class="fa-solid fa-folder-plus"></i>  Thêm mới</a>
             </div>
         </div>
     </form>
@@ -55,7 +57,7 @@
             <th class="">Price</th>
             <th>Max people</th>
             <th>Status</th>
-            <th class=""><a href="{{route('admin.motel.create',['id' => $id])}}">Thêm mới</a></th>
+            <th class="">Chức năng</th>
         </tr>
         </thead>
         <tbody>
@@ -80,16 +82,15 @@
                     </td>
                     <td class="">
                         <a class="btn btn-info"
-                           href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}">Chi
-                            tiết</a>
+                           href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}"><i class="fa-solid fa-circle-info"></i></a>
                         <a href="{{ route('admin.motel.detail', [$motel->area_id, $motel->id]) }}"
                            class="btn btn-warning">
-                            Sửa
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <button class="btn btn-danger "
                                 {{$motel->status == 2 ? 'disabled' : ''}}>
                             <a
-                                href=""  onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')" class="text-white">Xóa</a></button>
+                                href=""  onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')" class="text-white"><i class="fa-solid fa-trash"></i></a></button>
                     </td>
                 </tr>
             @endforeach
@@ -98,4 +99,5 @@
         </tbody>
     </table>
     {{ $motels->links() }}
+    </div>
 @endsection

@@ -4,6 +4,7 @@
 @section('title_page','Lịch sử nạp tiền')
 
 @section('content')
+    <div class="bg-white shadow-lg p-4 rounded-4">
     <form action="" class="my-4">
         <div class="row">
             <div class="col-5">
@@ -92,4 +93,5 @@
         </tbody>
     </table>
     {{$recharges->links()}}
+    </div>
 @endsection

@@ -4,6 +4,7 @@
 @section('title_page','Lịch sử đặt cọc phòng trọ')
 
 @section('content')
+    <div class="bg-white shadow-lg p-4 rounded-4">
     <form action="" class="my-4">
         <div class="row">
             <div class="col-5">
@@ -39,7 +40,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <button class="btn btn-primary">Tìm kiếm</button>
                 <a class="btn btn-danger" href="{{route('backend_get_list_deposit')}}">Bỏ chọn</a>
             </div>
@@ -83,4 +84,5 @@
         </tbody>
     </table>
     {{$deposits->links()}}
+    </div>
 @endsection

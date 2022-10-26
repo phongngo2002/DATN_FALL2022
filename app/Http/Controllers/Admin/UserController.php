@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function index_users(UserRequest $request)
     {
-        $this->v['title'] = "List user";
+        $this->v['title'] = "Danh sách tài khoản";
         $objUser = new User();
         $this->v['users'] = $objUser->getAll($request->all());
         $this->v['params'] = $request->all() ?? [];

@@ -3,6 +3,7 @@
 @section('title_page', 'Lịch sử giao dịch')
 
 @section('content')
+    <div class="bg-white shadow-lg p-4 rounded-4">
     <form action="" class="my-4">
         <div class="row">
             <div class="col-3">
@@ -41,9 +42,9 @@
                     </option>
                 </select>
             </div>
-            <div class="col-3 row">
-                <button class="btn btn-primary col-5 me-3">Tìm kiếm</button>
-                <a class="btn btn-danger col-5" href="{{route('admin.plan-history.list')}}">Bỏ chọn</a>
+            <div class="col-5">
+                <button class="btn btn-primary">Tìm kiếm</button>
+                <a class="btn btn-danger" href="{{route('admin.plan-history.list')}}">Bỏ chọn</a>
             </div>
         </div>
     </form>
@@ -325,4 +326,5 @@
             });
         });
     </script>
+    </div>
 @endsection

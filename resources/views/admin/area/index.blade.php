@@ -4,6 +4,7 @@
 @section('title_page','Danh sách khu trọ')
 
 @section('content')
+    <div class="bg-white shadow-lg p-4 rounded-4">
     <form action="" class="my-4">
         <div class="row">
             <div class="col-3">
@@ -42,7 +43,7 @@
             <div class="col-4">
                 <button class="btn btn-primary">Tìm kiếm</button>
                 <a class="btn btn-danger" href="{{route('backend_get_list_area')}}">Bỏ chọn</a>
-                <a href="{{route('backend_get_create_area')}}" class="btn btn-secondary">Thêm mới</a>
+                <a href="{{route('backend_get_create_area')}}" class="btn btn-secondary"><i class="fa-solid fa-folder-plus"></i>  Thêm mới</a>
             </div>
         </div>
     </form>
@@ -62,10 +63,10 @@
                 <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$area->name) :  $area->name!!}</td>
                 <td>{{$area->address}}</td>
                 <td>
-                    <a href="{{route('admin.motel.list',['id' => $area->id])}}" class="btn btn-info">Chi tiết</a>
-                    <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning">Sửa</a>
+                    <a href="{{route('admin.motel.list',['id' => $area->id])}}" class="btn btn-info"><i class="fa-solid fa-circle-info"></i></a>
+                    <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{route('backend_delete_area',['id' => $area->id])}}"
-                       onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger">Xóa</a>
+                       onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -73,4 +74,5 @@
         </tbody>
     </table>
     {{$areas->links()}}
+    </div>
 @endsection
