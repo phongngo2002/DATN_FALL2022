@@ -24,7 +24,8 @@ class Motel extends Model
         "max_people",
         "start_time",
         "end_time",
-        "category_id"
+        "category_id",
+        "video"
     ];
 
     protected $table = "motels";
@@ -68,7 +69,7 @@ class Motel extends Model
         ]);
         return 1;
     }
-    public function saveUpdate_motels($data, $id){
+    public function saveUpdate_motels($data=[], $id){
         return DB::table('motels')->where('id',$id)->update($data);
     }
     public function detail_motels($idMotel)
@@ -80,7 +81,6 @@ class Motel extends Model
             ->join('categories', 'motels.category_id', 'categories.id')
             ->select($this->fillable)
             ->where('motels.id', $idMotel)->first();
-          
         return $motel;
     }
 

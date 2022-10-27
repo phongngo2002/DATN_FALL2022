@@ -4,6 +4,8 @@
 
 @section('content')
     <div class="row">
+        <h5 class="card-title mb-0"> <a class="badge bg-success text-white ms-2"
+            href="{{ route('admin.motel.add',$idArea) }}">Thêm mới </a></h5>
         <form action="" class="my-4">
             <div class="row">
                 <div class="col-3">
@@ -72,7 +74,7 @@
                             <td class="d-none d-md-table-cell">{{ $motel->max_people }}</td>
                             <td><span class="badge bg-success">{{ $motel->status }}</span></td>
                             <td class="d-none d-md-table-cell" colspan="2">
-                                <a href="{{ route('admin.motel.detail', [$idArea, $motel->id]) }}" class="btn btn-info">
+                                <a href="{{ route('admin.motel.edit', [$idArea, $motel->id]) }}" class="btn btn-info">
                                     Cập nhật
                                 </a>
                                 <a href="{{ route('admin.motel.delete', [$idArea, $motel->id]) }}" class="btn btn-danger" onclick="myFunction()">

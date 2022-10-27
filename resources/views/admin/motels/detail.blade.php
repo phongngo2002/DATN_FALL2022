@@ -47,7 +47,7 @@
                     <div class="my-2">
                         <label for="">Thư viện ảnh</label>
                         <div class="row" id="photo_preview">
-                            @foreach (json_decode($motel->photo_gallery) as $key => $value)
+                            @foreach (json_decode($photo_gallery) as $key => $value)
                                 <div class="col-4 mt-1" style="position: relative;">
                                     <a href="{{ $value }}" class="image-popup">
                                         <img src="{{ $value }}" class="img-thumbnail" /></a>
