@@ -56,9 +56,9 @@ class PlansController extends Controller
         $plans->time = (int)$request->time;
         $plans->price = (float)$request->price;
         // lưu dữ liệu
-        $plans->save();
+        // $plans->save();
 
-        return redirect()->route('backend_admin_get_list_plans')->with('success', "Insert successfully");
+        return redirect()->route('get_register')->with('success_register', "Insert successfully");
     }
 
 

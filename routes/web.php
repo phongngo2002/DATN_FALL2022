@@ -35,8 +35,9 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 
 //client các gói dịch vụ,đăng ký
 Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('frontend_get_plans');
-Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
 
+Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
+Route::post('/dang-ky', [registerController::class, 'register_user'])->name('post_register');
 // end client các gói dịch vụ,đăng ký
 
 

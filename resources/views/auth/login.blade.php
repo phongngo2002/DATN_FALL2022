@@ -61,7 +61,8 @@
                                             <label class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="remember-me"
                                                     name="remember-me" checked>
-                                                <span class="form-check-label">Ghi nhớ tài khoản</span>
+                                                <span class="form-check-label">Ghi nhớ tài khoản <a
+                                                        href="{{ route('get_register') }}"> Đăng ký</a></span>
                                             </label>
                                             <div class="col-md-6 pull-center">
                                                 {!! app('captcha')->display() !!}

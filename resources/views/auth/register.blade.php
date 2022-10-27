@@ -35,8 +35,10 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <div class="m-sm-4">
-                                    <form class="px-md-2" action="" method="POST" id="content">
+                                <div class="m-lx-6">
+                                    <form class="px-md-4" action="{{ route('post_register') }}" method="POST"
+                                        id="content">
+                                        @csrf
                                         <label class="form-label" for="form3Example1q">Họ tên</label>
                                         <div class="form-outline">
                                             <input type="text" name="name" class="form-control" id="name"
@@ -44,7 +46,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col">
 
                                                 <div class="form-outline datepicker">
                                                     <label class="form-label">Email</label>
@@ -54,7 +56,11 @@
 
                                             </div>
 
-                                            <div class="col-md-6">
+
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
 
                                                 <div class="form-outline">
                                                     <label class="form-label">Số Điện thoại</label>
@@ -63,7 +69,6 @@
                                                 </div>
 
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="form-outline ">
@@ -71,6 +76,7 @@
                                                 <input type="text" class="form-control" id="address" name="address"
                                                     placeholder="Nhập địa chỉ" />
                                             </div>
+
 
                                         </div>
 
@@ -92,11 +98,29 @@
                                             </div>
 
                                         </div>
-
+                                        <div>
+                                            <label class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="remember-me"
+                                                    name="remember-me" checked>
+                                                <span class="form-check-label">Nếu bạn đã có tài khoản <a
+                                                        href="{{ route('get_login') }}"class="">Đăng
+                                                        nhập</a></span>
+                                            </label>
+                                            <div class="col-md-6 pull-center">
+                                                {!! app('captcha')->display() !!}
+                                                @if ($errors->has('g-recaptcha-response'))
+                                                    <span class="help-block">
+                                                        <strong
+                                                            class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
 
                                         <div class="text-center mt-3">
                                             <a href="{{ route('home') }}" class="btn btn-success">Về trang chủ</a>
                                             <button class="btn btn-primary">Đăng ký</button>
+
                                             <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                         </div>
                                     </form>
@@ -129,26 +153,45 @@
                     minlength: 6,
                     equalTo: "#password"
                 },
-                "address": {
-                    minlength: 6,
-                    required: true,
-                },
+
                 "phone_number": {
                     required: true,
                     minlength: 10,
                     maxlength: 11,
                 },
-
+                "address": {
+                    minlength: 6,
+                    required: true,
+                },
             },
             messages: {
-                "password": {
-                    required: 'Mật khẩu bắt buộc nhập'
+                "name": {
+                    minlength: 'Tên phải ít nhất 6 ký tự !',
+                    required: 'Bắt buộc nhập tên tài khoản !',
                 },
                 "email": {
-                    required: 'Email bắt buộc nhập',
+                    required: 'Bắt buộc nhập email !',
                     email: 'Email không đúng định dạng'
                 },
+                "password": {
+                    required: 'Mật khẩu bắt buộc nhập !',
+                    minlength: 'Tối thiểu 6 ký tự !',
+                },
+                "confirm_password": {
+                    required: 'Mật khẩu bắt buộc nhập !',
+                    minlength: 'Tối thiểu 6 ký tự !',
+                    equalTo: "Nhập đúng với password ! "
+                },
 
+                "phone_number": {
+                    required: "Bắt buộc nhập số điện thoại",
+                    minlength: "tối thiểu 10 số !",
+                    maxlength: 'Nhập quá giới hạn tối đa !',
+                },
+                "address": {
+                    minlength: "tối thiểu nhập 6 ký tự !",
+                    required: "Bắt buộc nhập địa chỉ !",
+                },
             },
             submitHandler: function(form) {
 
@@ -160,13 +203,13 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @if (\Illuminate\Support\Facades\Session::has('failed'))
+    @if (\Illuminate\Support\Facades\Session::has('success_register'))
         <script>
             function modal() {
                 Swal.fire(
-                    'Đăng nhập thất bại!',
-                    'Thông tin đăng nhập không chính xác.',
-                    'error'
+                    'đăng ký tài khoản thành công',
+                    '',
+                    'success'
                 )
             }
 
