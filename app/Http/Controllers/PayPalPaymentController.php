@@ -27,9 +27,9 @@ class PayPalPaymentController extends Controller
 //        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
 //        $this->gateway->setTestMode(true);
 
-        $gateway1->setUsername('sb-vpcms21975520_api1.business.example.com');
-        $gateway1->setPassword('YSJASYLTR44CMXST');
-        $gateway1->setSignature('AIsNObN1SyNNjqJjWf1oEu4qD6WYAAFzyPYHt.2lRLj4X8fj6L4UgBhX');
+        $gateway1->setUsername('sb-2nswb21994832_api1.business.example.com');
+        $gateway1->setPassword('FQSN7TEF4PUL9ABQ');
+        $gateway1->setSignature('ANb6Vvsm4q4CoMgtv0JqIsbytb5bAahwolxLhpfE0Od1gWA5WBmsIy0G');
         $gateway1->setTestMode(true);
 
         $this->gateway = $gateway1;
