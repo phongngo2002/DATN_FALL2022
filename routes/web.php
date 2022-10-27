@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\MotelController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PlanHistoryController;
-use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\MotelController;
+use App\Http\Controllers\Admin\PlansController;
+use App\Http\Controllers\Admin\PlanHistoryController;
+use App\Http\Controllers\Auth\registerController;
+use App\Http\Controllers\Client\PlanController as clientPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,6 @@ use App\Http\Controllers\Admin\RoleController;
 */
 
 
-//  route crud quản lý các gói dịc vụ
-// end quản lý các gói dịch vụ
 Route::get('/', 'App\Http\Controllers\Client\HomeController@index')->name('home');
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -31,6 +31,13 @@ Route::get('/xac-minh', 'App\Http\Controllers\Auth\LoginController@getFormConfir
 Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConfirmAcc')->name('get_post_code_confirm_account');
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
+
+
+//client các gói dịch vụ,đăng ký
+Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('frontend_get_plans');
+Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
+
+// end client các gói dịch vụ,đăng ký
 
 
 Route::middleware(['auth'])->group(function () {
@@ -108,9 +115,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@saveUpdate_users')->name('backend_user_update');
         });
         Route::get('pay', 'App\Http\Controllers\PayPalPaymentController@pay')->name('make.payment');
-
         Route::get('error', 'App\Http\Controllers\PayPalPaymentController@error')->name('cancel.payment');
-
         Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
 });
@@ -118,5 +123,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/403', function () {
     return view('error.403');
 })->name('403');
-
-

@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PlansRequest;
 use App\Models\Plan;
 use App\Models\Plans;
+use App\Http\Requests\PlansRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class PlansController extends Controller
 
 {
+    private $v;
     public function __construct()
     {
+        $this->v = [];
         $arr = [
             'function' => [
                 'index_plans',
@@ -27,14 +31,14 @@ class PlansController extends Controller
         }
     }
 
-    public function index_plans()
-    {   //select data plans
+    public function index_plans(Request $request)
+    {
         $plans = new Plans;
-        return view('admin.plan.index', [
-            // trả dữ liệu về trang danh sách
-            'plans' => $plans->list()
-        ]);
+        $this->v['plans'] = $plans->filter_plans($request->all());
+        $this->v['params'] = $request->all() ?? [];
+        return view('admin.plan.index', $this->v);
     }
+
 
     public function add_plans()
     {
@@ -55,7 +59,6 @@ class PlansController extends Controller
         $plans->save();
 
         return redirect()->route('backend_admin_get_list_plans')->with('success', "Insert successfully");
-
     }
 
 
@@ -90,8 +93,8 @@ class PlansController extends Controller
 
         return redirect()->route('backend_admin_get_list_plans');
 
-//        return response()->json([
-//            'success' => 'User Deleted Successfully!'
-//        ]);
+        //        return response()->json([
+        //            'success' => 'User Deleted Successfully!'
+        //        ]);
     }
 }
