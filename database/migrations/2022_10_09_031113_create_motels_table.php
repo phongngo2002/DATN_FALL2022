@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->date('start_time')->nullable();
             $table->date('end_time')->nullable();
             $table->integer('category_id')->default(1);
+            $table->longText('data_post')->nullable();
             $table->timestamps();
         });
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserMotel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -20,4 +22,5 @@ class HomeController extends Controller
     {
         return view('client.home.index', $this->v);
     }
+    
 }
