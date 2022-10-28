@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\MotelsImport;
 use App\Models\Area;
 use App\Models\Motel;
 use App\Models\Plan;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use mysql_xdevapi\CollectionModify;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -79,13 +81,6 @@ class MotelController extends Controller
         }, $request->all());
 
         unset($params['cols']['_token']);
-        $params['cols']['service'] = json_encode([
-            'bed' => $request->bed,
-            'bedroom' => $request->bedroom,
-            'toilet' => $request->toilet,
-            'more' => $request->service_more,
-            'actor' => $request->actor
-        ]);
         $params['cols']['area_id'] = $request->id;
         $model = new Motel();
 
@@ -269,5 +264,12 @@ class MotelController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
         return $pdf->stream();
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new MotelsImport($request->area_id), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Nhập danh sách thành công');
     }
 }

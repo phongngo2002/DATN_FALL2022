@@ -19,7 +19,11 @@ class Motel extends Model
         "description",
         "image_360",
         "photo_gallery",
-        "services",
+        'bed',
+        'bedroom',
+        'toilet',
+        'more',
+        'actor',
         "address",
         "max_people",
         "start_time",
@@ -66,10 +70,14 @@ class Motel extends Model
                 'area',
                 'image_360',
                 'photo_gallery',
-                'services',
+                'bed',
+                'bedroom',
+                'toilet',
+                'more',
+                'actor',
                 'end_time',
                 'max_people',
-                // 'motels.address as address',
+                'areas.address as address',
                 'description',
                 'areas.name as area_name',
                 'areas.address as area_address',
@@ -81,7 +89,7 @@ class Motel extends Model
                 'users.avatar as user_avatar',
                 'users.phone_number as user_phone',
                 'users.email as user_email',
-                ])
+            ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
             ->join('categories', 'categories.id', '=', 'motels.category_id')
             ->join('users', 'areas.user_id', '=', 'users.id')
@@ -99,9 +107,14 @@ class Motel extends Model
             'description' => $data['desc'],
             'image_360' => $data['image360'],
             'photo_gallery' => $data['img'],
-            'services' => $data['service'],
             'max_people' => $data['max_people'],
-            'status' => 1
+            'status' => 1,
+            'video' => $data['video'],
+            'bed' => $data['bed'],
+            'bedroom' => $data['bedroom'],
+            'toilet' => $data['toilet'],
+            'more' => $data['service_more'],
+            'actor' => $data['actor']
         ]);
         return 1;
     }
