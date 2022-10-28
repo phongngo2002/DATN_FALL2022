@@ -89,6 +89,7 @@ class Motel extends Model
                 'users.avatar as user_avatar',
                 'users.phone_number as user_phone',
                 'users.email as user_email',
+                'video'
             ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
             ->join('categories', 'categories.id', '=', 'motels.category_id')
@@ -122,7 +123,7 @@ class Motel extends Model
     public function info_motel($id)
     {
         return DB::table('users')
-            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id'])
+            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id','email'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)

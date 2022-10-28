@@ -8,6 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-hi
+Phòng bạn vừa có 1 người đăng ký ở ghép.Thông tin của họ ở đây:
+<p>Email: {{$data->email}}</p>
+<p>Họ tên: {{$data->name}}</p>
+<p>Số điện thoại: {{$data->phone_number}}</p>
 </body>
 </html>

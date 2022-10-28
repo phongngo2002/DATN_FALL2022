@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendMailContact;
+use App\Models\ContactMotelHistory;
 use App\Models\Motel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,22 +28,26 @@ class MotelController extends Controller
         return view('client.motel.detail', $this->v);
     }
 
-    public function sendContact(Request $request)
+    public function sendContact(Request $request, $id)
     {
-        $data = $request->only([
-            'full_name',
-            'phone_number',
-            'email_address',
-            'message'
-        ]);
-        if(Auth::user()){
-            Mail::to("tranggpt03@gmail.com")->send(new SendMailContact($data));
-            Session::flash('error','Gửi Liên hệ thành công');
-            return redirect()->back();
+
+
+        $model2 = new ContactMotelHistory();
+
+        if ($model2->create_history([
+            'id' => $id
+        ])) {
+            $model = new Motel();
+            $data = [];
+            $people = $model->info_motel($id);
+            foreach ($people as $p) {
+                $data[] = $p->email;
+            }
+            if (!empty($data)) {
+                Mail::to($data)->send(new SendMailContact());
+            }
         }
-        else{
-            Session::flash('error','Bạn phải đăng nhập để gửi Liên hệ');
-            return redirect()->back();
-        }
+
+        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
     }
 }

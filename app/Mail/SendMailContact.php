@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class SendMailContact extends Mailable
 {
@@ -18,9 +19,9 @@ class SendMailContact extends Mailable
      */
     public $data;
 
-    public function __construct($user)
+    public function __construct()
     {
-        $this->data = $user;
+        $this->data = Auth::user();
     }
 
     /**
@@ -30,6 +31,6 @@ class SendMailContact extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.mailContact')->with($this->data);
+        return $this->markdown('email.mailContact')->with(['data' => $this->data]);
     }
 }

@@ -39,7 +39,7 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 
 //Liên hệ
-Route::post('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
+Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
