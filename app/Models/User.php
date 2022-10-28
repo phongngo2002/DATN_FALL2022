@@ -33,6 +33,7 @@ class User extends Authenticatable
         'role_id',
         'confirmation_code',
         'token',
+        'google_id'
     ];
 
     /**
@@ -104,14 +105,12 @@ class User extends Authenticatable
         return $user;
     }
 
-
     public function saveNew($params)
     {
         $data = array_merge($params);
         $request = DB::table($this->table)->insertGetId($data); //$request sẽ trả về id của bản ghi vừa được tạo trong db
         return $request;
     }
-
 
     public function saveUpdate($params)
     {
@@ -122,6 +121,7 @@ class User extends Authenticatable
         $res = DB::table($this->table)->where('id', $params['id'])->update($params);
         return $res; //trả ra số trường bị thay đổi
     }
+
     public function del($id)
     {
         $query = DB::table($this->table)->where('id', $id);

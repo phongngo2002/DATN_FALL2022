@@ -115,6 +115,9 @@
             pointer-events: auto;
         }
     </style>
+
+    <div class="bg-white p-4 shadow-lg rounded-4">
+<div class="mb-4">
     <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên</button>
     <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
        class="btn btn-primary my-2">Đăng tin</a>
@@ -127,7 +130,7 @@
                 class="btn btn-dark my-2">Xuất hóa đơn
         </button>
     @endif
-    <div class="bg-white p-4 shadow-md rounded-4 my-4">
+</div>
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
             <thead>

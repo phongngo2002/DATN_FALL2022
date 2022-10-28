@@ -39,10 +39,7 @@
             <div class="right-side d-none d-none d-lg-none d-xl-flex">
                 <!-- Header Widget -->
                 <div class="header-widget">
-                    <a href="add-property.html"
-                        style="    display: flex;
-    justify-content: center;
-    align-items: center;"
+                    <a href="add-property.html" style="display: flex; justify-content: center; align-items: center;"
                         class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
 
                     </a>
@@ -86,27 +83,11 @@
                     </ul>
                 </div>
             @else
-                {{-- <div class="right-side d-none d-none d-lg-none d-xl-flex ml-0"
+                <div class="right-side d-none d-none d-lg-none d-xl-flex ml-0"
                     style="padding: 0 4px 0 5px;margin-top: 16px">
                     <!-- Header Widget -->
                     <div class="header-widget sign-in">
-                        <div class="">
-                            <a href="{{ route('get_login') }}"> Đăng nhập</a>
-                        </div>
-                    </div>
-
-                    <div class="header-widget sign-in">
-                        <div class="">
-                            <a href="{{ route('get_login') }}"> Đăng nhập</a>
-                        </div>
-                    </div>
-                    <!-- Header Widget / End -->
-                </div> --}}
-
-                <div class="right-side d-none d-none d-lg-none d-xl-flex mt-4">
-                    <!-- Header Widget -->
-                    <div class="header-widget sign-in">
-                        <div class=""><a href="{{ route('get_login') }}">Đăng nhập</a></div>
+                        <div><a href="{{ route('get_login') }}">Đăng nhập</a></div>
                     </div>
                     <!-- Header Widget / End -->
                 </div>
@@ -125,6 +106,21 @@
                 </div>
             @endif
 
+            <!-- lang-wrap-->
+            {{--            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex"> --}}
+            {{--                <div class="lang-wrap"> --}}
+            {{--                    <div class="show-lang"><span><i --}}
+            {{--                                class="fas fa-globe-americas"></i><strong>ENG</strong></span><i --}}
+            {{--                            class="fa fa-caret-down arrlan"></i></div> --}}
+            {{--                    <ul class="lang-tooltip lang-action no-list-style"> --}}
+            {{--                        <li><a href="#" class="current-lan" data-lantext="En">English</a></li> --}}
+            {{--                        <li><a href="#" data-lantext="Fr">Francais</a></li> --}}
+            {{--                        <li><a href="#" data-lantext="Es">Espanol</a></li> --}}
+            {{--                        <li><a href="#" data-lantext="De">Deutsch</a></li> --}}
+            {{--                    </ul> --}}
+            {{--                </div> --}}
+            {{--            </div> --}}
+            <!-- lang-wrap end-->
 
         </div>
     </div>

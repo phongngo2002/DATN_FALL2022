@@ -28,7 +28,23 @@
 <script src="{{asset('assets/client/js/forms-2.js')}}"></script>
 <script src="{{asset('assets/client/js/map-style2.js')}}"></script>
 <script src="{{asset('assets/client/js/range.js')}}"></script>
-<script src="{{asset('assets/client/js/range.js')}}js/color-switcher.js"></script>
+<script src="{{asset('assets/client/js/color-switcher.js')}}"></script>
+<script src="{{asset('assets/client/js/jquery-ui.js')}}"></script>
+<script src="{{asset('assets/client/js/range-slider.js')}}"></script>
+<script src="{{asset('assets/client/js/popper.min.js')}}"></script>
+<script src="{{asset('assets/client/js/slick4.js')}}"></script>
+<script src="{{asset('assets/client/js/timedropper.js')}}"></script>
+<script src="{{asset('assets/client/js/jqueryadd-count.js')}}"></script>
+<script src="{{asset('assets/client/js/datedropper.js')}}"></script>
+<script src="{{asset('assets/client/js/leaflet.js.js')}}"></script>
+<script src="{{asset('assets/client/js/leaflet-gesture-handling.min.js')}}"></script>
+<script src="{{asset('assets/client/js/leaflet-providers.js')}}"></script>
+<script src="{{asset('assets/client/js/leaflet.markercluster.js')}}"></script>
+<script src="{{asset('assets/client/js/map-single.js')}}"></script>
+<script src="{{asset('assets/client/js/inner.js')}}"></script>
+<script src="{{asset('assets/client/js/popup.js')}}"></script>
+
+
 <script>
     $(window).on('scroll load', function () {
         $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
@@ -163,3 +179,4 @@
 
 <!-- MAIN JS -->
 <script src="{{asset('assets/client/js/script.js')}}"></script>
+
