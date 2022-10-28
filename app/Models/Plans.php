@@ -28,7 +28,7 @@ class Plans extends Model
     public function list()
     {
         $plans = new Plans;
-        return $plans->select($this->fillable)->where('status', '!=', 0)->orderBy('id', 'desc')->paginate(5);
+        return $plans->select($this->fillable)->where('status', '!=', 0)->orderBy('id', 'desc')->get();
     }
 
     public function show_plans($id)

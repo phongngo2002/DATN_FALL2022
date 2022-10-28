@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <!-- Main Navigation -->
-                <nav id="navigation" class="style-1 {{ isset($v) ? 'head-tr' : '' }} ">
+                <nav id="navigation" class="style-1 ">
                     <ul id="responsive">
                         <li><a href="home.html">Trang chủ</a>
                         </li>
