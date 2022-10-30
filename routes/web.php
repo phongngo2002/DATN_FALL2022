@@ -36,6 +36,8 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 
+Route::get('/test', [ClientMotelController::class, 'test'])->name('client.motel.detail');
+
 //Liên hệ
 Route::post('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 

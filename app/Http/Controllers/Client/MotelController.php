@@ -28,6 +28,14 @@ class MotelController extends Controller
         return view('client.motel.detail', $this->v);
     }
 
+    public function test()
+    {
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detailMotel(1);
+
+        return view('client.motel.test', $this->v);
+    }
+
     public function sendContact(Request $request)
     {
         $data = $request->only([

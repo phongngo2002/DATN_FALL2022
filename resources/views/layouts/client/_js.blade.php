@@ -44,6 +44,8 @@
 <script src="{{asset('assets/client/js/inner.js')}}"></script>
 <script src="{{asset('assets/client/js/popup.js')}}"></script>
 
+        <script src="{{asset('assets/client/js/swiper.min.js')}}"></script>
+
 
 <script>
     $(window).on('scroll load', function () {
@@ -53,8 +55,8 @@
 </script>
 
 <!-- Slider Revolution scripts -->
-<script src="revolution/js/jquery.themepunch.tools.min.js"></script>
-<script src="revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script src="{{asset('assets/client/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
+<script src="{{asset('assets/client/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
 
 <script>
     var typed = new Typed('.typed', {
@@ -179,4 +181,100 @@
 
 <!-- MAIN JS -->
 <script src="{{asset('assets/client/js/script.js')}}"></script>
+
+<!-- Detail Motels -->
+<script>
+    $('#reservation-date').dateDropper();
+</script>
+<!-- Time Dropper Script-->
+<script>
+    this.$('#reservation-time').timeDropper({
+        setCurrentTime: false,
+        meridians: true,
+        primaryColor: "#e8212a",
+        borderColor: "#e8212a",
+        minutesInterval: '15'
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: false,
+            fixedContentPos: false
+        });
+    });
+</script>
+
+<script>
+    $('.slick-carousel').each(function() {
+        var slider = $(this);
+        $(this).slick({
+            infinite: true,
+            dots: false,
+            arrows: false,
+            centerMode: true,
+            centerPadding: '0'
+        });
+
+        $(this).closest('.slick-slider-area').find('.slick-prev').on("click", function() {
+            slider.slick('slickPrev');
+        });
+        $(this).closest('.slick-slider-area').find('.slick-next').on("click", function() {
+            slider.slick('slickNext');
+        });
+    });
+</script>
+
+<!-- Detail Live-together -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        slidesPerGroup: 1,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 40,
+            },
+            1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+            },
+        }
+    });
+
+</script>
+
+
+<script>
+    var box1 = document.getElementById("box1");
+    var box2 = document.getElementById("box2");
+    var message = document.getElementById("message");
+
+    // console.log(banner);
+    function changePosition() {
+        box1.setAttribute('style', 'transition: 0.7s ease;height:400px')
+        box2.setAttribute('style', 'transform:translateY(-10px);transition: 0.7s ease;')
+        message.setAttribute('style', 'opacity:1;transition: 0.5s cubic-bezier(0.86, 0.32, 0.13, 0.7)')
+        // box2.setAttribute('style', 'opacity:0;transition: 1s ease')
+    }
+</script>
 
