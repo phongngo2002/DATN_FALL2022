@@ -424,114 +424,21 @@
             </div>
             <div class="row">
                 <!-- Single category -->
+                @foreach( $area as $i)
                 <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
                     <div class="small-category-2">
                         <div class="small-category-2-thumb img-1">
                             <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/12.jpg')}}"
+                                    src="https://picsum.photos/200/300"
                                     alt=""></a>
                         </div>
                         <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                            <span>203 Phòng trọ</span>
+                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">{{$i->name}}</a></h4>
+                            <span>{{$i->quantity}} Phòng trọ</span>
                         </div>
                     </div>
                 </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-2">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/13.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Los Angeles</a></h4>
-                            <span>307 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-3">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/14.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">San Francisco</a></h4>
-                            <span>409 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-3">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/9.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Atlanta</a></h4>
-                            <span>409 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
-                    <div class="small-category-2 mob-mt">
-                        <div class="small-category-2-thumb img-8">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/15.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Miami</a></h4>
-                            <span>145 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-10">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/10.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Chicago</a></h4>
-                            <span>112 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                    <div class="small-category-2 si-mt">
-                        <div class="small-category-2-thumb img-11">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/5.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Houston</a></h4>
-                            <span>254 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                    <div class="small-category-2 no-mb si-mt">
-                        <div class="small-category-2-thumb img-11">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/6.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Orlando</a></h4>
-                            <span>254 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <!-- /row -->
         </div>
@@ -546,6 +453,8 @@
                 <p>These are our featured properties</p>
             </div>
             <div class="row portfolio-items">
+                {{-- Start div motel --}}
+                @foreach($motel as $key)
                 <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
                     <div class="project-single" data-aos="fade-right">
                         <div class="project-inner project-head">
@@ -554,7 +463,7 @@
                                 <a href="single-property-1.html" class="homes-img">
                                     <div class="homes-tag button alt featured">Nổi bật</div>
                                     <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
+                                    <img src="{{$key->photo_gallery[0]}}" alt="home-1"
                                          class="img-responsive">
                                 </a>
                             </div>
@@ -569,34 +478,34 @@
                         <!-- homes content -->
                         <div class="homes-content">
                             <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
+                            <h3><a href="single-property-1.html">{{$key->room_number}} </a></h3>
                             <p class="homes-address mb-3">
                                 <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
+                                    <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
                                 </a>
                             </p>
                             <!-- homes List -->
                             <ul class="homes-list clearfix pb-3">
                                 <li class="the-icons">
                                     <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
+                                    <span>{{json_decode($key->services)->bedroom}} Phòng ngủ</span>
                                 </li>
                                 <li class="the-icons">
                                     <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
+                                    <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
                                 </li>
                                 <li class="the-icons">
                                     <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
+                                    <span>{{$key->area}}</span>
                                 </li>
                                 <li class="the-icons">
                                     <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
+                                    <span>{{$key->max_people}} người</span>
                                 </li>
                             </ul>
                             <div class="price-properties footer pt-3 pb-0">
                                 <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
+                                    <a href="single-property-1.html">{{$key->price}}đ</a>
                                 </h3>
                                 <div class="compare">
                                     <a href="#" title="Compare">
@@ -613,341 +522,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                {{-- End div motel --}}
+
             </div>
             <div class="bg-all">
                 <a href="properties-full-grid-1.html" class="btn btn-outline-light">Xem thêm</a>
@@ -962,408 +539,78 @@
                 <!-- <p>These are our featured properties</p> -->
             </div>
             <div class="row portfolio-items">
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="single-property-1.html" class="homes-img">
-                                    <div class="homes-tag button alt featured">Nổi bật</div>
-                                    <div class="homes-tag button alt sale">Giảm giá</div>
-                                    <img src="{{asset('assets/client/images/blog/b-11.jpg')}}" alt="home-1"
-                                         class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="button-effect">
-                                <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                <a href="single-property-2.html" class="img-poppu btn"><i
-                                        class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="single-property-1.html">Tên phòng trọ</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="single-property-1.html">
-                                    <i class="fa fa-map-marker"></i><span>Địa chỉ</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
-                                <li class="the-icons">
-                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                    <span>6 Phòng ngủ</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                    <span>3 Phòng tắm</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                    <span>720m</span>
-                                </li>
-                                <li class="the-icons">
-                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                    <span>7 người</span>
-                                </li>
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="single-property-1.html">1.500.000đ</a>
-                                </h3>
-                                <div class="compare">
-                                    <a href="#" title="Compare">
-                                        <i class="flaticon-compare"></i>
-                                    </a>
-                                    <a href="#" title="Share">
-                                        <i class="flaticon-share"></i>
-                                    </a>
-                                    <a href="#" title="Favorites">
-                                        <i class="flaticon-heart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               {{-- Start div motel --}}
+               @foreach($contact as $key)
+               <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
+                   <div class="project-single" data-aos="fade-right">
+                       <div class="project-inner project-head">
+                           <div class="homes">
+                               <!-- homes img -->
+                               <a href="single-property-1.html" class="homes-img">
+                                   <div class="homes-tag button alt featured">Nổi bật</div>
+                                   <div class="homes-tag button alt sale">Giảm giá</div>
+                                   <img src="{{$key->photo_gallery[0]}}" alt="home-1"
+                                        class="img-responsive">
+                               </a>
+                           </div>
+                           <div class="button-effect">
+                               <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                               <a href="https://www.youtube.com/watch?v=14semTlwyUY"
+                                  class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                               <a href="single-property-2.html" class="img-poppu btn"><i
+                                       class="fa fa-photo"></i></a>
+                           </div>
+                       </div>
+                       <!-- homes content -->
+                       <div class="homes-content">
+                           <!-- homes address -->
+                           <h3><a href="single-property-1.html">{{$key->room_number}} </a></h3>
+                           <p class="homes-address mb-3">
+                               <a href="single-property-1.html">
+                                   <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
+                               </a>
+                           </p>
+                           <!-- homes List -->
+                           <ul class="homes-list clearfix pb-3">
+                               <li class="the-icons">
+                                   <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                   <span>{{json_decode($key->services)->bedroom}} Phòng ngủ</span>
+                               </li>
+                               <li class="the-icons">
+                                   <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                   <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
+                               </li>
+                               <li class="the-icons">
+                                   <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                   <span>{{$key->area}}</span>
+                               </li>
+                               <li class="the-icons">
+                                   <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                   <span>{{$key->max_people}} người</span>
+                               </li>
+                           </ul>
+                           <div class="price-properties footer pt-3 pb-0">
+                               <h3 class="title mt-3">
+                                   <a href="single-property-1.html">{{$key->price}}đ</a>
+                               </h3>
+                               <div class="compare">
+                                   <a href="#" title="Compare">
+                                       <i class="flaticon-compare"></i>
+                                   </a>
+                                   <a href="#" title="Share">
+                                       <i class="flaticon-share"></i>
+                                   </a>
+                                   <a href="#" title="Favorites">
+                                       <i class="flaticon-heart"></i>
+                                   </a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               @endforeach
+               {{-- End div motel --}}
+
             </div>
             <div class="bg-all">
                 <a href="properties-full-grid-1.html" class="btn btn-outline-light">Xem thêm</a>
@@ -1577,4 +824,3 @@
     </section>
 
 @endsection
-

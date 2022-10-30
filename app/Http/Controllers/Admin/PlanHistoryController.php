@@ -27,7 +27,6 @@ class PlanHistoryController extends Controller
         $planHistory = new PlanHistory();
         $this->v['params'] = $request->all();
         $this->v['plansHistory'] = $planHistory->LoadPlansHistoryWithPage($this->v['params']);
-        dd($this->v['plansHistory']);
         return view("admin.plan-history.list", $this->v);
     }
 }

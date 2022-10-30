@@ -97,16 +97,20 @@
                 </div>
             @endforeach
         @endforeach
-    </div>
-    <button type="submit" class="btn btn-primary my-2">Lưu</button>
-    <a href="{{route('list_role')}}" class="btn btn-warning my-2"> Quay lại </a>
-    </form>
-    @include('layouts.admin._js')
-    {{-- validate jquery form plans --}}
-    <script>
-        $("#selectAll").click(function () {
-            $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
-        });
+
+        <div class=" d-flex bd-highlight col-md-7 m-2 p-2">
+            <button type="submit" class="btn btn-primary btn-block m-2"> Thêm </button>
+            <a href="{{route('list_role')}}" class="btn btn-warning btn-block m-2"> Quay lại </a>
+        </div>
+
+        </div>
+</form>
+@include('layouts.admin._js')
+{{-- validate jquery form plans --}}
+<script>
+    $("#selectAll").click(function() {
+  $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
+});
 
         $("input[type=checkbox]").click(function () {
             if (!$(this).prop("checked")) {
