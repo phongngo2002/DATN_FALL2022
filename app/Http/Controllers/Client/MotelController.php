@@ -21,14 +21,26 @@ class MotelController extends Controller
         $this->v = [];
     }
 
-    public function currentMotel($user_id)
+    public function currentMotel()
     {
         $model = new UserMotel();
-        $this->v['motels'] = $model->currentMotel($user_id);
-        // dd($this->v['motels']);
+        $this->v['motels'] = $model->currentMotel(Auth::user()->id);
+        $photo_gallery ='';
+        
+        foreach ($this->v['motels'] as $motel) {
+            if (strpos($motel->photo_gallery,',',0) !== false) {//nếu có 2 ảnh
+                $photo_gallery_1 = substr($motel->photo_gallery,2, strpos($motel->photo_gallery,',',0)-2);
+            }else{//nếu chỉ có 1 ảnh
+                $photo_gallery_1 = str_replace('["','',$motel->photo_gallery);
+                $photo_gallery_1 = str_replace('"]','',$photo_gallery_1);
+            }
+           
+            $motel->photo_gallery1 = $photo_gallery_1;//lấy ra ảnh đầu tiên
+        }
+
         return view('client.account_management.current_motel', $this->v);
     }
-    public function postLiveTogether($user_id,$motel_id) {
+    public function postLiveTogether($motel_id) {
 
         $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
         $data = [];
@@ -49,17 +61,15 @@ class MotelController extends Controller
         ->where('plan_history.status', 1)
         ->first();
 
-        // dd( $this->v['data_plan']);
-
         $model = new UserMotel();
-        $this->v['motels'] = $model->currentMotel($user_id,$motel_id);
+        $this->v['motels'] = $model->currentMotel(Auth::user()->id,$motel_id);
         $this->v['number_people'] = count($model->number_people_live_now($motel_id));
         $this->v['user'] = Auth::user();
+        $this->v['data_post'] = json_decode($this->v['motels'][0]->data_post);
         // dd($this->v['current_plan_motel']);
         // dd($this->v['motels']);
         // $data_post = json_decode($this->v['motels'][0]->data_post);
-        // dd($data_post);
-        $this->v['data_post'] = json_decode($this->v['motels'][0]->data_post);
+        // dd($this->v['data_post']);
         return view('client.account_management.post_live_together', $this->v);
     }
 
@@ -172,10 +182,23 @@ class MotelController extends Controller
             $user->money -= $request->post_money;
             $user->save();
         }
-        
-
-
         return redirect()->back()->with('success', 'Đăng bài thành công');
+
+    }
+    public function listLiveTogether(){
+        $model = new PlanHistory();
+        $this->v['motels'] = $model->list_live_together();
+        foreach ($this->v['motels'] as $motel) {
+            $photo_gallery_1 = substr($motel->photo_gallery,2, strpos($motel->photo_gallery,',',0)-2);
+            $motel->photo_gallery1 = $photo_gallery_1;
+
+            $motel->data_post = json_decode($motel->data_post);
+            $motel->services = json_decode($motel->services);
+            
+        }
+        dd($this->v['motels']);
+      
+        return view('client.account_management.list_live_together', $this->v);
 
     }
 }

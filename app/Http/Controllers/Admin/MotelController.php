@@ -154,7 +154,7 @@ class MotelController extends Controller
 
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
-        dd($request->post());
+        // dd($request->post());
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([
