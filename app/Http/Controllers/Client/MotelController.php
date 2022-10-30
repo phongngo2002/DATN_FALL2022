@@ -196,7 +196,7 @@ class MotelController extends Controller
             $motel->services = json_decode($motel->services);
             
         }
-        dd($this->v['motels']);
+        // dd($this->v['motels']);
       
         return view('client.account_management.list_live_together', $this->v);
 
