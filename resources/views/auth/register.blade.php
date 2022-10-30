@@ -36,6 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-lx-6">
+
                                     <form class="px-md-4" action="{{ route('post_register') }}" method="POST"
                                         id="content">
                                         @csrf
@@ -61,13 +62,21 @@
                                         </div>
                                         <div class="row">
                                             <div class="col">
-
                                                 <div class="form-outline">
                                                     <label class="form-label">Số Điện thoại</label>
                                                     <input type="text" class="form-control" id="phone_number"
                                                         name="phone_number" placeholder="Nhập số điện thoại " />
                                                 </div>
-
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label">Vai trò </label>
+                                                    <select name="role_id" id="role_id" class="form-control">
+                                                        <option value="">Chọn vai trò</option>
+                                                        <option value="1">Chủ trọ</option>
+                                                        <option value="3">Người dùng</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -81,7 +90,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 md-4 mt-4">
+                                            <div class="col-md-6 md-4 mt-2">
                                                 <div class="form-outline datepicker">
                                                     <label class="form-label">Mật khẩu</label>
                                                     <input type="password" class="form-control" id="password"
@@ -89,7 +98,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6 md-4 mt-4">
+                                            <div class="col-md-6 md-4 mt-2">
                                                 <div class="form-outline datepicker">
                                                     <label class="form-label">Nhập lại Mật Khẩu</label>
                                                     <input type="password" class="form-control" id="confirm_password"
@@ -98,7 +107,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="mt-3">
                                             <label class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="remember-me"
                                                     name="remember-me" checked>
@@ -210,6 +219,20 @@
                     'đăng ký tài khoản thành công',
                     '',
                     'success'
+                )
+            }
+
+            modal();
+        </script>
+    @endif
+
+    @if (\Illuminate\Support\Facades\Session::has('email_fall'))
+        <script>
+            function modal() {
+                Swal.fire(
+                    'Email đã tồn tại !',
+                    '',
+                    'error'
                 )
             }
 

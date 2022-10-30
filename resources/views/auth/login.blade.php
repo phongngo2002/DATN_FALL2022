@@ -71,34 +71,7 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                         <div>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="remember-me"
-                                                    name="remember-me" checked>
-                                                <span class="form-check-label">Ghi nhớ tài khoản</span>
-                                            </label>
-                                            <div class="col-md-6 pull-center">
-                                                {!! app('captcha')->display() !!}
-                                                @if ($errors->has('g-recaptcha-response'))
-                                                    <span class="help-block">
-                                                        <strong
-                                                            class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                            @error('email')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                            <div class="mb-3">
-                                                <label class="form-label">Password</label>
-                                                <input class="form-control form-control-lg" type="password"
-                                                    name="password" id="password" placeholder="Mật khẩu" />
-                                            </div>
-                                            <small>
-                                                <a href="{{ route('get_form_forgot_password') }}">Quên mật khẩu?</a>
-                                            </small>
-                                            @error('password')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
+
                                             <div>
                                                 <label class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="remember-me"
@@ -116,16 +89,9 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            {{--                                    @php dd(app('captcha')) @endphp --}}
-
-                                            <<<<<<< HEAD <div class="text-center mt-3">
-                                                <a href="{{ route('home') }}" class="btn btn-success">Về trang chủ</a>
-                                                <button class="btn btn-primary">Đăng nhập</button>
-                                                <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-                                        </div>
                                     </form>
                                 </div>
-                                =======
+
                                 <div class="text-center mt-3">
 
                                     <button class="btn btn-primary">Đăng nhập</button>
@@ -138,7 +104,6 @@
                                     <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                 </div>
                                 </form>
-                                >>>>>>> ca85982abac62c8bbba250b4d640cb5d7d4db491
                             </div>
                         </div>
 
@@ -173,20 +138,10 @@
             },
             submitHandler: function(form) {
 
-                    form.submit();
+                form.submit();
 
-                }
+            }
 
-                <<
-                << << < HEAD
-        }); ===
-        === =
-        },
-        submitHandler: function(form) {
-
-        form.submit();
-
-        }
 
         });
     </script>
@@ -220,8 +175,7 @@
                 )
             }
 
-            modal(); >>>
-            >>> > ca85982abac62c8bbba250b4d640cb5d7d4db491
+            modal();
         </script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -234,9 +188,6 @@
                         'error'
                     )
                 }
-
-                <<
-                << << < HEAD
                 modal();
             </script>
         @endif
@@ -262,14 +213,26 @@
                         'success'
                     )
                 }
-
                 modal();
             </script>
         @endif
-        =======
-        modal();
-        </script>
+
+        @if (\Illuminate\Support\Facades\Session::has('success_register'))
+            <script>
+                function modal() {
+                    Swal.fire(
+                        'Đăng ký tài khoản thành công!',
+                        'xác nhận email để đăng nhập',
+                        'success'
+                    )
+                }
+                modal();
+            </script>
+        @endif
+
     @endif
+
+
 
     @if (isset($_GET['success']) && $_GET['success'] == 'true')
         <script>
@@ -314,7 +277,7 @@
             window.history.pushState("", "", 'http://phong.ngo/dang-nhap');
         </script>
     @endif
-    >>>>>>> ca85982abac62c8bbba250b4d640cb5d7d4db491
+
 </body>
 
 </html>

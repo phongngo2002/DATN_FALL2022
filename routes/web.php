@@ -36,6 +36,7 @@ Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConf
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
+
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 
@@ -47,6 +48,10 @@ Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('f
 
 Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
 Route::post('/dang-ky', [registerController::class, 'register_user'])->name('post_register');
+
+Route::post('/xac-minh-email', [registerController::class, 'change_email'])->name('confirm_account_register');
+Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_email'])->name('get_confirm_account_register');
+
 // end client các gói dịch vụ,đăng ký
 
 
