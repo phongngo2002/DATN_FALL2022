@@ -43,6 +43,9 @@ Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
+    Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
+    Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
+
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
@@ -126,9 +129,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('client')->group(function () {
         // Thành viên
         Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
-        Route::get('post-live-together/{motel_id}','App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
-        Route::post('post-live-together/{motel_id}','App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
-        Route::get('list-live-together','App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
+        Route::get('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
+        Route::post('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+        Route::get('list-live-together', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
     });
 });
 

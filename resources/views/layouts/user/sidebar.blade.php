@@ -31,12 +31,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="invoice.html">
+                    <a href="{{route('get_history_recharge')}}">
                         <i class="fas fa-paste"></i>Lịch sử nạp tiền
                     </a>
                 </li>
                 <li>
-                    <a href="invoice.html">
+                    <a href="{{route('get_history_buy_plan')}}">
                         <i class="fas fa-paste"></i>Lịch sử dịch vụ
                     </a>
                 </li>
