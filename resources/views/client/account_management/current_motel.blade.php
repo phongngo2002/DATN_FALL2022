@@ -157,10 +157,9 @@
                 </thead>
                 <tbody>
                     @foreach ($motels as $motel)
-                    <dd></dd>
                     <tr>
                         <td class="image myelist">
-                            <a href="single-property-1.html"><img alt="my-properties-3" src="{{$motel->image_360}}" class="img-fluid"></a>
+                            <a href="single-property-1.html"><img alt="my-properties-3" src="{{$motel->photo_gallery1}}" class="img-fluid"></a>
                         </td>
                         <td class="col-2">
                             <div class="inner">
@@ -173,7 +172,11 @@
                         <td>{{$motel->room_number}}</td>
                         <td>{{ number_format($motel->price,0,",",".") }}</td>
                         <td>
-                            <a class="btn btn-success p-1 text-white" href="{{ route('client_post_live_together', ['user_id'=>Auth::user()->id, 'motel_id'=>$motel->motel_id]) }}">Đăng tin ở ghép</a>
+                            @if ($motel->status == 1)
+                                <a class="btn btn-success text-white" href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng tin ở ghép</a>
+                            @else
+                                <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

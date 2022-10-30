@@ -25,7 +25,7 @@
 
                         <li><a href="motels.html">Phòng trọ</a>
                         </li>
-                        <li><a href="in-compound.html">Tìm người ở ghép</a>
+                        <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
                         <li><a href="#">Bảng giá dịch vụ</a>
                         </li>
@@ -39,7 +39,7 @@
             <div class="right-side d-none d-none d-lg-none d-xl-flex">
                 <!-- Header Widget -->
                 <div class="header-widget">
-                    <a href="{{ route('client_current_motel', ['user_id'=>Auth::user()->id]) }}" style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
+                    <a href="{{ route('client_current_motel')}}" style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
                     </a>
                 </div>
                 <!-- Header Widget / End -->

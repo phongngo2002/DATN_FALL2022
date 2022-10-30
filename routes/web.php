@@ -125,9 +125,10 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('client')->group(function () {
         // Thành viên
-        Route::get('phong-tro-cua-toi/{user_id}', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
-        Route::get('post-live-together/{user_id}/{motel_id}','App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
-        Route::post('post-live-together/{user_id}/{motel_id}','App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+        Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
+        Route::get('post-live-together/{motel_id}','App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
+        Route::post('post-live-together/{motel_id}','App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+        Route::get('list-live-together','App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
     });
 });
 
