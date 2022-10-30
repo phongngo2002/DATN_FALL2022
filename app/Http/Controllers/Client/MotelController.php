@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMailContact;
 use App\Models\Motel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -36,7 +37,13 @@ class MotelController extends Controller
             'message'
         ]);
         if(Auth::user()){
-            Mail::to("tranggpt03@gmail.com")->send(new SendMailContact($data));
+            try{
+                Mail::to("trangptph18099@fpt.edu.vn")->send(new SendMailContact($data));
+            }
+            catch(Exception  $e){
+                dd($e->getMessage());
+            }
+            
             Session::flash('error','Gửi Liên hệ thành công');
             return redirect()->back();
         }

@@ -179,9 +179,7 @@
                                     <div class="pro-wrapper">
                                         <div class="detail-wrapper-body mr-3">
                                             <div class="listing-title-bar">
-                                                <h3> {{ $motel->room_number }} <span class="mrg-l-5 category-tag">Đang
-                                                        cho
-                                                        thuê</span></h3>
+                                                <h3> {{ $motel->room_number }}</h3>
                                                 <div class="mt-0 col-9">
                                                     <a href="#listing-location" class="listing-address">
                                                         <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>
@@ -210,11 +208,19 @@
                                     <div class="carousel-inner">
 
                                         @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                            <div class="active item carousel-item"
-                                                data-slide-number="{{ $key }}">
-                                                <img src="{{ $item }}" class="img-fluid"
-                                                    alt="slider-listing">
-                                            </div>
+                                            @if ($key == 0)
+                                                <div class="active item carousel-item"
+                                                    data-slide-number="{{ $key }}">
+                                                    <img src="{{ $item }}" class="img-fluid"
+                                                        alt="slider-listing">
+                                                </div>
+                                            @else
+                                                <div class="item carousel-item"
+                                                    data-slide-number="{{ $key }}">
+                                                    <img src="{{ $item }}" class="img-fluid"
+                                                        alt="slider-listing">
+                                                </div>
+                                            @endif
                                         @endforeach
 
                                         <a class="carousel-control left" href="#listingDetailsSlider"
@@ -736,17 +742,17 @@
                                                 action="https://code-theme.com/html/findhouses/functions.php">
                                                 @csrf
                                                 <input type="text" id="fname" name="full_name"
-                                                     value="{{ Auth::user()->name }}"
-                                                    required />
+                                                    value="{{ Auth::user() ? Auth::user()->name : '' }}"
+                                                    placeholder="họ và tên" required />
                                                 <input type="text" id="pnumber" name="phone_number"
-                                                    value="{{ Auth::user()->phone_number }}"
-                                                    required />
+                                                    value="{{ Auth::user() ? Auth::user()->phone_number : '' }}"
+                                                    placeholder="Số điện thoại" required />
                                                 <input type="email" id="emailid" name="email_address"
-                                                    value="{{ Auth::user()->email }}"
-                                                    required />
+                                                    value="{{ Auth::user() ? Auth::user()->email : '' }}"
+                                                    placeholder="Email" required />
                                                 <textarea placeholder="Message" name="message" required></textarea>
                                                 <input type="submit" name="sendmessage"
-                                                    class="multiple-send-message" value="yêu cầu liên hệ" />
+                                                    class="multiple-send-message" placeholder="Yêu cầu liên hệ" />
                                             </form>
                                             <p class="mt-2 text-danger">
                                                 @if (Session::has('success'))

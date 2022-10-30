@@ -81,7 +81,7 @@ class Motel extends Model
                 'users.avatar as user_avatar',
                 'users.phone_number as user_phone',
                 'users.email as user_email',
-                ])
+            ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
             ->join('categories', 'categories.id', '=', 'motels.category_id')
             ->join('users', 'areas.user_id', '=', 'users.id')
@@ -126,5 +126,51 @@ class Motel extends Model
             ->where('motel_id', $motel_id)
             ->orderBy('contact_motel_history.created_at', 'desc')
             ->paginate(10);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(UserMotel::class, "motel_id", "id");
+    }
+
+    public function infoMotelLiveTogether($motel_id)
+    {
+        $countUser = DB::table('users')
+                    ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+                    ->where('motel_id', $motel_id)
+                    ->where('user_motel.status', 1)
+                    ->count();
+        $motel = DB::table($this->table)
+            ->select([
+                'motels.id as motel_id',
+                'room_number',
+                'price',
+                'area',
+                'image_360',
+                'photo_gallery',
+                'services',
+                'end_time',
+                'max_people',
+                'description',
+                'areas.name as area_name',
+                'areas.address as area_address',
+                'areas.link_gg_map as area_link_gg_map',
+                'motels.updated_at as motel_updateAt',
+                'categories.name as category_name',
+                'users.name as user_name',
+                'users.address as user_address',
+                'users.avatar as user_avatar',
+                'users.phone_number as user_phone',
+                'users.email as user_email'
+            ])
+            ->join('areas', 'areas.id', '=', "motels.area_id")
+            ->join('categories', 'categories.id', '=', 'motels.category_id')
+            ->join('users', 'areas.user_id', '=', 'users.id')
+            ->where('motels.id', $motel_id)->first();
+        
+        $motel->count_user = $countUser;
+
+        return $motel;
+
     }
 }

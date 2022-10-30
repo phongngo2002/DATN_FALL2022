@@ -30,6 +30,6 @@ class SendMailContact extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.mailContact')->with($this->data);
+        return $this->markdown('email.mailContact')->with(["data"=>$this->data]);
     }
 }

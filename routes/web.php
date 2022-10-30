@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanHistoryController;
 use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Client\LiveTogetherController;
 use App\Http\Controllers\Client\MotelController as ClientMotelController;
 
 /*
@@ -37,6 +38,9 @@ Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('c
 
 //Liên hệ
 Route::post('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
+
+//Chi tiết tìm nguwoif ở ghép
+Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class,'detail'])->name('client.live-together.detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
