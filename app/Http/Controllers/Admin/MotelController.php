@@ -8,6 +8,7 @@ use App\Models\Area;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
+use App\Models\Plans;
 use App\Models\PrintPdf;
 use App\Models\User;
 use App\Models\UserMotel;
@@ -124,9 +125,7 @@ class MotelController extends Controller
         ];
 
         $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
-
         $data = [];
-
         foreach ($this->v['plans'] as $i) {
             $data[] = [
                 'id' => $i->id,
@@ -135,6 +134,7 @@ class MotelController extends Controller
                 'time' => $i->time
             ];
         }
+        
         $this->v['data'] = json_encode($data);
         $this->v['current_plan_motel'] = DB::table('plan_history')
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
@@ -149,6 +149,7 @@ class MotelController extends Controller
 
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
+        // dd($request->post());
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([

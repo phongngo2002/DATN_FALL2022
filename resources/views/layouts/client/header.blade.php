@@ -25,7 +25,7 @@
 
                         <li><a href="motels.html">Phòng trọ</a>
                         </li>
-                        <li><a href="in-compound.html">Tìm người ở ghép</a>
+                        <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
                         <li><a href="#">Bảng giá dịch vụ</a>
                         </li>
@@ -39,9 +39,7 @@
             <div class="right-side d-none d-none d-lg-none d-xl-flex">
                 <!-- Header Widget -->
                 <div class="header-widget">
-                    <a href="add-property.html" style="display: flex; justify-content: center; align-items: center;"
-                        class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
-
+                    <a href="{{ route('client_current_motel')}}" style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
                     </a>
                 </div>
                 <!-- Header Widget / End -->
@@ -95,19 +93,19 @@
             <!-- Right Side Content / End -->
 
             <!-- lang-wrap-->
-            {{--            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex"> --}}
-            {{--                <div class="lang-wrap"> --}}
-            {{--                    <div class="show-lang"><span><i --}}
-            {{--                                class="fas fa-globe-americas"></i><strong>ENG</strong></span><i --}}
-            {{--                            class="fa fa-caret-down arrlan"></i></div> --}}
-            {{--                    <ul class="lang-tooltip lang-action no-list-style"> --}}
-            {{--                        <li><a href="#" class="current-lan" data-lantext="En">English</a></li> --}}
-            {{--                        <li><a href="#" data-lantext="Fr">Francais</a></li> --}}
-            {{--                        <li><a href="#" data-lantext="Es">Espanol</a></li> --}}
-            {{--                        <li><a href="#" data-lantext="De">Deutsch</a></li> --}}
-            {{--                    </ul> --}}
-            {{--                </div> --}}
-            {{--            </div> --}}
+            {{--            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">--}}
+            {{--                <div class="lang-wrap">--}}
+            {{--                    <div class="show-lang"><span><i--}}
+            {{--                                class="fas fa-globe-americas"></i><strong>ENG</strong></span><i--}}
+            {{--                            class="fa fa-caret-down arrlan"></i></div>--}}
+            {{--                    <ul class="lang-tooltip lang-action no-list-style">--}}
+            {{--                        <li><a href="#" class="current-lan" data-lantext="En">English</a></li>--}}
+            {{--                        <li><a href="#" data-lantext="Fr">Francais</a></li>--}}
+            {{--                        <li><a href="#" data-lantext="Es">Espanol</a></li>--}}
+            {{--                        <li><a href="#" data-lantext="De">Deutsch</a></li>--}}
+            {{--                    </ul>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
             <!-- lang-wrap end-->
 
         </div>
