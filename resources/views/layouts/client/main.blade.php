@@ -15,7 +15,7 @@
     @include('layouts.client._css')
 </head>
 
-<body class="homepage-9 hp-6 homepage-1 mh">
+<body class="homepage-9 hp-6 homepage-1 mh inner-pages sin-1 homepage-4 hd-white">
 <!-- Wrapper -->
 <div id="wrapper">
     @include('layouts.client.header')

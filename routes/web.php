@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\MotelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanHistoryController;
 use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Client\LiveTogetherController;
+use App\Http\Controllers\Client\MotelController as ClientMotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,16 @@ Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConf
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
+//Chi tiết phòng trọ
+Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
+
+Route::get('/test', [ClientMotelController::class, 'test'])->name('client.motel.detail');
+
+//Liên hệ
+Route::post('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
+
+//Chi tiết tìm nguwoif ở ghép
+Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class,'detail'])->name('client.live-together.detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
