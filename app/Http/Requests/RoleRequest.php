@@ -22,25 +22,20 @@ class RoleRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {   
-        $uniqueName = 'unique:roles';
-        if(session('id')){
-            $id_ud = session('id');
-            $uniqueName ='unique:roles:roles,name'.$id_ud; 
-        }
-       
+    {
         return [
-            'name' => 'required|min:6|max:100|'.$uniqueName,
+            'name' => 'required|min:6|max:100',
             'desc' => 'required|min:20',
         ];
     }
+
     public function messages()
     {
         return [
             'name.required' => 'Bắt buộc nhập tên quyền !',
             'name.min' => 'Tên lớn hơn 6 ký tự !',
             'name.max' => 'Tên nhỏ hơn 100 ký tự !',
-            'name.unique'=> 'Tên quyền đã tồnt ại',
+            'name.unique' => 'Tên quyền đã tồnt ại',
             'desc.required' => 'Không để trống mô tả !',
             'desc.min' => 'Mô tả lớn hơn 20 ký tự !',
         ];

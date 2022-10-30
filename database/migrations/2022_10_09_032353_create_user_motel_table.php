@@ -16,10 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->integer('user_id');
             $table->integer('motel_id');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
             $table->integer('status')->default(1);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

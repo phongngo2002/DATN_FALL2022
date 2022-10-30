@@ -266,7 +266,6 @@
         </div>
     </div>
 @endsection
-
 @section('custom_js')
     <script>
         document.addEventListener("DOMContentLoaded", function () {

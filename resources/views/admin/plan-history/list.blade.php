@@ -1,43 +1,108 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Lịch sử nạp tiền')
+@section('title_page', 'Lịch sử giao dịch')
 
 @section('content')
-    <div class="row">
-        <div class="card flex-fill">
-            <table class="table table-hover my-0">
-                <thead>
-                    <tr>
-                        <th class="col-3">#</th>
-                        <th class="col-3">Motel</th>
-                        <th class="col-3">Plane</th>
-                        <th class="col-3">Active</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($plansHistory as $planHistory)
-                        <tr>
-                            <td>#</td>
-                            <td>{{ $planHistory->motelRoomNumber }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $planHistory->planName }}</td>
-                            <td class="d-none d-md-table-cell">
-                                <a href="" class="me-5">
-                                    <i class="align-middle" data-feather="edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
+    <div class="bg-white shadow-lg p-4 rounded-4">
+    <form action="" class="my-4">
+        <div class="row">
+            <div class="col-3">
+                <input class="form-control" name="name" value="{{ $params['name'] ?? '' }}"
+                       placeholder="Tìm kiếm theo tên mã phòng trọ">
+            </div>
+            <div class="col-2">
+                <select class="form-control" name="order_by">
+                    <option value="desc"
+                        {{ isset($params['order_by']) && $params['order_by'] == 'desc' ? 'selected' : '' }}>
+                        Sắp xếp mới nhất
+                    </option>
+                    <option value="asc"
+                        {{ isset($params['order_by']) && $params['order_by'] == 'asc' ? 'selected' : '' }}>Sắp
+                        xếp cũ nhất
+                    </option>
+                </select>
+            </div>
+            <div class="col-2">
+                <select class="form-control" name="limit">
+                    <option value="" {{ !isset($params['limit']) ? 'selected' : '' }}>Số lượng bản ghi hiển thị
+                    </option>
+                    <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : '' }}>
+                        10
+                    </option>
 
-                </tbody>
-            </table>
+                    <option value="25" {{ isset($params['limit']) && $params['limit'] == '25' ? 'selected' : '' }}>
+                        25
+                    </option>
+                    <option value="50" {{ isset($params['limit']) && $params['limit'] == '50' ? 'selected' : '' }}>
+                        50
+                    </option>
+                    <option
+                        value="100" {{ isset($params['limit']) && $params['limit'] == '100' ? 'selected' : '' }}>
+                        100
+                    </option>
+                </select>
+            </div>
+            <div class="col-5">
+                <button class="btn btn-primary">Tìm kiếm</button>
+                <a class="btn btn-danger" href="{{route('admin.plan-history.list')}}">Bỏ chọn</a>
+            </div>
         </div>
-    </div>
+    </form>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th class="">#</th>
+            <th class="">Phòng trọ</th>
+            <th class="">Khu trọ</th>
+            <th class="">Gói dịch vụ</th>
+            <th class="">Ngày mua</th>
+            <th>Tiền</th>
+            <th>Ghi chú</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($plansHistory as $planHistory)
+            <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>{{ $planHistory->room_number }}</td>
+                <td class="">{{ $planHistory->areaName }}</td>
+                <td class="">{{ $planHistory->planName }}</td>
+                <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
+                <th>
+                    @if($planHistory->tt == 2)
+                        <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
+                            class="fa-brands fa-bitcoin text-warning"></i>
 
+                    @elseif($planHistory->tt ==1)
+                        <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
+                            class="fa-brands fa-bitcoin text-warning"></i>
+                    @else
+                        <span
+                            class="text-success mx-1">+{{$planHistory->gia * (\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}</span>
+                        <i
+                            class="fa-brands fa-bitcoin text-warning"></i>
+                    @endif
+                </th>
+                <td>
+                    @if($planHistory->is_first)
+                        <span class="text-success font-weight-bold">Mua mới</span>
+                    @elseif($planHistory->tt == 2)
+                        <span class="text-warning font-weight-bold">Gia hạn</span>
+                    @else
+                        <span class="text-danger font-weight-bold">Chuyển gói</span>
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+
+        </tbody>
+    </table>
+    {{$plansHistory->links()}}
 @endsection
 
 @section('custom_js')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
             var gradient = ctx.createLinearGradient(0, 0, 0, 225);
             gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -109,7 +174,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Pie chart
             new Chart(document.getElementById("chartjs-dashboard-pie"), {
                 type: "pie",
@@ -137,7 +202,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
@@ -183,11 +248,11 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var markers = [{
-                    coords: [31.230391, 121.473701],
-                    name: "Shanghai"
-                },
+                coords: [31.230391, 121.473701],
+                name: "Shanghai"
+            },
                 {
                     coords: [28.704060, 77.102493],
                     name: "Delhi"
@@ -250,7 +315,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
             var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
             document.getElementById("datetimepicker-dashboard").flatpickr({
@@ -261,4 +326,5 @@
             });
         });
     </script>
+    </div>
 @endsection
