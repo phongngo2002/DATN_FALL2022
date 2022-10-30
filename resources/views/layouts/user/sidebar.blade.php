@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="favorited-listings.html">
+                    <a href="{{route('client_current_motel')}}">
                         <i class="fa fa-heart" aria-hidden="true"></i>Phòng trọ đang ở
                     </a>
                 </li>

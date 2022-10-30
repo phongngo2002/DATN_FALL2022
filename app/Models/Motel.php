@@ -70,11 +70,7 @@ class Motel extends Model
                 'area',
                 'image_360',
                 'photo_gallery',
-                'bed',
-                'bedroom',
-                'toilet',
-                'more',
-                'actor',
+                'services',
                 'end_time',
                 'max_people',
                 'areas.address as address',
@@ -92,9 +88,9 @@ class Motel extends Model
                 'video'
             ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
-            ->join('categories', 'categories.id', '=', 'motels.category_id')
-            ->join('users', 'areas.user_id', '=', 'users.id')
-            ->where('motels.id', $idMotel)->first();
+        ->join('categories', 'categories.id', '=', 'motels.category_id')
+        ->join('users', 'areas.user_id', '=', 'users.id')
+        ->where('motels.id', $idMotel)->first();
         return $motel;
     }
 
@@ -111,11 +107,11 @@ class Motel extends Model
             'max_people' => $data['max_people'],
             'status' => 1,
             'video' => $data['video'],
-            'bed' => $data['bed'],
-            'bedroom' => $data['bedroom'],
-            'toilet' => $data['toilet'],
-            'more' => $data['service_more'],
-            'actor' => $data['actor']
+            'services' => json_encode(['bed' => $data['bed'],
+                'bedroom' => $data['bedroom'],
+                'toilet' => $data['toilet'],
+                'more' => $data['service_more'],
+                'actor' => $data['actor']])
         ]);
         return 1;
     }
@@ -123,7 +119,7 @@ class Motel extends Model
     public function info_motel($id)
     {
         return DB::table('users')
-            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id','email'])
+            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id', 'email'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)

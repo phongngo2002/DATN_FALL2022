@@ -2,11 +2,13 @@
 @section('content')
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
         body {
             background-color: #f5eee7;
             font-family: "Poppins", sans-serif;
             font-weight: 300;
         }
+
         .card {
 
             border: none;
@@ -62,7 +64,6 @@
         }
 
 
-
     </style>
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
         @if ( Session::has('recharge_success') )
@@ -85,14 +86,14 @@
             </div>
         @endif
         @if ( Session::has('success') )
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <strong>{{ Session::get('success') }}</strong>
-            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <strong>{{ Session::get('success') }}</strong>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <ul>
@@ -124,13 +125,14 @@
                                 <div class="col-lg-4 col-md-12">
                                     <p class="no-mb">
                                         <label for="room_number">Mã phòng</label>
-                                        <input type="text" value="{{$motels[0]->room_number}}" id="room_number" readonly>
+                                        <input type="text" value="{{$motels->room_number}}" id="room_number" readonly>
                                     </p>
                                 </div>
                                 <div class="col-lg-4 col-md-12">
                                     <p class="no-mb">
                                         <label for="price">Giá/tháng</label>
-                                        <input type="text" value="{{number_format($motels[0]->price,0,",",".")}}" id="price" readonly>
+                                        <input type="text" value="{{number_format($motels->price,0,",",".")}}"
+                                               id="price" readonly>
                                     </p>
                                 </div>
                                 <div class="col-lg-4 col-md-12">
@@ -144,8 +146,8 @@
                                 <div class="col-md-12">
                                     <p>
                                         <label for="description">Mô tả</label>
-                                        <textarea id="description" >
-                                            {{isset($data_post->description) ? $data_post->description :  $motels[0]->description}}
+                                        <textarea id="description">
+                                            {!!isset($data_post->description) ? $data_post->description :  $motels->description  !!}
                                         </textarea>
                                     </p>
                                 </div>
@@ -154,36 +156,29 @@
                                 <div class="col-lg-6 col-md-12">
                                     <p class="no-mb">
                                         <label for="address">Địa chỉ</label>
-                                        <input type="text" value="{{$motels[0]->address}}"
-                                            id="address" readonly>
+                                        <input type="text" value="{{$motels->address}}"
+                                               id="address" readonly>
                                     </p>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <label for="address">Đối tượng ở ghép</label>
-                                    <select class="form-select" name="gender" id="gender" aria-label="Default select example"
-                                        style="border:1px solid #ddd">
-                                        @if (isset($data_post->gender))
-                                            @if ($data_post->gender == 1)
-                                                <option value="1" selected>Nam</option>
-                                            @elseif($data_post->gender == 2)
-                                                <option value="2" selected>Nữ</option>
-                                            @elseif($data_post->gender == 3)
-                                                <option value="3" selected>Tất cả</option>
-                                            @else
-                                                <option value="4">Khác</option>
-                                            @endif
-                                            <option value="1">Nam</option>
-                                            <option value="2">Nữ</option>
-                                            <option value="3">Tất cả</option>
-                                            <option value="4">Khác</option>
-                                        @else
-                                            <option value="1">Nam</option>
-                                            <option value="2">Nữ</option>
-                                            <option value="3">Tất cả</option>
-                                            <option value="4">Khác</option>
-                                        @endif
-                                        
-                                    </select>
+                                    <div class="nice-select form-control wide" style="margin-top: 2px !important;"
+                                         tabindex="0"><span class="current">Select status</span>
+                                        <ul class="list">
+                                            <li data-value="1"
+                                                class="option {{ isset($data_post) && $data_post->gender == 1 ? 'selected' : ''}}">
+                                                Nam
+                                            </li>
+                                            <li data-value="2"
+                                                class="option {{ isset($data_post) && $data_post->gender == 2 ? 'selected' : ''}}">
+                                                Nữ
+                                            </li>
+                                            <li data-value="3"
+                                                class="option {{ isset($data_post) && $data_post->gender == 3 ? 'selected' : ''}}">
+                                                Tất cả
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,8 +190,8 @@
                                 <div class="col-lg-4 col-md-12">
                                     <p>
                                         <label for="con-name">Họ tên</label>
-                                        <input type="text"  id="con-name" name="" value="{{$user->name}}">
-                                        <input type="hidden"  id="" name="user_id" value="{{$user->id}}">
+                                        <input type="text" id="con-name" name="" value="{{$user->name}}">
+                                        <input type="hidden" id="" name="user_id" value="{{$user->id}}">
                                     </p>
                                 </div>
                                 <div class="col-lg-4 col-md-12">
@@ -208,7 +203,7 @@
                                 <div class="col-lg-4 col-md-12">
                                     <p class="no-mb last">
                                         <label for="con-phn">Số điện thoại</label>
-                                        <input type="text" value="{{$user->phone_number}}" >
+                                        <input type="text" value="{{$user->phone_number}}">
                                     </p>
                                 </div>
                             </div>
@@ -218,19 +213,22 @@
                         <h3 style="color:#FF385C;">Thông tin đẩy tin</h3>
                         <div class="property-form-group row px-3">
                             <div class="mb-3 col-6">
-                                <label for="" class="mb-2">Chọn gói đăng tin</label>
-                                <select class="form-select" aria-label="Default select example"
-                                    style="border:1px solid #ddd" id="post_plan" name="post_plan">
-                                    <option value="0" selected>Chọn gói đăng tin</option>
-                                    @foreach ($plans as $plan)
-                                        <option value="{{$plan->id}}" data-price="{{$plan->price}}" data-name="{{$plan->name}}">{{$plan->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="address">Chọn gói đăng tin</label>
+                                <div class="nice-select form-control wide" style="margin-top: 2px !important;"
+                                     tabindex="0"><span class="current">Chọn gói đăng tin</span>
+                                    <ul class="list">
+                                        @foreach ($plans as $plan)
+                                            <li data-value="{{$plan->id}}" data-price="{{$plan->price}}"
+                                                class="option">{{$plan->name}}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                             <div class="mb-3 col-6">
                                 <p class="no-mb">
                                     <label for="" class="mb-2">Số ngày đăng bài</label>
-                                    <input type="number" placeholder="Số ngày đăng bài" id="post_day" >
+                                    <input type="number" placeholder="Số ngày đăng bài" id="post_day">
                                 </p>
                             </div>
                         </div>
@@ -246,62 +244,66 @@
                                         <span>Tài khoản gốc:</span>
                                         <span class="la la-envelope-o">
                                             <span>{{$user->money}}</span>&nbsp<i class="fa-brands fa-bitcoin"
-                                                aria-hidden="true" style="color:#FF9801;"></i>
+                                                                                 aria-hidden="true"
+                                                                                 style="color:#FF9801;"></i>
                                         </span>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <a href="{{route('backend_get_form_recharge')}}" class="btn btn-primary">Nạp thêm tiền</a>
-                                        <p id="notification" class="text-danger"></p>    
+                                        <a href="{{route('backend_get_form_recharge')}}" class="btn btn-primary">Nạp
+                                            thêm tiền</a>
+                                        <p id="notification" class="text-danger"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         @if($current_plan_motel)
-                        <div class="single-add-property">
-                            <div class="mb-4" >
-                                <h3>Gói hiện tại</h3>
-                                <div class="property-form-group column px-3">
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <td>Loại tin</td>
-                                            <td class="font-weight-bold">{{$current_plan_motel->name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thời gian(ngày)</td>
-                                            <td class="font-weight-bold">{{$current_plan_motel->day}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Giá (ngày)</td>
-                                            <td class="text-success font-weight-bold"><span id="old_price">
-                                                {{$current_plan_motel->price}}</span> <i class="fa-brands fa-bitcoin text-warning"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Số ngày còn lại</td>
-                                            <td class="text-danger font-weight-bold">
-                                                <span>{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thành tiền</td>
-                                            <td class="text-danger font-weight-bold">
-                                                <span id="money_more">0</span> <i
-                                                    class="fa-brands fa-bitcoin text-warning"></i>
-                                            </td>
-                                        <tr>
-                                    </table>
-                                    <input type="number" class="form-control my-2" id="date_more" name="date_more"
-                                        placeholder="Nhập số ngày muốn gia hạn" {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>
+                            <div class="single-add-property">
+                                <div class="mb-4">
+                                    <h3>Gói hiện tại</h3>
+                                    <div class="property-form-group column px-3">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td>Loại tin</td>
+                                                <td class="font-weight-bold">{{$current_plan_motel->name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thời gian(ngày)</td>
+                                                <td class="font-weight-bold">{{$current_plan_motel->day}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Giá (ngày)</td>
+                                                <td class="text-success font-weight-bold"><span id="old_price">
+                                                {{$current_plan_motel->price}}</span> <i
+                                                        class="fa-brands fa-bitcoin text-warning"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số ngày còn lại</td>
+                                                <td class="text-danger font-weight-bold">
+                                                    <span>{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thành tiền</td>
+                                                <td class="text-danger font-weight-bold">
+                                                    <span id="money_more">0</span> <i
+                                                        class="fa-brands fa-bitcoin text-warning"></i>
+                                                </td>
+                                            <tr>
+                                        </table>
+                                        <input type="number" class="form-control my-2" id="date_more" name="date_more"
+                                               placeholder="Nhập số ngày muốn gia hạn" {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>
 
-                                    
-                                    <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
-                                    <button data-toggle="modal" data-target="#exampleModal2" type="button"  
-                                        class="btn btn-success" id="btn_more" style="width: 100%"
-                                        {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia hạn ngay
-                                    </button>
-                                </div>  
+
+                                        <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
+                                        <button data-toggle="modal" data-target="#exampleModal2" type="button"
+                                                class="btn btn-success" id="btn_more" style="width: 100%"
+                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia
+                                            hạn ngay
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         @endif
                         <div class="single-add-property">
                             <div class="mb-4">
@@ -338,15 +340,15 @@
                                     <div class="text-center">
                                         @if($current_plan_motel)
                                             <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
-                                            
+
                                             <input type="hidden" name="old_day" id="old_day"
-                                                value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
+                                                   value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
                                             <input type="hidden" id="money_plan_old" name="money_plan_old"
-                                                value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
-                                            <button 
-                                                type="button" 
-                                                class="btn btn-success" 
-                                                id="tt" 
+                                                   value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
+                                            <button
+                                                type="button"
+                                                class="btn btn-success"
+                                                id="tt"
                                                 disabled style="width: 100%"
                                                 data-toggle="modal"
                                                 data-target="#exampleModal" {{$current_plan_motel->priority_level === 1 ? 'disabled' : '' }} >
@@ -354,12 +356,13 @@
                                             </button>
                                         @else
                                             <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
-                                            <button type="button" class="btn btn-success" id="tt" disabled style="width: 100%"
+                                            <button type="button" class="btn btn-success" id="tt" disabled
+                                                    style="width: 100%"
                                                     data-toggle="modal"
                                                     data-target="#exampleModal">Thanh toán
                                             </button>
                                         @endif
-                
+
                                     </div>
                                 </div>
                             </div>
@@ -368,172 +371,177 @@
                 </div>
             </div>
 
-            <input type="hidden" id="data_plan" value="{{$data_plan}}">            
-            <input type="hidden" id="money_user" value="{{Auth::user()->money}}"> 
+            <input type="hidden" id="data_plan" value="{{$data_plan}}">
+            <input type="hidden" id="money_user" value="{{Auth::user()->money}}">
         </form>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('client_save_post_live_together', ['motel_id'=>$motels[0]->motel_id]) }}" method="post">
-                    @csrf
-                    <input type="hidden" id="title1" name="title">
-                    <input type="hidden" id="motel_id1" name="motel_id" value="{{$motels[0]->motel_id}}">
-                    <input type="hidden" id="number_people1" name="number_people">
-                    <input type="hidden" id="description1" name="description">
-                    <input type="hidden" id="gender1" name="gender">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('client_save_post_live_together', ['motel_id'=>$motels->motel_id]) }}"
+                          method="post">
+                        @csrf
+                        <input type="hidden" id="title1" name="title">
+                        <input type="hidden" id="motel_id1" name="motel_id" value="{{$motels->motel_id}}">
+                        <input type="hidden" id="number_people1" name="number_people">
+                        <input type="hidden" id="description1" name="description">
+                        <input type="hidden" id="gender1" name="gender">
 
-                    {{-- <input type="hidden" id="user_id1" name="user_id" value="{{Auth::user()->id}}"> --}}
-                    <input type="hidden" id="post_plan1" name="post_plan">
-                    <input type="hidden" id="post_day1" name="post_day">
-                    <input type="hidden" id="post_money1" name="post_money">
+                        {{-- <input type="hidden" id="user_id1" name="user_id" value="{{Auth::user()->id}}"> --}}
+                        <input type="hidden" id="post_plan1" name="post_plan">
+                        <input type="hidden" id="post_day1" name="post_day">
+                        <input type="hidden" id="post_money1" name="post_money">
 
-                    
-                    @if($current_plan_motel)
-                        <input type="hidden" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
-                        <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
-                        <input type="hidden" name="old_day" id="old_day"
-                                value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
-                        <input type="hidden" id="money_plan_old" name="money_plan_old"
-                                value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
-                        <input type="hidden" id="change_plan" name="change_plan" value="123132">
-                    @endif
-                    {{-- <input type="hidden" id="post_day" name="post_day"> --}}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Xác nhận thanh toán</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn có chắc muốn đăng phòng trọ này lên mục tìm kiếm ở website chúng tôi ?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary">Đồng ý</button>
-                    </div>
-                </form>
+
+                        @if($current_plan_motel)
+                            <input type="hidden" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
+                            <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
+                            <input type="hidden" name="old_day" id="old_day"
+                                   value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
+                            <input type="hidden" id="money_plan_old" name="money_plan_old"
+                                   value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
+                            <input type="hidden" id="change_plan" name="change_plan" value="123132">
+                        @endif
+                        {{-- <input type="hidden" id="post_day" name="post_day"> --}}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận thanh toán</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc muốn đăng phòng trọ này lên mục tìm kiếm ở website chúng tôi ?
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Đồng ý</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </div>
 
-    </div>
+        @if($current_plan_motel)
 
-    @if($current_plan_motel)
-    
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('client_save_post_live_together', ['motel_id'=>$motels[0]->motel_id]) }}" method="post">
-                    @csrf            
-                    <input type="hidden" id="title2" name="title">
-                    <input type="hidden" id="motel_id2" name="motel_id" value="{{$motels[0]->motel_id}}">
-                    <input type="hidden" id="number_people2" name="number_people">
-                    <input type="hidden" id="description2" name="description">
-                    <input type="hidden" id="gender2" name="gender">
-                    
-                    <input type="hidden" name="gia_han" value="true">
-                    <input type="hidden" id="post_money2" name="post_money">
-                    <input type="hidden" id="post_day_more" name="post_day_more">
-                    <input type="hidden" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
-                    <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('client_save_post_live_together', ['motel_id'=>$motels->motel_id]) }}"
+                              method="post">
+                            @csrf
+                            <input type="hidden" id="title2" name="title">
+                            <input type="hidden" id="motel_id2" name="motel_id" value="{{$motels->motel_id}}">
+                            <input type="hidden" id="number_people2" name="number_people">
+                            <input type="hidden" id="description2" name="description">
+                            <input type="hidden" id="gender2" name="gender">
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Xác nhận gia hạn</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                            <input type="hidden" name="gia_han" value="true">
+                            <input type="hidden" id="post_money2" name="post_money">
+                            <input type="hidden" id="post_day_more" name="post_day_more">
+                            <input type="hidden" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
+                            <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận gia hạn</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có chắc gia hạn bài đăng phòng trọ này trên mục tìm kiếm ở website chúng tôi ?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary">Đồng ý</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-body">
-                        Bạn có chắc gia hạn bài đăng phòng trọ này trên mục tìm kiếm ở website chúng tôi ?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary">Đồng ý</button>
-                    </div>
-                </form>
+                </div>
+
             </div>
-        </div>
+        @endif
+        <script>
 
-    </div>
-@endif
-    <script>
-         
-        
-        const money_more = document.getElementById('money_more');
-        const old_price = document.getElementById('old_price');
 
-        const data = JSON.parse(document.getElementById('data_plan').value);
-        const post_plan = document.getElementById('post_plan');
-        const post_day = document.getElementById('post_day');
+            const money_more = document.getElementById('money_more');
+            const old_price = document.getElementById('old_price');
 
-        const show_plan = document.getElementById('show_plan');
-        const show_day = document.getElementById('show_day');
-        const show_money = document.getElementById('show_money');
-        const show_total = document.getElementById('show_total');
-        const money_user = document.getElementById('money_user');
-        const date_more = document.getElementById('date_more');
-        var money_temp = 0;
-        function changeDisable(total){
-            if (Number(total) > Number(money_user.value)) {
-                document.getElementById('tt').setAttribute('disabled', 'true');
-                document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
-            } else {
-                document.getElementById('tt').removeAttribute('disabled');
-                document.getElementById('notification').innerText = '';
+            const data = JSON.parse(document.getElementById('data_plan').value);
+            const post_plan = document.getElementById('post_plan');
+            const post_day = document.getElementById('post_day');
+
+            const show_plan = document.getElementById('show_plan');
+            const show_day = document.getElementById('show_day');
+            const show_money = document.getElementById('show_money');
+            const show_total = document.getElementById('show_total');
+            const money_user = document.getElementById('money_user');
+            const date_more = document.getElementById('date_more');
+            var money_temp = 0;
+
+            function changeDisable(total) {
+                if (Number(total) > Number(money_user.value)) {
+                    document.getElementById('tt').setAttribute('disabled', 'true');
+                    document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
+                } else {
+                    document.getElementById('tt').removeAttribute('disabled');
+                    document.getElementById('notification').innerText = '';
+                }
             }
-        }
-        post_plan.addEventListener('change', function(){
-            data.forEach(e => {
-                if(post_plan.value != 0){
-                    if(post_plan.value == e.id){
-                        show_plan.innerText = e.title;
-                        show_money.innerText = e.price
-                        money_temp = e.price;
+
+            post_plan.addEventListener('change', function () {
+                data.forEach(e => {
+                    if (post_plan.value != 0) {
+                        if (post_plan.value == e.id) {
+                            show_plan.innerText = e.title;
+                            show_money.innerText = e.price
+                            money_temp = e.price;
+                            show_total.innerText = money_temp * post_day.value
+
+                            document.getElementById('post_plan1').value = e.id
+
+                            changeDisable(money_temp * post_day.value);
+                        }
+                    } else {
+
+                        show_plan.innerText = '';
+                        show_money.innerText = 0
+                        money_temp = 0
                         show_total.innerText = money_temp * post_day.value
-
-                        document.getElementById('post_plan1').value = e.id
-
                         changeDisable(money_temp * post_day.value);
                     }
-                }else{
+                });
 
-                    show_plan.innerText = '';
-                    show_money.innerText = 0
-                    money_temp = 0
-                    show_total.innerText = money_temp * post_day.value
-                    changeDisable(money_temp * post_day.value);
-                }
-            });
+                document.getElementById('title1').value = document.getElementById('title').value
+                document.getElementById('description1').value = document.getElementById('description').value
+                document.getElementById('gender1').value = document.getElementById('gender').value
+                document.getElementById('number_people1').value = document.getElementById('number_people').value
 
-            document.getElementById('title1').value = document.getElementById('title').value
-            document.getElementById('description1').value = document.getElementById('description').value
-            document.getElementById('gender1').value = document.getElementById('gender').value
-            document.getElementById('number_people1').value = document.getElementById('number_people').value
+            })
+            post_day.oninput = function () {
+                show_day.innerText = post_day.value;
+                show_total.innerText = money_temp * post_day.value
+                document.getElementById('post_day1').value = post_day.value
+                document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);
+                changeDisable(money_temp * post_day.value);
+            }
 
-        }) 
-        post_day.oninput = function(){
-            show_day.innerText = post_day.value;
-            show_total.innerText = money_temp * post_day.value
-            document.getElementById('post_day1').value = post_day.value
-            document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);
-            changeDisable(money_temp * post_day.value);
-        }
-       
-        date_more.oninput = function(){
-            // console.log(date_more.value);
-            money_more.innerText = old_price.innerText * date_more.value
+            date_more.oninput = function () {
+                // console.log(date_more.value);
+                money_more.innerText = old_price.innerText * date_more.value
 
-            document.getElementById('title2').value = document.getElementById('title').value
-            document.getElementById('description2').value = document.getElementById('description').value
-            document.getElementById('gender2').value = document.getElementById('gender').value
-            document.getElementById('number_people2').value = document.getElementById('number_people').value
+                document.getElementById('title2').value = document.getElementById('title').value
+                document.getElementById('description2').value = document.getElementById('description').value
+                document.getElementById('gender2').value = document.getElementById('gender').value
+                document.getElementById('number_people2').value = document.getElementById('number_people').value
 
-            document.getElementById('post_day_more').value = date_more.value
-            document.getElementById('post_money2').setAttribute('value', old_price.innerText * date_more.value);
-            changeDisable(old_price.innerText * date_more.value);
-        }
-        
-    </script>
-       
+                document.getElementById('post_day_more').value = date_more.value
+                document.getElementById('post_money2').setAttribute('value', old_price.innerText * date_more.value);
+                changeDisable(old_price.innerText * date_more.value);
+            }
+
+        </script>
+
 @endsection

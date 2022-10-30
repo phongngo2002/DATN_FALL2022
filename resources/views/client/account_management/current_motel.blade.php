@@ -2,11 +2,13 @@
 @section('content')
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
         body {
             background-color: #f5eee7;
             font-family: "Poppins", sans-serif;
             font-weight: 300;
         }
+
         .card {
 
             border: none;
@@ -144,42 +146,46 @@
         @endif
         <h4>Phòng trọ của tôi</h4>
         <div class="my-properties shadow-lg">
-            <table class="table-responsive">
+            <table class="table-responsive text-center">
                 <thead>
-                    <tr>
-                        <th class="pl-2" colspan="2">Thông tin phòng</th>
-                        <th>Ngày bắt đầu</th>
-                        <th>Ngày kết thúc</th>
-                        <th>Số phòng</th>
-                        <th>Giá</th>
-                        <th>Actions</th>
-                    </tr>
+                <tr>
+                    <th>STT</th>
+                    <th>Số phòng</th>
+                    <th>Khu trọ</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Giá</th>
+                    <th>Trạng thái</th>
+                    <th>Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($motels as $motel)
+                @foreach ($motels as $motel)
                     <tr>
-                        <td class="image myelist">
-                            <a href="single-property-1.html"><img alt="my-properties-3" src="{{$motel->photo_gallery1}}" class="img-fluid"></a>
-                        </td>
-                        <td class="col-2">
-                            <div class="inner">
-                                <a href="single-property-1.html"><h2>{{$motel->area_name}}</h2></a>
-                                <figure><i class="lni-map-marker"></i>{{$motel->address}}</figure>
-                            </div>
-                        </td>
-                        <td>{{$motel->user_motel_start_time}}</td>
-                        <td>{{$motel->user_motel_end_time}}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$motel->room_number}}</td>
+                        <td>{{$motel->area_name}}</td>
+                        <td>{{\Carbon\Carbon::parse($motel->user_motel_start_time)->format('h:i d/m/Y')}}</td>
+                        <td>{{$motel->user_motel_end_time ?  \Carbon\Carbon::parse($motel->user_motel_end_time)->format('h:i d/m/Y') : 'Chưa xác đinh'}}</td>
                         <td>{{ number_format($motel->price,0,",",".") }}</td>
                         <td>
-                            @if ($motel->status == 1)
-                                <a class="btn btn-success text-white" href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng tin ở ghép</a>
+                            @if($motel->tt)
+                                <span class="text-success font-weight-bold">Đang ở</span>
+                            @else
+                                <span class="text-danger font-weight-bold">Đã rời phòng</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($motel->tt == 1)
+                                <a class="btn btn-success text-white"
+                                   href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng
+                                    tin ở ghép</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
                             @endif
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>
