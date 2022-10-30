@@ -39,9 +39,7 @@
             <div class="right-side d-none d-none d-lg-none d-xl-flex">
                 <!-- Header Widget -->
                 <div class="header-widget">
-                    <a href="add-property.html" style="display: flex; justify-content: center; align-items: center;"
-                        class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
-
+                    <a href="{{ route('client_current_motel', ['user_id'=>Auth::user()->id]) }}" style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
                     </a>
                 </div>
                 <!-- Header Widget / End -->

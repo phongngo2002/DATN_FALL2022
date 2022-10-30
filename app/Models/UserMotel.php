@@ -41,4 +41,24 @@ class UserMotel extends Model
             ->where('motel_id', $motel_id)
             ->paginate(10);
     }
+    
+    public function currentMotel($user_id,$motel_id=null)
+    {
+        return DB::table($this->table)
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->select(['motels.id as motel_id','motels.image_360','motels.description','areas.name as area_name','areas.address','user_motel.start_time as user_motel_start_time','user_motel.end_time as user_motel_end_time','motels.room_number','motels.price','motels.data_post'])
+            ->where('user_motel.user_id', $user_id)
+            ->where(function($query) use ($motel_id){
+                if($motel_id != null){
+                    $query->where('motels.id', $motel_id);
+                }
+            })
+            ->get();
+    }
+    public function number_people_live_now($motel_id){
+        return DB::table($this->table)
+        ->select('user_id')->where('motel_id', $motel_id)
+        ->get();
+    }
 }

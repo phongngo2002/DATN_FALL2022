@@ -31,6 +31,7 @@ return new class extends Migration {
             $table->integer('toilet')->nullable();
             $table->longText('more')->nullable();
             $table->string('actor')->nullable();
+            $table->longText('data_post')->nullable();
             $table->timestamps();
         });
     }
