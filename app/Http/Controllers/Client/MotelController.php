@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Mail\SendMailContact;
-use App\Models\ContactMotelHistory;
 use App\Models\Motel;
+use App\Models\Plan;
+use App\Models\PlanHistory;
+use App\Models\User;
+use App\Models\UserMotel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Mail\SendMailContact;
+use App\Models\ContactMotelHistory;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use App\Models\Plan;
-use App\Models\UserMotel;
+
 class MotelController extends Controller
 {
     private $v;
@@ -21,52 +25,11 @@ class MotelController extends Controller
         $this->v = [];
     }
 
-    public function detail($id)
-    {
-        $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($id);
-
-        return view('client.motel.detail', $this->v);
-    }
-
-    public function sendContact(Request $request, $id)
-    {
-
-
-        $model2 = new ContactMotelHistory();
-
-        if ($model2->create_history([
-            'id' => $id
-        ])) {
-            $model = new Motel();
-            $data = [];
-            $people = $model->info_motel($id);
-            foreach ($people as $p) {
-                $data[] = $p->email;
-            }
-            if (!empty($data)) {
-                Mail::to($data)->send(new SendMailContact());
-            }
-        }
-
-        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
-    public function currentMotel()
+    public function currentMotel($user_id)
     {
         $model = new UserMotel();
-        $this->v['motels'] = $model->currentMotel(Auth::user()->id);
-        $photo_gallery ='';
-
-        foreach ($this->v['motels'] as $motel) {
-            if (strpos($motel->photo_gallery,',',0) !== false) {//nếu có 2 ảnh
-                $photo_gallery_1 = substr($motel->photo_gallery,2, strpos($motel->photo_gallery,',',0)-2);
-            }else{//nếu chỉ có 1 ảnh
-                $photo_gallery_1 = str_replace('["','',$motel->photo_gallery);
-                $photo_gallery_1 = str_replace('"]','',$photo_gallery_1);
-            }
-
-            $motel->photo_gallery1 = $photo_gallery_1;//lấy ra ảnh đầu tiên
-        }
-
+        $this->v['motels'] = $model->currentMotel($user_id);
+        // dd($this->v['motels']);
         return view('client.account_management.current_motel', $this->v);
     }
     public function postLiveTogether($motel_id) {
@@ -90,11 +53,12 @@ class MotelController extends Controller
         ->where('plan_history.status', 1)
         ->first();
 
+        // dd( $this->v['data_plan']);
+
         $model = new UserMotel();
         $this->v['motels'] = $model->currentMotel(Auth::user()->id,$motel_id);
         $this->v['number_people'] = count($model->number_people_live_now($motel_id));
         $this->v['user'] = Auth::user();
-        $this->v['data_post'] = json_decode($this->v['motels'][0]->data_post);
         // dd($this->v['current_plan_motel']);
         // dd($this->v['motels']);
         // $data_post = json_decode($this->v['motels'][0]->data_post);
@@ -211,6 +175,9 @@ class MotelController extends Controller
             $user->money -= $request->post_money;
             $user->save();
         }
+
+
+
         return redirect()->back()->with('success', 'Đăng bài thành công');
 
     }
@@ -229,5 +196,34 @@ class MotelController extends Controller
 
         return view('client.account_management.list_live_together', $this->v);
 
+    public function detail($id)
+    {
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detailMotel($id);
+
+        return view('client.motel.detail', $this->v);
+    }
+
+    public function sendContact(Request $request, $id)
+    {
+
+
+        $model2 = new ContactMotelHistory();
+
+        if ($model2->create_history([
+            'id' => $id
+        ])) {
+            $model = new Motel();
+            $data = [];
+            $people = $model->info_motel($id);
+            foreach ($people as $p) {
+                $data[] = $p->email;
+            }
+            if (!empty($data)) {
+                Mail::to($data)->send(new SendMailContact());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
     }
 }
