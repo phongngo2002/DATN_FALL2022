@@ -69,7 +69,6 @@ class Motel extends Model
                 'services',
                 'end_time',
                 'max_people',
-                // 'motels.address as address',
                 'description',
                 'areas.name as area_name',
                 'areas.address as area_address',

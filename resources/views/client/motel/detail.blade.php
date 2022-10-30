@@ -126,10 +126,10 @@
                         <h5 class="mt-5">Tiện nghi</h5>
                         <!-- cars List -->
                         <ul class="homes-list clearfix">
-                            @foreach (json_decode($motel->services) as $item)
+                            @foreach (json_decode($motel->services) as $key=>$value)
                                 <li>
                                     <i class="fa fa-check-square" aria-hidden="true"></i>
-                                    <span>{{ $item }}</span>
+                                    <span>{{ $value }}</span>
                                 </li>
                             @endforeach
                         </ul>
@@ -509,27 +509,8 @@
                     <div class="single widget">
                         <!-- Start: Schedule a Tour -->
                         <div class="schedule widget-boxed mt-33 mt-0">
-                            <div class="widget-boxed-header">
-                                <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Lên lịch hẹn</h4>
-                            </div>
-                            <div class="widget-boxed-body">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-12 book">
-                                        <input type="text" id="reservation-date" data-lang="en"
-                                            data-large-mode="true" data-min-year="2017" data-max-year="3000"
-                                            data-disabled-days="08/17/2017,08/18/2017" data-id="datedropper-0"
-                                            data-theme="my-style" class="form-control" readonly="">
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 book2">
-                                        <input type="text" id="reservation-time" class="form-control"
-                                            readonly="">
-                                    </div>
-                                </div>
-
-
-                            </div>
                             <a href="payment-method.html"
-                                class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt Lịch</a>
+                                class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
