@@ -42,7 +42,7 @@ Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("a
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 
 //client các gói dịch vụ,đăng ký
-Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('frontend_get_plans');
+Route::get('/goi-dich-vu', [\App\Http\Controllers\Client\PlanController::class, 'index_plan'])->name('frontend_get_plans');
 
 Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
 Route::post('/dang-ky', [registerController::class, 'register_user'])->name('post_register');
@@ -56,6 +56,8 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
+    Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
+
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
     Route::prefix('admin')->group(function () {

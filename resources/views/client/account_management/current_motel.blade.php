@@ -112,9 +112,9 @@
         }
     </style>
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
-        @if ( Session::has('recharge_success') )
+        @if ( Session::has('success') )
             <div class="alert alert-success alert-dismissible" role="alert">
-                <strong>{{ Session::get('recharge_success') }}</strong>
+                <strong>{{ Session::get('success') }}</strong>
                 <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Đóng</span>
@@ -122,9 +122,9 @@
             </div>
         @endif
         <?php //Hiển thị thông báo lỗi?>
-        @if ( Session::has('recharge_error') )
+        @if ( Session::has('error') )
             <div class="alert alert-danger alert-dismissible" role="alert">
-                <strong>{{ Session::get('recharge_error') }}</strong>
+                <strong>{{ Session::get('error') }}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Đóng</span>
@@ -169,8 +169,10 @@
                         <td>{{$motel->user_motel_end_time ?  \Carbon\Carbon::parse($motel->user_motel_end_time)->format('h:i d/m/Y') : 'Chưa xác đinh'}}</td>
                         <td>{{ number_format($motel->price,0,",",".") }}</td>
                         <td>
-                            @if($motel->tt)
+                            @if($motel->tt === 1)
                                 <span class="text-success font-weight-bold">Đang ở</span>
+                            @elseif($motel->tt === 2)
+                                <span class="text-secondary font-weight-bold">Đang chờ duyệt rời trọ</span>
                             @else
                                 <span class="text-danger font-weight-bold">Đã rời phòng</span>
                             @endif
@@ -180,6 +182,8 @@
                                 <a class="btn btn-success text-white"
                                    href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng
                                     tin ở ghép</a>
+                                <a class="btn btn-danger text-white"
+                                   href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}">Rời phòng</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
                             @endif

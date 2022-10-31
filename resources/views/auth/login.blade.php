@@ -89,12 +89,11 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                    </form>
                                 </div>
 
                                 <div class="text-center mt-3">
 
-                                    <button class="btn btn-primary">Đăng nhập</button>
+                                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
                                     <button type="button" id="login" class="btn btn-info google-plus"> Đăng ký
                                         bằng tài khoản google<i class="fa-brands fa-google mx-2"></i></button>
                                     <div class="mt-2">
