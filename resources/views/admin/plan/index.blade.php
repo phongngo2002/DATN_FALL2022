@@ -1,19 +1,18 @@
-a@extends('layouts.admin.main')
+@extends('layouts.admin.main')
 
 @section('title_page', 'Quản lý các gói dịch vụ')
 
 @section('content')
     <div class="bg-white shadow-lg p-4 rounded-4">
 
-        <form action="">
-            <div class="row m-3">
-                <div class="col-4">
+        <form action="" class="mb-4">
+            <div class="row col-12">
+                <div class="col-3 pl-0 pr-1">
                     <input class="form-control" name="name"
                         value="{{ isset($params['name']) && $params['name'] ? $params['name'] : '' }}"
-                        placeholder="Tìm kiếm theo tên khu trọ,tên người đặt cọc">
-
+                        placeholder="Tìm kiếm theo tên gói dịch vụ">
                 </div>
-                <div class="col-2">
+                <div class="col-2 px-1">
                     <select class="form-control" name="order_by">
                         <option value="desc"
                             {{ isset($params['order_by']) && $params['order_by'] == 'desc' ? 'selected' : '' }}>
@@ -25,14 +24,13 @@ a@extends('layouts.admin.main')
                         </option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-3 px-1">
                     <select class="form-control" name="limit">
-                        <option value="" {{ !isset($params['limit']) ? 'selected' : '' }}>Số lượng bản ghi
+                        <option value="" {{ !isset($params['limit']) ? 'selected' : '' }}>Số lượng bản ghi hiển thị
                         </option>
                         <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : '' }}>
                             10
                         </option>
-
                         <option value="25" {{ isset($params['limit']) && $params['limit'] == '25' ? 'selected' : '' }}>
                             25
                         </option>
@@ -44,12 +42,10 @@ a@extends('layouts.admin.main')
                         </option>
                     </select>
                 </div>
-                <div class="col-md-4 d-flex">
-                    <button class="btn btn-primary mr-2">Tìm kiếm</button>
-
-                    <a class="btn btn-danger" href="{{ route('backend_get_list_deposit') }}">Bỏ
-                        chọn</a>
-                    <a href="{{ route('backend_admin_create_plans') }}" class="btn btn-primary my-2"><i
+                <div class="col-4 d-flex flex-row">
+                    <button class="btn btn-primary">Tìm kiếm</button>
+                    <a class="btn btn-danger mx-2" href="">Bỏ chọn</a>
+                    <a href="{{ route('backend_admin_create_plans') }}" class="btn btn-primary"><i
                             class="fa-solid fa-folder-plus"></i> Thêm mới</a>
                 </div>
             </div>
@@ -73,10 +69,10 @@ a@extends('layouts.admin.main')
                         <td>{{ $plan->name }}</td>
                         <td class="text-danger font-weight-bold">{{ $plan->priority_level }}</td>
                         <td>
-                            @if ($plan->type)
+                            @if ($plan->type == 1)
                                 <span class="badge bg-success p-2 text-xl">Gói đăng bài</span>
                             @else
-                                <span class="badge bg-dange p-2 text-xl">Gói tìm ngưởi ờ ghép</span>
+                                <span class="badge bg-danger p-2 text-xl">Gói tìm ngưởi ờ ghép</span>
                             @endif
                         </td>
                         <td><span class="text-success mx-1">{{ $plan->price }}</span><i
