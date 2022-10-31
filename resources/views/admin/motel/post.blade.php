@@ -41,7 +41,7 @@
                     <div class="col-4">
                         <label for="">Đối tượng thuê</label>
                         <input type="text" class="form-control" disabled
-                               value="{{$motel->actor}}">
+                               value="{{json_decode($motel->services)->actor}}">
                     </div>
                 </div>
                 <div class="row my-4">

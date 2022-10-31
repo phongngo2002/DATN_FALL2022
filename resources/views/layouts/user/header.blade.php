@@ -24,11 +24,11 @@
                         <li><a href="{{route('home')}}">Trang chủ</a>
                         </li>
 
-                        <li><a href="motels.html">Phòng trọ</a>
+                        <li><a href="{{route('motels')}}">Phòng trọ</a>
                         </li>
-                        <li><a href="in-compound.html">Tìm người ở ghép</a>
+                        <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
-                        <li><a href="#">Bảng giá dịch vụ</a>
+                        <li><a href="{{ route('frontend_get_plans') }}">Bảng giá dịch vụ</a>
                         </li>
                     </ul>
                 </nav>

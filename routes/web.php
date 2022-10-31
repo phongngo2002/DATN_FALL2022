@@ -1,13 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\RoleController;
-// use App\Http\Controllers\Admin\MotelController;
-use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\PlanHistoryController;
-use App\Http\Controllers\Auth\registerController;
-use App\Http\Controllers\Client\PlanController as clientPlanController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PlansController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Client\MotelController as ClientMotelController;
+use App\Http\Controllers\Auth\registerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +17,12 @@ use App\Http\Controllers\Client\MotelController as ClientMotelController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-Route::get('/', 'App\Http\Controllers\Client\HomeController@index')->name('home');
+Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
 });
+
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
 Route::post('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@postLogin')->name('post_login');
@@ -36,15 +34,15 @@ Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConf
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
 
-
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
+Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
 
 //Liên hệ
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 
 //client các gói dịch vụ,đăng ký
-Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('frontend_get_plans');
+Route::get('/goi-dich-vu', [\App\Http\Controllers\Client\PlanController::class, 'index_plan'])->name('frontend_get_plans');
 
 Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
 Route::post('/dang-ky', [registerController::class, 'register_user'])->name('post_register');
@@ -57,6 +55,11 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
+    Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
+    Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
+
+    Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
@@ -97,6 +100,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "saveAdd_motels"])->name("admin.motel.store");
             Route::get('{id}/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail"])->name("admin.motel.detail");
 
+
+            Route::get('/phong-tro/{id}/edit/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "edit_motels"])->name("admin.motel.edit");
+            Route::get('/phong-tro/{id}/detail/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail_motels"])->name("admin.motel.detail");
+            Route::get('/phong-tro/{id}/del/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "delete_motels"])->name("admin.motel.delete");
+            Route::post('phong-tro/{id}/update', [\App\Http\Controllers\Admin\MotelController::class, 'saveUpdate_motels'])->name('saveUpdate_motel');
+
+
             Route::get('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "info_user_motels"])->name("admin.motel.info");
             Route::post('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "add_peolpe_of_motels"])->name("admin.motel.add_people");
             Route::get('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "create_post_motels"])->name("admin.motel.post");
@@ -132,8 +142,17 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', 'App\Http\Controllers\Admin\UserController@saveUpdate_users')->name('backend_user_update');
         });
         Route::get('pay', 'App\Http\Controllers\PayPalPaymentController@pay')->name('make.payment');
+
         Route::get('error', 'App\Http\Controllers\PayPalPaymentController@error')->name('cancel.payment');
+
         Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
+    });
+    Route::prefix('client')->group(function () {
+        // Thành viên
+        Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
+        Route::get('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
+        Route::post('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+        Route::get('list-live-together', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
     });
 });
 

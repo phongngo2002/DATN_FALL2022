@@ -194,7 +194,8 @@
                                 alt=""> </a></div>
                 </div>
                 <div class="text-center">
-                    <a href="{{route('home')}}" class="btn btn-link ">Về trang chủ</a>
+                    <a href="{{
+    route('home')}}" class="btn btn-link ">Về trang chủ</a>
                 </div>
             </div>
         </div>

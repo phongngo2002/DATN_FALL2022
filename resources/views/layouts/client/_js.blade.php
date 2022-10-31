@@ -45,6 +45,7 @@
 <script src="{{asset('assets/client/js/popup.js')}}"></script>
 
 
+<script src="{{asset('assets/client/js/range.js')}}js/color-switcher.js"></script>
 <script>
     $(window).on('scroll load', function () {
         $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));

@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\DB;
 class Category extends Model
 {
     use HasFactory;
+    protected $table = 'categories';
     public function getAll(){
-        return DB::table('categories')->get();
+      $res=  DB::select('SELECT * FROM categories ');
+       
+       return $res;
     }
 }

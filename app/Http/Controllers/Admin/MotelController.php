@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Models\Area;
+use App\Models\Category;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -16,8 +17,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use mysql_xdevapi\CollectionModify;
-use Yajra\DataTables\Facades\DataTables;
 
 class MotelController extends Controller
 {
@@ -50,16 +49,6 @@ class MotelController extends Controller
         $this->v['id'] = $id;
         return view('admin.motel.list', $this->v);
     }
-
-//    public function detail($idMotel)
-//    {
-//        $motel = new Motel();
-//        $this->v['motel'] = $motel->detailMotel($idMotel);
-//        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
-//
-//        return view('admin.motel.detail', $this->v);
-//    }
-
 
     public function add_motels($id)
     {
@@ -95,10 +84,16 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
-        foreach ($this->v['info'] as $item) {
+        $userInfo = DB::table('users')
+            ->select(['user_id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('user_motel.status', 1)
+            ->get();
+        foreach ($userInfo as $item) {
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
+
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -113,7 +108,7 @@ class MotelController extends Controller
 
         $model->add($idMotel, $request->user_id);
 
-        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel]);
+        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel])->with('success', 'Thêm mới thành viên phòng thành công');
     }
 
     public function create_post_motels(Request $request, $id, $idMotel)
@@ -124,9 +119,7 @@ class MotelController extends Controller
         ];
 
         $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
-
         $data = [];
-
         foreach ($this->v['plans'] as $i) {
             $data[] = [
                 'id' => $i->id,
@@ -135,6 +128,7 @@ class MotelController extends Controller
                 'time' => $i->time
             ];
         }
+
         $this->v['data'] = json_encode($data);
         $this->v['current_plan_motel'] = DB::table('plan_history')
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
@@ -149,6 +143,7 @@ class MotelController extends Controller
 
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
+        // dd($request->post());
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([
@@ -245,7 +240,72 @@ class MotelController extends Controller
         return view('admin.motel.list_contact_motel', $this->v);
     }
 
-    public function history_motel($id, $idMotel)
+    public function detail_motels($id, $idMotel)
+    {
+
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detail_motels($idMotel);
+        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
+    }
+
+
+    public function edit_motels($id, $idMotel)
+    {
+        $category = new Category();
+        $this->v['categories'] = $category->getAll();
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detailMotel($idMotel);
+        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
+        $this->v['services'] = json_decode($this->v['motel']->services, true);
+        $this->v['idArea'] = $id;
+
+        return view('admin.motels.edit', $this->v);
+    }
+
+    public function saveUpdate_motels(Request $request, $id)
+    {
+        $modelMotel = new Motel();
+
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+
+            return $item;
+        }, $request->all());
+
+        unset($params['cols']['_token']);
+        $params['cols']['service'] = json_encode([
+            'bed' => $request->bed,
+            'bedroom' => $request->bedroom,
+            'toilet' => $request->toilet,
+            'more' => $request->service_more,
+            'actor' => $request->actor
+        ]);
+        $params['cols']['area_id'] = $request->id;
+        $data = [
+            'category_id' => $request->category_id,
+            'room_number' => $request->room_number,
+            'price' => $request->price,
+            'area' => $request->area,
+            'description' => $request->description,
+            'video' => $request->video,
+            'image_360' => $request->image360,
+            'photo_gallery' => $request->img,
+            'services' => $params['cols']['service'],
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        $modelMotel->saveUpdate_motels($data, $request->id);
+        return redirect()->route('admin.motel.list', $request->idArea)->with('msg', 'Cập nhật phòng trọ thành công');
+    }
+
+    public
+    function history_motel($id, $idMotel)
     {
         $model = new UserMotel();
 
@@ -254,7 +314,8 @@ class MotelController extends Controller
         return view('admin.motel.history', $this->v);
     }
 
-    public function print(Request $request, $motelId)
+    public
+    function print(Request $request, $motelId)
     {
         Motel::where('id', $motelId)->update([
             'start_time' => $request->start_time,

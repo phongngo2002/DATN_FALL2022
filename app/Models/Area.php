@@ -64,4 +64,18 @@ class Area extends Model
     {
         DB::table($this->table)->where('id', $id)->update(['status' => 0]);
     }
+
+    public function client_Get_List_Top_Area()
+    {
+
+        $res = DB::table('areas')->select(['areas.id', 'areas.name', 'areas.address', DB::raw('COUNT(motels.area_id) as quantity')])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->where('plan_history.status', 1)
+            ->groupBy('areas.name', 'areas.address', 'areas.id')
+            ->orderByDesc('quantity')
+            ->limit(8)
+            ->get();
+        return $res;
+    }
 }

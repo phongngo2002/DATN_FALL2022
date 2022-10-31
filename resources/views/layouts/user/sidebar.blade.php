@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="favorited-listings.html">
+                    <a href="{{route('client_current_motel')}}">
                         <i class="fa fa-heart" aria-hidden="true"></i>Phòng trọ đang ở
                     </a>
                 </li>
@@ -31,12 +31,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="invoice.html">
+                    <a href="{{route('get_history_recharge')}}">
                         <i class="fas fa-paste"></i>Lịch sử nạp tiền
                     </a>
                 </li>
                 <li>
-                    <a href="invoice.html">
+                    <a href="{{route('get_history_buy_plan')}}">
                         <i class="fas fa-paste"></i>Lịch sử dịch vụ
                     </a>
                 </li>
