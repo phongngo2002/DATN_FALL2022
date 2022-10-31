@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MotelController extends Controller
 {
@@ -48,16 +49,6 @@ class MotelController extends Controller
         $this->v['id'] = $id;
         return view('admin.motel.list', $this->v);
     }
-
-//    public function detail($idMotel)
-//    {
-//        $motel = new Motel();
-//        $this->v['motel'] = $motel->detailMotel($idMotel);
-//        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
-//
-//        return view('admin.motel.detail', $this->v);
-//    }
-
 
     public function add_motels($id)
     {
@@ -93,10 +84,16 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
-        foreach ($this->v['info'] as $item) {
+        $userInfo = DB::table('users')
+            ->select(['user_id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('user_motel.status', 1)
+            ->get();
+        foreach ($userInfo as $item) {
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
+
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -111,7 +108,7 @@ class MotelController extends Controller
 
         $model->add($idMotel, $request->user_id);
 
-        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel]);
+        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel])->with('success', 'Thêm mới thành viên phòng thành công');
     }
 
     public function create_post_motels(Request $request, $id, $idMotel)
@@ -324,5 +321,16 @@ class MotelController extends Controller
             'start_time' => $request->start_time,
             'end_time' => $request->end_time
         ]);
+        $model = new PrintPdf();;
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
+        return $pdf->stream();
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new MotelsImport($request->area_id), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Nhập danh sách thành công');
     }
 }

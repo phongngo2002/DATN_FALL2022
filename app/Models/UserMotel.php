@@ -19,6 +19,7 @@ class UserMotel extends Model
         $model = DB::table($this->table)->insert([
             'motel_id' => $motel_id,
             'user_id' => $user_id,
+            'status' => 1,
             'start_time' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
