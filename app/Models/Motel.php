@@ -53,7 +53,8 @@ class Motel extends Model
 
     }
 
-    public function saveNew($data){
+    public function saveNew($data)
+    {
         $res = DB::table($this->table)->insertGetId($data);
         return $res;
     }
@@ -63,6 +64,9 @@ class Motel extends Model
         $motel = DB::table($this->table)
             ->select([
                 'motels.id as motel_id',
+                'area_id',
+                'areas.name as areaName',
+                'category_id',
                 'room_number',
                 'price',
                 'area',
@@ -73,7 +77,6 @@ class Motel extends Model
                 'max_people',
                 'areas.address as address',
                 'description',
-                'areas.name as area_name',
                 'areas.address as area_address',
                 'areas.link_gg_map as area_link_gg_map',
                 'motels.updated_at as motel_updateAt',
@@ -83,17 +86,19 @@ class Motel extends Model
                 'users.avatar as user_avatar',
                 'users.phone_number as user_phone',
                 'users.email as user_email',
+                'start_time',
                 'video'
             ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
-        ->join('categories', 'categories.id', '=', 'motels.category_id')
-        ->join('users', 'areas.user_id', '=', 'users.id')
-        ->where('motels.id', $idMotel)->first();
+            ->join('categories', 'categories.id', '=', 'motels.category_id')
+            ->join('users', 'areas.user_id', '=', 'users.id')
+            ->where('motels.id', $idMotel)->first();
         return $motel;
     }
 
-    public function delete_motels($id){
-        return DB::table('motels')->where('id',$id)->delete();
+    public function delete_motels($id)
+    {
+        return DB::table('motels')->where('id', $id)->delete();
     }
 
 
@@ -118,33 +123,48 @@ class Motel extends Model
             ->orderBy('contact_motel_history.created_at', 'desc')
             ->paginate(10);
     }
-    public function client_get_List_Motel_top(){
 
-     return  DB::table('areas')
-        ->select(['motels.room_number', 'motels.price','motels.area', 'services','motels.max_people','motels.area_id','areas.address','motels.photo_gallery','plan_history.plan_id'])
-        ->join('motels','areas.id','=','motels.area_id')
-        ->join('plan_history','motels.id','=','plan_history.motel_id')
-        ->orderByDesc('plan_history.plan_id')
-        ->limit(6)
-        ->get();
-    }
-    public function client_get_List_Motel_contact(){
+    public function client_get_List_Motel_top()
+    {
 
-        return  DB::table('areas')
-           ->select(['motels.room_number','contact_motel_history.status', 'motels.price','motels.area', 'services','motels.max_people','motels.area_id','areas.address','motels.photo_gallery','plan_history.plan_id'])
-           ->join('motels','areas.id','=','motels.area_id')
-           ->join('plan_history','motels.id','=','plan_history.motel_id')
-           ->join('contact_motel_history','motels.id', '=','contact_motel_history.motel_id' )
-
-           ->orderByDesc('plan_history.plan_id')
-           ->limit(6)
-           ->get();
-       }
-    public function client_Get_all_Motel(){
-        return DB::table('motels')
-        ->select(['motels.room_number', 'motels.price','motels.area', 'services','motels.max_people','motels.area_id','areas.address','motels.photo_gallery'])
-        ->join('areas','areas.id','=','motels.area_id')
-        ->paginate(6);
+        return DB::table('areas')
+            ->select(['motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'plan_history.plan_id'])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->orderBy('priority_level', 'asc')
+            ->paginate(10);
     }
 
+    public function client_get_List_Motel_contact()
+    {
+
+        return DB::table('areas')
+            ->select(['motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'plan_history.plan_id'])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('type', 2)
+            ->where('plan_history.status', 1)
+            ->orderBy('priority_level', 'asc')
+            ->get();
+    }
+
+    public function client_Get_all_Motel()
+    {
+        return DB::table('plans')
+            ->select(['motels.room_number', 'areas.name as areaName', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery'])
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+            ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('plan_history.status', 1)
+            ->orderBy('priority_level', 'asc')
+            ->paginate(10);
+    }
+
+    public function saveUpdate_motels($data, $id)
+    {
+        return DB::table('motels')->where('id', $id)->update($data);
+    }
 }

@@ -16,13 +16,12 @@ use App\Http\Controllers\Client\MotelController as ClientMotelController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/phong-tro', [HomeController::class,'motels'])->name('motels');
+Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index');
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
 Route::post('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@postLogin')->name('post_login');
@@ -36,14 +35,7 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
-Route::get('/phong-tro/{id}/edit/{idMotel}', [MotelController::class, "edit_motels"])->name("admin.motel.edit");
-Route::get('/phong-tro/{id}/add',[MotelController::class,"add_motels"])->name("admin.motel.add");
-Route::post('/phong-tro/{id}/create', [MotelController::class, "saveAdd_motels"])->name("admin.motel.create");
-Route::get('/phong-tro/{id}', [MotelController::class, "index_motels"])->name("admin.motel.list");
-Route::get('/phong-tro/{id}/detail/{idMotel}', [MotelController::class, "detail_motels"])->name("admin.motel.detail");
-Route::get('/phong-tro/{id}/del/{idMotel}', [MotelController::class, "delete_motels"])->name("admin.motel.delete");
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
-Route::post('phong-tro/{id}/update',[MotelController::class,'saveUpdate_motels'])->name('saveUpdate_motel');
 
 //Liên hệ
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
@@ -52,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
-
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
@@ -92,6 +84,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "add_motels"])->name("admin.motel.create");
             Route::post('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "saveAdd_motels"])->name("admin.motel.store");
             Route::get('{id}/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail"])->name("admin.motel.detail");
+
+
+            Route::get('/phong-tro/{id}/edit/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "edit_motels"])->name("admin.motel.edit");
+            Route::get('/phong-tro/{id}/detail/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail_motels"])->name("admin.motel.detail");
+            Route::get('/phong-tro/{id}/del/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "delete_motels"])->name("admin.motel.delete");
+            Route::post('phong-tro/{id}/update', [\App\Http\Controllers\Admin\MotelController::class, 'saveUpdate_motels'])->name('saveUpdate_motel');
+
 
             Route::get('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "info_user_motels"])->name("admin.motel.info");
             Route::post('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "add_peolpe_of_motels"])->name("admin.motel.add_people");

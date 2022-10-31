@@ -19,12 +19,14 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+
+
+
+
     <form id="plans_form" action="{{route('saveEdit_role')}}" method="POST">
-
-
         @csrf
-
         <div class="bg-white shadow-lg rounded-4 p-4">
+
             @foreach($roleDetail as $key)
                 <input type="hidden" name="id" value="{{$key->id}}">
                 {{-- input name role --}}
@@ -98,13 +100,14 @@
             @endforeach
         @endforeach
 
-        <div class=" d-flex bd-highlight col-md-7 m-2 p-2">
-            <button type="submit" class="btn btn-primary btn-block m-2"> Thêm </button>
-            <a href="{{route('list_role')}}" class="btn btn-warning btn-block m-2"> Quay lại </a>
-        </div>
+
+
 
         </div>
-</form>
+    <button type="submit" class="btn btn-primary my-2"> Lưu </button>
+    <a href="{{route('list_role')}}" class="btn btn-warning my-2"> Quay lại </a>
+    </form>
+
 @include('layouts.admin._js')
 {{-- validate jquery form plans --}}
 <script>

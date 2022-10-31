@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div id="logo">
                     <a href="index.html"><img src="{{ asset('assets/client/images/logo-white-1.svg') }}"
-                            data-sticky-logo="images/logo-red.svg" alt=""></a>
+                                              data-sticky-logo="images/logo-red.svg" alt=""></a>
                 </div>
                 <!-- Mobile Navigation -->
                 <div class="mmenu-trigger">
@@ -20,10 +20,10 @@
                 <!-- Main Navigation -->
                 <nav id="navigation" class="style-1 head-tr">
                     <ul id="responsive">
-                        <li><a href="home.html">Trang chủ</a>
+                        <li><a href="{{route('home')}}">Trang chủ</a>
                         </li>
 
-                        <li><a href="motels.html">Phòng trọ</a>
+                        <li><a href="{{route('motels')}}">Phòng trọ</a>
                         </li>
                         <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
@@ -39,7 +39,9 @@
             <div class="right-side d-none d-none d-lg-none d-xl-flex">
                 <!-- Header Widget -->
                 <div class="header-widget">
-                    <a href="{{ route('client_current_motel')}}" style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i class="fas fa-laptop-house ml-2"></i>
+                    <a href="{{ route('client_current_motel')}}"
+                       style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i
+                            class="fas fa-laptop-house ml-2"></i>
                     </a>
                 </div>
                 <!-- Header Widget / End -->
@@ -82,7 +84,7 @@
                 </div>
             @else
                 <div class="right-side d-none d-none d-lg-none d-xl-flex ml-0"
-                    style="padding: 0 4px 0 5px;margin-top: 16px">
+                     style="padding: 0 4px 0 5px;margin-top: 16px">
                     <!-- Header Widget -->
                     <div class="header-widget sign-in">
                         <div><a href="{{ route('get_login') }}">Đăng nhập</a></div>

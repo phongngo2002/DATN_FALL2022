@@ -97,7 +97,7 @@
                             <a class="btn btn-info"
                                href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}"><i
                                     class="fa-solid fa-circle-info"></i></a>
-                            <a href="{{ route('admin.motel.detail', [$motel->area_id, $motel->id]) }}"
+                            <a href="{{ route('admin.motel.edit', ['id' => $motel->area_id, 'idMotel' => $motel->id]) }}"
                                class="btn btn-warning">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
