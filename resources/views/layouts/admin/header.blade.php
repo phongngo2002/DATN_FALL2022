@@ -152,18 +152,23 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{asset('assets/admin/img/avatars/avatar.jpg')}}" class="avatar img-fluid rounded me-1"
+                    <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}"
+                         class="avatar img-fluid rounded me-1"
                          alt="Charles Hall"/> <span
                         class="text-dark">{{\Illuminate\Support\Facades\Auth::user()->name ?? 'Tài khoản ảo'}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                                                                          data-feather="user"></i> Profile</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                        Analytics</a>
+
+                    <a class="dropdown-item" href="#"><i class="fa-sharp fa-solid fa-piggy-bank"></i>
+                        Tài khoản gốc: {{\Illuminate\Support\Facades\Auth::user()->money}} <i
+                            class="fa-brands fa-bitcoin text-warning"></i></a>
+                    <a class="dropdown-item" href="{{route('backend_get_profile')}}"><i class="align-middle me-1"
+                                                                                        data-feather="user"></i> Thông
+                        tin tài khoản</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i>
-                        Settings & Privacy</a>
+                    <a class="dropdown-item" href="{{route('backend_get_form_recharge')}}"><i
+                            class="fa-solid fa-money-check"></i>
+                        Nạp tiền</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
                         Center</a>
                     <div class="dropdown-divider"></div>

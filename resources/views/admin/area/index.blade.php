@@ -4,7 +4,7 @@
 @section('title_page','Danh sách khu trọ')
 
 @section('content')
-    <form action="">
+    <form action="" class="my-4">
         <div class="row">
             <div class="col-3">
                 <input class="form-control" name="name"
@@ -24,7 +24,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <select class="form-control" name="limit">
                     <option value="" {{ !isset($params['limit']) ? 'selected' : ''}}>Số lượng bản ghi hiển thị</option>
                     <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : ''}}>10
@@ -39,9 +39,10 @@
                     </option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <button class="btn btn-primary">Tìm kiếm</button>
                 <a class="btn btn-danger" href="{{route('backend_get_list_area')}}">Bỏ chọn</a>
+                <a href="{{route('backend_get_create_area')}}" class="btn btn-secondary">Thêm mới</a>
             </div>
         </div>
     </form>
@@ -61,7 +62,10 @@
                 <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$area->name) :  $area->name!!}</td>
                 <td>{{$area->address}}</td>
                 <td>
-                    <a href="" class="btn btn-info">Chi tiết</a>
+                    <a href="{{route('admin.motel.list',['id' => $area->id])}}" class="btn btn-info">Chi tiết</a>
+                    <a href="{{route('backend_get_edit_area',['id' => $area->id])}}" class="btn btn-warning">Sửa</a>
+                    <a href="{{route('backend_delete_area',['id' => $area->id])}}"
+                       onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         @endforeach

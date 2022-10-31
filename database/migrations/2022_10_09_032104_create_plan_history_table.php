@@ -16,7 +16,10 @@ return new class extends Migration {
             $table->id();
             $table->integer('plan_id');
             $table->integer('motel_id');
-            $table->softDeletes();
+            $table->integer('day')->nullable();
+            $table->integer('status')->default(1);
+            $table->integer('parent_id')->default(0)->nullable();
+            $table->integer('is_first')->default(0);
             $table->timestamps();
         });
     }

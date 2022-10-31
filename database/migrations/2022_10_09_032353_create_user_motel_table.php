@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->integer('status')->default(1);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

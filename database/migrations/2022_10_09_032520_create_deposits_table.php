@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->float('value', 11, 3);
             $table->integer('status')->default(0);
             $table->integer('motel_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

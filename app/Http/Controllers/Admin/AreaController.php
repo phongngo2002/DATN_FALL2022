@@ -5,23 +5,111 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use Illuminate\Http\Request;
+use mysql_xdevapi\CollectionModify;
 use PhpParser\Node\Expr\New_;
+use Yajra\DataTables\Facades\DataTables;
 
 class AreaController extends Controller
 {
-    //
+
     private $v;
 
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'index_areas',
+                'add_areas',
+                'saveAdd_areas',
+                'update_areas',
+                'saveUpdate_areas',
+                'delete_areas'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function index(Request $request)
+    public function index_areas(Request $request)
     {
         $areas = new Area();
-        $this->v['areas'] = $areas->admin_get_list_area($request->all());
         $this->v['params'] = $request->all() ?? [];
+
+        $this->v['areas'] = $areas->admin_get_list_area($request->all());
+
         return view('admin.area.index', $this->v);
+    }
+
+    public function add_areas()
+    {
+
+
+        return view('admin.area.add', $this->v);
+    }
+
+    public function saveAdd_areas(Request $request)
+    {
+
+        $params = [];
+
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+            return $item;
+        }, $request->all());
+
+        $model = new Area();
+
+        $model->admin_create_area($params);
+
+        return redirect()->route('backend_get_list_area');
+
+    }
+
+    public function update_areas($id)
+    {
+        $model = new Area();
+
+        $this->v['area'] = $model->getArea($id);
+
+        return view('admin.area.edit', $this->v);
+
+    }
+
+    public function saveUpdate_areas(Request $request, $id)
+    {
+
+        $params = [];
+
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+            return $item;
+        }, $request->all());
+        $params['cols']['id'] = $id;
+        $model = new Area();
+        $model->admin_update_area($params);
+
+        return redirect()->route('backend_get_list_area');
+
+    }
+
+    public function delete_areas($id)
+    {
+        $model = new Area();
+
+        $model->adminDeteletArea($id);
+
+        return redirect()->route('backend_get_list_area');
     }
 }

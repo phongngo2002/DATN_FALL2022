@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Motel;
+use App\Models\PlanHistory;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +38,14 @@ class DatabaseSeeder extends Seeder
         $data = File::get(public_path('json/areas.json'));
         $data = json_decode($data, true);
 
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        Motel::factory(10)->create();
+
+        // PlanHistory::factory(10)->create();
         foreach (array_shift($data) as $item) {
             DB::table('areas')->insert(
                 [
@@ -70,5 +81,48 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        $data = File::get(public_path('json/roles.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('roles')->insert(
+                [
+                    "name" => $item["name"],
+                    "desc" => $item["desc"],
+                    "status" => $item["status"],
+                    'created_at' => Carbon::now(),
+                ]
+            );
+        }
+
+        $data = File::get(public_path('json/permissions.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('permissions')->insert(
+                [
+                    "name" => $item["name"],
+                    "desc" => $item["desc"],
+                    "parent_id" => $item["parent_id"],
+                    "status" => $item["status"],
+                    'created_at' => Carbon::now(),
+                ]
+            );
+        }
+
+        $data = File::get(public_path('json/permission_role.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('permission_role')->insert(
+                [
+                    "role_id" => $item["role_id"],
+                    "permission_id" => $item["permission_id"],
+                    'created_at' => Carbon::now(),
+                ]
+            );
+        }
+
     }
 }

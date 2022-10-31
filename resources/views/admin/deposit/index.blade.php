@@ -4,7 +4,7 @@
 @section('title_page','Lịch sử đặt cọc phòng trọ')
 
 @section('content')
-    <form action="">
+    <form action="" class="my-4">
         <div class="row">
             <div class="col-5">
                 <input class="form-control" name="name"
@@ -53,38 +53,28 @@
             <th>Tiền cọc</th>
             <th>Mã phòng</th>
             <th>Khu trọ</th>
-            <th>Chủ trọ</th>
             <th>Thời gian</th>
             <th>Trạng thái</th>
-            <th>Chức năng</th>
         </tr>
         </thead>
         <tbody>
         @foreach($deposits as $deposit)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) :  $deposit->userName!!}</td>
+                <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) : $deposit->userName!!}</td>
                 <td>{{$deposit->value}}</td>
                 <td>{{$deposit->room_number}}</td>
                 <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>
-                <td>{{\Illuminate\Support\Facades\DB::table('users')->select('name')->where('id',$deposit->boss_id)->first()->name}}</td>
                 <td>
                     {{\Carbon\Carbon::parse($deposit->date)->format('d/m/Y H:i:s')}}
                 </td>
                 <td>
                     @if($deposit->deStatus == 0)
-                        <span class="badge text-bg-secondary p-2">Chờ xử lý</span>
+                        <span class="badge text-bg-secondary p-2">Chờ ký hợp đồng</span>
                     @elseif($deposit->deStatus == 1)
                         <span class="badge text-bg-primary p-2">Đã ký hợp đồng</span>
                     @else
                         <span class="badge text-bg-success p-2">Đã chuyển tiền</span>
-                    @endif
-                </td>
-                <td>
-                    @if($deposit->deStatus == 2)
-                        <a href="" class="btn btn-success">Chuyển cọc</a>
-                    @else
-                        <button href="" class="btn btn-success" disabled>Chuyển cọc</button>
                     @endif
                 </td>
             </tr>
