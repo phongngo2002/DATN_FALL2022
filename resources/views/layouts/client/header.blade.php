@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <!-- Main Navigation -->
-                <nav id="navigation" class="style-1 head-tr">
+                <nav id="navigation" class="style-1 ">
                     <ul id="responsive">
                         <li><a href="{{route('home')}}">Trang chủ</a>
                         </li>
@@ -27,7 +27,7 @@
                         </li>
                         <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
-                        <li><a href="#">Bảng giá dịch vụ</a>
+                        <li><a href="{{ route('frontend_get_plans') }}">Bảng giá dịch vụ</a>
                         </li>
                     </ul>
                 </nav>
@@ -91,8 +91,20 @@
                     </div>
                     <!-- Header Widget / End -->
                 </div>
+                <!-- Right Side Content / End -->
+
+                <!-- lang-wrap-->
+                <div class="header-user-menu user-menu d-none ml-0 d-lg-none d-xl-flex">
+                    <div class="lang-wrap">
+                        <div class="show-lang">
+                            <div class="header-widget sign-in">
+                                <div class=""><a href="{{ route('get_register') }}">Đăng ký</a></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             @endif
-            <!-- Right Side Content / End -->
 
             <!-- lang-wrap-->
             {{--            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">--}}

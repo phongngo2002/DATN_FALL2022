@@ -19,10 +19,13 @@
         }
     </style>
 
+
     @include('layouts.admin._css')
+
 </head>
 
 <body>
+
     <div class="loader-container">
         <div class="spinner"></div>
     </div>
@@ -55,7 +58,6 @@
             loaderContainer.style.display = 'none';
         });
     </script>
-
 </body>
 
 </html>

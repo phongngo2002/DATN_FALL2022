@@ -3,16 +3,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Recharge;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use Omnipay\Omnipay;
+use PHPUnit\Exception;
+use Nette\Utils\Random;
+use App\Models\Recharge;
 use Faker\Provider\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Nette\Utils\Random;
-use Omnipay\Omnipay;
-use PHPUnit\Exception;
 
 
 class PayPalPaymentController extends Controller
@@ -23,13 +22,11 @@ class PayPalPaymentController extends Controller
     public function __construct()
     {
         $gateway1 = Omnipay::create('PayPal_Express');
-//        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-//        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-//        $this->gateway->setTestMode(true);
 
-        $gateway1->setUsername('sb-vpcms21975520_api1.business.example.com');
-        $gateway1->setPassword('YSJASYLTR44CMXST');
-        $gateway1->setSignature('AIsNObN1SyNNjqJjWf1oEu4qD6WYAAFzyPYHt.2lRLj4X8fj6L4UgBhX');
+
+        $gateway1->setUsername('sb-mu6jw21994813_api1.business.example.com');
+        $gateway1->setPassword('A7LMCN2WVW34GBBU');
+        $gateway1->setSignature('A8XXPo0CmklE67u1JvC3Vw9ivgguASbN-XATaT6BU6cQpTrNvt-7.Rsj');
         $gateway1->setTestMode(true);
 
         $this->gateway = $gateway1;
@@ -52,7 +49,6 @@ class PayPalPaymentController extends Controller
             } else {
                 return $response->getMessage();
             }
-
         } catch (\Throwable $error) {
             return $error->getMessage();
         }
@@ -99,7 +95,6 @@ class PayPalPaymentController extends Controller
                 } else {
                     return redirect()->route('getRecharge')->with('recharge_error', 'Nạp tiền thất bại');
                 }
-
             }
         } else {
             if (Auth::user()->role_id !== 3) {

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -23,7 +24,6 @@ return new class extends Migration {
             $table->float('money', 11, 3)->nullable();
             $table->string('address')->nullable();
             $table->integer('role_id');
-            $table->integer('status')->default(0);
             $table->string('token')->nullable();
             $table->string('confirmation_code')->nullable();
             $table->dateTime('confirmation_code_expired_in')->nullable();
@@ -31,7 +31,6 @@ return new class extends Migration {
             $table->string('google_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
         });
     }
 

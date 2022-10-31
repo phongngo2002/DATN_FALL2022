@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Client\MotelController as ClientMotelController;
+use App\Http\Controllers\Auth\registerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,18 @@ Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("a
 
 //Liên hệ
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
+
+//client các gói dịch vụ,đăng ký
+Route::get('/goi-dich-vu', [clientPlanController::class, 'index_plan'])->name('frontend_get_plans');
+
+Route::get('/dang-ky', [registerController::class, 'index_register'])->name('get_register');
+Route::post('/dang-ky', [registerController::class, 'register_user'])->name('post_register');
+
+Route::post('/xac-minh-email', [registerController::class, 'change_email'])->name('confirm_account_register');
+Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_email'])->name('get_confirm_account_register');
+
+// end client các gói dịch vụ,đăng ký
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
@@ -144,5 +157,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/403', function () {
     return view('error.403');
 })->name('403');
-
-

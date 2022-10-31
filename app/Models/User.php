@@ -93,13 +93,11 @@ class User extends Authenticatable
 
         $query = DB::table($this->table)->select($this->fillable);
         if (isset($params['name']) && $params['name']) {
-            $query = $query->
-            where('name', 'like', '%' . $params['name'] . '%')
+            $query = $query->where('name', 'like', '%' . $params['name'] . '%')
                 ->orWhere('email', 'like', '%' . $params['name'] . '%');
         }
-        return $query->orderBy('id', $params['order_by'])->paginate($params['limit']);;
+        return $query->orderBy('id', $params['order_by'])->paginate($params['limit']);
     }
-
     public function getOne($id)
     {
         $query = DB::table($this->table)->where('id', $id)->select($this->fillable);
@@ -110,7 +108,7 @@ class User extends Authenticatable
     public function saveNew($params)
     {
         $data = array_merge($params);
-        $request = DB::table($this->table)->insertGetId($data);//$request sẽ trả về id của bản ghi vừa được tạo trong db
+        $request = DB::table($this->table)->insertGetId($data); //$request sẽ trả về id của bản ghi vừa được tạo trong db
         return $request;
     }
 
@@ -121,7 +119,7 @@ class User extends Authenticatable
             return null;
         }
         $res = DB::table($this->table)->where('id', $params['id'])->update($params);
-        return $res;//trả ra số trường bị thay đổi
+        return $res; //trả ra số trường bị thay đổi
     }
 
     public function del($id)
