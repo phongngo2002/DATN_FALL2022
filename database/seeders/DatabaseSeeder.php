@@ -124,5 +124,19 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        $data = File::get(public_path('json/categories.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('categories')->insert(
+                [
+                    "name" => $item["name"],
+                    "status" => $item["status"],
+                    "desc" => $item["desc"],
+                    'created_at' => Carbon::now(),
+                ]
+            );
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.user.main')
 @section('content')
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+        /* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
 
         body {
             background-color: #f5eee7;
@@ -107,6 +107,7 @@
                 </button>
             </div>
         @endif
+        </div>
         <form>@csrf
             <div class="row">
                 <div class="col-8">
@@ -166,17 +167,18 @@
                                          tabindex="0"><span class="current">Select status</span>
                                         <ul class="list">
                                             <li data-value="1"
-                                                class="option {{ isset($data_post) && $data_post->gender == 1 ? 'selected' : ''}}">
+                                                class="option {{ isset($data_post) && $data_post->gender == 1 ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Nam
                                             </li>
                                             <li data-value="2"
-                                                class="option {{ isset($data_post) && $data_post->gender == 2 ? 'selected' : ''}}">
+                                                class="option {{ isset($data_post) && $data_post->gender == 2 ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Nữ
                                             </li>
                                             <li data-value="3"
-                                                class="option {{ isset($data_post) && $data_post->gender == 3 ? 'selected' : ''}}">
+                                                class="option {{ isset($data_post) && $data_post->gender == 3 ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Tất cả
                                             </li>
+                                            <input type="hidden" id="post_gender">
                                         </ul>
                                     </div>
                                 </div>
@@ -215,12 +217,12 @@
                             <div class="mb-3 col-6">
                                 <label for="address">Chọn gói đăng tin</label>
                                 <div class="nice-select form-control wide" style="margin-top: 2px !important;"
-                                     tabindex="0"><span class="current">Chọn gói đăng tin</span>
-                                    <ul class="list">
+                                     tabindex="0" ><span class="current">Chọn gói đăng tin</span>
+                           
+                                    <ul class="list" >
+
                                         @foreach ($plans as $plan)
-                                            <li data-value="{{$plan->id}}" data-price="{{$plan->price}}"
-                                                class="option">{{$plan->name}}
-                                            </li>
+                                            <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}" data-price="{{$plan->price}}"class="option">{{$plan->name}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -464,8 +466,6 @@
             </div>
         @endif
         <script>
-
-
             const money_more = document.getElementById('money_more');
             const old_price = document.getElementById('old_price');
 
@@ -479,7 +479,17 @@
             const show_total = document.getElementById('show_total');
             const money_user = document.getElementById('money_user');
             const date_more = document.getElementById('date_more');
+            var post_gender = document.getElementById('post_gender');
             var money_temp = 0;
+
+            function getGender(e){
+                // post_gender.value = e.target.dataset.value;
+                document.getElementById('gender1').value = e.target.dataset.value
+                console.log(document.getElementById('gender1').value);
+                if((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true){
+                    document.getElementById('gender2').value = e.target.dataset.value
+                }
+            }
 
             function changeDisable(total) {
                 if (Number(total) > Number(money_user.value)) {
@@ -491,13 +501,18 @@
                 }
             }
 
-            post_plan.addEventListener('change', function () {
+            function getData(e){
+                var post_plan_value = e.target.dataset.value;
+                var post_plan_price = e.target.dataset.price;
+                var post_plan_title = e.target.innerText;
+
+                console.log(post_plan_value);
                 data.forEach(e => {
-                    if (post_plan.value != 0) {
-                        if (post_plan.value == e.id) {
-                            show_plan.innerText = e.title;
-                            show_money.innerText = e.price
-                            money_temp = e.price;
+                    if (post_plan_value != 0) {
+                        if (post_plan_value == e.id) {
+                            show_plan.innerText = post_plan_title;
+                            show_money.innerText = post_plan_price
+                            money_temp = post_plan_price;
                             show_total.innerText = money_temp * post_day.value
 
                             document.getElementById('post_plan1').value = e.id
@@ -516,11 +531,13 @@
 
                 document.getElementById('title1').value = document.getElementById('title').value
                 document.getElementById('description1').value = document.getElementById('description').value
-                document.getElementById('gender1').value = document.getElementById('gender').value
+               
                 document.getElementById('number_people1').value = document.getElementById('number_people').value
 
-            })
+            }
+
             post_day.oninput = function () {
+                console.log(post_day.value);
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
                 document.getElementById('post_day1').value = post_day.value
@@ -532,9 +549,10 @@
                 // console.log(date_more.value);
                 money_more.innerText = old_price.innerText * date_more.value
 
+
                 document.getElementById('title2').value = document.getElementById('title').value
                 document.getElementById('description2').value = document.getElementById('description').value
-                document.getElementById('gender2').value = document.getElementById('gender').value
+                
                 document.getElementById('number_people2').value = document.getElementById('number_people').value
 
                 document.getElementById('post_day_more').value = date_more.value

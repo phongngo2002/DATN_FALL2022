@@ -21,6 +21,8 @@ class MotelController extends Controller
 {
     private $v;
 
+
+ 
     public function __construct()
     {
         $this->v = [];
@@ -93,6 +95,11 @@ class MotelController extends Controller
             'user_id' => Auth::user()->id,
             'number_people' => $params['number_people'],
         ];
+        // dd($data_post,$request->post_plan, $request->motel_id,$request->post_day,$request->post_money);
+
+
+
+
         $data_post = json_encode($data_post);
         Motel::where('id', $request->motel_id)->update([
             'data_post' => $data_post,
