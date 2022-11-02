@@ -53,6 +53,34 @@ class Motel extends Model
 
     }
 
+    public function createMotel($data)
+    {
+        $res = DB::table($this->table)->insert(
+            [
+                "room_number" => $data['room_number'],
+                "price" => $data['price'],
+                "area" => $data['area'],
+                'status' => 1,
+                "area_id" => $data['area_id'],
+                "description" => $data['description'],
+                "image_360" => $data['image_360'],
+                "photo_gallery" => json_encode($data['photo_gallery']),
+                "services" => json_encode([
+                    'bed' => $data['bed'],
+                    'bedroom' => $data['bedroom'],
+                    'toilet' => $data['toilet'],
+                    'more' => $data['service_more'],
+                    'actor' => $data['actor']
+                ]),
+                "max_people" => $data['max_people'],
+                "category_id" => 1,
+                "video" => $data['video'],
+            ]
+        );
+
+        return $res;
+    }
+
     public function saveNew($data)
     {
         $res = DB::table($this->table)->insertGetId($data);
@@ -90,9 +118,9 @@ class Motel extends Model
                 'video'
             ])
             ->join('areas', 'areas.id', '=', "motels.area_id")
-            ->join('categories', 'categories.id', '=', 'motels.category_id')
-            ->join('users', 'areas.user_id', '=', 'users.id')
-            ->where('motels.id', $idMotel)->first();
+        ->join('categories', 'categories.id', '=', 'motels.category_id')
+        ->join('users', 'areas.user_id', '=', 'users.id')
+        ->where('motels.id', $idMotel)->first();
         return $motel;
     }
 

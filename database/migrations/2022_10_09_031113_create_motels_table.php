@@ -25,7 +25,9 @@ return new class extends Migration {
             $table->integer('max_people')->default(0);
             $table->date('start_time')->nullable();
             $table->date('end_time')->nullable();
+            $table->longText('services')->default('');
             $table->integer('category_id')->default(1);
+            $table->longText('video')->default('');
             $table->longText('data_post')->nullable();
             $table->timestamps();
         });

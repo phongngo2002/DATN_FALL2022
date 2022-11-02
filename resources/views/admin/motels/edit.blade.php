@@ -1,32 +1,28 @@
 @extends('layouts.admin.main')
 
 
-@section('title_page','Cập nhật phòng trọ')
+@section('title_page','Cập nhật phòng  '.$motel->room_number)
 
 @section('content')
-    <link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
-
-    <script src="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.js"></script>
     <script>
         tinymce.init({
             selector: 'textarea#desc',
         });
     </script>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" method="POST"
+          enctype="multipart/form-data">
         <div class="row">
             <div class="bg-white p-4 shadow-lg rounded-4 col-6">
                 <div class="mt-4">
                     <div class="row">
                         <div class="col-6">
-                            <input type="hidden" name="idArea" value="{{$motel->area_id}}">
-                            <input type="hidden" name="id" value="{{ $motel->motel_id }}" id="id">
                             <label for="">Mã phòng</label>
-                            <input type="text" name="room_number" id="room_number" value="{{ $motel->room_number }}"
-                                   class="form-control">
+                            <input type="text" name="room_number" id="room_number" class="form-control"
+                                   value="{{$motel->room_number}}">
                         </div>
                         <div class="col-6">
                             <label for="">Giá cho thuê</label>
-                            <input type="text" name="price" value="{{ $motel->price }}" id="price" class="form-control">
+                            <input type="text" name="price" id="price" class="form-control" value="{{$motel->price}}">
                         </div>
                     </div>
                 </div>
@@ -34,96 +30,59 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="">Diện tích</label>
-                            <input type="text" name="area" value="{{ $motel->area }} " id="area" class="form-control">
+                            <input type="text" name="area" id="area" class="form-control" value="{{$motel->area}}">
                         </div>
                         <div class="col-4">
                             <label for="">Đối tượng thuê</label>
-
                             <select name="actor" id="actor" class="form-control">
-                                <option
-                                    {{old('actor')=='Nam'|| $services['actor']=='Nam'?'selected':false}} value="Nam">Nam
+                                <option value="Nam" {{json_decode($motel->services)->actor == 'Nam' ? 'selected' : ''}}>
+                                    Nam
                                 </option>
-                                <option {{old('actor')=='Nữ'|| $services['actor']=='Nữ'?'selected':false}} value="Nữ">
+                                <option value="Nữ" {{json_decode($motel->services)->actor == 'Nữ' ? 'selected' : ''}}>
                                     Nữ
                                 </option>
                                 <option
-                                    {{old('actor')=='Tất cả'|| $services['actor']=='Tất cả'?'selected':false}}   value="Tất cả">
+                                    value="Tất cả" {{json_decode($motel->services)->actor == 'Tất cả' ? 'selected' : ''}}>
                                     Tất cả
                                 </option>
                             </select>
                         </div>
                         <div class="col-4">
                             <label for="">Số người ở tối đa</label>
-                            <input type="text" name="max_people" value="{{ $motel->max_people }} " class="form-control">
+                            <input type="text" name="max_people" value="{{$motel->max_people}}" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="mt-4">
                     <label for="">Dịch vụ phòng</label>
                     <div class="row">
-
                         <div class="col-4">
-                            <input type="text" value="{{ $services['bedroom'] }}" name="bedroom"
+                            <input type="text" value="{{json_decode($motel->services)->bedroom}}" name="bedroom"
                                    placeholder="Số phòng ngủ" class="form-control">
                         </div>
                         <div class="col-4">
-                            <input type="number" value="{{$services['bed']}}" name="bed" placeholder="Số giường"
-                                   class="form-control">
+                            <input type="text" value="{{json_decode($motel->services)->bed}}" name="bed"
+                                   placeholder="Số giường" class="form-control">
                         </div>
                         <div class="col-4">
-                            <input type="number" value="{{$services['toilet']}}" name="toilet" id="toilet"
+                            <input type="text" value="{{json_decode($motel->services)->toilet}}" name="toilet"
+                                   id="toilet"
                                    placeholder="Nhà vệ sinh"
                                    class="form-control">
                         </div>
-
                     </div>
                 </div>
                 <div class="mt-4">
                     <label>Khác</label>
-                    <input type="text" name="service_more" value="{{$services['more']}}"
-                           placeholder="Gần trường học,chợ..." class="form-control">
-                </div>
-                <div class="myt-4">
-                    <label for="">Địa chỉ</label>
-                    <input type="text" class="form-control" readonly name="areaName" id="areaName"
-                           value="{{ $motel->areaName }}">
-                </div>
-                <div class="mt-4">
-                    <label for="">Loại phòng</label>
-
-                    <select name="category_id" id="" class="form-control">
-                        @forEach($categories as $key )
-                            <option
-                                {{old('category_id')==$key->id|| $key->id==$motel->category_id?'selected':false}}  value="{{$key->id}}">{{$key->name}}</option>
-                        @endforeach
-                    </select>
-
+                    <input type="text" name="service_more"
+                           value="{{json_decode($motel->services)->more}}" placeholder="Gần trường học,chợ..."
+                           class="form-control">
                 </div>
                 <div class="mt-4">
                     <label for="">Mô tả</label>
-                    <textarea name="description" id="desc" cols="30" rows="20"
-                              class="form-control">{{$motel->description}}</textarea>
-                </div>
-                <div class="mt-4">
-                    <label for="">Thư viện ảnh</label>
-                    <div class="row" id="photo_preview">
-                        @foreach (json_decode($photo_gallery) as $key => $value)
-                            <div class="col-4 mt-1" style="position: relative;">
-                                <a href="{{ $value }}" class="image-popup">
-                                    <img src="{{ $value }}" class="img-thumbnail"/></a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <label for="">Thời gian bắt đầu</label>
-                    <input type="datetime-local" class="form-control" name="start_time" id="start_time"
-                           value="{{ $motel->start_time }}" readonly>
-                </div>
-                <div class="m4-4">
-                    <label for="">Thời gian kết thúc</label>
-                    <input type="datetime-local" class="form-control" name="end_time" id="end_time"
-                           value="{{ $motel->end_time}}" readonly>
+                    <textarea name="description" id="desc" cols="30" rows="20" class="form-control">
+                        {{$motel->description}}
+                    </textarea>
                 </div>
             </div>
             <div class="col-6">
@@ -142,15 +101,12 @@
                     </div>
                     <div class="mt-4">
                         <label for="" class="">Video</label>
-                        <input type="hidden" id="img" name="img">
-                        <label for="">Link video Youtebe</label>
-                        <input type="text" class="form-control" name="video" value="{{$motel->video}}" id="video"
+                        <input type="text" value="{{$motel->video}}" class="form-control" name="video" id="video"
                                placeholder="Video link(youtube)">
                     </div>
-
                     <div class="mt-4">
                         <label for="">Ảnh 360</label>
-                        <input type="text" name="image360" value="{{$motel->image_360}}" id="image360"
+                        <input type="text" value="{{$motel->image_360}}" name="image_360" id="image_360"
                                class="form-control"
                                placeholder="Đoạn code nhúng ảnh 360">
                         <p class="mt-2 ms-2 text-danger">Nếu bạn chưa biết cách sửa dụng ảnh 360.click vào <a
@@ -158,33 +114,58 @@
                                 target="_blank">đây</a></p>
                     </div>
                 </div>
-
                 <div class="bg-white p-4 shadow-lg rounded-4">
                     <label for="photo" class="">Ảnh phòng trọ</label>
-                    <div id="drag-drop-area"></div>
-                </div>
+                    <input type="hidden" name="img" value="{{$motel->photo_gallery}}">
+                    <input type="file" multiple class="form-control" name="photo_gallery" id="photo_gallery">
+                    <div class="preview mt-2" style="display: grid;grid-template-columns: repeat(4,1fr);gap: 8px;">
 
+                    </div>
+                </div>
                 @csrf
             </div>
         </div>
-
-        <a href="" class="btn btn-success mt-4">Quay lại</a>
-        <button class="btn btn-primary mt-4">Cập nhật</button>
+        <button class="btn btn-primary mt-4">Lưu</button>
+        <a href="{{route('admin.motel.list',['id' => $motel->area_id])}}" class="btn btn-success mt-4">Quay lại</a>
     </form>
     <script>
-        var uppy = Uppy.Core()
-            .use(Uppy.Dashboard, {
-                inline: true,
-                target: '#drag-drop-area'
+        let arr = JSON.parse(document.getElementsByName('img')[0].value);
+        render(arr);
+        document.getElementById('photo_gallery').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                arr.push(reader.result);
+                document.getElementsByName('img')[0].value = JSON.stringify(arr);
+                render(arr);
+            }
+            reader.readAsDataURL(file);
+        });
+
+        function render(data) {
+            document.querySelector('.preview').innerHTML = '';
+            data.forEach((item, index) => {
+                document.querySelector('.preview').innerHTML += `<div style="position: relative;">
+<img  src="${item}" class="img-thumbnail"/>
+<i  data-index="${index}" class="fa-solid fa-circle-xmark delete" style="position: absolute;top: 0;right: 2px;color: white;cursor: pointer;"></i> </div>`;
             })
-            .use(Uppy.Tus, {endpoint: 'https://master.tus.io/files/'}) //you can put upload URL here, where you want to upload images
-        uppy.on('complete', (result) => {
-            let data = [];
-            result.successful.forEach(item => {
-                data.push(item.response.uploadURL);
+
+
+            document.querySelectorAll('.delete').forEach(item => {
+                const {index} = item.dataset;
+
+                item.addEventListener('click', () => {
+                    const confirm = window.confirm('Bạn có chắc muốn xóa ảnh này');
+                    if (confirm) {
+                        data = data.filter((item, index1) => index1 !== +index);
+                        arr = data;
+                        document.getElementsByName('img')[0].value = JSON.stringify(data);
+                        render(data);
+                    }
+                })
             })
-            document.getElementById('img').value = JSON.stringify(data);
-            console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        })
+
+        }
     </script>
 @endsection
+

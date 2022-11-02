@@ -13,6 +13,7 @@ use App\Models\PrintPdf;
 use App\Models\User;
 use App\Models\UserMotel;
 use Carbon\Carbon;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +61,7 @@ class MotelController extends Controller
     {
         $params['cols'] = array_map(function ($item) {
             if ($item == '') {
-                $item = null;
+                $item = '';
             }
             if (is_string($item)) {
                 $item = trim($item);
@@ -71,6 +72,17 @@ class MotelController extends Controller
 
         unset($params['cols']['_token']);
         $params['cols']['area_id'] = $request->id;
+        $imgs = [];
+        foreach (json_decode($request->img) as $file) {
+            $uploadedFileUrl = cloudinary()->upload($file, [
+                'resource_type' => 'auto',
+                'folder' => 'DATN_FALL2022'
+            ])->getSecurePath();;
+
+            $imgs[] = $uploadedFileUrl;
+
+        }
+        $params['cols']['photo_gallery'] = $imgs;
         $model = new Motel();
 
         $result = $model->createMotel($params['cols']);
@@ -255,10 +267,6 @@ class MotelController extends Controller
         $this->v['categories'] = $category->getAll();
         $motel = new Motel();
         $this->v['motel'] = $motel->detailMotel($idMotel);
-        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
-        $this->v['services'] = json_decode($this->v['motel']->services, true);
-        $this->v['idArea'] = $id;
-
         return view('admin.motels.edit', $this->v);
     }
 
@@ -278,30 +286,38 @@ class MotelController extends Controller
         }, $request->all());
 
         unset($params['cols']['_token']);
-        $params['cols']['service'] = json_encode([
-            'bed' => $request->bed,
-            'bedroom' => $request->bedroom,
-            'toilet' => $request->toilet,
-            'more' => $request->service_more,
-            'actor' => $request->actor
-        ]);
-        $params['cols']['area_id'] = $request->id;
+
         $data = [
-            'category_id' => $request->category_id,
             'room_number' => $request->room_number,
             'price' => $request->price,
             'area' => $request->area,
             'description' => $request->description,
             'video' => $request->video,
             'image_360' => $request->image360,
-            'photo_gallery' => $request->img,
-            'services' => $params['cols']['service'],
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'services' => json_encode([
+                'bed' => $request->bed,
+                'bedroom' => $request->bedroom,
+                'toilet' => $request->toilet,
+                'more' => $request->service_more,
+                'actor' => $request->actor
+            ]),
             'updated_at' => date('Y-m-d H:i:s')
         ];
+        $imgs = [];
+        foreach (json_decode($request->img) as $file) {
+            if (strpos($file, 'https://res.cloudinary.com') === false) {
+                $file = cloudinary()->upload($file, [
+                    'resource_type' => 'auto',
+                    'folder' => 'DATN_FALL2022'
+                ])->getSecurePath();;
+            }
+
+            $imgs[] = $file;
+        }
+        $data['photo_gallery'] = json_encode($imgs);
+
         $modelMotel->saveUpdate_motels($data, $request->id);
-        return redirect()->route('admin.motel.list', $request->idArea)->with('msg', 'Cập nhật phòng trọ thành công');
+        return redirect()->route('admin.motel.list', $request->area_id)->with('msg', 'Cập nhật phòng trọ thành công');
     }
 
     public
