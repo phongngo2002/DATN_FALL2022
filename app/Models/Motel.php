@@ -88,7 +88,7 @@ class Motel extends Model
 
     public function detailMotel($idMotel)
     {
-        $motel = DB::table($this->table)
+        $motel = DB::table('categories')
             ->select([
                 'motels.id as motel_id',
                 'area_id',
@@ -116,11 +116,54 @@ class Motel extends Model
                 'start_time',
                 'video'
             ])
+            ->join('motels', 'categories.id', '=', 'motels.category_id')
             ->join('areas', 'areas.id', '=', "motels.area_id")
-        ->join('categories', 'categories.id', '=', 'motels.category_id')
-        ->join('users', 'areas.user_id', '=', 'users.id')
-        ->where('motels.id', $idMotel)->first();
+            ->join('users', 'areas.user_id', '=', 'users.id')
+            ->where('motels.id', $idMotel)
+            ->first();
         return $motel;
+    }
+
+    public function detailMotel1($idMotel)
+    {
+        $motel = DB::table('categories')
+            ->select([
+                'motels.id as motel_id',
+                'area_id',
+                'areas.name as areaName',
+                'category_id',
+                'room_number',
+                'price',
+                'area',
+                'image_360',
+                'photo_gallery',
+                'services',
+                'end_time',
+                'max_people',
+                'areas.address as address',
+                'description',
+                'areas.address as area_address',
+                'areas.link_gg_map as area_link_gg_map',
+                'motels.updated_at as motel_updateAt',
+                'categories.name as category_name',
+                'users.name as user_name',
+                'users.address as user_address',
+                'users.avatar as user_avatar',
+                'users.phone_number as user_phone',
+                'users.email as user_email',
+                'start_time',
+                'video'
+            ])
+            ->join('motels', 'categories.id', '=', 'motels.category_id')
+            ->join('areas', 'areas.id', '=', "motels.area_id")
+            ->join('users', 'areas.user_id', '=', 'users.id')
+            ->where('motels.id', $idMotel)
+            ->first();
+        $currentPlanMotel = PlanHistory::where('motel_id', $motel->motel_id)->where('status', 1)->first();
+        if ($currentPlanMotel) {
+            return $motel;
+        }
+        return null;
     }
 
     public function delete_motels($id)
@@ -155,7 +198,7 @@ class Motel extends Model
     {
 
         return DB::table('areas')
-            ->select(['motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'plan_history.plan_id'])
+            ->select(['motels.id as motel_id', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id', 'plans.id')
@@ -203,10 +246,10 @@ class Motel extends Model
     public function infoMotelLiveTogether($motel_id)
     {
         $countUser = DB::table('users')
-                    ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
-                    ->where('motel_id', $motel_id)
-                    ->where('user_motel.status', 1)
-                    ->count();
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('motel_id', $motel_id)
+            ->where('user_motel.status', 1)
+            ->count();
         $motel = DB::table($this->table)
             ->select([
                 'motels.id as motel_id',

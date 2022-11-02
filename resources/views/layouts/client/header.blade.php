@@ -72,14 +72,20 @@
                                 alt=""></span>Chào, {{ \Illuminate\Support\Facades\Auth::user()->name }}!
                     </div>
                     <ul>
-                        <li><a href="#">Tài khoản
-                                gốc: <span
-                                    class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
-                                <i class="fa-brands fa-bitcoin text-warning"></i></a></li>
-                        <li><a href="user-profile.html">Thông tin cá nhân</a></li>
-                        <li><a href="{{ route('getRecharge') }}">Nạp tiền</a></li>
-                        <li><a href="change-password.html">Đổi mật khẩu</a></li>
-                        <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
+                        @if(\Illuminate\Support\Facades\Auth::user()->role_id === 3)
+                            <li><a href="{{ route('getRecharge') }}">Tài khoản
+                                    gốc: <span
+                                        class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
+                                    <i class="fa-brands fa-bitcoin text-warning"></i></a></li>
+                            <li><a href="{{ route('getRecharge') }}">Thông tin cá nhân</a></li>
+                            <li><a href="{{ route('getRecharge') }}">Nạp tiền</a></li>
+                            <li><a href="{{ route('getRecharge') }}">Đổi mật khẩu</a></li>
+                            <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
+                        @else
+                            <li><a href="{{ route('admin_home') }}">Quản lý khu trọ</a></li>
+                            <li><a href="{{ route('getRecharge') }}">Đổi mật khẩu</a></li>
+                            <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
+                        @endif
                     </ul>
                 </div>
             @else

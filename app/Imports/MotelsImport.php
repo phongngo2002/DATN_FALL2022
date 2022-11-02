@@ -32,11 +32,12 @@ class MotelsImport implements ToCollection
                     'status' => 1,
                     'max_people' => $row[6],
                     'video' => $row[9],
-                    'bed' => $row[10],
-                    'bedroom' => $row[11],
-                    'toilet' => $row[12],
-                    'more' => $row[13],
-                    'actor' => $row[14]
+                    'services' => json_encode([
+                        'bed' => $row[10],
+                        'bedroom' => $row[11],
+                        'toilet' => $row[12],
+                        'more' => $row[13],
+                        'actor' => $row[14]])
                 ]);
             }
         }

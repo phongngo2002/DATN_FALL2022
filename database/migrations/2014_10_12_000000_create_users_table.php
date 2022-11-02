@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -21,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('avatar')->nullable();
-            $table->float('money', 11, 3)->nullable();
+            $table->float('money', 11, 3)->default(0);
             $table->string('address')->nullable();
             $table->integer('role_id');
             $table->string('token')->nullable();

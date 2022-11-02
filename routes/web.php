@@ -57,7 +57,7 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 
 //Chi tiết tìm nguwoif ở ghép
-Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class,'detail'])->name('client.live-together.detail');
+Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class, 'detail'])->name('client.live-together.detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
 
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
-    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin

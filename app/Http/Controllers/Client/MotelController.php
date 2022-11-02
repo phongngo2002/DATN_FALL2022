@@ -202,9 +202,12 @@ class MotelController extends Controller
     public function detail($id)
     {
         $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($id);
+        if ($motel->detailMotel1($id)) {
+            $this->v['motel'] = $motel->detailMotel1($id);
 
-        return view('client.motel.detail', $this->v);
+            return view('client.motel.detail', $this->v);
+        }
+        abort(404);
     }
 
     public function sendContact(Request $request, $id)

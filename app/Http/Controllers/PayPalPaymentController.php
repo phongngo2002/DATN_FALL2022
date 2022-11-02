@@ -36,7 +36,13 @@ class PayPalPaymentController extends Controller
     {
         try {
             $payment = Recharge::insertGetId([
-                'value' => $request->input('amount')
+                'value' => $request->input('amount'),
+                'user_id' => '0',
+                'date' => Carbon::now(),
+                'recharge_code' => 'abc',
+                'payment_type' => 0,
+                'status' => 0,
+                'note' => 'abc',
             ]);
             $response = $this->gateway->purchase(array(
                 'amount' => $request->input('amount'),
