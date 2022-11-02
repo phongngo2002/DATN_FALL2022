@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\User;
 use App\Models\UserMotel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
-use App\Models\ContactMotelHistory;
+use App\Models\Motel;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
 
 class MotelController extends Controller
 {

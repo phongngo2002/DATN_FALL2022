@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PlanHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Client\LiveTogetherController;
 use App\Http\Controllers\Client\MotelController as ClientMotelController;
 use App\Http\Controllers\Auth\registerController;
 
@@ -38,6 +39,8 @@ Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@chan
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
 
+Route::get('/test', [ClientMotelController::class, 'test'])->name('client.motel.detail');
+
 //Liên hệ
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 
@@ -52,6 +55,9 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 // end client các gói dịch vụ,đăng ký
 
+
+//Chi tiết tìm nguwoif ở ghép
+Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class,'detail'])->name('client.live-together.detail');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
