@@ -426,17 +426,10 @@
         </div>
         {{-- @foreach ($motels as $motel) --}}
         <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 3</h2>
-                </div>
-            </div>
             <div class="portfolio col-xl-12">
                 <div class="slick-lancers">
                     @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 3)
+                    @if ($motel->plan_id === 6)
                         <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
                             <div class="landscapes">
                                 <div class="project-single">
@@ -458,7 +451,16 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
                                         <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
+                                        <h3>
+                                            <span>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                            </span>
+                                            <a href="single-property-1.html" style="color:#ff002f">{{$motel->data_post->title}}</a>
+                                        </h3>
                                         <p class="homes-address mb-3">
                                             <a href="single-property-1.html">
                                                 <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>
@@ -506,17 +508,10 @@
         </div>
 
         <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 2</h2>
-                </div>
-            </div>
             <div class="portfolio col-xl-12">
                 <div class="slick-lancers">
                     @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 2)
+                    @if ($motel->plan_id === 5)
                         <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
                             <div class="landscapes">
                                 <div class="project-single">
@@ -538,7 +533,14 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
                                         <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
+                                        <h3>
+                                            <span>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                            </span>
+                                            <a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
                                         <p class="homes-address mb-3">
                                             <a href="single-property-1.html">
                                                 <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>
@@ -586,17 +588,10 @@
         </div>
 
         <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 1</h2>
-                </div>
-            </div>
             <div class="portfolio col-xl-12">
                 <div class="slick-lancers">
                     @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 1)
+                    @if ($motel->plan_id === 4)
                         <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
                             <div class="landscapes">
                                 <div class="project-single">
@@ -618,7 +613,13 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
                                         <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
+                                        <h3>
+                                            <span>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                                <i class="fa-sharp fa-solid fa-star" style="color: #FFD454"></i>
+                                            </span>
+                                            <a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
                                         <p class="homes-address mb-3">
                                             <a href="single-property-1.html">
                                                 <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>

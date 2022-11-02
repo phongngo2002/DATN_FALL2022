@@ -88,9 +88,9 @@ class PlanHistory extends Model
         ->join('areas', 'motels.area_id', '=', 'areas.id')
         ->select(['plan_history.status','plans.id as plan_id','plans.name as plan_name','motels.id as motel_id','motels.room_number','motels.price','motels.area','motels.services','motels.data_post','motels.photo_gallery','areas.name as area_name','areas.address',])
         ->whereNotNull('motels.data_post')->distinct()
-        ->where('plan_history.status','>',1)
-        ->where('plan_history.status','<',4)
-        ->orderBy('plan_id','DESC')
+        ->where('plan_history.status',1)
+        ->where('plans.type',2)
+        ->orderBy('plans.priority_level','ASC')
         ->get();
     }
 }
