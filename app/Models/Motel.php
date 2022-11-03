@@ -159,7 +159,7 @@ class Motel extends Model
             ->join('users', 'areas.user_id', '=', 'users.id')
             ->where('motels.id', $idMotel)
             ->first();
-        $currentPlanMotel = PlanHistory::where('motel_id', $motel->motel_id)->where('status', 1)->first();
+        $currentPlanMotel = PlanHistory::join('plans', 'plan_history.plan_id', '=', 'plans.id')->where('motel_id', $motel->motel_id)->where('type', 1)->where('plan_history.status', 1)->first();
         if ($currentPlanMotel) {
             return $motel;
         }
@@ -175,7 +175,7 @@ class Motel extends Model
     public function info_motel($id)
     {
         return DB::table('users')
-            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id'])
+            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id', 'email'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
@@ -185,7 +185,7 @@ class Motel extends Model
     public function get_list_contact($motel_id, $area_id)
     {
         return DB::table('users')
-            ->select(['name', 'email', 'phone_number', 'contact_motel_history.status as tt', 'contact_motel_history.created_at as tg'])
+            ->select(['contact_motel_history.user_id', 'motels.id as motel_id', 'area_id', 'name', 'email', 'phone_number', 'contact_motel_history.status as tt', 'contact_motel_history.created_at as tg', 'contact_motel_history.id as contact_id'])
             ->join('contact_motel_history', 'users.id', '=', 'contact_motel_history.user_id')
             ->join('motels', 'contact_motel_history.motel_id', '=', 'motels.id')
             ->where('area_id', $area_id)
@@ -250,37 +250,46 @@ class Motel extends Model
             ->where('motel_id', $motel_id)
             ->where('user_motel.status', 1)
             ->count();
-        $motel = DB::table($this->table)
+        $motel = DB::table('plans')
             ->select([
                 'motels.id as motel_id',
+                'area_id',
+                'priority_level',
+                'areas.name as areaName',
                 'room_number',
-                'price',
+                'motels.price',
                 'area',
                 'image_360',
                 'photo_gallery',
                 'services',
                 'end_time',
                 'max_people',
+                'areas.address as address',
                 'description',
-                'areas.name as area_name',
                 'areas.address as area_address',
                 'areas.link_gg_map as area_link_gg_map',
                 'motels.updated_at as motel_updateAt',
-                'categories.name as category_name',
                 'users.name as user_name',
                 'users.address as user_address',
                 'users.avatar as user_avatar',
                 'users.phone_number as user_phone',
-                'users.email as user_email'
+                'users.email as user_email',
+                'start_time',
+                'data_post',
+                'video'
             ])
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+            ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'areas.id', '=', "motels.area_id")
-            ->join('categories', 'categories.id', '=', 'motels.category_id')
             ->join('users', 'areas.user_id', '=', 'users.id')
-            ->where('motels.id', $motel_id)->first();
-
-        $motel->count_user = $countUser;
-
-        return $motel;
+            ->where('motels.id', $motel_id)
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->first();
+        if ($motel) {
+            return $motel;
+        }
+        return null;
 
     }
 }

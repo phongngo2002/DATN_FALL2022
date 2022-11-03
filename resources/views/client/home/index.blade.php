@@ -1,6 +1,12 @@
 @extends('layouts.client.main')
 
 @section('content')
+    <style>
+        .a{
+            color: white !important;
+            font-weight: 400;
+        }
+    </style>
     <section id="hero-area" class="parallax-searchs home15 overlay thome-6 thome-1 d-none d-md-none d-lg-block"
              data-stellar-background-ratio="0.5">
         <div class="hero-main">

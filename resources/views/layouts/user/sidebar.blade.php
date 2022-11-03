@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="payment-method.html">
+                    <a href="{{route('getRecharge')}}">
                         <i class="fas fa-credit-card"></i>Nạp tiền
                     </a>
                 </li>
@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="change-password.html">
+                    <a href="{{route('get_history_buy_plan')}}">
                         <i class="fa fa-lock"></i>Đổi mật khẩu
                     </a>
                 </li>

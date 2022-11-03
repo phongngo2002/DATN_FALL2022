@@ -20,53 +20,24 @@
                 <!-- Main Navigation -->
                 <nav id="navigation" class="style-1 ">
                     <ul id="responsive">
-                        <li><a href="{{route('home')}}">Trang chủ</a>
+                        <li><a class="a" href="{{route('home')}}">Trang chủ</a>
                         </li>
 
-                        <li><a href="{{route('motels')}}">Phòng trọ</a>
+                        <li><a class="a" href="{{route('motels')}}">Phòng trọ</a>
                         </li>
-                        <li><a href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
+                        <li><a class="a" href="{{route('client_list_live_together')}}">Tìm người ở ghép</a>
                         </li>
-                        <li><a href="{{ route('frontend_get_plans') }}">Bảng giá dịch vụ</a>
+                        <li><a class="a" href="{{ route('frontend_get_plans') }}">Bảng giá dịch vụ</a>
                         </li>
                     </ul>
                 </nav>
-                <!-- Main Navigation / End -->
             </div>
-            <!-- Left Side Content / End -->
 
-            <!-- Right Side Content / End -->
-            <div class="right-side d-none d-none d-lg-none d-xl-flex">
-                <!-- Header Widget -->
-                <div class="header-widget">
-                    <a href="{{ route('client_current_motel')}}"
-                       style="display: flex;justify-content: center;align-items: center;" class="button border">Đăng bài<i
-                            class="fas fa-laptop-house ml-2"></i>
-                    </a>
-                </div>
-                <!-- Header Widget / End -->
-            </div>
-            <!-- Right Side Content / End -->
-
-            <!-- Right Side Content / End -->
-            <!-- <div class="header-user-menu user-menu add">
-                <div class="header-user-name">
-                    <span><img src="images/testimonials/ts-1.jpg" alt=""></span>Hi, Mary!
-                </div>
-                <ul>
-                    <li><a href="user-profile.html"> Edit profile</a></li>
-                    <li><a href="add-property.html"> Add Property</a></li>
-                    <li><a href="payment-method.html"> Payments</a></li>
-                    <li><a href="change-password.html"> Change Password</a></li>
-                    <li><a href="#">Log Out</a></li>
-                </ul>
-            </div> -->
-            <!-- Right Side Content / End -->
 
 
             @if (\Illuminate\Support\Facades\Auth::user())
                 <div class="header-user-menu user-menu add d-none d-none d-lg-none d-xl-flex sign ml-0">
-                    <div class="header-user-name">
+                    <div class="header-user-name a">
                         <span><img
                                 src="{{ \Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj' }}"
                                 alt=""></span>Chào, {{ \Illuminate\Support\Facades\Auth::user()->name }}!
@@ -93,43 +64,16 @@
                      style="padding: 0 4px 0 5px;margin-top: 16px">
                     <!-- Header Widget -->
                     <div class="header-widget sign-in">
-                        <div><a href="{{ route('get_login') }}">Đăng nhập</a></div>
-                    </div>
-                    <!-- Header Widget / End -->
-                </div>
-                <!-- Right Side Content / End -->
-
-                <!-- lang-wrap-->
-                <div class="header-user-menu user-menu d-none ml-0 d-lg-none d-xl-flex">
-                    <div class="lang-wrap">
-                        <div class="show-lang">
-                            <div class="header-widget sign-in">
-                                <div class=""><a href="{{ route('get_register') }}">Đăng ký</a></div>
-                            </div>
-                        </div>
-
+                        <div><a class="a" href="{{ route('get_login') }}">Đăng nhập</a></div>
                     </div>
                 </div>
+
+
             @endif
 
-            <!-- lang-wrap-->
-            {{--            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">--}}
-            {{--                <div class="lang-wrap">--}}
-            {{--                    <div class="show-lang"><span><i--}}
-            {{--                                class="fas fa-globe-americas"></i><strong>ENG</strong></span><i--}}
-            {{--                            class="fa fa-caret-down arrlan"></i></div>--}}
-            {{--                    <ul class="lang-tooltip lang-action no-list-style">--}}
-            {{--                        <li><a href="#" class="current-lan" data-lantext="En">English</a></li>--}}
-            {{--                        <li><a href="#" data-lantext="Fr">Francais</a></li>--}}
-            {{--                        <li><a href="#" data-lantext="Es">Espanol</a></li>--}}
-            {{--                        <li><a href="#" data-lantext="De">Deutsch</a></li>--}}
-            {{--                    </ul>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-            <!-- lang-wrap end-->
+
 
         </div>
     </div>
-    <!-- Header / End -->
 
 </header>

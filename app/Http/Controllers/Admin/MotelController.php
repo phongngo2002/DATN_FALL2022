@@ -116,9 +116,10 @@ class MotelController extends Controller
 
     public function add_peolpe_of_motels(Request $request, $id, $idMotel)
     {
+        $type = $request->type ?? 0;
         $model = new UserMotel();
 
-        $model->add($idMotel, $request->user_id);
+        $model->add($idMotel, $request->user_id, $type);
 
         return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel])->with('success', 'Thêm mới thành viên phòng thành công');
     }
@@ -249,6 +250,8 @@ class MotelController extends Controller
         $model = new Motel();
 
         $this->v['list'] = $model->get_list_contact($idMotel, $id);
+        $this->v['motel_id'] = $idMotel;
+        $this->v['area_id'] = $id;
         return view('admin.motel.list_contact_motel', $this->v);
     }
 

@@ -235,7 +235,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <form action="" method="POST">
+                    <form action="" method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>

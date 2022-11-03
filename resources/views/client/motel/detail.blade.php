@@ -752,6 +752,7 @@
                                                     <span class="featured">$ 6,500</span>
                                                     <span class="rent">For Rent</span>
                                                 </div>
+                                                </div>
                                                 <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Toronto CA</i></span>

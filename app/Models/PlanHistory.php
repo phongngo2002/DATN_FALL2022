@@ -81,16 +81,29 @@ class PlanHistory extends Model
         return 1;
     }
 
-    public function list_live_together(){
+    public function list_live_together()
+    {
         return DB::table('plans')
-        ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
-        ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
-        ->join('areas', 'motels.area_id', '=', 'areas.id')
-        ->select(['plan_history.status','plans.id as plan_id','plans.name as plan_name','motels.id as motel_id','motels.room_number','motels.price','motels.area','motels.services','motels.data_post','motels.photo_gallery','areas.name as area_name','areas.address',])
-        ->whereNotNull('motels.data_post')->distinct()
-        ->where('plan_history.status','>',1)
-        ->where('plan_history.status','<',4)
-        ->orderBy('plan_id','DESC')
-        ->get();
+            ->select(['plan_history.status',
+                'motels.id as motel_id',
+                'max_people',
+                'plans.name as plan_title',
+                'plans.id as plan_id',
+                'priority_level',
+                'plans.name as plan_name',
+                'motels.id as motel_id',
+                'motels.room_number',
+                'motels.price', 'motels.area',
+                'motels.services', 'motels.data_post',
+                'motels.photo_gallery',
+                'areas.name as area_name',
+                'areas.address',])
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+            ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->orderBy('priority_level', 'asc')
+            ->paginate(10);
     }
 }

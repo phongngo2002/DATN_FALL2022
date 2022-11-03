@@ -14,7 +14,7 @@ class UserMotel extends Model
 
     protected $table = "user_motel";
 
-    public function add($motel_id, $user_id)
+    public function add($motel_id, $user_id, $type)
     {
         $model = DB::table($this->table)->insert([
             'motel_id' => $motel_id,
@@ -30,6 +30,15 @@ class UserMotel extends Model
             $motel->update([
                 'status' => 2
             ]);
+        }
+        if ($type) {
+            DB::table('contact_motel_history')
+                ->where('user_id', $user_id)
+                ->where('motel_id', $motel_id)
+                ->where('status', 1)
+                ->update([
+                    'status' => 3
+                ]);
         }
 
         return 1;
@@ -48,6 +57,7 @@ class UserMotel extends Model
     {
         return DB::table($this->table)
             ->select(['motels.id as motel_id',
+                'area_id',
                 'motels.photo_gallery',
                 'motels.description',
                 'areas.name as area_name',

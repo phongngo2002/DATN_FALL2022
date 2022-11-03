@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\User;
@@ -52,6 +53,7 @@ class MotelController extends Controller
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $motel_id)
+            ->where('type', 2)
             ->where('plan_history.status', 1)
             ->first();
 
@@ -185,15 +187,7 @@ class MotelController extends Controller
     public function listLiveTogether()
     {
         $model = new PlanHistory();
-        $this->v['motels'] = $model->list_live_together();
-        foreach ($this->v['motels'] as $motel) {
-            $photo_gallery_1 = substr($motel->photo_gallery, 2, strpos($motel->photo_gallery, ',', 0) - 2);
-            $motel->photo_gallery1 = $photo_gallery_1;
-
-            $motel->data_post = json_decode($motel->data_post);
-            $motel->services = json_decode($motel->services);
-
-        }
+        $this->v['motel'] = $model->list_live_together();
         // dd($this->v['motels']);
 
         return view('client.account_management.list_live_together', $this->v);
