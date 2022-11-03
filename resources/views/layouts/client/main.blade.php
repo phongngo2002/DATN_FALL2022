@@ -10,7 +10,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="html 5 template">
     <meta name="author" content="">
-    <title>Find Houses - HTML5 Template</title>
+    <title>Chợ phòng trọ - Website tìm kiếm phòng trọ số 1 Việt Nam</title>
     <!-- FAVICON -->
     @include('layouts.client._css')
 </head>

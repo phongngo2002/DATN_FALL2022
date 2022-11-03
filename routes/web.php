@@ -60,6 +60,9 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@profile')->name('client.get_profile');
+    Route::post('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@editProfile')->name('client.edit_profile');
+
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}', [LiveTogetherController::class, 'historyContactMotel'])->name('client.get_history_contact_motel');
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}/xac-nhan/{status}/{contact_id}', [LiveTogetherController::class, 'ConfirmContactMotel'])->name('client.confirm_contact_motel');
 

@@ -108,7 +108,8 @@
             </div>
         </div>
         <button class="btn btn-primary mt-4">Thêm mới</button>
-        <a href="{{route('admin.motel.list',['id' => $motel->area_id])}}" class="btn btn-success mt-4">Quay lại</a>
+        <a href="{{route('admin.motel.list',['id' => $area_id])}}"
+           class="btn btn-success mt-4">Quay lại</a>
     </form>
     <script>
         let arr = [];

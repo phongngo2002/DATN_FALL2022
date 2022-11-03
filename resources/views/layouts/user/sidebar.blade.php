@@ -6,7 +6,7 @@
             <img
                 src="{{\Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj'}}"
                 alt="avatar"
-                class="img-fluid profile-img">
+                class="img-fluid profile-img avatar_admin">
         </div>
         <div class="active-user">
             <h2>    {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
@@ -16,7 +16,7 @@
         <div class="detail clearfix">
             <ul class="mb-0">
                 <li>
-                    <a href="user-profile.html">
+                    <a href="{{route('client.get_profile')}}">
                         <i class="fa fa-user"></i>Thông tin cá nhân
                     </a>
                 </li>

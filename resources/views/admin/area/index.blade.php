@@ -57,7 +57,7 @@
                     <th>#</th>
                     <th>Tên khu trọ</th>
                     <th>Địa chỉ</th>
-                    <th><a href="{{ route('backend_get_create_area') }}" class="btn-link">Thêm mới</a></th>
+                    <th>Chức năng</th>
                 </tr>
             </thead>
             <tbody>

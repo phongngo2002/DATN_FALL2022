@@ -52,4 +52,31 @@ class AccountManagementController extends Controller
 //        Mail::to(Auth::user()->email)->send(new ForgotOtp(Auth::user()->name) . ' đã gửi yêu cầu rời trọ');
         return redirect()->back()->with('success', 'Gửi yêu cầu rời trọ thành công');
     }
+
+    public function profile()
+    {
+        $this->v['user'] = Auth::user();
+        $this->v['currentMotel'] = DB::table('users')
+            ->select(['email', 'users.name as userName', 'users.address as userAdd', 'phone_number', 'areas.name as area_name', 'room_number', 'user_motel.start_time as tg'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->where('user_motel.user_id', Auth::id())
+            ->where('user_motel.status', 1)
+            ->get();
+        return view('client.account_management.profile', $this->v);
+    }
+
+    public function editProfile(Request $request)
+    {
+        $user = DB::table('users')
+            ->where('id', Auth::id())
+            ->update([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number
+            ]);
+
+        return redirect()->back()->with('success', 'true');
+    }
 }

@@ -38,7 +38,7 @@
             @if (\Illuminate\Support\Facades\Auth::user())
                 <div class="header-user-menu user-menu add d-none d-none d-lg-none d-xl-flex sign ml-0">
                     <div class="header-user-name a">
-                        <span><img
+                        <span><img class="avatar_admin"
                                 src="{{ \Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj' }}"
                                 alt=""></span>Chào, {{ \Illuminate\Support\Facades\Auth::user()->name }}!
                     </div>
@@ -48,7 +48,7 @@
                                     gốc: <span
                                         class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
                                     <i class="fa-brands fa-bitcoin text-warning"></i></a></li>
-                            <li><a href="{{ route('getRecharge') }}">Thông tin cá nhân</a></li>
+                            <li><a href="{{route('client.get_profile')}}">Thông tin cá nhân</a></li>
                             <li><a href="{{ route('getRecharge') }}">Nạp tiền</a></li>
                             <li><a href="{{ route('getRecharge') }}">Đổi mật khẩu</a></li>
                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -107,8 +108,8 @@ class UserController extends Controller
         }, $request->post());
         $params['id'] = $id;
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-                $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
-                $params['avatar'] = $uploadedFileUrl;
+            $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
+            $params['avatar'] = $uploadedFileUrl;
         }
         unset($params['_token']);
         unset($params['avatar_old']);
@@ -126,5 +127,16 @@ class UserController extends Controller
             Session::flash('error', 'Lỗi cập nhật bản ghi ' . $id);
             return redirect()->route('backend_user_detail', ['id' => $id, 'used_to' => 'update']);
         }
+    }
+
+    public function uploadImg(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->avatar = cloudinary()->upload($request->img, [
+            'resource_type' => 'auto',
+            'folder' => 'DATN_FALL2022'
+        ])->getSecurePath();
+        $user->save();
+        return response()->json($user->avatar, 200);
     }
 }

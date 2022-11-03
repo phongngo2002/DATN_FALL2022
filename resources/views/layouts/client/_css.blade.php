@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('assets/client/css/fontawesome-5-all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/font-awesome.min.css') }}">
 <!-- ARCHIVES CSS -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/search.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/animate.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/aos.css') }}">
