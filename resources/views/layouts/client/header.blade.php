@@ -50,11 +50,11 @@
                                     <i class="fa-brands fa-bitcoin text-warning"></i></a></li>
                             <li><a href="{{route('client.get_profile')}}">Thông tin cá nhân</a></li>
                             <li><a href="{{ route('getRecharge') }}">Nạp tiền</a></li>
-                            <li><a href="{{ route('getRecharge') }}">Đổi mật khẩu</a></li>
+                            <li><a href="{{ route('client.change_password') }}">Đổi mật khẩu</a></li>
                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                         @else
                             <li><a href="{{ route('admin_home') }}">Quản lý khu trọ</a></li>
-                            <li><a href="{{ route('getRecharge') }}">Đổi mật khẩu</a></li>
+                            <li><a href="{{ route('client.change_password') }}">Đổi mật khẩu</a></li>
                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                         @endif
                     </ul>

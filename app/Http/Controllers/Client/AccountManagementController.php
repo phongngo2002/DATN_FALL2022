@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\ForgotOtp;
 use App\Models\PlanHistory;
 use App\Models\Recharge;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AccountManagementController extends Controller
@@ -78,5 +80,23 @@ class AccountManagementController extends Controller
             ]);
 
         return redirect()->back()->with('success', 'true');
+    }
+
+    public function changePassword(Request $request)
+    {
+        return view('client.account_management.changePassword', $this->v);
+    }
+
+    public function saveChangePassword(Request $request)
+    {
+
+        if (Hash::check($request->password_old, Auth::user()->password)) {
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect()->back()->with('success', 'Thành công');
+        } else {
+            return redirect()->back()->with('error', 'Lỗi');
+        }
     }
 }
