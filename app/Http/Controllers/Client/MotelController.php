@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
+
 class MotelController extends Controller
 {
     private $v;
@@ -187,7 +188,15 @@ class MotelController extends Controller
     public function listLiveTogether()
     {
         $model = new PlanHistory();
-        $this->v['motel'] = $model->list_live_together();
+        $this->v['motels'] = $model->list_live_together();
+        foreach ($this->v['motels'] as $motel) {
+            $photo_gallery_1 = substr($motel->photo_gallery, 2, strpos($motel->photo_gallery, ',', 0) - 2);
+            $motel->photo_gallery1 = $photo_gallery_1;
+
+            $motel->data_post = json_decode($motel->data_post);
+            $motel->services = json_decode($motel->services);
+
+        }
         // dd($this->v['motels']);
 
         return view('client.account_management.list_live_together', $this->v);

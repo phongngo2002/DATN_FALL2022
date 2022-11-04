@@ -29,6 +29,8 @@ return new class extends Migration {
             $table->integer('category_id')->default(1);
             $table->longText('video')->default('');
             $table->longText('data_post')->nullable();
+            $table->longText('services')->nullable();
+            $table->longText('video')->nullable();
             $table->timestamps();
         });
     }

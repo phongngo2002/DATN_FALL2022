@@ -1,7 +1,7 @@
 @extends('layouts.user.main')
 @section('content')
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+        /* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
 
         body {
             background-color: #f5eee7;
@@ -107,6 +107,7 @@
                 </button>
             </div>
         @endif
+        </div>
         <form>@csrf
             <div class="row">
                 <div class="col-8">
@@ -163,21 +164,22 @@
                                 <div class="col-lg-6 col-md-12">
                                     <label for="address">Đối tượng ở ghép</label>
                                     <div class="nice-select form-control wide" style="margin-top: 2px !important;"
-                                         tabindex="0"><span class="current">Select status</span>
+                                         tabindex="0"><span class="current" id="gender_current">Giới tính</span>
                                         <ul class="list">
                                             <li data-value="1"
-                                                class="option {{ isset($data_post) && $data_post->gender == 1 ? 'selected' : ''}}">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 1) ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Nam
                                             </li>
                                             <li data-value="2"
-                                                class="option {{ isset($data_post) && $data_post->gender == 2 ? 'selected' : ''}}">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 2) ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Nữ
                                             </li>
                                             <li data-value="3"
-                                                class="option {{ isset($data_post) && $data_post->gender == 3 ? 'selected' : ''}}">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 3) ? 'selected' : ''}}" onclick="getGender(event)">
                                                 Tất cả
                                             </li>
                                         </ul>
+                                        <input type="hidden" name="" id="inp_gender_current" value="{{ (isset($data_post) ? $data_post->gender : "")}}">
                                     </div>
                                 </div>
                             </div>
@@ -215,12 +217,12 @@
                             <div class="mb-3 col-6">
                                 <label for="address">Chọn gói đăng tin</label>
                                 <div class="nice-select form-control wide" style="margin-top: 2px !important;"
-                                     tabindex="0"><span class="current">Chọn gói đăng tin</span>
-                                    <ul class="list">
+                                     tabindex="0" ><span class="current">Chọn gói đăng tin</span>
+                           
+                                    <ul class="list" >
+
                                         @foreach ($plans as $plan)
-                                            <li data-value="{{$plan->id}}" data-price="{{$plan->price}}"
-                                                class="option">{{$plan->name}}
-                                            </li>
+                                            <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}" data-price="{{$plan->price}}"class="option">{{$plan->name}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -298,8 +300,7 @@
                                         <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
                                         <button data-toggle="modal" data-target="#exampleModal2" type="button"
                                                 class="btn btn-success" id="btn_more" style="width: 100%"
-                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia
-                                            hạn ngay
+                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia hạn ngay
                                         </button>
                                     </div>
                                 </div>
@@ -400,6 +401,7 @@
                                    value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
                             <input type="hidden" id="money_plan_old" name="money_plan_old"
                                    value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
+                            <input type="hidden" id="gender3" name="gender">
                             <input type="hidden" id="change_plan" name="change_plan" value="123132">
                         @endif
                         {{-- <input type="hidden" id="post_day" name="post_day"> --}}
@@ -423,7 +425,6 @@
         </div>
 
         @if($current_plan_motel)
-
             <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
 
@@ -441,7 +442,7 @@
                             <input type="hidden" name="gia_han" value="true">
                             <input type="hidden" id="post_money2" name="post_money">
                             <input type="hidden" id="post_day_more" name="post_day_more">
-                            <input type="hidden" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
+                            <input type="hidden" id="plan_id_old" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
                             <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
 
                             <div class="modal-header">
@@ -460,15 +461,11 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         @endif
         <script>
-
-
             const money_more = document.getElementById('money_more');
             const old_price = document.getElementById('old_price');
-
             const data = JSON.parse(document.getElementById('data_plan').value);
             const post_plan = document.getElementById('post_plan');
             const post_day = document.getElementById('post_day');
@@ -479,7 +476,28 @@
             const show_total = document.getElementById('show_total');
             const money_user = document.getElementById('money_user');
             const date_more = document.getElementById('date_more');
+            const gender_current = document.getElementById('gender_current');
             var money_temp = 0;
+
+            // console.log((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null));
+            if (inp_gender_current.value == 1) {
+                gender_current.innerText = "Nam";
+            }else if(inp_gender_current.value == 2){
+                gender_current.innerText = "Nữ";
+            }else if(inp_gender_current.value == 3){
+                gender_current.innerText = "Tất cả";
+            }else{
+                gender_current.innerText = "Giới tính";
+            }
+            if((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true){
+                document.getElementById('gender2').value = inp_gender_current.value; //gia hạn
+                document.getElementById('gender3').value = inp_gender_current.value; //đổi gói
+            }
+           
+
+            function getGender(e){
+                document.getElementById('gender1').value = e.target.dataset.value
+            }
 
             function changeDisable(total) {
                 if (Number(total) > Number(money_user.value)) {
@@ -491,21 +509,21 @@
                 }
             }
 
-            post_plan.addEventListener('change', function () {
+            function getData(e){
+                var post_plan_value = e.target.dataset.value;
+                var post_plan_price = e.target.dataset.price;
+                var post_plan_title = e.target.innerText;
                 data.forEach(e => {
-                    if (post_plan.value != 0) {
-                        if (post_plan.value == e.id) {
-                            show_plan.innerText = e.title;
-                            show_money.innerText = e.price
-                            money_temp = e.price;
+                    if (post_plan_value != 0) {
+                        if (post_plan_value == e.id) {
+                            show_plan.innerText = post_plan_title;
+                            show_money.innerText = post_plan_price
+                            money_temp = post_plan_price;
                             show_total.innerText = money_temp * post_day.value
-
                             document.getElementById('post_plan1').value = e.id
-
                             changeDisable(money_temp * post_day.value);
                         }
                     } else {
-
                         show_plan.innerText = '';
                         show_money.innerText = 0
                         money_temp = 0
@@ -513,14 +531,13 @@
                         changeDisable(money_temp * post_day.value);
                     }
                 });
-
                 document.getElementById('title1').value = document.getElementById('title').value
                 document.getElementById('description1').value = document.getElementById('description').value
-                document.getElementById('gender1').value = document.getElementById('gender').value
                 document.getElementById('number_people1').value = document.getElementById('number_people').value
+            }
 
-            })
             post_day.oninput = function () {
+                console.log(post_day.value);
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
                 document.getElementById('post_day1').value = post_day.value
@@ -528,19 +545,18 @@
                 changeDisable(money_temp * post_day.value);
             }
 
-            date_more.oninput = function () {
-                // console.log(date_more.value);
-                money_more.innerText = old_price.innerText * date_more.value
-
-                document.getElementById('title2').value = document.getElementById('title').value
-                document.getElementById('description2').value = document.getElementById('description').value
-                document.getElementById('gender2').value = document.getElementById('gender').value
-                document.getElementById('number_people2').value = document.getElementById('number_people').value
-
-                document.getElementById('post_day_more').value = date_more.value
-                document.getElementById('post_money2').setAttribute('value', old_price.innerText * date_more.value);
-                changeDisable(old_price.innerText * date_more.value);
+            if((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true){
+                date_more.oninput = function () {
+                    money_more.innerText = old_price.innerText * date_more.value
+                    document.getElementById('title2').value = document.getElementById('title').value
+                    document.getElementById('description2').value = document.getElementById('description').value
+                    document.getElementById('number_people2').value = document.getElementById('number_people').value
+                    document.getElementById('post_day_more').value = date_more.value
+                    document.getElementById('post_money2').setAttribute('value', old_price.innerText * date_more.value);
+                    changeDisable(old_price.innerText * date_more.value);
+                }
             }
+           
 
         </script>
 
