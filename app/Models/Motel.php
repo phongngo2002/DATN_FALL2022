@@ -26,6 +26,7 @@ class Motel extends Model
         "end_time",
         "desc",
         "category_id",
+        'created_at',
         "video",
     ];
 

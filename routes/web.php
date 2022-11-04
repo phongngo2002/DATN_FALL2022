@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "add_motels"])->name("admin.motel.create");
             Route::post('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "saveAdd_motels"])->name("admin.motel.store");
             Route::get('{id}/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail"])->name("admin.motel.detail");
+            Route::get('{id}/{idMotel}/sao-chep', [\App\Http\Controllers\Admin\MotelController::class, "duplicate"])->name("admin.duplicate.motel");
 
 
             Route::get('/phong-tro/{id}/edit/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "edit_motels"])->name("admin.motel.edit");

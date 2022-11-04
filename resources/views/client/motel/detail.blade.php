@@ -27,11 +27,11 @@
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
                                 @if ($key == 0)
                                     <div class="active item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
+                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
                                     </div>
                                 @else
                                     <div class="item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
+                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
                                     </div>
                                 @endif
                             @endforeach
@@ -57,6 +57,10 @@
 
                         </ul>
                         <!-- main slider carousel items -->
+                    </div>
+                    <div class="my-4 blog-info homes-content details">
+                        <h5 class="mb-4">Ảnh 360</h5>
+                        {!! $motel->image_360 ?? '<a data-flickr-embed="true" data-vr="true" href="https://www.flickr.com/photos/uofl/46702390722/in/album-72157677766389858/" title="DSCN0019"><img src="https://live.staticflickr.com/7916/46702390722_521f589445_c.jpg" width="800" height="400" alt="DSCN0019"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'!!}
                     </div>
                     <div class="blog-info homes-content details mb-30">
                         <h5 class="mb-4">Thông tin mô tả</h5>
@@ -752,55 +756,55 @@
                                                     <span class="featured">$ 6,500</span>
                                                     <span class="rent">For Rent</span>
                                                 </div>
-                                                </div>
-                                                <div class="listing-img-content">
+                                        </div>
+                                        <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Toronto CA</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
-                                                     alt="">
-                                            </a>
+                                            <ul class="listing-hidden-content">
+                                                <li>Area <span>720 sq ft</span></li>
+                                                <li>Rooms <span>6</span></li>
+                                                <li>Beds <span>2</span></li>
+                                                <li>Baths <span>3</span></li>
+                                            </ul>
                                         </div>
+                                        <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
+                                             alt="">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Start: Specials offer -->
-                        {{--                        <div class="widget-boxed popular mt-5">--}}
-                        {{--                            <div class="widget-boxed-header">--}}
-                        {{--                                <h4>Phòng cùng khu vực</h4>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="widget-boxed-body">--}}
-                        {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
-                        <!-- End: Specials offer -->
+                    </div>
+                    <!-- Start: Specials offer -->
+                    {{--                        <div class="widget-boxed popular mt-5">--}}
+                    {{--                            <div class="widget-boxed-header">--}}
+                    {{--                                <h4>Phòng cùng khu vực</h4>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="widget-boxed-body">--}}
+                    {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    <!-- End: Specials offer -->
 
 
-                    </div>
-                    <div class="property-location map mt-3">
-                        <h5>Link google map</h5>
-                        <style>
-                            #map-contact iframe {
-                                height: 100%;
-                                width: 100%;
-                            }
-                        </style>
-                        <div class="divider-fade"></div>
-                        <div id="map-contact" class="contact-map">
-                            {!! $motel->area_link_gg_map !!}
-                        </div>
-                    </div>
-                    s
-                </aside>
             </div>
+            <div class="property-location map mt-3">
+                <h5>Link google map</h5>
+                <style>
+                    #map-contact iframe {
+                        height: 100%;
+                        width: 100%;
+                    }
+                </style>
+                <div class="divider-fade"></div>
+                <div id="map-contact" class="contact-map">
+                    {!! $motel->area_link_gg_map !!}
+                </div>
+            </div>
+            s
+            </aside>
+        </div>
         </div>
         <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->

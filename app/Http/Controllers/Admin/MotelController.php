@@ -296,7 +296,7 @@ class MotelController extends Controller
             'area' => $request->area,
             'description' => $request->description,
             'video' => $request->video,
-            'image_360' => $request->image360,
+            'image_360' => $request->image_360,
             'services' => json_encode([
                 'bed' => $request->bed,
                 'bedroom' => $request->bedroom,
@@ -351,5 +351,16 @@ class MotelController extends Controller
         Excel::import(new MotelsImport($request->area_id), $request->file('file'));
 
         return redirect()->back()->with('success', 'Nhập danh sách thành công');
+    }
+
+    public function duplicate(Request $request, $id, $idMotel)
+    {
+        $motel = Motel::find($idMotel);
+        $newMotel = $motel->replicate();
+        $newMotel->created_at = Carbon::now();
+        $newMotel->status = 1;
+        $newMotel->save();
+
+        return redirect()->back()->with('success', 'Sao chép dữ liệu phòng ' . $motel->room_number . ' thành công');
     }
 }
