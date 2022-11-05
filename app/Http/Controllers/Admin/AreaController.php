@@ -64,11 +64,19 @@ class AreaController extends Controller
             return $item;
         }, $request->all());
 
+        if ($request->imgReal) {
+            $params['cols']['img'] = cloudinary()->upload($request->imgReal, [
+                'resource_type' => 'auto',
+                'folder' => 'DATN_FALL2022'
+            ])->getSecurePath();
+        } else {
+            $params['cols']['img'] = asset('assets/client/images/popular-places/5.jpg');
+        }
         $model = new Area();
 
         $model->admin_create_area($params);
 
-        return redirect()->route('backend_get_list_area');
+        return redirect()->route('backend_get_list_area')->with('success', 'Thêm mới khu trọ thành công');
 
     }
 
@@ -97,10 +105,19 @@ class AreaController extends Controller
             return $item;
         }, $request->all());
         $params['cols']['id'] = $id;
+        if (strpos($request->imgReal, 'https://res.cloudinary.com') === false) {
+            $params['cols']['img'] = cloudinary()->upload($request->imgReal, [
+                'resource_type' => 'auto',
+                'folder' => 'DATN_FALL2022'
+            ])->getSecurePath();
+        } else {
+            $params['cols']['img'] = $request->imgReal;
+        }
+
         $model = new Area();
         $model->admin_update_area($params);
 
-        return redirect()->route('backend_get_list_area');
+        return redirect()->route('backend_get_list_area')->with('success', 'Cập nhật khu trọ thành công');
 
     }
 

@@ -297,6 +297,7 @@ class MotelController extends Controller
             'description' => $request->description,
             'video' => $request->video,
             'image_360' => $request->image_360,
+            'max_people' => $request->max_people,
             'services' => json_encode([
                 'bed' => $request->bed,
                 'bedroom' => $request->bedroom,
@@ -320,7 +321,7 @@ class MotelController extends Controller
         $data['photo_gallery'] = json_encode($imgs);
 
         $modelMotel->saveUpdate_motels($data, $request->id);
-        return redirect()->route('admin.motel.list', $request->area_id)->with('msg', 'Cập nhật phòng trọ thành công');
+        return redirect()->route('admin.motel.list', $request->area_id)->with('success', 'Cập nhật phòng trọ thành công');
     }
 
     public

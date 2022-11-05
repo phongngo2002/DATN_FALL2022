@@ -235,7 +235,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <form action="" method="">
+                    <form
+                        action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
+                        method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>

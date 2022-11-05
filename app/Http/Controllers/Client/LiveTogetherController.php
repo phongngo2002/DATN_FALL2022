@@ -21,9 +21,11 @@ class LiveTogetherController extends Controller
     {
         $infoMotel = new Motel();
         $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
+        if ($this->v['motel']) {
+            return view('client.live-together.detail', $this->v);
+        }
+        abort(404);
 
-        // dd($this->v['motel']);
-        return view('client.live-together.detail', $this->v);
     }
 
     public function historyContactMotel($motel_id, $area_id)

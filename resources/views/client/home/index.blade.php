@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        .a{
+        .a {
             color: white !important;
             font-weight: 400;
         }
@@ -435,7 +435,7 @@
                         <div class="small-category-2">
                             <div class="small-category-2-thumb img-1">
                                 <a href="properties-full-grid-1.html"><img
-                                        src="https://picsum.photos/200/300"
+                                        src="{{$i->image}}"
                                         alt=""></a>
                             </div>
                             <div class="sc-2-detail">
@@ -470,16 +470,19 @@
                                         <div class="homes-tag button alt featured">Nổi bật</div>
                                         <div class="homes-tag button alt sale">Giảm giá</div>
                                         <img
+                                            style="height: 100%"
                                             src="{{json_decode($key->photo_gallery_i)[0]}}"
                                             alt="home-1"
                                             class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}" class="btn"><i
+                                            class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=48EgQXJrww0"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}" class="img-poppu btn"><i
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}"
+                                       class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
@@ -487,11 +490,12 @@
                             <div class="homes-content">
                                 <!-- homes address -->
                                 <h3>
-                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{$key->room_number}} </a>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{$key->areaName.'- '.$key->room_number}} </a>
                                 </h3>
                                 <p class="homes-address mb-3">
                                     <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">
-                                        <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
+                                        <i class="fa fa-map-marker"></i><span
+                                            title="{{$key->address}}">{{$key->address}}</span>
                                     </a>
                                 </p>
                                 <!-- homes List -->
@@ -504,18 +508,12 @@
                                         <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                         <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
                                     </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->area}}</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->max_people}} người</span>
-                                    </li>
+
                                 </ul>
                                 <div class="price-properties footer pt-3 pb-0">
                                     <h3 class="title mt-3">
-                                        <a href="single-property-1.html">{{$key->price}}đ</a>
+                                        <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{number_format($key->price, 0, ',', '.')}}
+                                            vnđ</a>
                                     </h3>
                                     <div class="compare">
                                         <a href="#" title="Compare">
@@ -560,25 +558,25 @@
                                         <div class="homes-tag button alt featured">Nổi bật</div>
                                         <div class="homes-tag button alt sale">Giảm giá</div>
                                         <img
-                                            src="{{'https://img.lovepik.com/photo/20211122/medium/lovepik-bright-and-clean-indoor-pictures-of-residential-picture_500719643.jpg'}}"
+                                            src="{{json_decode($key->photo_gallery)[0]}}"
                                             alt="home-1"
                                             class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="btn"><i class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
                             <div class="homes-content">
                                 <!-- homes address -->
-                                <h3><a href="single-property-1.html">{{$key->room_number}} </a></h3>
+                                <h3><a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{json_decode($key->data_post)->title}} </a></h3>
                                 <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}">
                                         <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
                                     </a>
                                 </p>
@@ -592,27 +590,20 @@
                                         <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                         <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
                                     </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->area}}</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->max_people}} người</span>
-                                    </li>
                                 </ul>
                                 <div class="price-properties footer pt-3 pb-0">
                                     <h3 class="title mt-3">
-                                        <a href="single-property-1.html">{{$key->price}}đ</a>
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{number_format($key->price, 0, ',', '.')}}
+                                            VNĐ</a>
                                     </h3>
                                     <div class="compare">
-                                        <a href="#" title="Compare">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Compare">
                                             <i class="flaticon-compare"></i>
                                         </a>
-                                        <a href="#" title="Share">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Share">
                                             <i class="flaticon-share"></i>
                                         </a>
-                                        <a href="#" title="Favorites">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Favorites">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
@@ -631,65 +622,66 @@
     </section>
 
     <!-- START SECTION WHY CHOOSE US -->
-    <section class="how-it-works bg-white rec-pro">
-        <div class="container-fluid">
-            <div class="sec-title">
-                <h2><span>Why </span>Choose Us</h2>
-                <p>We provide full service at every step.</p>
-            </div>
-            <div class="row service-1">
-                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                    <div class="serv-flex">
-                        <div class="art-1 img-13">
-                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">
-                            <h3>Wide Renge Of Properties</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">
-                    <div class="serv-flex">
-                        <div class="art-1 img-14">
-                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">
-                            <h3>Trusted by thousands</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">
-                    <div class="serv-flex arrow">
-                        <div class="art-1 img-15">
-                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">
-                            <h3>Financing made easy</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"
-                         data-aos-delay="450">
-                    <div class="serv-flex">
-                        <div class="art-1 img-14">
-                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">
-                            <h3>We are here near you</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+{{--    <section class="how-it-works bg-white rec-pro">--}}
+{{--        <div class="container-fluid">--}}
+{{--            <div class="sec-title">--}}
+{{--                <h2><span>Why </span>Choose Us</h2>--}}
+{{--                <p>We provide full service at every step.</p>--}}
+{{--            </div>--}}
+{{--            <div class="row service-1">--}}
+{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
+{{--                    <div class="serv-flex">--}}
+{{--                        <div class="art-1 img-13">--}}
+{{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
+{{--                            <h3>--}}
+{{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="service-text-p">--}}
+{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </article>--}}
+{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
+{{--                    <div class="serv-flex">--}}
+{{--                        <div class="art-1 img-14">--}}
+{{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
+{{--                            <h3>Trusted by thousands</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="service-text-p">--}}
+{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </article>--}}
+{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
+{{--                    <div class="serv-flex arrow">--}}
+{{--                        <div class="art-1 img-15">--}}
+{{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
+{{--                            <h3>Financing made easy</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="service-text-p">--}}
+{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </article>--}}
+{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
+{{--                         data-aos-delay="450">--}}
+{{--                    <div class="serv-flex">--}}
+{{--                        <div class="art-1 img-14">--}}
+{{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
+{{--                            <h3>We are here near you</h3>--}}
+{{--                        </div>--}}
+{{--                        <div class="service-text-p">--}}
+{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </article>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <!-- END SECTION WHY CHOOSE US -->
 
     <!-- START SECTION RECENTLY PROPERTIES -->
@@ -834,5 +826,7 @@
             </div>
         </div>
     </section>
-
+    <script>
+        window.history.pushState("", "", 'http://phong.ngo');
+    </script>
 @endsection

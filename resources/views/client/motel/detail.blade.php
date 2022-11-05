@@ -25,14 +25,16 @@
                         <h5 class="mb-4">Thư viện ảnh</h5>
                         <div class="carousel-inner">
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                @if ($key == 0)
-                                    <div class="active item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
-                                    </div>
-                                @else
-                                    <div class="item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
-                                    </div>
+                                @if($key !== 0)
+                                    @if ($key == 1)
+                                        <div class="active item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                        </div>
+                                    @else
+                                        <div class="item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
 
@@ -46,12 +48,14 @@
                         <ul class="carousel-indicators smail-listing list-inline">
 
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
+                                @if($key !== 0)
                                 <li class="list-inline-item active">
                                     <a id="carousel-selector-{{ $key }}"
                                        data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
                                         <img src="{{ $item }}" class="img-fluid" alt="listing-small">
                                     </a>
                                 </li>
+                                @endif
                             @endforeach
 
 

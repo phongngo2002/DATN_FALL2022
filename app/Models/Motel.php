@@ -160,10 +160,14 @@ class Motel extends Model
             ->join('users', 'areas.user_id', '=', 'users.id')
             ->where('motels.id', $idMotel)
             ->first();
-        $currentPlanMotel = PlanHistory::join('plans', 'plan_history.plan_id', '=', 'plans.id')->where('motel_id', $motel->motel_id)->where('type', 1)->where('plan_history.status', 1)->first();
-        if ($currentPlanMotel) {
-            return $motel;
+        if ($motel) {
+            $currentPlanMotel = PlanHistory::join('plans', 'plan_history.plan_id', '=', 'plans.id')->where('motel_id', $motel->motel_id)->where('type', 1)->where('plan_history.status', 1)->first();
+            if ($currentPlanMotel) {
+                return $motel;
+            }
         }
+
+
         return null;
     }
 
@@ -199,11 +203,12 @@ class Motel extends Model
     {
 
         return DB::table('areas')
-            ->select(['motels.id as motel_id', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
+            ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('plan_history.status', 1)
+            ->where('type', 1)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
     }
@@ -212,7 +217,7 @@ class Motel extends Model
     {
 
         return DB::table('areas')
-            ->select(['motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'plan_history.plan_id'])
+            ->select(['motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'plan_history.plan_id', 'data_post', 'motels.id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id', 'plans.id')
@@ -225,11 +230,12 @@ class Motel extends Model
     public function client_Get_all_Motel()
     {
         return DB::table('plans')
-            ->select(['motels.room_number', 'areas.name as areaName', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery'])
+            ->select(['motels.room_number', 'areas.name as areaName', 'motels.price', 'priority_level', 'plans.name', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'motels.id as motel_id'])
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'areas.id', '=', 'motels.area_id')
             ->where('plan_history.status', 1)
+            ->where('type', 1)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
     }

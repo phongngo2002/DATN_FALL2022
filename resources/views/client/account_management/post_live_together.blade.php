@@ -1,5 +1,12 @@
 @extends('layouts.user.main')
 @section('content')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#description',
+        });
+    </script>
     <style>
         /* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
 
@@ -10,7 +17,6 @@
         }
 
         .card {
-
             border: none;
         }
 
@@ -29,7 +35,6 @@
         }
 
         .form-control {
-
             height: 50px;
             border: 2px solid #eee;
             border-radius: 6px;
@@ -42,16 +47,13 @@
             border-color: #039be5;
             outline: 0;
             box-shadow: none;
-
         }
 
         .input {
-
             position: relative;
         }
 
         .input i {
-
             position: absolute;
             top: 16px;
             left: 11px;
@@ -59,11 +61,8 @@
         }
 
         .input input {
-
             text-indent: 25px;
         }
-
-
     </style>
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
         @if ( Session::has('recharge_success') )
@@ -107,7 +106,6 @@
                 </button>
             </div>
         @endif
-        </div>
         <form>@csrf
             <div class="row">
                 <div class="col-8">
@@ -167,19 +165,24 @@
                                          tabindex="0"><span class="current" id="gender_current">Giới tính</span>
                                         <ul class="list">
                                             <li data-value="1"
-                                                class="option {{ (isset($data_post) && $data_post->gender == 1) ? 'selected' : ''}}" onclick="getGender(event)">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 1) ? 'selected' : ''}}"
+                                                onclick="getGender(event)">
                                                 Nam
                                             </li>
                                             <li data-value="2"
-                                                class="option {{ (isset($data_post) && $data_post->gender == 2) ? 'selected' : ''}}" onclick="getGender(event)">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 2) ? 'selected' : ''}}"
+                                                onclick="getGender(event)">
                                                 Nữ
                                             </li>
                                             <li data-value="3"
-                                                class="option {{ (isset($data_post) && $data_post->gender == 3) ? 'selected' : ''}}" onclick="getGender(event)">
+                                                class="option {{ (isset($data_post) && $data_post->gender == 3) ? 'selected' : ''}}"
+                                                onclick="getGender(event)">
                                                 Tất cả
                                             </li>
                                         </ul>
-                                        <input type="hidden" name="" id="inp_gender_current" value="{{ (isset($data_post) ? $data_post->gender : "")}}">
+                                        <input type="hidden" name="" id="inp_gender_current"
+                                               value="{{ (isset($data_post) ? $data_post->gender : "")}}">
+
                                     </div>
                                 </div>
                             </div>
@@ -211,18 +214,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="single-add-property mb-1">
+                    <div class="single-add-property mb-1" style="height: 400px">
                         <h3 style="color:#FF385C;">Thông tin đẩy tin</h3>
                         <div class="property-form-group row px-3">
                             <div class="mb-3 col-6">
                                 <label for="address">Chọn gói đăng tin</label>
                                 <div class="nice-select form-control wide" style="margin-top: 2px !important;"
-                                     tabindex="0" ><span class="current">Chọn gói đăng tin</span>
-                           
-                                    <ul class="list" >
+                                     tabindex="0"><span class="current">Chọn gói đăng tin</span>
+
+                                    <ul class="list">
 
                                         @foreach ($plans as $plan)
-                                            <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}" data-price="{{$plan->price}}"class="option">{{$plan->name}}</li>
+                                            <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}"
+                                                data-price="{{$plan->price}}" class="option">{{$plan->name}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -300,7 +304,8 @@
                                         <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
                                         <button data-toggle="modal" data-target="#exampleModal2" type="button"
                                                 class="btn btn-success" id="btn_more" style="width: 100%"
-                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia hạn ngay
+                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia
+                                            hạn ngay
                                         </button>
                                     </div>
                                 </div>
@@ -402,6 +407,7 @@
                             <input type="hidden" id="money_plan_old" name="money_plan_old"
                                    value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
                             <input type="hidden" id="gender3" name="gender">
+
                             <input type="hidden" id="change_plan" name="change_plan" value="123132">
                         @endif
                         {{-- <input type="hidden" id="post_day" name="post_day"> --}}
@@ -425,6 +431,7 @@
         </div>
 
         @if($current_plan_motel)
+
             <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
 
@@ -442,7 +449,8 @@
                             <input type="hidden" name="gia_han" value="true">
                             <input type="hidden" id="post_money2" name="post_money">
                             <input type="hidden" id="post_day_more" name="post_day_more">
-                            <input type="hidden" id="plan_id_old" name="plan_id_old" value="{{$current_plan_motel->plan_id}}">
+                            <input type="hidden" id="plan_id_old" name="plan_id_old"
+                                   value="{{$current_plan_motel->plan_id}}">
                             <input type="hidden" name="ID" value="{{$current_plan_motel->ID}}">
 
                             <div class="modal-header">
@@ -477,25 +485,26 @@
             const money_user = document.getElementById('money_user');
             const date_more = document.getElementById('date_more');
             const gender_current = document.getElementById('gender_current');
+            const inp_gender_current = document.getElementById('inp_gender_current');
             var money_temp = 0;
 
             // console.log((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null));
             if (inp_gender_current.value == 1) {
                 gender_current.innerText = "Nam";
-            }else if(inp_gender_current.value == 2){
+            } else if (inp_gender_current.value == 2) {
                 gender_current.innerText = "Nữ";
-            }else if(inp_gender_current.value == 3){
+            } else if (inp_gender_current.value == 3) {
                 gender_current.innerText = "Tất cả";
-            }else{
+            } else {
                 gender_current.innerText = "Giới tính";
             }
-            if((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true){
+            if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
                 document.getElementById('gender2').value = inp_gender_current.value; //gia hạn
                 document.getElementById('gender3').value = inp_gender_current.value; //đổi gói
             }
-           
 
-            function getGender(e){
+
+            function getGender(e) {
                 document.getElementById('gender1').value = e.target.dataset.value
             }
 
@@ -509,7 +518,7 @@
                 }
             }
 
-            function getData(e){
+            function getData(e) {
                 var post_plan_value = e.target.dataset.value;
                 var post_plan_price = e.target.dataset.price;
                 var post_plan_title = e.target.innerText;
@@ -545,7 +554,7 @@
                 changeDisable(money_temp * post_day.value);
             }
 
-            if((typeof(document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true){
+            if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
                 date_more.oninput = function () {
                     money_more.innerText = old_price.innerText * date_more.value
                     document.getElementById('title2').value = document.getElementById('title').value
@@ -556,7 +565,7 @@
                     changeDisable(old_price.innerText * date_more.value);
                 }
             }
-           
+
 
         </script>
 

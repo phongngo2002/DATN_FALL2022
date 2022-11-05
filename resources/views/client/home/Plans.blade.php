@@ -10,7 +10,7 @@
                 <!-- plan start -->
                 @foreach ($plans as $item)
                     @if ($item->type == 1)
-                        <div class="col-lg-3 col-md-6 col-xs-12 mt-2 ">
+                        <div class="col-lg-4 col-md-6 col-xs-12 mt-2 ">
                             <div class="plan text-center {{ $item->price > 3500 ? 'featured no-mgb yes-mgb' : '' }}">
                                 <span class="plan-name"> {{ $item->name }} <small> gói tháng</small></span>
                                 <p class="plan-price">
@@ -62,7 +62,7 @@
             <div class="row">
                 @foreach ($plans as $item)
                     @if ($item->type == 2)
-                        <div class="col-lg-3 col-md-6 col-xs-12 mt-2 ">
+                        <div class="col-lg-4 col-md-6 col-xs-12 mt-2 ">
                             <div class="plan text-center {{ $item->price > 3500 ? 'featured no-mgb yes-mgb' : '' }}">
                                 <span class="plan-name"> {{ $item->name }} <small> gói tháng</small></span>
                                 <p class="plan-price">

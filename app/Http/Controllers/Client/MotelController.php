@@ -38,7 +38,7 @@ class MotelController extends Controller
     public function postLiveTogether($motel_id)
     {
 
-        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
+        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 2)->where('status', 1)->get();
         $data = [];
         foreach ($this->v['plans'] as $i) {
             $data[] = [
@@ -66,7 +66,7 @@ class MotelController extends Controller
         $this->v['user'] = Auth::user();
         // dd($this->v['current_plan_motel']);
         // dd($this->v['motels']);
-        // $data_post = json_decode($this->v['motels'][0]->data_post);
+        $this->v['data_post'] = json_decode($this->v['motels']->data_post);
         // dd($this->v['data_post']);
         return view('client.account_management.post_live_together', $this->v);
     }
@@ -74,9 +74,7 @@ class MotelController extends Controller
 
     public function savePostLiveTogether(Request $request)
     {
-        $params = [];
-        $data_post = [];
-        // dd($request->post());
+
         $params = array_map(function ($item) {
             if ($item == '') {
                 $item == null;
@@ -99,7 +97,6 @@ class MotelController extends Controller
         Motel::where('id', $request->motel_id)->update([
             'data_post' => $data_post,
         ]);
-
         $model = new PlanHistory();
 
         if ($request->gia_han) {
@@ -188,16 +185,7 @@ class MotelController extends Controller
     public function listLiveTogether()
     {
         $model = new PlanHistory();
-        $this->v['motels'] = $model->list_live_together();
-        foreach ($this->v['motels'] as $motel) {
-            $photo_gallery_1 = substr($motel->photo_gallery, 2, strpos($motel->photo_gallery, ',', 0) - 2);
-            $motel->photo_gallery1 = $photo_gallery_1;
-
-            $motel->data_post = json_decode($motel->data_post);
-            $motel->services = json_decode($motel->services);
-
-        }
-        // dd($this->v['motels']);
+        $this->v['motel'] = $model->list_live_together();
 
         return view('client.account_management.list_live_together', $this->v);
     }

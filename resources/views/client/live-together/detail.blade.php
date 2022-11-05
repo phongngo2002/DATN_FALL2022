@@ -31,14 +31,16 @@
                         <h5 class="mb-4">Thư viện ảnh</h5>
                         <div class="carousel-inner">
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                @if ($key == 0)
-                                    <div class="active item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
-                                    </div>
-                                @else
-                                    <div class="item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
-                                    </div>
+                                @if($key !==0 )
+                                    @if ($key == 1)
+                                        <div class="active item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
+                                        </div>
+                                    @else
+                                        <div class="item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
 
@@ -52,12 +54,14 @@
                         <ul class="carousel-indicators smail-listing list-inline">
 
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                <li class="list-inline-item active">
-                                    <a id="carousel-selector-{{ $key }}"
-                                       data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
-                                        <img src="{{ $item }}" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
+                                @if($key !== 0 )
+                                    <li class="list-inline-item active">
+                                        <a id="carousel-selector-{{ $key }}"
+                                           data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
+                                            <img src="{{ $item }}" class="img-fluid" alt="listing-small">
+                                        </a>
+                                    </li>
+                                @endif
                             @endforeach
 
 
@@ -66,9 +70,10 @@
                     </div>
                     <div class="blog-info homes-content details mb-30">
                         <h5 class="mb-4">Thông tin mô tả</h5>
-                        <p>Khu trọ: {{$motel->areaName}}</p>
+                        <p>Khu trọ: <span class="font-weight-bold">{{$motel->areaName}}</span></p>
                         <p>Địa chỉ: {{$motel->area_address}}</p>
-                        <p class="mb-3">{!! json_decode( $motel->data_post)->description !!}</p>
+                        <p>Mã phòng: <span class="font-weight-bold">{{$motel->room_number}}</span></p>
+                        <p class="mb-3">{!! json_decode( $motel->data_post)->description!!}</p>
 
                     </div>
                     <div class="single homes-content details mb-30 ">
@@ -548,11 +553,13 @@
                                    class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
                             @elseif(\Illuminate\Support\Facades\DB::table('user_motel')
   ->where('user_id',\Illuminate\Support\Facades\Auth::id())->where('motel_id',$motel->motel_id)->where('status',1)->first())
-                                <a href="#"
+                                <a href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}"
                                    class="btn reservation btn-radius theme-btn full-width mrg-top-10">Lịch sử đăng
                                     ký</a>
                             @else
-                                <p>Bạn đã đăng ký ở ghép phòng này. <a href="#">Xem chi tiết</a></p>
+                                <p>Bạn đã đăng ký ở ghép phòng này. <a
+                                        href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}">Xem
+                                        chi tiết</a></p>
                             @endif
                         </div>
                     </div>

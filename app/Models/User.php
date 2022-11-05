@@ -33,6 +33,8 @@ class User extends Authenticatable
         'role_id',
         'confirmation_code',
         'token',
+        'status',
+        'money',
         'google_id'
     ];
 
@@ -98,6 +100,7 @@ class User extends Authenticatable
         }
         return $query->orderBy('id', $params['order_by'])->paginate($params['limit']);
     }
+
     public function getOne($id)
     {
         $query = DB::table($this->table)->where('id', $id)->select($this->fillable);
