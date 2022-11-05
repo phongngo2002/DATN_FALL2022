@@ -42,6 +42,7 @@ class AccountManagementController extends Controller
         $planHistory = new PlanHistory();
         $this->v['params'] = $request->all();
         $this->v['plansHistory'] = $planHistory->LoadPlansHistoryWithPage($this->v['params']);
+//        dd($this->v['plansHistory']);
         return view('client.account_management.history_buy_plan', $this->v);
     }
 
