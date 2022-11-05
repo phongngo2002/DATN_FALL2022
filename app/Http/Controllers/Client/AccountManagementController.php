@@ -7,6 +7,7 @@ use App\Mail\ForgotOtp;
 use App\Models\PlanHistory;
 use App\Models\Recharge;
 use App\Models\User;
+use App\Models\UserMotel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class AccountManagementController extends Controller
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('user_motel.user_id', Auth::id())
+            ->where('motel_id', UserMotel::select('motel_id')->where('user_id', Auth::id())->where('status', 1)->first()->motel_id)
             ->where('user_motel.status', 1)
             ->get();
         return view('client.account_management.profile', $this->v);

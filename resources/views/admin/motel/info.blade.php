@@ -162,7 +162,13 @@
                         class="btn btn-dark my-2">Xuất hóa đơn
                 </button>
             @endif
-
+            <a href="{{route('admin.motel.list_out_motel',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-danger position-relative">Yều cầu rời phòng
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+            </a>
         </div>
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">

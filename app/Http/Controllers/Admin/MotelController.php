@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
+use App\Mail\ConfirmOutMotel;
+use App\Mail\ForgotOtp;
 use App\Models\Area;
 use App\Models\Category;
 use App\Models\Motel;
@@ -17,6 +19,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MotelController extends Controller
@@ -363,5 +366,41 @@ class MotelController extends Controller
         $newMotel->save();
 
         return redirect()->back()->with('success', 'Sao chép dữ liệu phòng ' . $motel->room_number . ' thành công');
+    }
+
+    public function list_out_motel(Request $request, $id, $idMotel)
+    {
+
+        $this->v['id'] = [$id, $idMotel];
+        $this->v['list'] = DB::table('users')
+            ->select(['name', 'email', 'phone_number', 'start_time', 'user_motel.status', 'user_motel.id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('motel_id', $idMotel)
+            ->where('user_motel.status', '=', 2)
+            ->paginate(10);
+        return view('admin.motel.list_out_motel', $this->v);
+    }
+
+    public function confirm_out_motel(Request $request, $id)
+    {
+        $res = DB::table('user_motel')->where('id', $id)->update([
+            'status' => 0,
+            'end_time' => Carbon::now()
+        ]);
+
+        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+        if (count($user) === 0) {
+
+            try {
+                $motel = Motel::find($request->motel_id);
+                $motel->status = 1;
+                $motel->end_time = Carbon::now()->format('Y-m-d');
+                $motel->save();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        Mail::to($request->email)->send(new ConfirmOutMotel());
+        return redirect()->back()->with('success', 'Cập nhật đơn rời phòng thành công');
     }
 }

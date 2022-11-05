@@ -14,6 +14,8 @@ class UserMotel extends Model
 
     protected $table = "user_motel";
 
+
+
     public function add($motel_id, $user_id, $type)
     {
         $model = DB::table($this->table)->insert([
