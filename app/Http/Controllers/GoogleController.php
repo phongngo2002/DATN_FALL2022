@@ -44,17 +44,18 @@ class GoogleController extends Controller
                     return redirect()->route('home', ['id' => $user2->id]);
                 }
             } else {
-                    $user = new User();
+                $user = new User();
 
-                    $user->email = $googleUser->email;
-                    $user->name = $googleUser->name;
-                    $user->google_id = $googleUser->id;
-                    $user->password = '$2y$10$x58PIeez7REKWe0WvncaMenUMkXlMBVDXBgKn2yUiOrfnkto84COO';
-                    $user->status = 1;
-                    $user->role_id = 3;
-                    $user->avatar = $googleUser->avatar;
-                    $user->is_admin = 0;
-                    $user->save();
+                $user->email = $googleUser->email;
+                $user->name = $googleUser->name;
+                $user->google_id = $googleUser->id;
+                $user->password = '$2y$10$x58PIeez7REKWe0WvncaMenUMkXlMBVDXBgKn2yUiOrfnkto84COO';
+                $user->status = 1;
+                $user->money = 0;
+                $user->role_id = 3;
+                $user->avatar = $googleUser->avatar;
+                $user->is_admin = 0;
+                $user->save();
 
                 return redirect()->route('home', ['id' => $user->id]);
             }

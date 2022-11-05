@@ -161,8 +161,11 @@
                             <hr>
                         </form>
                         <div class="my-4">
-                            <h6 class="font-weight-bold">Thành viên phòng ({{$currentMotel[0]->room_number}}
-                                - {{$currentMotel[0]->area_name}})</h6>
+                            @if(isset($currentMotel[0]))
+                                <h6 class="font-weight-bold">Thành viên phòng ({{$currentMotel[0]->room_number}} -
+                                    {{$currentMotel[0]->area_name}})</h6>
+                            @endif
+
                             <table class="table text-center">
                                 <thead>
                                 <tr>

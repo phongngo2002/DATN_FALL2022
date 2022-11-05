@@ -59,14 +59,18 @@ class AccountManagementController extends Controller
     public function profile()
     {
         $this->v['user'] = Auth::user();
-        $this->v['currentMotel'] = DB::table('users')
-            ->select(['email', 'users.name as userName', 'users.address as userAdd', 'phone_number', 'areas.name as area_name', 'room_number', 'user_motel.start_time as tg'])
-            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
-            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
-            ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('motel_id', UserMotel::select('motel_id')->where('user_id', Auth::id())->where('status', 1)->first()->motel_id)
-            ->where('user_motel.status', 1)
-            ->get();
+        $this->v['currentMotel'] = [];
+        if (isset(UserMotel::select('motel_id')->where('user_id', Auth::id())->where('status', 1)->first()->motel_id)) {
+            $this->v['currentMotel'] = DB::table('users')
+                ->select(['email', 'users.name as userName', 'users.address as userAdd', 'phone_number', 'areas.name as area_name', 'room_number', 'user_motel.start_time as tg'])
+                ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+                ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+                ->join('areas', 'motels.area_id', '=', 'areas.id')
+                ->where('motel_id', UserMotel::select('motel_id')->where('user_id', Auth::id())->where('status', 1)->first()->motel_id)
+                ->where('user_motel.status', 1)
+                ->get();
+        }
+
         return view('client.account_management.profile', $this->v);
     }
 
