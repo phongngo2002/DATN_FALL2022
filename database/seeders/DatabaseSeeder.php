@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Motel::factory(10)->create();
+//        Motel::factory(10)->create();
 
         // PlanHistory::factory(10)->create();
         foreach (array_shift($data) as $item) {
@@ -51,6 +51,8 @@ class DatabaseSeeder extends Seeder
                 [
                     "name" => $item["name"],
                     "address" => $item["address"],
+                    "img" => $item['img'],
+                    'link_gg_map' => $item['link_gg_map'],
                     'user_id' => $item['user_id'],
                     'created_at' => Carbon::now()
                 ]
@@ -66,7 +68,9 @@ class DatabaseSeeder extends Seeder
                     "email" => $item["email"],
                     "password" => Hash::make('123456'),
                     "role_id" => $item['role_id'],
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
+                    'money' => 0,
+                    'is_admin' => 1,
                 ]
             );
         }
@@ -76,8 +80,18 @@ class DatabaseSeeder extends Seeder
         foreach (array_shift($data) as $item) {
             DB::table('motels')->insert(
                 [
-                    "room_number" => $item["room_number"],
-                    "area_id" => $item["area_id"]
+                    "room_number" => $item['room_number'],
+                    "price" => $item['price'],
+                    "area" => $item['area'],
+                    'status' => 1,
+                    "area_id" => $item['area_id'],
+                    "description" => $item['description'],
+                    "image_360" => $item['image_360'],
+                    "photo_gallery" => $item['photo_gallery'],
+                    "services" => $item['services'],
+                    "max_people" => $item['max_people'],
+                    "category_id" => 1,
+                    "video" => $item['video'],
                 ]
             );
         }
@@ -137,6 +151,22 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+        $data = File::get(public_path('json/plans.json'));
+        $data = json_decode($data, true);
 
+        foreach (array_shift($data) as $item) {
+            DB::table('plans')->insert(
+                [
+                    "name" => $item["name"],
+                    "desc" => $item["desc"],
+                    "priority_level" => $item["priority_level"],
+                    'type' => $item['type'],
+                    'time' => $item['time'],
+                    'price' => $item['price'],
+                    'status' => $item['status'],
+                    'created_at' => Carbon::now(),
+                ]
+            );
+        }
     }
 }
