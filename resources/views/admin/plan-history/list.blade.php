@@ -55,6 +55,7 @@
             <th class="">Phòng trọ</th>
             <th class="">Khu trọ</th>
             <th class="">Gói dịch vụ</th>
+            <th>Loại gói</th>
             <th class="">Ngày mua</th>
             <th>Tiền</th>
             <th>Ghi chú</th>
@@ -67,6 +68,13 @@
                 <td>{{ $planHistory->room_number }}</td>
                 <td class="">{{ $planHistory->areaName }}</td>
                 <td class="">{{ $planHistory->planName }}</td>
+                <td>
+                    @if($planHistory->type == 1)
+                        <span class="text-danger font-weight-bold">Đăng tin thuê trọ</span>
+                    @else
+                        <span class="text-success font-weight-bold">Đăng tin ở ghép</span>
+                    @endif
+                </td>
                 <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
                 <th>
                     @if($planHistory->tt == 2)

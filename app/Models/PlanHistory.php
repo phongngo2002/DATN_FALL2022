@@ -16,9 +16,10 @@ class PlanHistory extends Model
     protected $fillable = [
         "plan_id",
         "motel_id",
-        'area_id', 
+        'area_id',
         'day',
         'time',
+        'type',
         'plan_history.created_at as date',
         "plans.name as planName",
         "areas.name as areaName",
@@ -38,7 +39,22 @@ class PlanHistory extends Model
         $order_by = $params['order_by'] ?? 'desc';
         $limit = $params['limit'] ?? 10;
         $plansHistory = DB::table('plans')
-            ->select($this->fillable)
+            ->select(["plan_id",
+                "motel_id",
+                'area_id',
+                'day',
+                'time',
+                'plans.type',
+                'plan_history.created_at as date',
+                "plans.name as planName",
+                "areas.name as areaName",
+                "room_number",
+                'parent_id',
+                'plan_history.created_at as created_at',
+                'plan_history.status as tt',
+                'parent_id',
+                'plans.price as gia',
+                'is_first'])
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
