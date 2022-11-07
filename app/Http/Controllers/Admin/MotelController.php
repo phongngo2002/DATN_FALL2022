@@ -150,6 +150,7 @@ class MotelController extends Controller
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $idMotel)
+            ->where('type', 1)
             ->where('plan_history.status', 1)
             ->first();
         $model = new Motel();
