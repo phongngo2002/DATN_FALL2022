@@ -546,7 +546,7 @@
                                     </button>
                                 </div>
                             @endif
-                            @if(\Illuminate\Support\Facades\DB::table('contact_motel_history')
+                            @if(!\Illuminate\Support\Facades\DB::table('contact_motel_history')
   ->where('user_id',\Illuminate\Support\Facades\Auth::id())
   ->where('motel_id',$motel->motel_id)->whereNotIn('status',[0,1])->first())
                                 <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
