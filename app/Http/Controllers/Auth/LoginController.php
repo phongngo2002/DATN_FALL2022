@@ -76,7 +76,7 @@ class LoginController extends Controller
                 return redirect()->route('get_form_confirm_account');
             } catch (\Exception $err) {
                 dd($err);
-//                    $user->delete();
+                //                    $user->delete();
             }
         }
 
@@ -119,7 +119,8 @@ class LoginController extends Controller
     public function changePassword(LoginRequest $request)
     {
         $model = new User();
-        $result = $model->updateUser(['password' => Hash::make($request->password)
+        $result = $model->updateUser([
+            'password' => Hash::make($request->password)
         ], $model->getUserByEmail($request->email)->id);
 
         if ($result) {

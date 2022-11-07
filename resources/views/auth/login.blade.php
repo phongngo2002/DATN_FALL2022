@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
@@ -53,48 +53,51 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input class="form-control form-control-lg" type="email" name="email" id="email"
-                                               placeholder="Email"/>
+                                        <input class="form-control form-control-lg" type="email" name="email"
+                                               id="email" placeholder="Email"/>
                                     </div>
                                     @error('email')
-                                    <p class="text-danger">{{$message}}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
                                         <input class="form-control form-control-lg" type="password" name="password"
-                                               id="password"
-                                               placeholder="Mật khẩu"/>
+                                               id="password" placeholder="Mật khẩu"/>
                                     </div>
                                     <small>
-                                        <a href="{{route('get_form_forgot_password')}}">Quên mật khẩu?</a>
+                                        <a href="{{ route('get_form_forgot_password') }}">Quên mật khẩu?</a>
                                     </small>
                                     @error('password')
-                                    <p class="text-danger">{{$message}}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                     <div>
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="remember-me"
-                                                   name="remember-me" checked>
-                                            <span class="form-check-label">Ghi nhớ tài khoản</span>
-                                        </label>
-                                        <div class="col-md-6 pull-center">
-                                            {!! app('captcha')->display() !!}
-                                            @if ($errors->has('g-recaptcha-response'))
-                                                <span class="help-block">
-<strong class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
-</span>
-                                            @endif
+
+                                        <div>
+                                            <label class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="remember-me"
+                                                       name="remember-me" checked>
+                                                <span class="form-check-label">Ghi nhớ tài khoản <a
+                                                        href="{{ route('get_register') }}"> Đăng ký</a></span>
+                                            </label>
+                                            <div class="col-md-6 pull-center">
+                                                {!! app('captcha')->display() !!}
+                                                @if ($errors->has('g-recaptcha-response'))
+                                                    <span class="help-block">
+                                                            <strong
+                                                                class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                        </span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                    {{--                                    @php dd(app('captcha')) @endphp--}}
 
                                     <div class="text-center mt-3">
 
-                                        <button class="btn btn-primary">Đăng nhập</button>
-                                        <button type="button" id="login" class="btn btn-info google-plus"> Đăng ký
+                                        <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                                        <button type="button" id="login" class="btn btn-info google-plus"> Đăng nhập
                                             bằng tài khoản google<i class="fa-brands fa-google mx-2"></i></button>
                                         <div class="mt-2">
-                                            <a href="{{route('home')}}" class="btn btn-link ">Về trang chủ</a>
+                                            <a href="{{ route('home') }}" class="btn btn-link ">Về trang chủ</a>
 
                                         </div>
                                         <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
@@ -102,12 +105,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </main>
 
 @include('layouts.admin._js')
@@ -139,6 +141,7 @@
 
         }
 
+
     });
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -160,8 +163,21 @@
             }
         });
     })
-
 </script>
+@if (\Illuminate\Support\Facades\Session::has('failed'))
+    <script>
+        function modal() {
+            Swal.fire(
+                'Đăng nhập thất bại!',
+                'Thông tin đăng nhập không chính xác.',
+                'error'
+            )
+        }
+
+        modal();
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endif
 @if (\Illuminate\Support\Facades\Session::has('failed'))
     <script>
         function modal() {
@@ -188,7 +204,7 @@
         modal();
     </script>
 @endif
-@if(\Illuminate\Support\Facades\Session::has('logout'))
+@if (\Illuminate\Support\Facades\Session::has('logout'))
     <script>
         function modal() {
             Swal.fire(
@@ -202,49 +218,6 @@
     </script>
 @endif
 
-@if(isset($_GET['success']) && $_GET['success'] == 'true')
-    <script>
-        function modal() {
-            Swal.fire(
-                'Đăng ký tài khoản thành công.Thông tin đăng nhập đã được gửi vào email đăng ký!',
-                '',
-                'success'
-            )
-        }
-
-        modal();
-
-        window.history.pushState("", "", 'http://phong.ngo/dang-nhap');
-    </script>
-@endif
-@if(isset($_GET['success']) && $_GET['success'] == 'gg_error_exit')
-    <script>
-        function modal() {
-            Swal.fire(
-                'Tài khoản đã tồn tại.Vui lòng tài khoản khác!',
-                '',
-                'error'
-            )
-        }
-
-        modal();
-        window.history.pushState("", "", 'http://phong.ngo/dang-nhap');
-    </script>
-@endif
-@if(isset($_GET['success']) && $_GET['success'] == 'gg_error')
-    <script>
-        function modal() {
-            Swal.fire(
-                'Có lỗi xảy ra vui lòng thử lại sau!',
-                '',
-                'error'
-            )
-        }
-
-        modal();
-        window.history.pushState("", "", 'http://phong.ngo/dang-nhap');
-    </script>
-@endif
 </body>
 
 </html>

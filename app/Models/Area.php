@@ -20,7 +20,7 @@ class Area extends Model
     {
         $params['order_by'] = $params['order_by'] ?? 'desc';
         $params['name'] = $params['name'] ?? '';
-        $params['limit'] = $params['limit'] ?? 10;
+        $params['limit'] = $params['limit'] ?? 5;
         $query = DB::table($this->table)->where('user_id', Auth::id())->where('status', '!=', 0);
 
         if ($params['name']) {
@@ -38,7 +38,8 @@ class Area extends Model
             'address' => $params['cols']['address'],
             'link_gg_map' => $params['cols']['link_gg_map'],
             'user_id' => Auth::id(),
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'img' => $params['cols']['img']
         ]);
 
         return $result;
@@ -55,6 +56,7 @@ class Area extends Model
             'name' => $params['cols']['name'],
             'address' => $params['cols']['address'],
             'link_gg_map' => $params['cols']['link_gg_map'],
+            'img' => $params['cols']['img']
         ]);
 
         return $result;
@@ -63,5 +65,19 @@ class Area extends Model
     public function adminDeteletArea($id)
     {
         DB::table($this->table)->where('id', $id)->update(['status' => 0]);
+    }
+
+    public function client_Get_List_Top_Area()
+    {
+
+        $res = DB::table('areas')->select(['areas.id', 'areas.name', 'areas.img as image', 'areas.address', DB::raw('COUNT(motels.area_id) as quantity')])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->where('plan_history.status', 1)
+            ->limit(8)
+            ->orderByDesc('quantity')
+            ->groupBy('areas.name', 'areas.address', 'areas.id', 'image')
+            ->get();
+        return $res;
     }
 }

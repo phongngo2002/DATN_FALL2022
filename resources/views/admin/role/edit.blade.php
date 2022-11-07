@@ -19,12 +19,14 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+
+
+
+
     <form id="plans_form" action="{{route('saveEdit_role')}}" method="POST">
-
-
         @csrf
-
         <div class="bg-white shadow-lg rounded-4 p-4">
+
             @foreach($roleDetail as $key)
                 <input type="hidden" name="id" value="{{$key->id}}">
                 {{-- input name role --}}
@@ -97,16 +99,21 @@
                 </div>
             @endforeach
         @endforeach
-    </div>
-    <button type="submit" class="btn btn-primary my-2">Lưu</button>
+
+
+
+
+        </div>
+    <button type="submit" class="btn btn-primary my-2"> Lưu </button>
     <a href="{{route('list_role')}}" class="btn btn-warning my-2"> Quay lại </a>
     </form>
-    @include('layouts.admin._js')
-    {{-- validate jquery form plans --}}
-    <script>
-        $("#selectAll").click(function () {
-            $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
-        });
+
+@include('layouts.admin._js')
+{{-- validate jquery form plans --}}
+<script>
+    $("#selectAll").click(function() {
+  $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
+});
 
         $("input[type=checkbox]").click(function () {
             if (!$(this).prop("checked")) {

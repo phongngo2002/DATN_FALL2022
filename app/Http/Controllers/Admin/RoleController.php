@@ -83,7 +83,7 @@ class RoleController extends Controller
         $modelRole = new Role();
         $modelRole->delete_Permission_Role($id);
         $res = $modelRole->saveUpdate_Role($dataUpdate, $id);
-        $modelRole->saveNew_Permission_Role($res, $request->permission);
+        $modelRole->saveNew_Permission_Role($id, $request->permission);
         return redirect()->route('list_role')->with('msg', 'Cập nhật quyền thành công');
     }
 

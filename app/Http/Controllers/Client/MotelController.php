@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\User;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
+
 class MotelController extends Controller
 {
     private $v;
@@ -28,25 +30,15 @@ class MotelController extends Controller
     public function currentMotel()
     {
         $model = new UserMotel();
-        $this->v['motels'] = $model->currentMotel(Auth::user()->id);
-        $photo_gallery ='';
-        
-        foreach ($this->v['motels'] as $motel) {
-            if (strpos($motel->photo_gallery,',',0) !== false) {//nếu có 2 ảnh
-                $photo_gallery_1 = substr($motel->photo_gallery,2, strpos($motel->photo_gallery,',',0)-2);
-            }else{//nếu chỉ có 1 ảnh
-                $photo_gallery_1 = str_replace('["','',$motel->photo_gallery);
-                $photo_gallery_1 = str_replace('"]','',$photo_gallery_1);
-            }
-           
-            $motel->photo_gallery1 = $photo_gallery_1;//lấy ra ảnh đầu tiên
-        }
-
+        $this->v['motels'] = $model->currentMotel();
+        // dd($this->v['motels']);
         return view('client.account_management.current_motel', $this->v);
     }
-    public function postLiveTogether($motel_id) {
 
-        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
+    public function postLiveTogether($motel_id)
+    {
+
+        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 2)->where('status', 1)->get();
         $data = [];
         foreach ($this->v['plans'] as $i) {
             $data[] = [
@@ -59,29 +51,30 @@ class MotelController extends Controller
         $this->v['data_plan'] = json_encode($data);
 
         $this->v['current_plan_motel'] = DB::table('plan_history')
-        ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
-        ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
-        ->where('motel_id', $motel_id)
-        ->where('plan_history.status', 1)
-        ->first();
+            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
+            ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
+            ->where('motel_id', $motel_id)
+            ->where('type', 2)
+            ->where('plan_history.status', 1)
+            ->first();
+
+        // dd( $this->v['data_plan']);
 
         $model = new UserMotel();
-        $this->v['motels'] = $model->currentMotel(Auth::user()->id,$motel_id);
+        $this->v['motels'] = $model->currentMotel1($motel_id);
         $this->v['number_people'] = count($model->number_people_live_now($motel_id));
         $this->v['user'] = Auth::user();
-        $this->v['data_post'] = json_decode($this->v['motels'][0]->data_post);
         // dd($this->v['current_plan_motel']);
         // dd($this->v['motels']);
-        // $data_post = json_decode($this->v['motels'][0]->data_post);
+        $this->v['data_post'] = json_decode($this->v['motels']->data_post);
         // dd($this->v['data_post']);
         return view('client.account_management.post_live_together', $this->v);
     }
 
 
-    public function savePostLiveTogether(Request $request){
-        $params = [];
-        $data_post = [];
-        // dd($request->post());
+    public function savePostLiveTogether(Request $request)
+    {
+
         $params = array_map(function ($item) {
             if ($item == '') {
                 $item == null;
@@ -92,21 +85,20 @@ class MotelController extends Controller
             return $item;
         }, $request->post());
         unset($params['_token']);
-       
+
         $data_post = [
-            'title'=>$params['title'],
-            'description'=>$params['description'],
-            'gender'=>$params['gender'],
-            'user_id'=>Auth::user()->id,
-            'number_people'=>$params['number_people'],
+            'title' => $params['title'],
+            'description' => $params['description'],
+            'gender' => $params['gender'],
+            'user_id' => Auth::user()->id,
+            'number_people' => $params['number_people'],
         ];
         $data_post = json_encode($data_post);
         Motel::where('id', $request->motel_id)->update([
             'data_post' => $data_post,
         ]);
-
         $model = new PlanHistory();
-        
+
         if ($request->gia_han) {
             $model->create([
                 'plan_id' => $request->plan_id_old,
@@ -128,9 +120,9 @@ class MotelController extends Controller
 
             $user->save();
             return redirect()->back()->with('success', 'Gia hạn bài đăng thành công');
-        }else if ($request->change_plan) {
+        } else if ($request->change_plan) {
             $model->create([
-                'plan_id' => $request->plan_id_old  ,
+                'plan_id' => $request->plan_id_old,
                 'motel_id' => $request->motel_id,
                 'day' => $request->old_day,
                 'status' => 4,
@@ -163,9 +155,9 @@ class MotelController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Thay đổi gói bài đăng thành công');
 
-        }else{
-           
-            
+        } else {
+
+
             $id = $model->create([
                 'plan_id' => $request->post_plan,
                 'motel_id' => $request->motel_id,
@@ -189,60 +181,46 @@ class MotelController extends Controller
         return redirect()->back()->with('success', 'Đăng bài thành công');
 
     }
-    public function listLiveTogether(){
-        $model = new PlanHistory();
-        $this->v['motels'] = $model->list_live_together();
-        foreach ($this->v['motels'] as $motel) {
-            $photo_gallery_1 = substr($motel->photo_gallery,2, strpos($motel->photo_gallery,',',0)-2);
-            $motel->photo_gallery1 = $photo_gallery_1;
 
-            $motel->data_post = json_decode($motel->data_post);
-            $motel->services = json_decode($motel->services);
-            
-        }
-        // dd($this->v['motels']);
-      
+    public function listLiveTogether()
+    {
+        $model = new PlanHistory();
+        $this->v['motel'] = $model->list_live_together();
+
         return view('client.account_management.list_live_together', $this->v);
     }
 
     public function detail($id)
     {
         $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($id);
-        // dd($this->v['motel']);
-        return view('client.motel.detail', $this->v);
+        if ($motel->detailMotel1($id)) {
+            $this->v['motel'] = $motel->detailMotel1($id);
+
+            return view('client.motel.detail', $this->v);
+        }
+        abort(404);
     }
 
-    public function test()
+    public function sendContact(Request $request, $id)
     {
-        $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel(1);
 
-        return view('client.motel.test', $this->v);
-    }
 
-    public function sendContact(Request $request)
-    {
-        $data = $request->only([
-            'full_name',
-            'phone_number',
-            'email_address',
-            'message'
-        ]);
-        if(Auth::user()){
-            try{
-                Mail::to("trangptph18099@fpt.edu.vn")->send(new SendMailContact($data));
+        $model2 = new ContactMotelHistory();
+
+        if ($model2->create_history([
+            'id' => $id
+        ])) {
+            $model = new Motel();
+            $data = [];
+            $people = $model->info_motel($id);
+            foreach ($people as $p) {
+                $data[] = $p->email;
             }
-            catch(Exception  $e){
-                dd($e->getMessage());
+            if (!empty($data)) {
+                Mail::to($data)->send(new SendMailContact());
             }
-            
-            Session::flash('error','Gửi Liên hệ thành công');
-            return redirect()->back();
         }
-        else{
-            Session::flash('error','Bạn phải đăng nhập để gửi Liên hệ');
-            return redirect()->back();
-        }
+
+        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserMotel extends Model
@@ -13,11 +14,14 @@ class UserMotel extends Model
 
     protected $table = "user_motel";
 
-    public function add($motel_id, $user_id)
+
+
+    public function add($motel_id, $user_id, $type)
     {
         $model = DB::table($this->table)->insert([
             'motel_id' => $motel_id,
             'user_id' => $user_id,
+            'status' => 1,
             'start_time' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
@@ -28,6 +32,15 @@ class UserMotel extends Model
             $motel->update([
                 'status' => 2
             ]);
+        }
+        if ($type) {
+            DB::table('contact_motel_history')
+                ->where('user_id', $user_id)
+                ->where('motel_id', $motel_id)
+                ->where('status', 1)
+                ->update([
+                    'status' => 3
+                ]);
         }
 
         return 1;
@@ -41,26 +54,55 @@ class UserMotel extends Model
             ->where('motel_id', $motel_id)
             ->paginate(10);
     }
-    
-    public function currentMotel($user_id,$motel_id=null)
+
+    public function currentMotel($motel_id = null)
     {
         return DB::table($this->table)
+            ->select(['motels.id as motel_id',
+                'area_id',
+                'motels.photo_gallery',
+                'motels.description',
+                'areas.name as area_name',
+                'areas.address',
+                'user_motel.status as tt',
+                'user_motel.start_time as user_motel_start_time',
+                'user_motel.end_time as user_motel_end_time',
+                'motels.room_number',
+                'motels.price',
+                'motels.data_post'])
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->select(['motels.id as motel_id','motels.photo_gallery','motels.description','areas.name as area_name','areas.address','user_motel.status','user_motel.start_time as user_motel_start_time','user_motel.end_time as user_motel_end_time','motels.room_number','motels.price','motels.data_post'])
-            ->where('user_motel.user_id', $user_id)
-            ->where(function($query) use ($motel_id){
-                if($motel_id != null){
-                    $query->where('motels.id', $motel_id);
-                }
-            })->orderBy('user_motel_start_time','desc')
+            ->where('user_motel.user_id', Auth::id())
             // ->limit(1)
             ->get();
     }
-    public function number_people_live_now($motel_id){
+
+    public function currentMotel1($motel_id = null)
+    {
         return DB::table($this->table)
-        ->select('user_id')->where('motel_id', $motel_id)
-        ->get();
+            ->select(['motels.id as motel_id',
+                'motels.photo_gallery',
+                'motels.description',
+                'areas.name as area_name',
+                'areas.address',
+                'user_motel.status as tt',
+                'user_motel.start_time as user_motel_start_time',
+                'user_motel.end_time as user_motel_end_time',
+                'motels.room_number',
+                'motels.price',
+                'motels.data_post'])
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->where('user_motel.user_id', Auth::id())
+            ->where('motel_id', $motel_id)
+            ->first();
     }
-   
+
+    public function number_people_live_now($motel_id)
+    {
+        return DB::table($this->table)
+            ->select('user_id')->where('motel_id', $motel_id)
+            ->get();
+    }
+
 }

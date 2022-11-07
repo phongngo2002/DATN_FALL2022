@@ -3,20 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\MotelsImport;
+use App\Mail\ConfirmOutMotel;
+use App\Mail\ForgotOtp;
 use App\Models\Area;
+use App\Models\Category;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
-use App\Models\Plans;
 use App\Models\PrintPdf;
 use App\Models\User;
 use App\Models\UserMotel;
 use Carbon\Carbon;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\CollectionModify;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MotelController extends Controller
 {
@@ -50,16 +54,6 @@ class MotelController extends Controller
         return view('admin.motel.list', $this->v);
     }
 
-//    public function detail($idMotel)
-//    {
-//        $motel = new Motel();
-//        $this->v['motel'] = $motel->detailMotel($idMotel);
-//        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery ?? [];
-//
-//        return view('admin.motel.detail', $this->v);
-//    }
-
-
     public function add_motels($id)
     {
         $this->v['area_id'] = $id;
@@ -70,7 +64,7 @@ class MotelController extends Controller
     {
         $params['cols'] = array_map(function ($item) {
             if ($item == '') {
-                $item = null;
+                $item = '';
             }
             if (is_string($item)) {
                 $item = trim($item);
@@ -80,14 +74,18 @@ class MotelController extends Controller
         }, $request->all());
 
         unset($params['cols']['_token']);
-        $params['cols']['service'] = json_encode([
-            'bed' => $request->bed,
-            'bedroom' => $request->bedroom,
-            'toilet' => $request->toilet,
-            'more' => $request->service_more,
-            'actor' => $request->actor
-        ]);
         $params['cols']['area_id'] = $request->id;
+        $imgs = [];
+        foreach (json_decode($request->img) as $file) {
+            $uploadedFileUrl = cloudinary()->upload($file, [
+                'resource_type' => 'auto',
+                'folder' => 'DATN_FALL2022'
+            ])->getSecurePath();;
+
+            $imgs[] = $uploadedFileUrl;
+
+        }
+        $params['cols']['photo_gallery'] = $imgs;
         $model = new Motel();
 
         $result = $model->createMotel($params['cols']);
@@ -101,10 +99,16 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
-        foreach ($this->v['info'] as $item) {
+        $userInfo = DB::table('users')
+            ->select(['user_id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('user_motel.status', 1)
+            ->get();
+        foreach ($userInfo as $item) {
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
+
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -115,11 +119,12 @@ class MotelController extends Controller
 
     public function add_peolpe_of_motels(Request $request, $id, $idMotel)
     {
+        $type = $request->type ?? 0;
         $model = new UserMotel();
 
-        $model->add($idMotel, $request->user_id);
+        $model->add($idMotel, $request->user_id, $type);
 
-        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel]);
+        return redirect()->route('admin.motel.info', ['id' => $id, 'idMotel' => $idMotel])->with('success', 'Thêm mới thành viên phòng thành công');
     }
 
     public function create_post_motels(Request $request, $id, $idMotel)
@@ -139,7 +144,7 @@ class MotelController extends Controller
                 'time' => $i->time
             ];
         }
-        
+
         $this->v['data'] = json_encode($data);
         $this->v['current_plan_motel'] = DB::table('plan_history')
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
@@ -248,10 +253,82 @@ class MotelController extends Controller
         $model = new Motel();
 
         $this->v['list'] = $model->get_list_contact($idMotel, $id);
+        $this->v['motel_id'] = $idMotel;
+        $this->v['area_id'] = $id;
         return view('admin.motel.list_contact_motel', $this->v);
     }
 
-    public function history_motel($id, $idMotel)
+    public function detail_motels($id, $idMotel)
+    {
+
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detail_motels($idMotel);
+        $this->v['photo_gallery'] = $this->v['motel']->photo_gallery;
+    }
+
+
+    public function edit_motels($id, $idMotel)
+    {
+        $category = new Category();
+        $this->v['categories'] = $category->getAll();
+        $motel = new Motel();
+        $this->v['motel'] = $motel->detailMotel($idMotel);
+        return view('admin.motels.edit', $this->v);
+    }
+
+    public function saveUpdate_motels(Request $request, $id)
+    {
+        $modelMotel = new Motel();
+
+        $params['cols'] = array_map(function ($item) {
+            if ($item == '') {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+
+            return $item;
+        }, $request->all());
+
+        unset($params['cols']['_token']);
+
+        $data = [
+            'room_number' => $request->room_number,
+            'price' => $request->price,
+            'area' => $request->area,
+            'description' => $request->description,
+            'video' => $request->video,
+            'image_360' => $request->image_360,
+            'max_people' => $request->max_people,
+            'services' => json_encode([
+                'bed' => $request->bed,
+                'bedroom' => $request->bedroom,
+                'toilet' => $request->toilet,
+                'more' => $request->service_more,
+                'actor' => $request->actor
+            ]),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        $imgs = [];
+        foreach (json_decode($request->img) as $file) {
+            if (strpos($file, 'https://res.cloudinary.com') === false) {
+                $file = cloudinary()->upload($file, [
+                    'resource_type' => 'auto',
+                    'folder' => 'DATN_FALL2022'
+                ])->getSecurePath();;
+            }
+
+            $imgs[] = $file;
+        }
+        $data['photo_gallery'] = json_encode($imgs);
+
+        $modelMotel->saveUpdate_motels($data, $request->id);
+        return redirect()->route('admin.motel.list', $request->area_id)->with('success', 'Cập nhật phòng trọ thành công');
+    }
+
+    public
+    function history_motel($id, $idMotel)
     {
         $model = new UserMotel();
 
@@ -260,7 +337,8 @@ class MotelController extends Controller
         return view('admin.motel.history', $this->v);
     }
 
-    public function print(Request $request, $motelId)
+    public
+    function print(Request $request, $motelId)
     {
         Motel::where('id', $motelId)->update([
             'start_time' => $request->start_time,
@@ -270,5 +348,59 @@ class MotelController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
         return $pdf->stream();
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new MotelsImport($request->area_id), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Nhập danh sách thành công');
+    }
+
+    public function duplicate(Request $request, $id, $idMotel)
+    {
+        $motel = Motel::find($idMotel);
+        $newMotel = $motel->replicate();
+        $newMotel->created_at = Carbon::now();
+        $newMotel->status = 1;
+        $newMotel->save();
+
+        return redirect()->back()->with('success', 'Sao chép dữ liệu phòng ' . $motel->room_number . ' thành công');
+    }
+
+    public function list_out_motel(Request $request, $id, $idMotel)
+    {
+
+        $this->v['id'] = [$id, $idMotel];
+        $this->v['list'] = DB::table('users')
+            ->select(['name', 'email', 'phone_number', 'start_time', 'user_motel.status', 'user_motel.id'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->where('motel_id', $idMotel)
+            ->where('user_motel.status', '=', 2)
+            ->paginate(10);
+        return view('admin.motel.list_out_motel', $this->v);
+    }
+
+    public function confirm_out_motel(Request $request, $id)
+    {
+        $res = DB::table('user_motel')->where('id', $id)->update([
+            'status' => 0,
+            'end_time' => Carbon::now()
+        ]);
+
+        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+        if (count($user) === 0) {
+
+            try {
+                $motel = Motel::find($request->motel_id);
+                $motel->status = 1;
+                $motel->end_time = Carbon::now()->format('Y-m-d');
+                $motel->save();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        Mail::to($request->email)->send(new ConfirmOutMotel());
+        return redirect()->back()->with('success', 'Cập nhật đơn rời phòng thành công');
     }
 }

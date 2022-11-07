@@ -4,16 +4,13 @@
 @section('title_page','Thêm mới phòng trọ')
 
 @section('content')
-    <link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
-
-    <script src="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.js"></script>
     <script>
         tinymce.init({
             selector: 'textarea#desc',
         });
     </script>
     <form action="" method="POST" enctype="multipart/form-data">
-        <div class="row" >
+        <div class="row">
             <div class="bg-white p-4 shadow-lg rounded-4 col-6">
                 <div class="mt-4">
                     <div class="row">
@@ -68,7 +65,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="">Mô tả</label>
-                    <textarea name="desc" id="desc" cols="30" rows="20" class="form-control"></textarea>
+                    <textarea name="description" id="desc" cols="30" rows="20" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-6">
@@ -87,13 +84,12 @@
                     </div>
                     <div class="mt-4">
                         <label for="" class="">Video</label>
-                        <input type="hidden" id="img" name="img">
                         <input type="text" class="form-control" name="video" id="video"
                                placeholder="Video link(youtube)">
                     </div>
                     <div class="mt-4">
                         <label for="">Ảnh 360</label>
-                        <input type="text" name="image360" id="image360" class="form-control"
+                        <input type="text" name="image_360" id="image_360" class="form-control"
                                placeholder="Đoạn code nhúng ảnh 360">
                         <p class="mt-2 ms-2 text-danger">Nếu bạn chưa biết cách sửa dụng ảnh 360.click vào <a
                                 href="http://help.web60.vn/bai-viet/huong-dan-nhung-anh-360-do-len-website"
@@ -102,31 +98,56 @@
                 </div>
                 <div class="bg-white p-4 shadow-lg rounded-4">
                     <label for="photo" class="">Ảnh phòng trọ</label>
-                    <div id="drag-drop-area"></div>
+                    <input type="hidden" name="img">
+                    <input type="file" multiple class="form-control" name="photo_gallery" id="photo_gallery">
+                    <div class="preview mt-2" style="display: grid;grid-template-columns: repeat(4,1fr);gap: 8px;">
+
+                    </div>
                 </div>
                 @csrf
             </div>
         </div>
         <button class="btn btn-primary mt-4">Thêm mới</button>
-        <a href="" class="btn btn-success mt-4">Quay lại</a>
+        <a href="{{route('admin.motel.list',['id' => $area_id])}}"
+           class="btn btn-success mt-4">Quay lại</a>
     </form>
     <script>
-        var uppy = Uppy.Core()
-            .use(Uppy.Dashboard, {
-                inline: true,
-                target: '#drag-drop-area'
-            })
-            .use(Uppy.Tus, {endpoint: 'https://master.tus.io/files/'}) //you can put upload URL here, where you want to upload images
+        let arr = [];
+        document.getElementById('photo_gallery').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                arr.push(reader.result);
+                document.getElementsByName('img')[0].value = JSON.stringify(arr);
+                render(arr);
+            }
+            reader.readAsDataURL(file);
+        });
 
-        uppy.on('complete', (result) => {
-            let data = [];
-            result.successful.forEach(item => {
-                data.push(item.response.uploadURL);
+        function render(data) {
+            document.querySelector('.preview').innerHTML = '';
+            data.forEach((item, index) => {
+                document.querySelector('.preview').innerHTML += `<div style="position: relative;">
+<img  src="${item}" class="img-thumbnail"/>
+<i  data-index="${index}" class="fa-solid fa-circle-xmark delete" style="position: absolute;top: 0;right: 2px;color: white;cursor: pointer;"></i> </div>`;
             })
 
-            document.getElementById('img').value = JSON.stringify(data);
-            console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        })
+
+            document.querySelectorAll('.delete').forEach(item => {
+                const {index} = item.dataset;
+
+                item.addEventListener('click', () => {
+                    const confirm = window.confirm('Bạn có chắc muốn xóa ảnh này');
+                    if (confirm) {
+                        data = data.filter((item, index1) => index1 !== +index);
+                        arr = data;
+                        document.getElementsByName('img')[0].value = JSON.stringify(data);
+                        render(data);
+                    }
+                })
+            })
+
+        }
     </script>
 @endsection
 

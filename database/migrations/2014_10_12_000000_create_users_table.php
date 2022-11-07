@@ -20,18 +20,17 @@ return new class extends Migration {
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('avatar')->nullable();
-            $table->float('money', 11, 3)->nullable();
+            $table->float('money', 11, 3)->default(0);
             $table->string('address')->nullable();
             $table->integer('role_id');
-            $table->integer('status')->default(0);
             $table->string('token')->nullable();
             $table->string('confirmation_code')->nullable();
             $table->dateTime('confirmation_code_expired_in')->nullable();
             $table->integer('is_admin')->default(0);
             $table->string('google_id')->nullable();
+            $table->integer('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
-
         });
     }
 

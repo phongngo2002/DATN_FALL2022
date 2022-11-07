@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <section id="hero-area" class="parallax-searchs home15 overlay thome-6 thome-1 d-none d-md-none d-lg-block"
              data-stellar-background-ratio="0.5">
         <div class="hero-main">
@@ -424,437 +423,100 @@
                 <p><a href="index.html">Trang chủ</a> &nbsp;/&nbsp; <span>Tìm người ở ghép</span></p>
             </div>
         </div>
-        {{-- @foreach ($motels as $motel) --}}
-        <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 3</h2>
-                </div>
-            </div>
-            <div class="portfolio col-xl-12">
-                <div class="slick-lancers">
-                    @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 3)
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
-                            <div class="landscapes">
-                                <div class="project-single">
-                                    <div class="project-inner project-head">
-                                        <div class="homes">
-                                            <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img">
-                                                <div class="homes-tag button alt featured">{{$motel->plan_name}}</div>
-                                                {{-- <div class="homes-tag button alt sale">For Sale</div> --}}
-                                                <img src="{{$motel->photo_gallery1}}" style="height: 260px; width: 350px;object-fit: cover;">
-                                            </a>
-                                        </div>
-                                        <div class="button-effect">
-                                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- homes content -->
-                                    <div class="homes-content">
-                                        <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
-                                        <p class="homes-address mb-3">
-                                            <a href="single-property-1.html">
-                                                <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>
-                                            </a>
-                                        </p>
-                                        <!-- homes List -->
-                                        <ul class="homes-list clearfix">
-                                            <li>
-                                                <i class="fa fa-bed" aria-hidden="true"></i>
-                                                <span>{{$motel->services->bed}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-bath" aria-hidden="true"></i>
-                                                <span>{{$motel->services->toilet}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-object-group" aria-hidden="true"></i>
-                                                <span>{{$motel->area}} m2</span>
-                                            </li>
-                                        </ul>
-                                        <div class="price-properties footer pt-3 pb-0">
-                                            <h3 class="title mt-3">
-                                                <a href="single-property-1.html">{{number_format($motel->price,0,",",".")}} đ</a>
-                                            </h3>
-                                            <div class="compare">
-                                                <a href="#" title="Compare">
-                                                    <i class="fas fa-exchange-alt"></i>
-                                                </a>
-                                                <a href="#" title="Share">
-                                                    <i class="fas fa-share-alt"></i>
-                                                </a>
-                                                <a href="#" title="Favorites">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+
+        <div class="row portfolio-items">
+            {{-- Start div motel --}}
+            @foreach($motel as $key)
+                <div class="item col-xl-3 col-lg-12 col-md-12 col-xs-12 landscapes sale">
+                    <div class="project-single" data-aos="fade-right">
+                        <div class="project-inner project-head">
+                            <div class="homes">
+                                <!-- homes img -->
+                                <a href="#" class="homes-img">
+                                    <div class="homes-tag button alt featured" style="font-size: 10px;"
+                                    >{{$key->plan_title}}</div>
+                                    <div class="homes-tag button alt sale">Giảm giá</div>
+                                    <img
+                                        src="{{json_decode($key->photo_gallery)[0]}}"
+                                        alt="home-1"
+                                        class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="button-effect">
+                                <a href="{{route('client.live-together.detail',['id' => $key->motel_id])}}" class="btn"><i
+                                        class="fa fa-link"></i></a>
+                                <a href="https://www.youtube.com/watch?v=48EgQXJrww0"
+                                   class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                <a href="{{route('client.live-together.detail',['id' => $key->motel_id])}}"
+                                   class="img-poppu btn"><i
+                                        class="fa fa-photo"></i></a>
+                            </div>
+                        </div>
+                        <!-- homes content -->
+                        <div class="homes-content">
+                            <!-- homes address -->
+                            <h3>
+                                <span class="text-warning">
+                                    @for($i = 5 ; $i >= $key->priority_level;$i--)
+                                        <i class="fa-solid fa-star"></i>
+                                    @endfor
+                              </span>
+                                <a href="{{route('client.live-together.detail',['id' => $key->motel_id])}}">
+
+
+                                    @if($key->priority_level == 1)
+                                        <span
+                                            title="{{json_decode($key->data_post)->title}}"
+                                            style="color: #E13427">{{substr(json_decode($key->data_post)->title,0,40).'...'}}</span>
+                                    @endif
+                                </a>
+                            </h3>
+                            <p class="homes-address mb-3">
+                                <a href="{{route('client.live-together.detail',['id' => $key->motel_id])}}">
+                                    <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
+                                </a>
+                            </p>
+                            <!-- homes List -->
+                            <ul class="homes-list clearfix pb-3">
+                                <li class="the-icons">
+                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                    <span>{{json_decode($key->services)->bedroom}} Phòng ngủ</span>
+                                </li>
+                                <li class="the-icons">
+                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                    <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
+                                </li>
+                            </ul>
+                            <div class="price-properties footer pt-3 pb-0">
+                                <h3 class="title mt-3">
+                                    <a href="single-property-1.html">{{number_format($key->price, 0, ',', '.')}} VNĐ</a>
+                                </h3>
+                                <div class="compare">
+                                    <a href="#" title="Compare">
+                                        <i class="flaticon-compare"></i>
+                                    </a>
+                                    <a href="#" title="Share">
+                                        <i class="flaticon-share"></i>
+                                    </a>
+                                    <a href="#" title="Favorites">
+                                        <i class="flaticon-heart"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        @endif
-                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endforeach
+            {{-- End div motel --}}
+
         </div>
-
-        <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 2</h2>
-                </div>
-            </div>
-            <div class="portfolio col-xl-12">
-                <div class="slick-lancers">
-                    @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 2)
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
-                            <div class="landscapes">
-                                <div class="project-single">
-                                    <div class="project-inner project-head">
-                                        <div class="homes">
-                                            <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img" >
-                                                <div class="homes-tag button alt featured">{{$motel->plan_name}}</div>
-                                                {{-- <div class="homes-tag button alt sale">For Sale</div> --}}
-                                                <img src="{{$motel->photo_gallery1}}" style="height: 260px; width: 350px;object-fit: cover;">
-                                            </a>
-                                        </div>
-                                        <div class="button-effect">
-                                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- homes content -->
-                                    <div class="homes-content">
-                                        <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
-                                        <p class="homes-address mb-3">
-                                            <a href="single-property-1.html">
-                                                <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>
-                                            </a>
-                                        </p>
-                                        <!-- homes List -->
-                                        <ul class="homes-list clearfix">
-                                            <li>
-                                                <i class="fa fa-bed" aria-hidden="true"></i>
-                                                <span>{{$motel->services->bed}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-bath" aria-hidden="true"></i>
-                                                <span>{{$motel->services->toilet}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-object-group" aria-hidden="true"></i>
-                                                <span>{{$motel->area}} m2</span>
-                                            </li>
-                                        </ul>
-                                        <div class="price-properties footer pt-3 pb-0">
-                                            <h3 class="title mt-3">
-                                                <a href="single-property-1.html">{{number_format($motel->price,0,",",".")}} đ</a>
-                                            </h3>
-                                            <div class="compare">
-                                                <a href="#" title="Compare">
-                                                    <i class="fas fa-exchange-alt"></i>
-                                                </a>
-                                                <a href="#" title="Share">
-                                                    <i class="fas fa-share-alt"></i>
-                                                </a>
-                                                <a href="#" title="Favorites">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @endforeach
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid mb-4">
-            <div class="row">
-                <div class="section-title col-md-5 ml-4">
-                    {{-- <h2>Nhà trọ Quang Minh</h2>
-                    <h3>Cầu Giấy - Hà Nội</h3> --}}
-                    <h2>Tin Vip 1</h2>
-                </div>
-            </div>
-            <div class="portfolio col-xl-12">
-                <div class="slick-lancers">
-                    @foreach ($motels as $motel)
-                    @if ($motel->plan_id === 1)
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
-                            <div class="landscapes">
-                                <div class="project-single">
-                                    <div class="project-inner project-head">
-                                        <div class="homes">
-                                            <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img">
-                                                <div class="homes-tag button alt featured">{{$motel->plan_name}}</div>
-                                                {{-- <div class="homes-tag button alt sale">For Sale</div> --}}
-                                                <img src="{{$motel->photo_gallery1}}" style="height: 260px; width: 350px;object-fit: cover;">
-                                            </a>
-                                        </div>
-                                        <div class="button-effect">
-                                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- homes content -->
-                                    <div class="homes-content">
-                                        <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{$motel->data_post->title}}</a></h3>
-                                        <p class="homes-address mb-3">
-                                            <a href="single-property-1.html">
-                                                <i class="fa fa-map-marker"></i><span>{{$motel->address}}</span>
-                                            </a>
-                                        </p>
-                                        <!-- homes List -->
-                                        <ul class="homes-list clearfix">
-                                            <li>
-                                                <i class="fa fa-bed" aria-hidden="true"></i>
-                                                <span>{{$motel->services->bed}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-bath" aria-hidden="true"></i>
-                                                <span>{{$motel->services->toilet}}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-object-group" aria-hidden="true"></i>
-                                                <span>{{$motel->area}} m2</span>
-                                            </li>
-                                        </ul>
-                                        <div class="price-properties footer pt-3 pb-0">
-                                            <h3 class="title mt-3">
-                                                <a href="single-property-1.html">{{number_format($motel->price,0,",",".")}} đ</a>
-                                            </h3>
-                                            <div class="compare">
-                                                <a href="#" title="Compare">
-                                                    <i class="fas fa-exchange-alt"></i>
-                                                </a>
-                                                <a href="#" title="Share">
-                                                    <i class="fas fa-share-alt"></i>
-                                                </a>
-                                                <a href="#" title="Favorites">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @endforeach
-                </div>
-            </div>
-        </div>
-
-
         {{-- @endforeach --}}
-        
+
     </section>
     <!-- END MOTEL -->
 
     <!-- START SECTION POPULAR PLACES -->
-    <section class="feature-categories bg-white rec-pro">
-        <div class="container-fluid">
-            <div class="sec-title">
-                <h2>Khu vực đa dạng</h2>
-                <p>Các khu vực có nhiều phòng trọ nhất.</p>
-            </div>
-            <div class="row">
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-1">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/12.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                            <span>203 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-2">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/13.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Los Angeles</a></h4>
-                            <span>307 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-3">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/14.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">San Francisco</a></h4>
-                            <span>409 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-3">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/9.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Atlanta</a></h4>
-                            <span>409 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
-                    <div class="small-category-2 mob-mt">
-                        <div class="small-category-2-thumb img-8">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/15.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Miami</a></h4>
-                            <span>145 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                    <div class="small-category-2">
-                        <div class="small-category-2-thumb img-10">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/10.jpg')}}"
-                                    alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Chicago</a></h4>
-                            <span>112 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                    <div class="small-category-2 si-mt">
-                        <div class="small-category-2-thumb img-11">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/5.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Houston</a></h4>
-                            <span>254 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single category -->
-                <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                    <div class="small-category-2 no-mb si-mt">
-                        <div class="small-category-2-thumb img-11">
-                            <a href="properties-full-grid-1.html"><img
-                                    src="{{asset('assets/client/images/popular-places/6.jpg')}}" alt=""></a>
-                        </div>
-                        <div class="sc-2-detail">
-                            <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Orlando</a></h4>
-                            <span>254 Phòng trọ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-    </section>
-<!-- END SECTION POPULAR PLACES -->
 
-    <!-- START SECTION WHY CHOOSE US -->
-    <section class="how-it-works bg-white rec-pro">
-        <div class="container-fluid">
-            <div class="sec-title">
-                <h2><span>Why </span>Choose Us</h2>
-                <p>We provide full service at every step.</p>
-            </div>
-            <div class="row service-1">
-                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                    <div class="serv-flex">
-                        <div class="art-1 img-13">
-                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">
-                            <h3>Wide Renge Of Properties</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">
-                    <div class="serv-flex">
-                        <div class="art-1 img-14">
-                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">
-                            <h3>Trusted by thousands</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">
-                    <div class="serv-flex arrow">
-                        <div class="art-1 img-15">
-                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">
-                            <h3>Financing made easy</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"
-                         data-aos-delay="450">
-                    <div class="serv-flex">
-                        <div class="art-1 img-14">
-                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">
-                            <h3>We are here near you</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur
-                                debits adipisicing lacus consectetur Business Directory.</p>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
     <!-- END SECTION WHY CHOOSE US -->
-
 
 @endsection
