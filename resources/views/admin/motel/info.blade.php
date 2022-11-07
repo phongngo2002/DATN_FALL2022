@@ -115,19 +115,61 @@
             pointer-events: auto;
         }
     </style>
-    <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên</button>
-    <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-       class="btn btn-primary my-2">Đăng tin</a>
-    <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-       class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
-    <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-       class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-    @if(!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id',$params['motel_id'])->first()->start_time)
-        <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
-                class="btn btn-dark my-2">Xuất hóa đơn
-        </button>
+    @if ( Session::has('success') )
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>{{ Session::get('success') }}</strong>
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Đóng</span>
+            </button>
+        </div>
     @endif
-    <div class="bg-white p-4 shadow-md rounded-4 my-4">
+    <?php //Hiển thị thông báo lỗi?>
+    @if ( Session::has('error') )
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{ Session::get('error') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Đóng</span>
+            </button>
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+    @endif
+    <div class="bg-white p-4 shadow-lg rounded-4">
+        <div class="mb-4">
+            <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
+            </button>
+            <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-primary my-2">Đăng tin</a>
+            <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+            <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+            @if(!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id',$params['motel_id'])->first()->start_time)
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                        class="btn btn-dark my-2">Xuất hóa đơn
+                </button>
+            @endif
+            <a href="{{route('admin.motel.list_out_motel',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-danger position-relative">Yều cầu rời phòng
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+            </a>
+        </div>
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
             <thead>
@@ -199,7 +241,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <form action="" method="POST">
+                    <form
+                        action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
+                        method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>

@@ -9,6 +9,7 @@
             width: 100%;
         }
     </style>
+
     <form action="" method="POST">
         <div class="bg-white shadow-lg p-4">
             <div class="row">
@@ -27,9 +28,19 @@
                         <input type="text" class="form-control" name="link_gg_map" id="link_gg_map"
                                value="{{$area->link_gg_map}}">
                     </div>
+                    <div class="my-2">
+                        <label for="">Ảnh mô tả</label>
+                        <div>
+                            <img id="preview2"
+                                 src="https://xaydungthuanphuoc.com/wp-content/uploads/2022/09/mau-phong-tro-co-gac-lung-dep2020-5.jpg"
+                                 style="width: 100px;height: 100px" class="img-thumbnail my-1" alt="">
+                        </div>
+                        <input type="hidden" id="imgReal" name="imgReal" value="{{$area->img}}">
+                        <input type="file" name="img" class="form-control">
+                    </div>
                 </div>
                 <div class="col-6" id="preview">
-                   {!! $area->link_gg_map !!}
+                    {!! $area->link_gg_map !!}
                 </div>
             </div>
         </div>
@@ -40,6 +51,16 @@
     <script !src="">
         document.getElementById('link_gg_map').addEventListener('change', (e) => {
             document.getElementById('preview').innerHTML = e.target.value;
+        })
+
+        document.getElementsByName('img')[0].addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById('preview2').src = reader.result;
+                document.getElementById('imgReal').value = reader.result;
+            }
+            reader.readAsDataURL(file);
         })
     </script>
 @endsection

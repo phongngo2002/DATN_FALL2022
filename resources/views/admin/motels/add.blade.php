@@ -1,114 +1,140 @@
 @extends('layouts.admin.main')
 
 
-@section('title_page', 'Thêm phòng trọ')
+@section('title_page','Thêm mới phòng trọ')
 
 @section('content')
-    <form action="" method="POST">
-        <div class="bg-white shadow-lg p-4">
-            <div class="row">
-                @csrf
-                <div class="col-6">
-                    <div class="my-2">
-                        <label for="">Số phòng</label>
-                        <input type="text" class="form-control" name="room_number" id="room_number"
-                            value="{{ $motel->room_number }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Giá</label>
-                        <input type="text" class="form-control" name="price" id="price"
-                            value="{{ $motel->price }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Diện tích</label>
-                        <input type="text" class="form-control" name="area" id="area"
-                            value="{{ $motel->area }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Địa chỉ</label>
-                        <input type="text" class="form-control" name="area" id="area"
-                            value="{{ $motel->areaName }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Mô tả</label>
-                        <textarea type="text" class="form-control" rows="20" name="description" id="description">{{ $motel->description }}</textarea>
-                    </div>
+    <link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
 
-
-                </div>
-                <div class="col-6" id="preview">
-                    <div class="my-2">
-                        <label for="">Ảnh 360</label><br>
-                        <a href="{{ $motel->image_360 }}" class="image-popup">
-                            <img src="{{ $motel->image_360 }}"width="400px" alt="">
-                        </a>
-                    </div>
-                    <div class="my-2">
-                        <label for="">Thư viện ảnh</label>
-                        <div class="row" id="photo_preview">
-                            @foreach (json_decode($motel->photo_gallery) as $key => $value)
-                                <div class="col-4 mt-1" style="position: relative;">
-                                    <a href="{{ $value }}" class="image-popup">
-                                        <img src="{{ $value }}" class="img-thumbnail" /></a>
-                                </div>
-                            @endforeach
+    <script src="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#desc',
+        });
+    </script>
+    <form action="{{route('admin.motel.create',$id)}}" method="POST" enctype="multipart/form-data">
+        <div class="row" >
+            <div class="bg-white p-4 shadow-lg rounded-4 col-6">
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Mã phòng</label>
+                            <input type="text" name="room_number" id="room_number" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <label for="">Giá cho thuê</label>
+                            <input type="text" name="price" id="price" class="form-control">
                         </div>
                     </div>
-                    <div class="my-2">
-                        <label for="">Khu trọ</label>
-                        <input type="text" class="form-control" name="area" id="area"
-                            value="{{ $motel->categoryName }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Dịch vụ</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->services }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Tình trạng</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->status }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Số người</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->max_people }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Thời gian bắt đầu</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->start_time }}">
-                    </div>
-                    <div class="my-2">
-                        <label for="">Thời gian kết thúc</label>
-                        <input type="text" class="form-control" name="address" id="address"
-                            value="{{ $motel->end_time }}">
+                </div>
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Diện tích</label>
+                            <input type="text" name="area" id="area" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Đối tượng thuê</label>
+                            <select name="actor" id="actor" class="form-control">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Tất cả">Tất cả</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Số người ở tối đa</label>
+                            <input type="text" name="max_people" class="form-control">
+                        </div>
                     </div>
                 </div>
+                <div class="mt-4">
+                    <label for="">Dịch vụ phòng</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="number" name="bedroom" placeholder="Số phòng ngủ" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <input type="number" name="bed" placeholder="Số giường" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <input type="number" name="toilet" id="toilet" placeholder="Nhà vệ sinh"
+                                   class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label>Khác</label>
+                    <input type="text" name="service_more" placeholder="Gần trường học,chợ..." class="form-control">
+                </div>
+                <div class="mt-4">
+                    <label for="">Loại phòng</label>
+                    
+                        <select name="category_id" id="" class="form-control">
+                            @forEach($category as $key )
+                            <option value="{{$key->id}}" >{{$key->name}}</option>
+                            @endforeach   
+                           </select>
+                    
+                </div>
+                <div class="mt-4">
+                    <label for="">Mô tả</label>
+                    <textarea name="desc" id="desc" cols="30" rows="20" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="bg-white p-4 shadow-lg rounded-4">
+                    <div class="mt-4">
+                        <div class="row">
+                            <div class="col-7">
+                                <label>Thông tin liên hệ</label>
+                                <input type="text" placeholder="Ngô Văn Phong" class="form-control" disabled>
+                            </div>
+                            <div class="col-5">
+                                <label>Số điện thoại</label>
+                                <input type="text" placeholder="0325500080" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="" class="">Video</label>
+                        <input type="hidden" id="img" name="img">
+                        <input type="text" class="form-control" name="video" id="video"
+                               placeholder="Video link(youtube)">
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Ảnh 360</label>
+                        <input type="text" name="image360" id="image360" class="form-control"
+                               placeholder="Đoạn code nhúng ảnh 360">
+                        <p class="mt-2 ms-2 text-danger">Nếu bạn chưa biết cách sửa dụng ảnh 360.click vào <a
+                                href="http://help.web60.vn/bai-viet/huong-dan-nhung-anh-360-do-len-website"
+                                target="_blank">đây</a></p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow-lg rounded-4">
+                    <label for="photo" class="">Ảnh phòng trọ</label>
+                    <div id="drag-drop-area"></div>
+                </div>
+                @csrf
             </div>
         </div>
-        <a class="btn btn-success my-4" href="{{ route("admin.motel.list", $motel->area_id) }}">Quay lại</a>
+       
+        <a href="" class="btn btn-success mt-4">Quay lại</a>
+        <button class="btn btn-primary mt-4">Thêm mới</button>
     </form>
     <script>
-        var siteMagnificPopup = function() {
-                $('.image-popup').magnificPopup({
-                    type: 'image',
-                    closeOnContentClick: true,
-                    closeBtnInside: false,
-                    fixedContentPos: true,
-                    mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-                    gallery: {
-                        enabled: true,
-                        navigateByImgClick: true,
-                        preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                    },
-                    image: {
-                        verticalFit: true
-                    },
-                    zoom: {
-                        enabled: true,
-                        duration: 300 // don't foget to change the duration also in CSS
-                    }
-                });
+        var uppy = Uppy.Core()
+            .use(Uppy.Dashboard, {
+                inline: true,
+                target: '#drag-drop-area'
+            })
+            .use(Uppy.Tus, {endpoint: 'https://master.tus.io/files/'}) //you can put upload URL here, where you want to upload images
+        uppy.on('complete', (result) => {
+            let data = [];
+            result.successful.forEach(item => {
+                data.push(item.response.uploadURL);
+            })
+            document.getElementById('img').value = JSON.stringify(data);
+            console.log('Upload complete! We’ve uploaded these files:', result.successful)
+        })
     </script>
 @endsection

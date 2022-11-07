@@ -3,16 +3,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Recharge;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use Omnipay\Omnipay;
+use PHPUnit\Exception;
+use Nette\Utils\Random;
+use App\Models\Recharge;
 use Faker\Provider\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Nette\Utils\Random;
-use Omnipay\Omnipay;
-use PHPUnit\Exception;
 
 
 class PayPalPaymentController extends Controller
@@ -23,13 +22,11 @@ class PayPalPaymentController extends Controller
     public function __construct()
     {
         $gateway1 = Omnipay::create('PayPal_Express');
-//        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-//        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-//        $this->gateway->setTestMode(true);
 
-        $gateway1->setUsername('sb-2nswb21994832_api1.business.example.com');
-        $gateway1->setPassword('FQSN7TEF4PUL9ABQ');
-        $gateway1->setSignature('ANb6Vvsm4q4CoMgtv0JqIsbytb5bAahwolxLhpfE0Od1gWA5WBmsIy0G');
+
+        $gateway1->setUsername('sb-mu6jw21994813_api1.business.example.com');
+        $gateway1->setPassword('A7LMCN2WVW34GBBU');
+        $gateway1->setSignature('A8XXPo0CmklE67u1JvC3Vw9ivgguASbN-XATaT6BU6cQpTrNvt-7.Rsj');
         $gateway1->setTestMode(true);
 
         $this->gateway = $gateway1;
@@ -39,7 +36,13 @@ class PayPalPaymentController extends Controller
     {
         try {
             $payment = Recharge::insertGetId([
-                'value' => $request->input('amount')
+                'value' => $request->input('amount'),
+                'user_id' => '0',
+                'date' => Carbon::now(),
+                'recharge_code' => 'abc',
+                'payment_type' => 0,
+                'status' => 0,
+                'note' => 'abc',
             ]);
             $response = $this->gateway->purchase(array(
                 'amount' => $request->input('amount'),
@@ -52,7 +55,6 @@ class PayPalPaymentController extends Controller
             } else {
                 return $response->getMessage();
             }
-
         } catch (\Throwable $error) {
             return $error->getMessage();
         }
@@ -76,6 +78,7 @@ class PayPalPaymentController extends Controller
                 $payment->date = $time;
                 $payment->recharge_code = $request->input('PayerID') . '-' . Random::generate(5);
                 $payment->payment_type = 1;
+                $payment->status = 1;
                 $payment->note = 'Nap tien ' . $time->format('H:i d/m/Y');
                 $payment->save();
 
@@ -98,7 +101,6 @@ class PayPalPaymentController extends Controller
                 } else {
                     return redirect()->route('getRecharge')->with('recharge_error', 'Nạp tiền thất bại');
                 }
-
             }
         } else {
             if (Auth::user()->role_id !== 3) {

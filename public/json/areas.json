@@ -1,104 +1,70 @@
 {
-  "RECORDS": [
-    {
-      "id": "1",
-      "name": "Nhà trọ Quang Minh",
-      "address": "Hà Nội",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "1"
-    },
-    {
-      "id": "2",
-      "name": "Nhà trọ Quang Minh 2",
-      "address": "Hà Nội",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "2"
-    },
-    {
-      "id": "3",
-      "name": "Nhà trọ Xuân Quỳnh",
-      "address": "Bắc Giang",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "3"
-    },
-    {
-      "id": "4",
-      "name": "Nhà trọ Xuân Bắc",
-      "address": "Thái Bình",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "4"
-    },
-    {
-      "id": "5",
-      "name": "Nhà trọ Cà Mau",
-      "address": "Vĩnh Phúc",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "5"
-    },
-    {
-      "id": "6",
-      "name": "Nhà trọ Nghệ An",
-      "address": "Vũng Tàu",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "1"
-    },
-    {
-      "id": "7",
-      "name": "Nhà trọ Xuân Thủy",
-      "address": "Hà Nội",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "2"
-    },
-    {
-      "id": "8",
-      "name": "Nhà trọ Chí Phèo",
-      "address": "Trung Quốc",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "3"
-    },
-    {
-      "id": "9",
-      "name": "Nhà trọ ABC",
-      "address": "Nam Định",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "4"
-    },
-    {
-      "id": "10",
-      "name": "Nhà trọ HJK",
-      "address": "Thanh Hóa",
-      "link_gg_map": "",
-      "deleted_at": "",
-      "created_at": "",
-      "updated_at": "",
-      "user_id": "5"
-    }
-  ]
+    "RECORDS": [
+        {
+            "id": "1",
+            "name": "Nhà trọ Quang Minh",
+            "address": "Đường Hoàng Diệu, Phường 10, Quận Phú Nhuận, Hồ Chí Minh",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.8050620635736!2d105.74655371533144!3d20.960342195485428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134531778cc2113%3A0xe1c3bdc9a205fee7!2squ%C3%A1n%20photo!5e0!3m2!1svi!2s!4v1667409990479!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "2/11/2022 14:53:18",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573672/DATN_FALL2022/x4yhpvxmdh2r9vly1og9.jpg"
+        },
+        {
+            "id": "6",
+            "name": "Nhà trọ Hải Đăng",
+            "address": "Nguyễn Lương Bằng, Phường Phú Mỹ, Quận 7, Hồ Chí Minh",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.8050620635736!2d105.74655371533144!3d20.960342195485428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134531778cc2113%3A0xe1c3bdc9a205fee7!2squ%C3%A1n%20photo!5e0!3m2!1svi!2s!4v1667409990479!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "2/11/2022 14:53:18",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573489/DATN_FALL2022/nodz2sgoirbb92rzieoz.jpg"
+        },
+        {
+            "id": "8",
+            "name": "Nhà trọ Javacript",
+            "address": "109/3 Thạnh Xuân 22, Phường Thạnh Xuân, Quận 12, Hồ Chí Minh",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.8050620635736!2d105.74655371533144!3d20.960342195485428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134531778cc2113%3A0xe1c3bdc9a205fee7!2squ%C3%A1n%20photo!5e0!3m2!1svi!2s!4v1667409990479!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "2/11/2022 14:53:18",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573964/DATN_FALL2022/tqszq56j5d0pnloubdfi.jpg"
+        },
+        {
+            "id": "9",
+            "name": "Nhà trọ Mongo",
+            "address": "205/10A-B Đường Hoàng Văn Thụ, Phường 8, Quận Phú Nhuận, Hồ Chí Minh",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.8050620635736!2d105.74655371533144!3d20.960342195485428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134531778cc2113%3A0xe1c3bdc9a205fee7!2squ%C3%A1n%20photo!5e0!3m2!1svi!2s!4v1667409990479!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "2/11/2022 14:53:18",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573934/DATN_FALL2022/tyscaukye2eow2okvoon.jpg"
+        },
+        {
+            "id": "10",
+            "name": "Nhà trọ Liên Minh",
+            "address": "154/21-154/23 Đường Hoàng Ngân P.16, Quận 8",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.8050620635736!2d105.74655371533144!3d20.960342195485428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134531778cc2113%3A0xe1c3bdc9a205fee7!2squ%C3%A1n%20photo!5e0!3m2!1svi!2s!4v1667409990479!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "2/11/2022 14:53:18",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573904/DATN_FALL2022/lzxipexncwqgf1bbq4es.jpg"
+        },
+        {
+            "id": "11",
+            "name": "Nhà trọ Vĩnh Hằng",
+            "address": "31 ngõ 55 Lê Thanh Nghị, Phường Bách Khoa, Quận Hai Bà Trưng, Hà Nội",
+            "link_gg_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.7746176601627!2d105.84344911533184!3d21.001669794077536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac714fac4da3%3A0x581a19c163417907!2zMzEgTmcuIDU1IFAuIEzDqiBUaGFuaCBOZ2jhu4ssIELDoWNoIEtob2EsIEhhaSBCw6AgVHLGsG5nLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1667573768520!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+            "user_id": "1",
+            "status": "1",
+            "created_at": "4/11/2022 14:56:27",
+            "updated_at": "",
+            "img": "https://res.cloudinary.com/dvm5todet/image/upload/v1667573789/DATN_FALL2022/i8jlskuqq8a2xzwd7fig.jpg"
+        }
+    ]
 }

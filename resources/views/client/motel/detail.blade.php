@@ -12,30 +12,12 @@
                                     <div class="detail-wrapper-body mr-3">
                                         <div class="listing-title-bar">
                                             <h2> {{ $motel->room_number }}</h2>
-                                            <div class="mt-0 col-9">
-                                                <div href="#listing-location" class="listing-address">
-                                                    <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>
-                                                    {{ $motel->area_name }}, {{ $motel->area_address }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single detail-wrapper ">
-                                        <div class="detail-wrapper-body">
-                                            <div class="listing-title-bar">
-                                                <h4> {{ $motel->price }} vnđ </h4>
-                                                <div class="mt-3">
-                                                    <div href="#listing-location" class="listing-address">
-                                                        <p>{{ $motel->area }} m&sup2;</p>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </section>
                             <!-- main slider carousel items -->
-                            
+
 
                         </div>
                     </div>
@@ -43,14 +25,16 @@
                         <h5 class="mb-4">Thư viện ảnh</h5>
                         <div class="carousel-inner">
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                @if ($key == 0)
-                                    <div class="active item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
-                                    </div>
-                                @else
-                                    <div class="item carousel-item" data-slide-number="{{ $key }}">
-                                        <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
-                                    </div>
+                                @if($key !== 0)
+                                    @if ($key == 1)
+                                        <div class="active item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                        </div>
+                                    @else
+                                        <div class="item carousel-item" data-slide-number="{{ $key }}">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
 
@@ -64,21 +48,29 @@
                         <ul class="carousel-indicators smail-listing list-inline">
 
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
+                                @if($key !== 0)
                                 <li class="list-inline-item active">
                                     <a id="carousel-selector-{{ $key }}"
-                                        data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
+                                       data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
                                         <img src="{{ $item }}" class="img-fluid" alt="listing-small">
                                     </a>
                                 </li>
+                                @endif
                             @endforeach
 
 
                         </ul>
                         <!-- main slider carousel items -->
                     </div>
+                    <div class="my-4 blog-info homes-content details">
+                        <h5 class="mb-4">Ảnh 360</h5>
+                        {!! $motel->image_360 ?? '<a data-flickr-embed="true" data-vr="true" href="https://www.flickr.com/photos/uofl/46702390722/in/album-72157677766389858/" title="DSCN0019"><img src="https://live.staticflickr.com/7916/46702390722_521f589445_c.jpg" width="800" height="400" alt="DSCN0019"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'!!}
+                    </div>
                     <div class="blog-info homes-content details mb-30">
                         <h5 class="mb-4">Thông tin mô tả</h5>
-                        <p class="mb-3">{{ $motel->description }}</p>
+                        <p>Khu trọ: {{$motel->areaName}}</p>
+                        <p>Địa chỉ: {{$motel->area_address}}</p>
+                        <p class="mb-3">{!! $motel->description !!}</p>
 
                     </div>
                     <div class="single homes-content details mb-30 ">
@@ -90,48 +82,67 @@
                                 <span class="det">V254680</span>
                             </li> -->
                             <li>
-                                <span class="font-weight-bold mr-1">Property Type:</span>
+                                <span class="font-weight-bold mr-1">Loại phòng:</span>
                                 <span class="det">{{ $motel->category_name }}</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Property status:</span>
-                                <span class="det">For Sale</span>
+                                <span class="font-weight-bold mr-1">Trạng thái phòng:</span>
+                                <span class="det">Tìm người thuê</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Property Price:</span>
+                                <span class="font-weight-bold mr-1">Giá phòng(tháng):</span>
                                 <span class="det">{{ $motel->price }} vnđ </span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Rooms:</span>
+                                <span class="font-weight-bold mr-1">Số phòng:</span>
                                 <span class="det">6</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Bedrooms:</span>
+                                <span class="font-weight-bold mr-1">Số phòng ngủ:</span>
                                 <span class="det">7</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Bath:</span>
+                                <span class="font-weight-bold mr-1">Số giường:</span>
                                 <span class="det">4</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Số người:</span>
+                                <span class="font-weight-bold mr-1">Số người tối đa:</span>
                                 <span class="det">{{ $motel->max_people }}</span>
                             </li>
                             <li>
                                 <span class="font-weight-bold mr-1">Ngày đăng:</span>
-                                <span class="det">{{ $motel->motel_updateAt }}</span>
+                                <span
+                                    class="det">{{ \Carbon\Carbon::parse($motel->motel_updateAt)->format('h:i d/m/Y') }}</span>
                             </li>
                         </ul>
                         <!-- title -->
                         <h5 class="mt-5">Tiện nghi</h5>
                         <!-- cars List -->
                         <ul class="homes-list clearfix">
-                            @foreach (json_decode($motel->services) as $key=>$value)
-                                <li>
-                                    <i class="fa fa-check-square" aria-hidden="true"></i>
-                                    <span>{{ $value }}</span>
-                                </li>
-                            @endforeach
+                            <li>
+                                <i class="fa-solid fa-shop"></i>
+                                <span>Gần chợ</span>
+                            </li>
+                            <li>
+                                <i class="fa-sharp fa-solid fa-shield-halved"></i>
+                                <span>An ninh tốt</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-face-smile"></i>
+                                <span>Hàng xóm tốt bụng</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-school"></i>
+                                <span>Gần các trường đại học</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-hospital"></i>
+                                <span>Gần bệnh viện</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-bus"></i>
+                                <span>Gần bên xe buýt</span>
+                            </li>
                         </ul>
                     </div>
 
@@ -320,17 +331,19 @@
 
                     <div class="property wprt-image-video w50 pro">
                         <h5>Video Phòng trọ</h5>
-                        <img alt="image" src="{{ $motel->image_360 }}">
-                        <a class="icon-wrap popup-video popup-youtube" href="https://www.youtube.com/watch?v=14semTlwyUY">
-                            <i class="fa fa-play"></i>
-                        </a>
-                        <div class="iq-waves">
-                            <div class="waves wave-1"></div>
-                            <div class="waves wave-2"></div>
-                            <div class="waves wave-3"></div>
+                        <style>
+                            .youtube iframe {
+                                width: 100%;
+                                height: 400px;
+                            }
+                        </style>
+                        <div class="youtube">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/Hp7L6D5uOa0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                         </div>
                     </div>
-
 
 
                     <!-- Star Reviews -->
@@ -340,7 +353,8 @@
                             <ul class="col-12 commented pl-0">
                                 <li class="comm-inf">
                                     <div class="col-md-2">
-                                        <img src="images/testimonials/ts-5.jpg" class="img-fluid" alt="">
+                                        <img src="{{asset('assets/client/images/testimonials/ts-5.jpg')}}"
+                                             class="img-fluid" alt="">
                                     </div>
                                     <div class="col-md-10 comments-info">
                                         <div class="conra">
@@ -360,7 +374,9 @@
                                             quam congue dictum luctus, lacus magna congue ante, in finibus dui
                                             sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum
                                             vestibulum sed.</p>
-                                        <div class="rest"><img src="images/single-property/s-1.jpg" class="img-fluid"
+                                        <div class="rest"><img
+                                                src="{{asset('assets/client/images/single-property/s-1.jpg')}}"
+                                                class="img-fluid"
                                                 alt=""></div>
                                     </div>
                                 </li>
@@ -371,7 +387,8 @@
                             <ul class="col-12 commented pl-0">
                                 <li class="comm-inf">
                                     <div class="col-md-2">
-                                        <img src="images/testimonials/ts-4.jpg" class="img-fluid" alt="">
+                                        <img src="{{asset('assets/client/images/testimonials/ts-4.jpg')}}"
+                                             class="img-fluid" alt="">
                                     </div>
                                     <div class="col-md-10 comments-info">
                                         <div class="conra">
@@ -400,7 +417,8 @@
                             <ul class="col-12 commented mb-0 pl-0">
                                 <li class="comm-inf">
                                     <div class="col-md-2">
-                                        <img src="images/testimonials/ts-3.jpg" class="img-fluid" alt="">
+                                        <img src="{{asset('assets/client/images/testimonials/ts-3.jpg')}}"
+                                             class="img-fluid" alt="">
                                     </div>
                                     <div class="col-md-10 comments-info">
                                         <div class="conra">
@@ -421,9 +439,11 @@
                                             sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum
                                             vestibulum sed.</p>
                                         <div class="resti">
-                                            <div class="rest"><img src="images/single-property/s-2.jpg"
+                                            <div class="rest"><img
+                                                    src="{{asset('assets/client/images/single-property/s-2.jpg')}}"
                                                     class="img-fluid" alt=""></div>
-                                            <div class="rest"><img src="images/single-property/s-3.jpg"
+                                            <div class="rest"><img
+                                                    src="{{asset('assets/client/images/single-property/s-3.jpg')}}"
                                                     class="img-fluid" alt=""></div>
                                         </div>
                                     </div>
@@ -445,15 +465,15 @@
                                     <!-- Leave Rating -->
                                     <div class="clearfix"></div>
                                     <div class="leave-rating margin-bottom-30">
-                                        <input type="radio" name="rating" id="rating-1" value="1" />
+                                        <input type="radio" name="rating" id="rating-1" value="1"/>
                                         <label for="rating-1" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-2" value="2" />
+                                        <input type="radio" name="rating" id="rating-2" value="2"/>
                                         <label for="rating-2" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-3" value="3" />
+                                        <input type="radio" name="rating" id="rating-3" value="3"/>
                                         <label for="rating-3" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-4" value="4" />
+                                        <input type="radio" name="rating" id="rating-4" value="4"/>
                                         <label for="rating-4" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-5" value="5" />
+                                        <input type="radio" name="rating" id="rating-5" value="5"/>
                                         <label for="rating-5" class="fa fa-star"></label>
                                     </div>
                                     <div class="clearfix"></div>
@@ -463,7 +483,7 @@
                                     <div class="add-review-photos margin-bottom-30">
                                         <div class="photoUpload">
                                             <span><i class="sl sl-icon-arrow-up-circle"></i> Upload Photos</span>
-                                            <input type="file" class="upload" />
+                                            <input type="file" class="upload"/>
                                         </div>
                                     </div>
                                 </div>
@@ -474,26 +494,28 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="name" class="form-control"
-                                                    placeholder="First Name" required>
+                                                       placeholder="First Name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="name" class="form-control"
-                                                    placeholder="Last Name" required>
+                                                       placeholder="Last Name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="email" name="email" class="form-control"
-                                                    placeholder="Email" required>
+                                                       placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12 form-group">
-                                            <textarea class="form-control" id="exampleTextarea" rows="8" placeholder="Review" required></textarea>
+                                            <textarea class="form-control" id="exampleTextarea" rows="8"
+                                                      placeholder="Review" required></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-lg mt-2">Submit
-                                            Review</button>
+                                            Review
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -509,8 +531,11 @@
                     <div class="single widget">
                         <!-- Start: Schedule a Tour -->
                         <div class="schedule widget-boxed mt-33 mt-0">
+                            <div class="widget-boxed-header">
+                                <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đặt trước phòng</h4>
+                            </div>
                             <a href="payment-method.html"
-                                class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
+                               class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
@@ -524,520 +549,244 @@
                             <div class="widget-boxed-body">
                                 <div class="sidebar-widget author-widget2">
                                     <div class="author-box clearfix">
-                                        <img src="{{ $motel->user_avatar }}" alt="author-image"
+                                        <img
+                                            src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
+                                            alt="author-image"
                                             class="author__img w-full">
                                         <h4 class="author__title">{{ $motel->user_name }}</h4>
-                                        <p class="author__meta">Agent of Property</p>
+                                        <p class="author__meta">Chủ khu trọ</p>
                                     </div>
                                     <ul class="author__contact">
                                         <li><span class="la la-map-marker"><i
                                                     class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
                                         </li>
                                         <li><span class="la la-phone"><i class="fa fa-phone"
-                                                    aria-hidden="true"></i></span><a
+                                                                         aria-hidden="true"></i></span><a
                                                 href="#">{{ $motel->user_phone }}</a></li>
                                         <li><span class="la la-envelope-o"><i class="fa fa-envelope"
-                                                    aria-hidden="true"></i></span><a
+                                                                              aria-hidden="true"></i></span><a
                                                 href="#">{{ $motel->user_email }}</a>
                                         </li>
                                     </ul>
-                                    <div class="agent-contact-form-sidebar">
-                                        <h4>Liên hệ</h4>
-                                        <form name="contact_form"
-                                            action="{{ route('client.contact.send', $motel->motel_id) }}" method="post"
-                                            action="https://code-theme.com/html/findhouses/functions.php">
-                                            @csrf
-                                            <input type="text" id="fname" name="full_name"
-                                                value="{{ Auth::user() ? Auth::user()->name : '' }}"
-                                                placeholder="họ và tên" required />
-                                            <input type="text" id="pnumber" name="phone_number"
-                                                value="{{ Auth::user() ? Auth::user()->phone_number : '' }}"
-                                                placeholder="Số điện thoại" required />
-                                            <input type="email" id="emailid" name="email_address"
-                                                value="{{ Auth::user() ? Auth::user()->email : '' }}" placeholder="Email"
-                                                required />
-                                            <textarea placeholder="Message" name="message" required></textarea>
-                                            <input type="submit" name="sendmessage" class="multiple-send-message"
-                                                placeholder="Yêu cầu liên hệ" />
-                                        </form>
-                                        <p class="mt-2 text-danger">
-                                            @if (Session::has('success'))
-                                                {{ Session::get('success') }}
-                                            @endif
+                                    {{--                                    <div class="agent-contact-form-sidebar">--}}
+                                    {{--                                        <p class="mt-2 text-danger">--}}
+                                    {{--                                            @if (Session::has('success'))--}}
+                                    {{--                                                {{ Session::get('success') }}--}}
+                                    {{--                                            @endif--}}
 
-                                            @if (Session::has('error'))
-                                                {{ Session::get('error') }}
-                                        </p>
-                                        @endif
-                                    </div>
+                                    {{--                                            @if (Session::has('error'))--}}
+                                    {{--                                                {{ Session::get('error') }}--}}
+                                    {{--                                        </p>--}}
+                                    {{--                                        @endif--}}
+                                    {{--                                        --}}
+                                    {{--                                    </div>--}}
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="main-search-field-2">
-                            <div class="widget-boxed mt-5">
-                                <div class="widget-boxed-header">
-                                    <h4>Các phòng mới đăng</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="recent-post">
-                                        <div class="recent-main">
+                    </div>
+
+                    <div class="main-search-field-2">
+                        <div class="widget-boxed mt-5">
+                            <div class="widget-boxed-header">
+                                <h4>Các phòng trong khu vực</h4>
+                            </div>
+                            <div class="widget-boxed-body">
+                                <div class="recent-post">
+                                    @foreach ($motelsByAreas as $item)
+                                        <div class="recent-main mb-4">
                                             <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-1.jpg"
+                                                <a href="blog-details.html"><img
+                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
                                                         alt=""></a>
                                             </div>
                                             <div class="info-img">
                                                 <a href="blog-details.html">
-                                                    <h6>Family Home</h6>
+                                                    <h6>{{$item->room_number}}</h6>
                                                 </a>
-                                                <p>$230,000</p>
+                                                <p>{{$item->price}}</p>
                                             </div>
                                         </div>
-                                        <div class="recent-main my-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-2.jpg"
-                                                        alt=""></a>
-                                            </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>Family Home</h6>
-                                                </a>
-                                                <p>$230,000</p>
-                                            </div>
-                                        </div>
-                                        <div class="recent-main">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-3.jpg"
-                                                        alt=""></a>
-                                            </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>Family Home</h6>
-                                                </a>
-                                                <p>$230,000</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="widget-boxed mt-5">
-                                <div class="widget-boxed-header mb-5">
-                                    <h4>Feature Properties</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="slick-lancers">
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                        <div class="widget-boxed mt-5">
+                            <div class="widget-boxed-header mb-5">
+                                <h4>Phòng Nổi bật</h4>
+                            </div>
+                            <div class="widget-boxed-body">
+                                <div class="slick-lancers">
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 230,000</span>
+                                                    <span>For Sale</span>
+                                                </div>
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury <i>New
                                                                 York</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-1.jpg" alt="">
-                                                </a>
-                                            </div>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img src="{{asset('assets/client/images/feature-properties/fp-1.jpg')}}"
+                                                     alt="">
+                                            </a>
                                         </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                                    </div>
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 6,500</span>
+                                                    <span class="rent">For Rent</span>
+                                                </div>
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury <i>Los
                                                                 Angles</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-2.jpg" alt="">
-                                                </a>
-                                            </div>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img src="{{asset('assets/client/images/feature-properties/fp-2.jpg')}}"
+                                                     alt="">
+                                            </a>
                                         </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                                    </div>
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 230,000</span>
+                                                    <span>For Sale</span>
+                                                </div>
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury <i>San
                                                                 Francisco</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-3.jpg" alt="">
-                                                </a>
-                                            </div>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img
+                                                    src="{{asset('assets/client/images/feature-properties/fp-3.jpg')}}"
+                                                    alt="">
+                                            </a>
                                         </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                                    </div>
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 6,500</span>
+                                                    <span class="rent">For Rent</span>
+                                                </div>
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Miami FL</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-4.jpg" alt="">
-                                                </a>
-                                            </div>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img src="{{asset('assets/client/images/feature-properties/fp-4.jpg')}}"
+                                                     alt="">
+                                            </a>
                                         </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                                    </div>
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 230,000</span>
+                                                    <span>For Sale</span>
+                                                </div>
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Chicago IL</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-5.jpg" alt="">
-                                                </a>
-                                            </div>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img src="{{asset('assets/client/images/feature-properties/fp-5.jpg')}}"
+                                                     alt="">
+                                            </a>
                                         </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
+                                    </div>
+                                    <div class="agents-grid mr-0">
+                                        <div class="listing-item compact">
+                                            <a href="properties-details.html" class="listing-img-container">
+                                                <div class="listing-badges">
+                                                    <span class="featured">$ 6,500</span>
+                                                    <span class="rent">For Rent</span>
+                                                </div>
+                                        </div>
+                                        <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Toronto CA</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-6.jpg" alt="">
-                                                </a>
-                                            </div>
+                                            <ul class="listing-hidden-content">
+                                                <li>Area <span>720 sq ft</span></li>
+                                                <li>Rooms <span>6</span></li>
+                                                <li>Beds <span>2</span></li>
+                                                <li>Baths <span>3</span></li>
+                                            </ul>
                                         </div>
+                                        <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
+                                             alt="">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Start: Specials offer -->
-                            <div class="widget-boxed popular mt-5">
-                                <div class="widget-boxed-header">
-                                    <h4>Đặc biệt trong ngày</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="banner"><img src="images/single-property/banner.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End: Specials offer -->
-                            <div class="widget-boxed popular mt-5">
-                                <div class="widget-boxed-header">
-                                    <h4>Tag</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="recent-post">
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Houses</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Real
-                                                    Home</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Baths</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Beds</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Garages</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Family</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Real
-                                                    Estates</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Properties</a></span>
-                                        </div>
-                                        <div class="tags no-mb">
-                                            <span><a href="#" class="btn btn-outline-primary">Location</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Price</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="property-location map mt-3">
-                            <h5>Địa điểm</h5>
-                            <div class="divider-fade"></div>
-                            <div id="map-contact" class="contact-map"></div>
                         </div>
                     </div>
+                    <!-- Start: Specials offer -->
+                    {{--                        <div class="widget-boxed popular mt-5">--}}
+                    {{--                            <div class="widget-boxed-header">--}}
+                    {{--                                <h4>Phòng cùng khu vực</h4>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="widget-boxed-body">--}}
+                    {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    <!-- End: Specials offer -->
+
+
             </div>
-            </aside>
-        </div>
-        <!-- START SIMILAR PROPERTIES -->
-        <section class="similar-property featured portfolio p-0 bg-white-inner">
-            <div class="container">
-                <h5>Phòng trọ tương tự</h5>
-                <div class="row portfolio-items">
-                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Đặc sắc</div>
-                                        <div class="homes-tag button alt sale">cho thuê</div>
-                                        <div class="homes-price">2,500,000/tháng</div>
-                                        <img src="images/blog/b-11.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
-                                            class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Nhà trọ 2</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>P. Trịnh Văn Bô, Xuân Phương, Nam Từ
-                                            Liêm, Hà Nội</span>
-                                    </a>
-                                </p>
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-1.jpg" alt="" class="mr-2">
-                                        Chủ trọ
-                                    </a>
-                                    <span>2 tháng trước</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Đặc sắc</div>
-                                        <div class="homes-tag button alt sale">cho thuê</div>
-                                        <div class="homes-price">2,500,000/tháng</div>
-                                        <img src="images/blog/b-11.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
-                                            class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Nhà trọ 2</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>P. Trịnh Văn Bô, Xuân Phương, Nam Từ
-                                            Liêm, Hà Nội</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <!-- <ul class="homes-list clearfix pb-3">
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                                <span>6 Bedrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                                <span>3 Bathrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                                                <span>720 sq ft</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                                                <span>2 Garages</span>
-                                                            </li>
-                                                        </ul> -->
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-1.jpg" alt="" class="mr-2">
-                                        Chủ trọ
-                                    </a>
-                                    <span>2 tháng trước</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Đặc sắc</div>
-                                        <div class="homes-tag button alt sale">cho thuê</div>
-                                        <div class="homes-price">2,500,000/tháng</div>
-                                        <img src="images/blog/b-11.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
-                                            class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Nhà trọ 2</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>P. Trịnh Văn Bô, Xuân Phương, Nam Từ
-                                            Liêm, Hà Nội</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <!-- <ul class="homes-list clearfix pb-3">
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                                <span>6 Bedrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                                <span>3 Bathrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                                                <span>720 sq ft</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                                                <span>2 Garages</span>
-                                                            </li>
-                                                        </ul> -->
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-1.jpg" alt="" class="mr-2">
-                                        Chủ trọ
-                                    </a>
-                                    <span>2 tháng trước</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Đặc sắc</div>
-                                        <div class="homes-tag button alt sale">cho thuê</div>
-                                        <div class="homes-price">2,500,000/tháng</div>
-                                        <img src="images/blog/b-11.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
-                                            class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Nhà trọ 2</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>P. Trịnh Văn Bô, Xuân Phương, Nam Từ
-                                            Liêm, Hà Nội</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <!-- <ul class="homes-list clearfix pb-3">
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                                <span>6 Bedrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                                <span>3 Bathrooms</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                                                <span>720 sq ft</span>
-                                                            </li>
-                                                            <li class="the-icons">
-                                                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                                                <span>2 Garages</span>
-                                                            </li>
-                                                        </ul> -->
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-1.jpg" alt="" class="mr-2">
-                                        Chủ trọ
-                                    </a>
-                                    <span>2 tháng trước</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="property-location map mt-3">
+                <h5>Link google map</h5>
+                <style>
+                    #map-contact iframe {
+                        height: 100%;
+                        width: 100%;
+                    }
+                </style>
+                <div class="divider-fade"></div>
+                <div id="map-contact" class="contact-map">
+                    {!! $motel->area_link_gg_map !!}
                 </div>
             </div>
-
-        </section>
+            s
+            </aside>
+        </div>
+        </div>
+        <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->
     </section>
 @endsection

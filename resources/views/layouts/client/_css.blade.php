@@ -1,5 +1,5 @@
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="{{ asset('assets/client/css/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{asset('assets/client/css/jquery-ui.css')}}">
 <!-- GOOGLE FONTS -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i%7CMontserrat:500,600,800" rel="stylesheet">
 <!-- FONT AWESOME -->
@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('assets/client/css/fontawesome-5-all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/font-awesome.min.css') }}">
 <!-- ARCHIVES CSS -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/search.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/animate.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/aos.css') }}">
@@ -31,8 +32,7 @@
 <link rel="stylesheet" href="{{ asset('assets/client/css/default.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/css/swiper.min.css') }}">
 
-<link rel="stylesheet" id="color" href="{{ asset('assets/client/css/colors/pink.css') }}">
-
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+<link rel="stylesheet" id="color" href="{{asset('assets/client/css/colors/pink.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/> --}}
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
