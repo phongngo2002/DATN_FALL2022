@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('status')->default(1);
             $table->integer('parent_id')->default(0)->nullable();
             $table->integer('is_first')->default(0);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

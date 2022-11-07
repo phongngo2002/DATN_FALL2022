@@ -51,7 +51,7 @@
         <div class="text-heading text-center">
             <div class="container">
                 <h1>Bảng giá dịch vụ</h1>
-                <h2><a href="{{route('home')}}">Trang chủ </a> &nbsp;/&nbsp; Pricing Table</h2>
+                <h2><a href="{{route('home')}}">Trang chủ </a> &nbsp;/&nbsp; Bảng giá dịch vụ</h2>
             </div>
         </div>
     </section>

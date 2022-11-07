@@ -106,6 +106,7 @@ class MotelController extends Controller
                 'day' => $request->post_day_more,
                 'status' => 2,
                 'parent_id' => $request->ID,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
 
@@ -125,6 +126,7 @@ class MotelController extends Controller
                 'plan_id' => $request->plan_id_old,
                 'motel_id' => $request->motel_id,
                 'day' => $request->old_day,
+                'user_id' => Auth::id(),
                 'status' => 4,
                 'parent_id' => 0,
                 'is_first' => 0
@@ -133,6 +135,7 @@ class MotelController extends Controller
                 'plan_id' => $request->post_plan,
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
+                'user_id' => Auth::id(),
                 'status' => 1,
                 'parent_id' => 0,
                 'is_first' => 0
@@ -141,6 +144,7 @@ class MotelController extends Controller
                 'plan_id' => $request->post_plan,
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
+                'user_id' => Auth::id(),
                 'status' => 2,
                 'parent_id' => $id,
                 'is_first' => 1
@@ -163,6 +167,7 @@ class MotelController extends Controller
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
                 'status' => 1,
+                'user_id' => Auth::id(),
                 'parent_id' => 0,
                 'is_first' => 0
             ]);
@@ -171,6 +176,7 @@ class MotelController extends Controller
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
                 'status' => 2,
+                'user_id' => Auth::id(),
                 'parent_id' => $id,
                 'is_first' => 1
             ]);

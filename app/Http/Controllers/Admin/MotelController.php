@@ -169,6 +169,7 @@ class MotelController extends Controller
                 'day' => $request->post_day_more,
                 'status' => 2,
                 'parent_id' => $request->ID,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
 
@@ -190,6 +191,7 @@ class MotelController extends Controller
                 'day' => $request->old_day,
                 'status' => 4,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $id = $model->create([
@@ -198,6 +200,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $model->create([
@@ -206,6 +209,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'user_id' => Auth::id(),
                 'is_first' => 1
             ]);
 
@@ -227,6 +231,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $model->create([
@@ -235,6 +240,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'user_id' => Auth::id(),
                 'is_first' => 1
             ]);
             $user = User::find(Auth::id());

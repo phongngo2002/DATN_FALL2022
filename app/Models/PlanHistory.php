@@ -47,11 +47,12 @@ class PlanHistory extends Model
             $plansHistory = $plansHistory->where('room_number', $params['name']);
         }
         if (!Auth::user()->is_admin) {
-            $plansHistory = $plansHistory->where('users.id', Auth::id());
+            $plansHistory = $plansHistory->where('plan_history.user_id', Auth::id());
         }
         return $plansHistory->where('plan_history.status', '>', 1)
             ->orderBy('plan_history.id', $order_by)->paginate($limit);
     }
+
     public function LoadPlansHistoryClientWithPage($params = [])
     {
         $order_by = $params['order_by'] ?? 'desc';
@@ -81,7 +82,8 @@ class PlanHistory extends Model
             'status' => $data['status'],
             'parent_id' => $data['parent_id'],
             'is_first' => $data['is_first'],
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'user_id' => $data['user_id']
         ]);
 
         return $query;
