@@ -199,9 +199,9 @@ class Motel extends Model
             ->paginate(10);
     }
 
-    public function client_get_List_Motel_top()
+    public function client_get_List_Motel_top($params = [])
     {
-
+        // dd($params);
         return DB::table('areas')
             ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
@@ -213,7 +213,7 @@ class Motel extends Model
             ->paginate(10);
     }
 
-    public function client_get_List_Motel_contact()
+    public function client_get_List_Motel_contact($params = [])
     {
 
         return DB::table('areas')

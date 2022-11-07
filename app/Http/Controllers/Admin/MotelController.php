@@ -48,6 +48,7 @@ class MotelController extends Controller
 
     public function index_motels($id, Request $request)
     {
+        // dd($request->all());
         $motel = new Motel();
         $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
         $this->v['id'] = $id;
