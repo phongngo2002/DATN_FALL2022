@@ -199,6 +199,17 @@ class Motel extends Model
             ->paginate(10);
     }
 
+    public function get_list_contact_by_user($id)
+    {
+        return DB::table('users')
+            ->select(['contact_motel_history.user_id', 'motels.id as motel_id', 'area_id', 'name', 'email', 'phone_number', 'contact_motel_history.status as tt', 'contact_motel_history.created_at as tg', 'contact_motel_history.id as contact_id'])
+            ->join('contact_motel_history', 'users.id', '=', 'contact_motel_history.user_id')
+            ->join('motels', 'contact_motel_history.motel_id', '=', 'motels.id')
+            ->where('user_id', $id)
+            ->orderBy('contact_motel_history.created_at', 'desc')
+            ->paginate(10);
+    }
+
     public function client_get_List_Motel_top()
     {
 

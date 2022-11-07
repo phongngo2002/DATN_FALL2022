@@ -121,7 +121,30 @@
                 </button>
             </div>
         @endif
-        <h4>Lịch sử đăng ký ở ghép</h4>
+        <?php //Hiển thị thông báo lỗi?>
+        @if ( Session::has('error') )
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong>{{ Session::get('error') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Đóng</span>
+                </button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+        @endif
+        <h4>Lịch sử đăng ký ở ghép của bạn</h4>
         <div class="my-properties shadow-lg">
             <table class="table-responsive text-center">
                 <thead>
@@ -136,7 +159,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($history as $item)
+                @foreach($list as $item)
                     <tr>
                         <td></td>
                         <td>{{$item->name}}</td>
@@ -145,7 +168,7 @@
                         <td>{{\Carbon\Carbon::parse($item->tg)->format('h:i d/m/Y')}}</td>
                         <td>
                             @if($item->tt == 0)
-                                <span class="text-secondary">Người đăng ký mới</span>
+                                <span class="text-secondary">Đang chờ duyệt</span>
 
                             @elseif($item->tt == 1)
                                 <span class="text-success">Đồng ý</span>
@@ -158,23 +181,14 @@
                             @endif
                         </td>
                         <td>
-                            @if($item->tt == 0)
-                                <a href="{{route('client.confirm_contact_motel',
-['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 1,'contact_id' => $item->contact_id])}}"
-                                   class="btn btn-success text-white">Chấp nhận</a>
-                                <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 2,'contact_id' => $item->contact_id])}}"
-                                   class="btn btn-danger text-white">Không chấp nhận</a>
+                            @if($item->tt > 0)
+                                <button class="btn btn-danger" disabled>Hùy</button>
                             @else
-                                @if($item->tt == 3 || $item->tt === 4)
-                                    <button
-                                        class="btn btn-warning text-white" disabled>Hùy
-                                    </button>
-                                @else
-                                    <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 0,'contact_id' => $item->contact_id])}}"
-                                       class="btn btn-warning text-white">Hùy</a>
-                                @endif
-
+                                <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 4,'contact_id' => $item->contact_id])}}"
+                                   onclick="return confirm('Bạn có chắc muốn hùy đăng ký ở ghép')"
+                                   class="btn btn-danger">Hùy</a>
                             @endif
+
                         </td>
                     </tr>
                 @endforeach

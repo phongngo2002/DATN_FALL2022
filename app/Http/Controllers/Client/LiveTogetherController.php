@@ -41,8 +41,14 @@ class LiveTogetherController extends Controller
 
         $res = $model->confirmContact($motel_id, $area_id, $status, $contact_id);
         try {
-            Mail::to($res['email'])->send(new ConfirmContactMotel($res['actor']));
-            return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
+            if ($status === 4) {
+                return redirect()->route('get_history_contact_by_user');
+            } else {
+                Mail::to($res['email'])->send(new ConfirmContactMotel($res['actor']));
+                return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
+            }
+
+
         } catch (\Exception $err) {
             dd($err->getMessage());
         }
