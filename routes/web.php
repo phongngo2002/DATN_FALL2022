@@ -23,6 +23,8 @@ Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'm
 Route::get('/test', function () {
     return view('test');
 });
+Route::get('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@getFormSelectRole')->name('get_select_role_resign');
+Route::post('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@postFormSelectRole')->name('get_select_role_resign');
 
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');

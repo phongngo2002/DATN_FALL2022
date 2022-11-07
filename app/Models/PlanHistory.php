@@ -16,7 +16,7 @@ class PlanHistory extends Model
     protected $fillable = [
         "plan_id",
         "motel_id",
-        'area_id',
+        'area_id', 
         'day',
         'time',
         'plan_history.created_at as date',
