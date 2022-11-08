@@ -16,11 +16,11 @@
                         <div class="hero-inner">
                             <!-- Welcome Text -->
                             <div class="welcome-text">
-                                <h1 class="h1">Find Your Dream
+                                <h1 class="h1">Tìm giấc mơ của bạn
                                     <br class="d-md-none">
                                     <span class="typed border-bottom"></span>
                                 </h1>
-                                <p class="mt-4">We Have Over Million Properties For You.</p>
+                                <p class="mt-4">Chúng tôi có hơn một triệu tài sản cho bạn.</p>
                             </div>
                             <!--/ End Welcome Text -->
                             <!-- Search Form -->
@@ -28,10 +28,10 @@
                                 <div class="banner-search-wrap">
                                     <ul class="nav nav-tabs rld-banner-tab">
                                         <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
+                                            <a class="nav-link active" data-toggle="tab" href="#tabs_1">Cho thuê</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
+                                            <a class="nav-link" data-toggle="tab" href="#tabs_2">Ở ghép</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -43,7 +43,7 @@
                                                     </div>
                                                     <div class="rld-single-select ml-22">
                                                         <select class="select single-select">
-                                                            <option value="1">Property Type</option>
+                                                            <option value="1">Loại phòng trọ</option>
                                                             <option value="2">Family House</option>
                                                             <option value="3">Apartment</option>
                                                             <option value="3">Condo</option>
@@ -51,7 +51,7 @@
                                                     </div>
                                                     <div class="rld-single-select">
                                                         <select class="select single-select mr-0">
-                                                            <option value="1">Location</option>
+                                                            <option value="1">Địa chỉ</option>
                                                             <option value="2">Los Angeles</option>
                                                             <option value="3">Chicago</option>
                                                             <option value="3">Philadelphia</option>
@@ -61,9 +61,9 @@
                                                         </select>
                                                     </div>
                                                     <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
-                                                        <span>Advanced Search</span></div>
+                                                        <span>Dịch vụ</span></div>
                                                     <div class="pl-0">
-                                                        <a class="btn btn-yellow" href="#">Search Now</a>
+                                                        <a class="btn btn-yellow" href="#">Tìm kiếm ngay</a>
                                                     </div>
                                                     <div
                                                         class="explore__form-checkbox-list full-filter d-none d-none d-lg-none d-xl-flex">
@@ -564,17 +564,21 @@
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="btn"><i
+                                            class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="img-poppu btn"><i
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                       class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
                             <div class="homes-content">
                                 <!-- homes address -->
-                                <h3><a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{json_decode($key->data_post)->title}} </a></h3>
+                                <h3>
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{json_decode($key->data_post)->title}} </a>
+                                </h3>
                                 <p class="homes-address mb-3">
                                     <a href="{{route('client.live-together.detail',['id' => $key->id])}}">
                                         <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
@@ -597,13 +601,16 @@
                                             VNĐ</a>
                                     </h3>
                                     <div class="compare">
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Compare">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Compare">
                                             <i class="flaticon-compare"></i>
                                         </a>
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Share">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Share">
                                             <i class="flaticon-share"></i>
                                         </a>
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Favorites">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Favorites">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
@@ -622,66 +629,66 @@
     </section>
 
     <!-- START SECTION WHY CHOOSE US -->
-{{--    <section class="how-it-works bg-white rec-pro">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <div class="sec-title">--}}
-{{--                <h2><span>Why </span>Choose Us</h2>--}}
-{{--                <p>We provide full service at every step.</p>--}}
-{{--            </div>--}}
-{{--            <div class="row service-1">--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-13">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
-{{--                            <h3>--}}
-{{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
-{{--                            <h3>Trusted by thousands</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
-{{--                    <div class="serv-flex arrow">--}}
-{{--                        <div class="art-1 img-15">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
-{{--                            <h3>Financing made easy</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
-{{--                         data-aos-delay="450">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
-{{--                            <h3>We are here near you</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--    <section class="how-it-works bg-white rec-pro">--}}
+    {{--        <div class="container-fluid">--}}
+    {{--            <div class="sec-title">--}}
+    {{--                <h2><span>Why </span>Choose Us</h2>--}}
+    {{--                <p>We provide full service at every step.</p>--}}
+    {{--            </div>--}}
+    {{--            <div class="row service-1">--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-13">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
+    {{--                            <h3>--}}
+    {{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
+    {{--                            <h3>Trusted by thousands</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
+    {{--                    <div class="serv-flex arrow">--}}
+    {{--                        <div class="art-1 img-15">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
+    {{--                            <h3>Financing made easy</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
+    {{--                         data-aos-delay="450">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
+    {{--                            <h3>We are here near you</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
     <!-- END SECTION WHY CHOOSE US -->
 
     <!-- START SECTION RECENTLY PROPERTIES -->

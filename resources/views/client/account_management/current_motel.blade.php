@@ -189,6 +189,8 @@
                                    href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}">Rời phòng</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
+                                <a href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id,'status' => 1]) }}"
+                                   class="btn btn-danger">Hủy</a>
                             @endif
                         </td>
                     </tr>

@@ -18,6 +18,8 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+
         if (isset($_GET['id'])) {
             $user = User::where('id', $_GET['id'])->first();
             Auth::login($user);

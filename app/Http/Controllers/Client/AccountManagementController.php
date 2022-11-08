@@ -48,15 +48,26 @@ class AccountManagementController extends Controller
         return view('client.account_management.history_buy_plan', $this->v);
     }
 
-    public function outMotel($motelId)
+    public function outMotel($motelId, Request $request)
     {
-        $userMotel = DB::table('user_motel')
-            ->where('motel_id', $motelId)
-            ->where('user_id', Auth::id())
-            ->where('status', 1)
-            ->update(['status' => 2]);
+        if (!isset($request->status)) {
+            $userMotel = DB::table('user_motel')
+                ->where('motel_id', $motelId)
+                ->where('user_id', Auth::id())
+                ->where('status', 1)
+                ->update(['status' => 2]);
+            return redirect()->back()->with('success', 'Gửi yêu cầu rời trọ thành công');
+        } else {
+            $userMotel = DB::table('user_motel')
+                ->where('motel_id', $motelId)
+                ->where('user_id', Auth::id())
+                ->where('status', 2)
+                ->update(['status' => 1]);
+            return redirect()->back()->with('success', 'Hủy yêu cầu rời trọ thành công');
+        }
+
 //        Mail::to(Auth::user()->email)->send(new ForgotOtp(Auth::user()->name) . ' đã gửi yêu cầu rời trọ');
-        return redirect()->back()->with('success', 'Gửi yêu cầu rời trọ thành công');
+
     }
 
     public function profile()

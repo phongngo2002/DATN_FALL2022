@@ -548,18 +548,19 @@
                             @endif
                             @if(\Illuminate\Support\Facades\DB::table('contact_motel_history')
   ->where('user_id',\Illuminate\Support\Facades\Auth::id())
-  ->where('motel_id',$motel->motel_id)->where('status','=',2)->orwhere('status',4)->first())
-                                <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
-                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
+  ->where('motel_id',$motel->motel_id)->whereIn('status',[0,1,2,3])->first())
+                                <p>Bạn đã đăng ký ở ghép phòng này. <a
+                                        href="{{route('get_history_contact_by_user')}}">Xem
+                                        chi tiết</a></p>
+
                             @elseif(\Illuminate\Support\Facades\DB::table('user_motel')
   ->where('user_id',\Illuminate\Support\Facades\Auth::id())->where('motel_id',$motel->motel_id)->where('status',1)->first())
                                 <a href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}"
                                    class="btn reservation btn-radius theme-btn full-width mrg-top-10">Lịch sử đăng
                                     ký</a>
                             @else
-                                <p>Bạn đã đăng ký ở ghép phòng này. <a
-                                        href="{{route('get_history_contact_by_user')}}">Xem
-                                        chi tiết</a></p>
+                                <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
+                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
                             @endif
                         </div>
                     </div>

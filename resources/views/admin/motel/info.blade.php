@@ -151,8 +151,13 @@
         <div class="mb-4">
             <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
             </button>
-            <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-primary my-2">Đăng tin</a>
+            @if(isset($info[0]->status) && $info[0]->status== 2)
+                <button class="btn btn-primary" disabled>Đăng tin</button>
+            @else
+                <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+                   class="btn btn-primary my-2">Đăng tin</a>
+            @endif
+
             <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"

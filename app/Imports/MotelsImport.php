@@ -22,22 +22,19 @@ class MotelsImport implements ToCollection
         foreach ($rows as $index => $row) {
             if ($index > 0) {
                 Motel::create([
-                    'room_number' => $row[0],
-                    'price' => $row[1],
-                    'area' => $row[2],
+                    'room_number' => $row[1],
+                    'price' => $row[2],
+                    'area' => $row[3],
                     'area_id' => $this->id,
-                    'description' => $row[3],
-                    'image_360' => $row[4],
-                    'photo_gallery' => $row[5],
+                    'description' => $row[5],
+                    'image_360' => $row[6],
+                    'photo_gallery' => $row[7],
                     'status' => 1,
-                    'max_people' => $row[6],
-                    'video' => $row[9],
-                    'services' => json_encode([
-                        'bed' => $row[10],
-                        'bedroom' => $row[11],
-                        'toilet' => $row[12],
-                        'more' => $row[13],
-                        'actor' => $row[14]])
+                    'max_people' => $row[9],
+                    'video' => $row[17],
+                    'services' => $row[12],
+                    'category_id' => $row[13]
+                    , 'data_post' => ''
                 ]);
             }
         }

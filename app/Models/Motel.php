@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -180,8 +181,9 @@ class Motel extends Model
     public function info_motel($id)
     {
         return DB::table('users')
-            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id', 'email'])
+            ->select(['name', 'phone_number', 'user_motel.start_time', 'motel_id', 'user_id', 'email', 'motels.status'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
@@ -234,6 +236,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('type', 2)
             ->where('plan_history.status', 1)
+            ->where('motels.end_time', '>',Carbon::now())
             ->orderBy('priority_level', 'asc')
             ->get();
     }

@@ -401,8 +401,13 @@ class MotelController extends Controller
             try {
                 $motel = Motel::find($request->motel_id);
                 $motel->status = 1;
-                $motel->end_time = Carbon::now()->format('Y-m-d');
+                $motel->end_time = date('Y-m-d');
                 $motel->save();
+
+                Motel::where('id', $request->motel_id)->update(['end_time' => null, 'start_time' => null]);
+
+                PlanHistory::where('motel_id', $request->motel_id)->where('status', 1)->update(['status' => 5]);
+
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
