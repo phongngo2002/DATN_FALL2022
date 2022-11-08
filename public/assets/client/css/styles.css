@@ -20617,13 +20617,14 @@ section.pricing-table {
 .plan {
   background: #fff;
   border: 1px solid #dedede;
+  word-wrap: break-word !important;
 }
 
 .plan-name {
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   display: block;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 47px;
   font-weight: 800;
   padding: 20px 0;
@@ -20631,7 +20632,7 @@ section.pricing-table {
 }
 
 .plan-price {
-  font-size: 48px;
+  font-size: 40px;
   padding: 30px 0;
   margin-bottom: 30px;
   position: relative;
