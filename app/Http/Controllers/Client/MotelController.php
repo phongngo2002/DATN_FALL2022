@@ -196,6 +196,7 @@ class MotelController extends Controller
         if ($motel->detailMotel1($id)) {
             $this->v['motel'] = $motel->detailMotel1($id);
             $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
+            $this->v['motelsHot'] = $motel->getMotelsHot();
 
             return view('client.motel.detail', $this->v);
         }
