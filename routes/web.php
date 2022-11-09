@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PlanHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlansController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Client\LiveTogetherController;
 use App\Http\Controllers\Client\MotelController as ClientMotelController;
 use App\Http\Controllers\Auth\registerController;
 
@@ -22,6 +23,8 @@ Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'm
 Route::get('/test', function () {
     return view('test');
 });
+Route::get('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@getFormSelectRole')->name('get_select_role_resign');
+Route::post('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@postFormSelectRole')->name('get_select_role_resign');
 
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -33,10 +36,12 @@ Route::get('/xac-minh', 'App\Http\Controllers\Auth\LoginController@getFormConfir
 Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConfirmAcc')->name('get_post_code_confirm_account');
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
-
+Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class, 'detail'])->name('client.live-together.detail');
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
+
+Route::get('/test', [ClientMotelController::class, 'test'])->name('client.motel.detail');
 
 //Liên hệ
 Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
@@ -53,13 +58,25 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 // end client các gói dịch vụ,đăng ký
 
 
+//Chi tiết tìm nguwoif ở ghép
+
+
 Route::middleware(['auth'])->group(function () {
+    Route::get('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@profile')->name('client.get_profile');
+    Route::post('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@editProfile')->name('client.edit_profile');
+    Route::get('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@changePassword')->name('client.change_password');
+    Route::post('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@saveChangePassword')->name('client.save_change_password');
+
+    Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}', [LiveTogetherController::class, 'historyContactMotel'])->name('client.get_history_contact_motel');
+    Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}/xac-nhan/{status}/{contact_id}', [LiveTogetherController::class, 'ConfirmContactMotel'])->name('client.confirm_contact_motel');
+
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
     Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
+    Route::get('/quan-ly-tai-khoan/dang-ky-o-ghep', 'App\Http\Controllers\Client\AccountManagementController@history_contact_by_user')->name('get_history_contact_by_user');
 
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
-    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
@@ -93,12 +110,16 @@ Route::middleware(['auth'])->group(function () {
             Route::post('nhap-danh-sach', [\App\Http\Controllers\Admin\MotelController::class, "import"])->name("admin.motel.import");
 
             Route::post('{motelId}/xuat-hoa-don', [\App\Http\Controllers\Admin\MotelController::class, "print"])->name("admin.print.motel");
+            Route::get('{id}/{idMotel}/danh-sach-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "list_out_motel"])->name("admin.motel.list_out_motel");
+            Route::get('{id}/dong-y-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "confirm_out_motel"])->name("admin.motel.confirm_out_motel");
+
 
             Route::get('{id}/{idMotel}/lich-su-thue', [\App\Http\Controllers\Admin\MotelController::class, "history_motel"])->name("admin.motel.history");
             Route::get('{id}', [\App\Http\Controllers\Admin\MotelController::class, "index_motels"])->name("admin.motel.list");
             Route::get('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "add_motels"])->name("admin.motel.create");
             Route::post('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "saveAdd_motels"])->name("admin.motel.store");
             Route::get('{id}/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "detail"])->name("admin.motel.detail");
+            Route::get('{id}/{idMotel}/sao-chep', [\App\Http\Controllers\Admin\MotelController::class, "duplicate"])->name("admin.duplicate.motel");
 
 
             Route::get('/phong-tro/{id}/edit/{idMotel}', [\App\Http\Controllers\Admin\MotelController::class, "edit_motels"])->name("admin.motel.edit");
@@ -108,7 +129,7 @@ Route::middleware(['auth'])->group(function () {
 
 
             Route::get('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "info_user_motels"])->name("admin.motel.info");
-            Route::post('{id}/{idMotel}/chi-tiet', [\App\Http\Controllers\Admin\MotelController::class, "add_peolpe_of_motels"])->name("admin.motel.add_people");
+            Route::get('{id}/{idMotel}/chi-tiet/them', [\App\Http\Controllers\Admin\MotelController::class, "add_peolpe_of_motels"])->name("admin.motel.add_people");
             Route::get('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "create_post_motels"])->name("admin.motel.post");
             Route::post('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "save_create_post_motels"])->name("admin.motel.post_post");
             Route::get('{id}/{idMotel}/dang-ky-o-ghep', [\App\Http\Controllers\Admin\MotelController::class, "contact_motel"])->name("admin.motel.contact");

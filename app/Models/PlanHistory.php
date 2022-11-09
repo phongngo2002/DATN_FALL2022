@@ -19,6 +19,7 @@ class PlanHistory extends Model
         'area_id',
         'day',
         'time',
+        'type',
         'plan_history.created_at as date',
         "plans.name as planName",
         "areas.name as areaName",
@@ -38,13 +39,48 @@ class PlanHistory extends Model
         $order_by = $params['order_by'] ?? 'desc';
         $limit = $params['limit'] ?? 10;
         $plansHistory = DB::table('plans')
+            ->select(["plan_id",
+                "motel_id",
+                'area_id',
+                'day',
+                'time',
+                'plans.type',
+                'plan_history.created_at as date',
+                "plans.name as planName",
+                "areas.name as areaName",
+                "room_number",
+                'parent_id',
+                'plan_history.created_at as created_at',
+                'plan_history.status as tt',
+                'parent_id',
+                'plans.price as gia',
+                'is_first'])
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+            ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->join('users', 'areas.user_id', '=', 'users.id');
+        if (isset($params['name'])) {
+            $plansHistory = $plansHistory->where('room_number', $params['name']);
+        }
+        if (!Auth::user()->is_admin) {
+            $plansHistory = $plansHistory->where('plan_history.user_id', Auth::id());
+        }
+        return $plansHistory->where('plan_history.status', '>', 1)
+            ->orderBy('plan_history.id', $order_by)->paginate($limit);
+    }
+
+    public function LoadPlansHistoryClientWithPage($params = [])
+    {
+        $order_by = $params['order_by'] ?? 'desc';
+        $limit = $params['limit'] ?? 10;
+        $plansHistory = DB::table('plans')
             ->select($this->fillable)
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
             ->join('users', 'areas.user_id', '=', 'users.id');
         if (isset($params['name'])) {
-            $plansHistory = $plansHistory->Where('room_number', $params['name']);
+            $plansHistory = $plansHistory->where('room_number', $params['name']);
         }
         if (!Auth::user()->is_admin) {
             $plansHistory = $plansHistory->where('users.id', Auth::id());
@@ -52,7 +88,6 @@ class PlanHistory extends Model
         return $plansHistory->where('plan_history.status', '>', 1)
             ->orderBy('plan_history.id', $order_by)->paginate($limit);
     }
-
 
     public function create($data)
     {
@@ -63,7 +98,8 @@ class PlanHistory extends Model
             'status' => $data['status'],
             'parent_id' => $data['parent_id'],
             'is_first' => $data['is_first'],
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'user_id' => $data['user_id']
         ]);
 
         return $query;
@@ -81,16 +117,29 @@ class PlanHistory extends Model
         return 1;
     }
 
-    public function list_live_together(){
+    public function list_live_together()
+    {
         return DB::table('plans')
-        ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
-        ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
-        ->join('areas', 'motels.area_id', '=', 'areas.id')
-        ->select(['plan_history.status','plans.id as plan_id','plans.name as plan_name','motels.id as motel_id','motels.room_number','motels.price','motels.area','motels.services','motels.data_post','motels.photo_gallery','areas.name as area_name','areas.address',])
-        ->whereNotNull('motels.data_post')->distinct()
-        ->where('plan_history.status','>',1)
-        ->where('plan_history.status','<',4)
-        ->orderBy('plan_id','DESC')
-        ->get();
+            ->select(['plan_history.status',
+                'motels.id as motel_id',
+                'max_people',
+                'plans.name as plan_title',
+                'plans.id as plan_id',
+                'priority_level',
+                'plans.name as plan_name',
+                'motels.id as motel_id',
+                'motels.room_number',
+                'motels.price', 'motels.area',
+                'motels.services', 'motels.data_post',
+                'motels.photo_gallery',
+                'areas.name as area_name',
+                'areas.address',])
+            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+            ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->orderBy('priority_level', 'asc')
+            ->paginate(10);
     }
 }

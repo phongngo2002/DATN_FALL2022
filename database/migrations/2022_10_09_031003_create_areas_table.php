@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('link_gg_map')->nullable();
             $table->integer('user_id');
             $table->integer('status')->default(1);
+            $table->string('img')->default('https://res.cloudinary.com/dvm5todet/image/upload/v1667573672/DATN_FALL2022/x4yhpvxmdh2r9vly1og9.jpg');
             $table->timestamps();
         });
     }

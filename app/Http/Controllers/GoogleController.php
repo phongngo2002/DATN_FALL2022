@@ -35,36 +35,56 @@ class GoogleController extends Controller
 
             parse_str($state, $result);
             $googleUser = Socialite::driver('google')->stateless()->user();
-
-            $user = User::where('email', $googleUser->email)->first();
-
-
-            if ($user) {
-                return redirect()->route('get_login', ['success' => 'gg_error_exit']);
-            } else {
-                $user = User::create(
-                    [
-                        'email' => $googleUser->email,
-                        'name' => $googleUser->name,
-                        'google_id' => $googleUser->id,
-                        'password' => Hash::make('123456'),
-                        'status' => 1,
-                        'money' => 0,
-                        'role_id' => 3,
-                        'avatar' => 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj'
-                    ]
-                );
-                try {
-                    Mail::to($googleUser->email)->send(new CreateAccountWithGoogle($googleUser->email));
-                } catch (\Exception $e) {
-                    return $e->getMessage();
+            $user1 = User::where('email', $googleUser->email)->first();
+            if ($user1) {
+                $user2 = User::where('google_id', $googleUser->id)->first();
+                if ($user2->role_id != 3) {
+                    return redirect()->route('backend_get_dashboard', ['id' => $user2->id])->with('login_success', 'Đăng nhập thành công');
+                } else {
+                    return redirect()->route('home', ['id' => $user2->id]);
                 }
-                Session::flash('gg_success', 'Tạo tài khoản thành công.Thông tin đăng nhập đã được gửi vào mail đăng ký.');
-                return redirect()->route('get_login', ['success' => 'true']);
+            } else {
+                $user = new User();
+
+                $user->email = $googleUser->email;
+                $user->name = $googleUser->name;
+                $user->google_id = $googleUser->id;
+                $user->password = '$2y$10$x58PIeez7REKWe0WvncaMenUMkXlMBVDXBgKn2yUiOrfnkto84COO';
+                $user->status = 1;
+                $user->money = 0;
+                $user->role_id = 3;
+                $user->avatar = $googleUser->avatar;
+                $user->is_admin = 0;
+                $user->save();
+
+                return redirect()->route('get_select_role_resign', ['id' => $user->id]);
             }
         } catch (\Exception $exception) {
             Session::flash('gg_error', 'Có lỗi xảy ra vui lòng thử lại');
             return redirect()->route('get_login', ['success' => 'gg_error']);
         }
     }
+
+    public function getFormSelectRole(Request $request)
+    {
+
+
+        return view('auth.select_role', [
+            'user_id' => $_GET['id']
+        ]);
+    }
+
+    public function postFormSelectRole(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->role_id = $request->role_id;
+        $user->save();
+        Auth::login($user);
+        if ($request->role_id == 1) {
+            return redirect()->route('backend_get_dashboard');
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
 }

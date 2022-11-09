@@ -13,6 +13,7 @@ class PlansController extends Controller
 
 {
     private $v;
+
     public function __construct()
     {
         $this->v = [];
@@ -58,7 +59,7 @@ class PlansController extends Controller
         // lưu dữ liệu
         $plans->save();
 
-        return redirect()->route('backend_admin_get_list_plans')->with('success_register', "Insert successfully");
+        return redirect()->route('backend_admin_get_list_plans');
     }
 
 

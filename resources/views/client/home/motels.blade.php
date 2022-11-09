@@ -435,30 +435,41 @@
                             <div class="project-inner project-head">
                                 <div class="homes">
                                     <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Nổi bật</div>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}"
+                                       class="homes-img">
+                                        <div
+                                            class="homes-tag button alt featured">{{str_replace('Gói','',$key->name)}}</div>
                                         <div class="homes-tag button alt sale">Giảm giá</div>
                                         <img
-                                            src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/266930837.jpg?k=f4d0d68c6c170444042e438655267f0b9186f0964a27d6171348916d0e1a2a4e&o=&hp=1"
+                                            src="{{json_decode($key->photo_gallery)[0]}}"
                                             alt="home-1"
                                             class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}" class="btn"><i
+                                            class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}"
+                                       class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
                             <div class="homes-content">
                                 <!-- homes address -->
-                                <h3><a href="single-property-1.html">{{$key->room_number}} </a></h3>
+                                <h3>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{$key->areaName.' - '.$key->room_number}}
+                                        @for($i = 5 ; $i >= $key->priority_level;$i--)
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                        @endfor
+                                    </a>
+
+                                </h3>
                                 <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>{{$key->areaName}}</span>
+                                    <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">
+                                        <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
                                     </a>
                                 </p>
                                 <!-- homes List -->
@@ -471,18 +482,12 @@
                                         <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                         <span>{{json_decode($key->services)->toilet}} Phòng tắm</span>
                                     </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->area}}</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>{{$key->max_people}} người</span>
-                                    </li>
+
                                 </ul>
                                 <div class="price-properties footer pt-3 pb-0">
                                     <h3 class="title mt-3">
-                                        <a href="single-property-1.html">{{$key->price}}đ</a>
+                                        <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{number_format($key->price, 0, ',', '.')}}
+                                            VNĐ</a>
                                     </h3>
                                     <div class="compare">
                                         <a href="#" title="Compare">
@@ -507,137 +512,139 @@
                     </nav>
                 </div>
             </div>
+        </div>
     </section>
+    {{$motel->links()}}
     <!-- END SECTION FEATURED PROPERTIES -->
 
 
 
     <!-- START FOOTER -->
-    <footer class="first-footer rec-pro">
-        <div class="top-footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="netabout">
-                            <a href="index.html" class="logo">
-                                <img src="images/logo-footer.svg" alt="netcom">
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum incidunt architecto
-                                soluta laboriosam, perspiciatis, aspernatur officiis esse.</p>
-                        </div>
-                        <div class="contactus">
-                            <ul>
-                                <li>
-                                    <div class="info">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        <p class="in-p">95 South Park Avenue, USA</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="info">
-                                        <i class="fa fa-phone" aria-hidden="true"></i>
-                                        <p class="in-p">+456 875 369 208</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="info">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <p class="in-p ti">support@findhouses.com</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="navigation">
-                            <h3>Navigation</h3>
-                            <div class="nav-footer">
-                                <ul>
-                                    <li><a href="index.html">Home One</a></li>
-                                    <li><a href="properties-right-sidebar.html">Properties Right</a></li>
-                                    <li><a href="properties-full-list.html">Properties List</a></li>
-                                    <li><a href="properties-details.html">Property Details</a></li>
-                                    <li class="no-mgb"><a href="agents-listing-grid.html">Agents Listing</a></li>
-                                </ul>
-                                <ul class="nav-right">
-                                    <li><a href="agent-details.html">Agents Details</a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="blog.html">Blog Default</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                    <li class="no-mgb"><a href="contact-us.html">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="widget">
-                            <h3>Twitter Feeds</h3>
-                            <div class="twitter-widget contuct">
-                                <div class="twitter-area">
-                                    <div class="single-item">
-                                        <div class="icon-holder">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="text">
-                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.
-                                            </h5>
-                                            <h4>about 5 days ago</h4>
-                                        </div>
-                                    </div>
-                                    <div class="single-item">
-                                        <div class="icon-holder">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="text">
-                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.
-                                            </h5>
-                                            <h4>about 5 days ago</h4>
-                                        </div>
-                                    </div>
-                                    <div class="single-item">
-                                        <div class="icon-holder">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="text">
-                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.
-                                            </h5>
-                                            <h4>about 5 days ago</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="newsletters">
-                            <h3>Newsletters</h3>
-                            <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive
-                                news in your inbox.</p>
-                        </div>
-                        <form class="bloq-email mailchimp form-inline" method="post">
-                            <label for="subscribeEmail" class="error"></label>
-                            <div class="email">
-                                <input type="email" id="subscribeEmail" name="EMAIL" placeholder="Enter Your Email">
-                                <input type="submit" value="Subscribe">
-                                <p class="subscription-success"></p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="second-footer rec-pro">
-            <div class="container-fluid sd-f">
-                <p>2021 © Copyright - All Rights Reserved.</p>
-                <ul class="netsocials">
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    {{--    <footer class="first-footer rec-pro">--}}
+    {{--        <div class="top-footer">--}}
+    {{--            <div class="container-fluid">--}}
+    {{--                <div class="row">--}}
+    {{--                    <div class="col-lg-3 col-md-6">--}}
+    {{--                        <div class="netabout">--}}
+    {{--                            <a href="index.html" class="logo">--}}
+    {{--                                <img src="images/logo-footer.svg" alt="netcom">--}}
+    {{--                            </a>--}}
+    {{--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum incidunt architecto--}}
+    {{--                                soluta laboriosam, perspiciatis, aspernatur officiis esse.</p>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="contactus">--}}
+    {{--                            <ul>--}}
+    {{--                                <li>--}}
+    {{--                                    <div class="info">--}}
+    {{--                                        <i class="fa fa-map-marker" aria-hidden="true"></i>--}}
+    {{--                                        <p class="in-p">95 South Park Avenue, USA</p>--}}
+    {{--                                    </div>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <div class="info">--}}
+    {{--                                        <i class="fa fa-phone" aria-hidden="true"></i>--}}
+    {{--                                        <p class="in-p">+456 875 369 208</p>--}}
+    {{--                                    </div>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <div class="info">--}}
+    {{--                                        <i class="fa fa-envelope" aria-hidden="true"></i>--}}
+    {{--                                        <p class="in-p ti">support@findhouses.com</p>--}}
+    {{--                                    </div>--}}
+    {{--                                </li>--}}
+    {{--                            </ul>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-lg-3 col-md-6">--}}
+    {{--                        <div class="navigation">--}}
+    {{--                            <h3>Navigation</h3>--}}
+    {{--                            <div class="nav-footer">--}}
+    {{--                                <ul>--}}
+    {{--                                    <li><a href="index.html">Home One</a></li>--}}
+    {{--                                    <li><a href="properties-right-sidebar.html">Properties Right</a></li>--}}
+    {{--                                    <li><a href="properties-full-list.html">Properties List</a></li>--}}
+    {{--                                    <li><a href="properties-details.html">Property Details</a></li>--}}
+    {{--                                    <li class="no-mgb"><a href="agents-listing-grid.html">Agents Listing</a></li>--}}
+    {{--                                </ul>--}}
+    {{--                                <ul class="nav-right">--}}
+    {{--                                    <li><a href="agent-details.html">Agents Details</a></li>--}}
+    {{--                                    <li><a href="about.html">About Us</a></li>--}}
+    {{--                                    <li><a href="blog.html">Blog Default</a></li>--}}
+    {{--                                    <li><a href="blog-details.html">Blog Details</a></li>--}}
+    {{--                                    <li class="no-mgb"><a href="contact-us.html">Contact Us</a></li>--}}
+    {{--                                </ul>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-lg-3 col-md-6">--}}
+    {{--                        <div class="widget">--}}
+    {{--                            <h3>Twitter Feeds</h3>--}}
+    {{--                            <div class="twitter-widget contuct">--}}
+    {{--                                <div class="twitter-area">--}}
+    {{--                                    <div class="single-item">--}}
+    {{--                                        <div class="icon-holder">--}}
+    {{--                                            <i class="fa fa-twitter" aria-hidden="true"></i>--}}
+    {{--                                        </div>--}}
+    {{--                                        <div class="text">--}}
+    {{--                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.--}}
+    {{--                                            </h5>--}}
+    {{--                                            <h4>about 5 days ago</h4>--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="single-item">--}}
+    {{--                                        <div class="icon-holder">--}}
+    {{--                                            <i class="fa fa-twitter" aria-hidden="true"></i>--}}
+    {{--                                        </div>--}}
+    {{--                                        <div class="text">--}}
+    {{--                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.--}}
+    {{--                                            </h5>--}}
+    {{--                                            <h4>about 5 days ago</h4>--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="single-item">--}}
+    {{--                                        <div class="icon-holder">--}}
+    {{--                                            <i class="fa fa-twitter" aria-hidden="true"></i>--}}
+    {{--                                        </div>--}}
+    {{--                                        <div class="text">--}}
+    {{--                                            <h5><a href="#">@findhouses</a> all share them with me baby said inspet.--}}
+    {{--                                            </h5>--}}
+    {{--                                            <h4>about 5 days ago</h4>--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-lg-3 col-md-6">--}}
+    {{--                        <div class="newsletters">--}}
+    {{--                            <h3>Newsletters</h3>--}}
+    {{--                            <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive--}}
+    {{--                                news in your inbox.</p>--}}
+    {{--                        </div>--}}
+    {{--                        <form class="bloq-email mailchimp form-inline" method="post">--}}
+    {{--                            <label for="subscribeEmail" class="error"></label>--}}
+    {{--                            <div class="email">--}}
+    {{--                                <input type="email" id="subscribeEmail" name="EMAIL" placeholder="Enter Your Email">--}}
+    {{--                                <input type="submit" value="Subscribe">--}}
+    {{--                                <p class="subscription-success"></p>--}}
+    {{--                            </div>--}}
+    {{--                        </form>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--        <div class="second-footer rec-pro">--}}
+    {{--            <div class="container-fluid sd-f">--}}
+    {{--                <p>2021 © Copyright - All Rights Reserved.</p>--}}
+    {{--                <ul class="netsocials">--}}
+    {{--                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>--}}
+    {{--                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>--}}
+    {{--                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>--}}
+    {{--                    <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>--}}
+    {{--                </ul>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </footer>--}}
 
     <a data-scroll href="#wrapper" class="go-up"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
     <!-- END FOOTER -->

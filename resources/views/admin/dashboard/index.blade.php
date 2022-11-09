@@ -488,4 +488,7 @@
             });
         });
     </script>
+    <script>
+        window.history.pushState("", "", 'http://phong.ngo/admin/dashboard');
+    </script>
 @endsection

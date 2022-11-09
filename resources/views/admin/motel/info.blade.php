@@ -151,8 +151,13 @@
         <div class="mb-4">
             <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
             </button>
-            <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-primary my-2">Đăng tin</a>
+            @if(isset($info[0]->status) && $info[0]->status== 2)
+                <button class="btn btn-primary" disabled>Đăng tin</button>
+            @else
+                <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+                   class="btn btn-primary my-2">Đăng tin</a>
+            @endif
+
             <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
@@ -162,7 +167,13 @@
                         class="btn btn-dark my-2">Xuất hóa đơn
                 </button>
             @endif
-
+            <a href="{{route('admin.motel.list_out_motel',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+               class="btn btn-danger position-relative">Yều cầu rời phòng
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+            </a>
         </div>
         <input type="hidden" value="{{$data}}" id="data">
         <table class="table text-center">
@@ -235,7 +246,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <form action="" method="POST">
+                    <form
+                        action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
+                        method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>

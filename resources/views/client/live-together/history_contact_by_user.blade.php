@@ -112,9 +112,9 @@
         }
     </style>
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
-        @if ( Session::has('recharge_success') )
+        @if ( Session::has('success') )
             <div class="alert alert-success alert-dismissible" role="alert">
-                <strong>{{ Session::get('recharge_success') }}</strong>
+                <strong>{{ Session::get('success') }}</strong>
                 <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Đóng</span>
@@ -122,9 +122,9 @@
             </div>
         @endif
         <?php //Hiển thị thông báo lỗi?>
-        @if ( Session::has('recharge_error') )
+        @if ( Session::has('error') )
             <div class="alert alert-danger alert-dismissible" role="alert">
-                <strong>{{ Session::get('recharge_error') }}</strong>
+                <strong>{{ Session::get('error') }}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Đóng</span>
@@ -144,63 +144,54 @@
                 </button>
             </div>
         @endif
-        <h4>Lịch sử mua gói dịch vụ</h4>
+        <h4>Lịch sử đăng ký ở ghép của bạn</h4>
         <div class="my-properties shadow-lg">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
-                    <th class="">#</th>
-                    <th class="">Phòng trọ</th>
-                    <th class="">Khu trọ</th>
-                    <th class="">Gói dịch vụ</th>
-                    <th>Loại gói</th>
-                    <th class="">Ngày mua</th>
-                    <th>Tiền</th>
-                    <th>Ghi chú</th>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Thời gian</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($plansHistory as $planHistory)
+                @foreach($list as $item)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{ $planHistory->room_number }}</td>
-                        <td class="">{{ $planHistory->areaName }}</td>
-                        <td class="">{{ $planHistory->planName }}</td>
+                        <td></td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->phone_number}}</td>
+                        <td>{{\Carbon\Carbon::parse($item->tg)->format('h:i d/m/Y')}}</td>
                         <td>
-                            @if($planHistory->type == 1)
-                                <span class="text-danger font-weight-bold">Đăng tin thuê trọ</span>
+                            @if($item->tt == 0)
+                                <span class="text-secondary">Đang chờ duyệt</span>
+
+                            @elseif($item->tt == 1)
+                                <span class="text-success">Đồng ý</span>
+                            @elseif($item->tt == 3)
+                                <span class="text-warning">Đã thêm vào phòng</span>
+                            @elseif($item->tt == 4)
+                                <span class="text-danger">Đã hủy</span>
                             @else
-                                <span class="text-success font-weight-bold">Đăng tin ở ghép</span>
+                                <span class="text-danger">Từ chối</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($planHistory->date)->format('d/m/Y H:i:s') }}</td>
-                        <th>
-                            @if($planHistory->tt == 2)
-                                <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
-                                    class="fa-brands fa-bitcoin text-warning"></i>
-
-                            @elseif($planHistory->tt ==1)
-                                <span class="text-danger mx-1">-{{$planHistory->gia * $planHistory->day}}</span><i
-                                    class="fa-brands fa-bitcoin text-warning"></i>
-                            @else
-                                <span
-                                    class="text-success mx-1">+{{$planHistory->gia * (\Carbon\Carbon::parse($planHistory->date)->addDays($planHistory->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}</span>
-                                <i
-                                    class="fa-brands fa-bitcoin text-warning"></i>
-                            @endif
-                        </th>
                         <td>
-                            @if($planHistory->is_first)
-                                <span class="text-success font-weight-bold">Mua mới</span>
-                            @elseif($planHistory->tt == 2)
-                                <span class="text-warning font-weight-bold">Gia hạn</span>
+                            @if($item->tt > 0)
+                                <button class="btn btn-danger" disabled>Hùy</button>
                             @else
-                                <span class="text-danger font-weight-bold">Chuyển gói</span>
+                                <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 4,'contact_id' => $item->contact_id])}}"
+                                   onclick="return confirm('Bạn có chắc muốn hùy đăng ký ở ghép')"
+                                   class="btn btn-danger">Hùy</a>
                             @endif
+
                         </td>
                     </tr>
                 @endforeach
-
                 </tbody>
             </table>
         </div>

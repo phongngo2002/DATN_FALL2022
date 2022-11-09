@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Motel;
+use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\User;
 use App\Models\UserMotel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
-use App\Models\ContactMotelHistory;
+use App\Models\Motel;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -37,7 +38,7 @@ class MotelController extends Controller
     public function postLiveTogether($motel_id)
     {
 
-        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
+        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 2)->where('status', 1)->get();
         $data = [];
         foreach ($this->v['plans'] as $i) {
             $data[] = [
@@ -53,6 +54,7 @@ class MotelController extends Controller
             ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $motel_id)
+            ->where('type', 2)
             ->where('plan_history.status', 1)
             ->first();
 
@@ -64,7 +66,7 @@ class MotelController extends Controller
         $this->v['user'] = Auth::user();
         // dd($this->v['current_plan_motel']);
         // dd($this->v['motels']);
-        // $data_post = json_decode($this->v['motels'][0]->data_post);
+        $this->v['data_post'] = json_decode($this->v['motels']->data_post);
         // dd($this->v['data_post']);
         return view('client.account_management.post_live_together', $this->v);
     }
@@ -72,9 +74,7 @@ class MotelController extends Controller
 
     public function savePostLiveTogether(Request $request)
     {
-        $params = [];
-        $data_post = [];
-        // dd($request->post());
+
         $params = array_map(function ($item) {
             if ($item == '') {
                 $item == null;
@@ -97,7 +97,6 @@ class MotelController extends Controller
         Motel::where('id', $request->motel_id)->update([
             'data_post' => $data_post,
         ]);
-
         $model = new PlanHistory();
 
         if ($request->gia_han) {
@@ -107,6 +106,7 @@ class MotelController extends Controller
                 'day' => $request->post_day_more,
                 'status' => 2,
                 'parent_id' => $request->ID,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
 
@@ -126,6 +126,7 @@ class MotelController extends Controller
                 'plan_id' => $request->plan_id_old,
                 'motel_id' => $request->motel_id,
                 'day' => $request->old_day,
+                'user_id' => Auth::id(),
                 'status' => 4,
                 'parent_id' => 0,
                 'is_first' => 0
@@ -134,6 +135,7 @@ class MotelController extends Controller
                 'plan_id' => $request->post_plan,
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
+                'user_id' => Auth::id(),
                 'status' => 1,
                 'parent_id' => 0,
                 'is_first' => 0
@@ -142,6 +144,7 @@ class MotelController extends Controller
                 'plan_id' => $request->post_plan,
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
+                'user_id' => Auth::id(),
                 'status' => 2,
                 'parent_id' => $id,
                 'is_first' => 1
@@ -164,6 +167,7 @@ class MotelController extends Controller
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
                 'status' => 1,
+                'user_id' => Auth::id(),
                 'parent_id' => 0,
                 'is_first' => 0
             ]);
@@ -172,6 +176,7 @@ class MotelController extends Controller
                 'motel_id' => $request->motel_id,
                 'day' => $request->post_day,
                 'status' => 2,
+                'user_id' => Auth::id(),
                 'parent_id' => $id,
                 'is_first' => 1
             ]);
@@ -186,16 +191,7 @@ class MotelController extends Controller
     public function listLiveTogether()
     {
         $model = new PlanHistory();
-        $this->v['motels'] = $model->list_live_together();
-        foreach ($this->v['motels'] as $motel) {
-            $photo_gallery_1 = substr($motel->photo_gallery, 2, strpos($motel->photo_gallery, ',', 0) - 2);
-            $motel->photo_gallery1 = $photo_gallery_1;
-
-            $motel->data_post = json_decode($motel->data_post);
-            $motel->services = json_decode($motel->services);
-
-        }
-        // dd($this->v['motels']);
+        $this->v['motel'] = $model->list_live_together();
 
         return view('client.account_management.list_live_together', $this->v);
     }
@@ -203,9 +199,12 @@ class MotelController extends Controller
     public function detail($id)
     {
         $motel = new Motel();
-        $this->v['motel'] = $motel->detailMotel($id);
+        if ($motel->detailMotel1($id)) {
+            $this->v['motel'] = $motel->detailMotel1($id);
 
-        return view('client.motel.detail', $this->v);
+            return view('client.motel.detail', $this->v);
+        }
+        abort(404);
     }
 
     public function sendContact(Request $request, $id)

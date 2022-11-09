@@ -11,7 +11,13 @@
                                 <div class="pro-wrapper mt-5">
                                     <div class="detail-wrapper-body mr-3">
                                         <div class="listing-title-bar">
-                                            <h2> {{ $motel->room_number }}</h2>
+
+                                            <h2> {{ json_decode( $motel->data_post)->title }}</h2>
+                                            <span class="text-warning">
+                                    @for($i = 5 ; $i >= $motel->priority_level;$i--)
+                                                    <i class="fa-solid fa-star"></i>
+                                                @endfor
+                              </span>
                                         </div>
                                     </div>
                                 </div>
@@ -25,14 +31,14 @@
                         <h5 class="mb-4">Thư viện ảnh</h5>
                         <div class="carousel-inner">
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                @if($key !== 0)
+                                @if($key !==0 )
                                     @if ($key == 1)
                                         <div class="active item carousel-item" data-slide-number="{{ $key }}">
-                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
                                         </div>
                                     @else
                                         <div class="item carousel-item" data-slide-number="{{ $key }}">
-                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing" width="100%">
+                                            <img src="{{ $item }}" class="img-fluid" alt="slider-listing">
                                         </div>
                                     @endif
                                 @endif
@@ -48,13 +54,13 @@
                         <ul class="carousel-indicators smail-listing list-inline">
 
                             @foreach (json_decode($motel->photo_gallery) as $key => $item)
-                                @if($key !== 0)
-                                <li class="list-inline-item active">
-                                    <a id="carousel-selector-{{ $key }}"
-                                       data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
-                                        <img src="{{ $item }}" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
+                                @if($key !== 0 )
+                                    <li class="list-inline-item active">
+                                        <a id="carousel-selector-{{ $key }}"
+                                           data-slide-to="{{ $key }}" data-target="#listingDetailsSlider">
+                                            <img src="{{ $item }}" class="img-fluid" alt="listing-small">
+                                        </a>
+                                    </li>
                                 @endif
                             @endforeach
 
@@ -62,15 +68,12 @@
                         </ul>
                         <!-- main slider carousel items -->
                     </div>
-                    <div class="my-4 blog-info homes-content details">
-                        <h5 class="mb-4">Ảnh 360</h5>
-                        {!! $motel->image_360 ?? '<a data-flickr-embed="true" data-vr="true" href="https://www.flickr.com/photos/uofl/46702390722/in/album-72157677766389858/" title="DSCN0019"><img src="https://live.staticflickr.com/7916/46702390722_521f589445_c.jpg" width="800" height="400" alt="DSCN0019"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>'!!}
-                    </div>
                     <div class="blog-info homes-content details mb-30">
                         <h5 class="mb-4">Thông tin mô tả</h5>
-                        <p>Khu trọ: {{$motel->areaName}}</p>
+                        <p>Khu trọ: <span class="font-weight-bold">{{$motel->areaName}}</span></p>
                         <p>Địa chỉ: {{$motel->area_address}}</p>
-                        <p class="mb-3">{!! $motel->description !!}</p>
+                        <p>Mã phòng: <span class="font-weight-bold">{{$motel->room_number}}</span></p>
+                        <p class="mb-3">{!! json_decode( $motel->data_post)->description!!}</p>
 
                     </div>
                     <div class="single homes-content details mb-30 ">
@@ -82,15 +85,11 @@
                                 <span class="det">V254680</span>
                             </li> -->
                             <li>
-                                <span class="font-weight-bold mr-1">Loại phòng:</span>
-                                <span class="det">{{ $motel->category_name }}</span>
-                            </li>
-                            <li>
                                 <span class="font-weight-bold mr-1">Trạng thái phòng:</span>
-                                <span class="det">Tìm người thuê</span>
+                                <span class="det">Tìm người ở ghép</span>
                             </li>
                             <li>
-                                <span class="font-weight-bold mr-1">Giá phòng(tháng):</span>
+                                <span class="font-weight-bold mr-1">Giá(tháng):</span>
                                 <span class="det">{{ $motel->price }} vnđ </span>
                             </li>
                             <li>
@@ -526,16 +525,43 @@
                     <!-- End Reviews -->
 
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+                        crossorigin="anonymous"></script>
 
                 <aside class="col-lg-4 col-md-12 car mt-5">
                     <div class="single widget">
+
                         <!-- Start: Schedule a Tour -->
                         <div class="schedule widget-boxed mt-33 mt-0">
                             <div class="widget-boxed-header">
-                                <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đặt trước phòng</h4>
+                                <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Liên hệ ở ghép</h4>
                             </div>
-                            <a href="payment-method.html"
-                               class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
+                            @if ( Session::has('success') )
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <strong>{{ Session::get('success') }}</strong>
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Đóng</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if(\Illuminate\Support\Facades\DB::table('contact_motel_history')
+  ->where('user_id',\Illuminate\Support\Facades\Auth::id())
+  ->where('motel_id',$motel->motel_id)->whereIn('status',[0,1,2,3])->first())
+                                <p>Bạn đã đăng ký ở ghép phòng này. <a
+                                        href="{{route('get_history_contact_by_user')}}">Xem
+                                        chi tiết</a></p>
+
+                            @elseif(\Illuminate\Support\Facades\DB::table('user_motel')
+  ->where('user_id',\Illuminate\Support\Facades\Auth::id())->where('motel_id',$motel->motel_id)->where('status',1)->first())
+                                <a href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}"
+                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Lịch sử đăng
+                                    ký</a>
+                            @else
+                                <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
+                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
+                            @endif
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
@@ -760,55 +786,54 @@
                                                     <span class="featured">$ 6,500</span>
                                                     <span class="rent">For Rent</span>
                                                 </div>
-                                        </div>
-                                        <div class="listing-img-content">
+                                                <div class="listing-img-content">
                                                         <span class="listing-compact-title">House Luxury
                                                             <i>Toronto CA</i></span>
-                                            <ul class="listing-hidden-content">
-                                                <li>Area <span>720 sq ft</span></li>
-                                                <li>Rooms <span>6</span></li>
-                                                <li>Beds <span>2</span></li>
-                                                <li>Baths <span>3</span></li>
-                                            </ul>
+                                                    <ul class="listing-hidden-content">
+                                                        <li>Area <span>720 sq ft</span></li>
+                                                        <li>Rooms <span>6</span></li>
+                                                        <li>Beds <span>2</span></li>
+                                                        <li>Baths <span>3</span></li>
+                                                    </ul>
+                                                </div>
+                                                <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
+                                                     alt="">
+                                            </a>
                                         </div>
-                                        <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
-                                             alt="">
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Start: Specials offer -->
+                        {{--                        <div class="widget-boxed popular mt-5">--}}
+                        {{--                            <div class="widget-boxed-header">--}}
+                        {{--                                <h4>Phòng cùng khu vực</h4>--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="widget-boxed-body">--}}
+                        {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+                        <!-- End: Specials offer -->
+
+
                     </div>
-                    <!-- Start: Specials offer -->
-                    {{--                        <div class="widget-boxed popular mt-5">--}}
-                    {{--                            <div class="widget-boxed-header">--}}
-                    {{--                                <h4>Phòng cùng khu vực</h4>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="widget-boxed-body">--}}
-                    {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    <!-- End: Specials offer -->
-
-
+                    <div class="property-location map mt-3">
+                        <h5>Link google map</h5>
+                        <style>
+                            #map-contact iframe {
+                                height: 100%;
+                                width: 100%;
+                            }
+                        </style>
+                        <div class="divider-fade"></div>
+                        <div id="map-contact" class="contact-map">
+                            {!! $motel->area_link_gg_map !!}
+                        </div>
+                    </div>
+                    s
+                </aside>
             </div>
-            <div class="property-location map mt-3">
-                <h5>Link google map</h5>
-                <style>
-                    #map-contact iframe {
-                        height: 100%;
-                        width: 100%;
-                    }
-                </style>
-                <div class="divider-fade"></div>
-                <div id="map-contact" class="contact-map">
-                    {!! $motel->area_link_gg_map !!}
-                </div>
-            </div>
-            s
-            </aside>
-        </div>
         </div>
         <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->
