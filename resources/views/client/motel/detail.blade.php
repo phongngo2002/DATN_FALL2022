@@ -568,18 +568,7 @@
                                                 href="#">{{ $motel->user_email }}</a>
                                         </li>
                                     </ul>
-                                    {{--                                    <div class="agent-contact-form-sidebar">--}}
-                                    {{--                                        <p class="mt-2 text-danger">--}}
-                                    {{--                                            @if (Session::has('success'))--}}
-                                    {{--                                                {{ Session::get('success') }}--}}
-                                    {{--                                            @endif--}}
 
-                                    {{--                                            @if (Session::has('error'))--}}
-                                    {{--                                                {{ Session::get('error') }}--}}
-                                    {{--                                        </p>--}}
-                                    {{--                                        @endif--}}
-                                    {{--                                        --}}
-                                    {{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -638,17 +627,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Start: Specials offer -->
-                    {{--                        <div class="widget-boxed popular mt-5">--}}
-                    {{--                            <div class="widget-boxed-header">--}}
-                    {{--                                <h4>Phòng cùng khu vực</h4>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="widget-boxed-body">--}}
-                    {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    <!-- End: Specials offer -->
 
 
             </div>
