@@ -534,8 +534,7 @@
                             <div class="widget-boxed-header">
                                 <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đặt trước phòng</h4>
                             </div>
-                            <a href="payment-method.html"
-                               class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
+                            <a href="{{ route('client_deposit', ['id'=>$motel->motel_id]) }}" class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
