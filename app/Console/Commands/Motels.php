@@ -35,12 +35,11 @@ class Motels extends Command
     {
 
         $tasks = DB::table('users')
-            ->select(['name', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status', 'motels.price'])
+            ->select(['name', 'phone_number', 'email', "motels.room_number as room", 'motels.status', 'motels.price'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('user_motel.status', 1)
             ->get();
-
         foreach ($tasks as $task) {
             Mail::to($task->email)->send(new motel_money($task));
         }

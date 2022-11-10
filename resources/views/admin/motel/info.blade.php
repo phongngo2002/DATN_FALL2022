@@ -55,7 +55,7 @@
             margin-top: 54px;
         }
 
-        .select-box .options-container.active+.selected::after {
+        .select-box .options-container.active + .selected::after {
             transform: rotateX(180deg);
             top: -6px;
         }
@@ -110,7 +110,7 @@
             outline: none;
         }
 
-        .select-box .options-container.active~.search-box input {
+        .select-box .options-container.active ~ .search-box input {
             opacity: 1;
             pointer-events: auto;
         }
@@ -156,19 +156,19 @@
                 <button class="btn btn-primary" disabled>Đăng tin</button>
             @else
                 <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                    class="btn btn-primary my-2">Đăng tin</a>
+                   class="btn btn-primary my-2">Đăng tin</a>
             @endif
 
             <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+               class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+               class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
             @if (!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id', $params['motel_id'])->first()->start_time)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hóa đơn
                 </button>
             @endif
             <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-danger position-relative">Yều cầu rời phòng
+               class="btn btn-danger position-relative">Yều cầu rời phòng
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     99+
                     <span class="visually-hidden">unread messages</span>
@@ -177,30 +177,41 @@
         </div>
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
+            <div class="text-right my-2">
+                <p
+                    class="font-weight-bold">Số thành viên: <span
+                        class="{{count($info) > $info->max_people - 1 ? 'text-danger' : ''}}">{{count($info)}}/{{$info->max_people}}</span>
+                </p>
+            </div>
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    {{-- <th>Số thành viên</th> --}}
-                    <th>Ngày bắt đầu thuê</th>
-                </tr>
+            <tr>
+                <th>#</th>
+                <th>Họ tên</th>
+                <th>Số điện thoại</th>
+                {{-- <th>Số thành viên</th> --}}
+                <th>Ngày bắt đầu thuê</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach ($info as $a)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $a->name }}</td>
-                        <td>{{ $a->phone_number }}</td>
-                        {{-- <td>{{ $a->max_people }}</td> --}}
-                        <td>{{ $a->start_time }}</td>
-                    </tr>
-                @endforeach
+            @foreach ($info as $a)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $a->name }}</td>
+                    <td>{{ $a->phone_number }}</td>
+                    {{-- <td>{{ $a->max_people }}</td> --}}
+                    <td>{{ $a->start_time }}</td>
+                </tr>
+            @endforeach
             </tbody>
+
+
         </table>
+        @if(count($info) >= $info->max_people)
+            <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
+        @endif
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
 
 
@@ -225,22 +236,22 @@
                         <input type="text" class="form-control" disabled id="phone_number">
                     </div>
 
-                    @foreach ($info as $a)
-                        <div class="mt-3">
-                            @if ($a->max_people == $loop->iteration)
-                                <label for="" class="text text-danger">
-                                    số thành viên của phòng {{ $a->room }} đẵ đầy !
-                                </label>
-                            @endif
-                        </div>
-                    @endforeach
+                    {{--                    @foreach ($info as $a)--}}
+                    {{--                        <div class="mt-3">--}}
+                    {{--                            @if ($a->max_people == $loop->iteration)--}}
+                    {{--                                <label for="" class="text text-danger">--}}
+                    {{--                                    số thành viên của phòng {{ $a->room }} đẵ đầy !--}}
+                    {{--                                </label>--}}
+                    {{--                            @endif--}}
+                    {{--                        </div>--}}
+                    {{--                    @endforeach--}}
 
                     <div class="select-box my-4">
                         <div class="options-container">
 
                             @foreach ($user as $i)
                                 <div class="option">
-                                    <input type="radio" class="radio" value="{{ $i->id }}" />
+                                    <input type="radio" class="radio" value="{{ $i->id }}"/>
                                     <label for="tutorials">{{ $i->email }}</label>
                                 </div>
                             @endforeach
@@ -251,7 +262,7 @@
                         </div>
 
                         <div class="search-box">
-                            <input type="text" placeholder="Tìm kiếm..." />
+                            <input type="text" placeholder="Tìm kiếm..."/>
                         </div>
                     </div>
 
@@ -330,7 +341,7 @@
             });
         });
 
-        searchBox.addEventListener("keyup", function() {
+        searchBox.addEventListener("keyup", function () {
             filterList(e.target.value);
         });
 
