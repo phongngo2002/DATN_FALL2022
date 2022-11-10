@@ -95,6 +95,12 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('nap-tien')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\RechargeController@get_form_recharge')->name('backend_get_form_recharge');
         });
+        Route::prefix('rut-tien')->group(function () {
+            Route::get('/', 'App\Http\Controllers\WithdrawController@get_form_withdraw')->name('backend_get_form_withdraw');
+            Route::post('/', 'App\Http\Controllers\WithdrawController@withdraw');
+            Route::get('/lich-su-rut-tien', 'App\Http\Controllers\WithdrawController@list')->name('backend_get_history_withdraw');
+
+        });
         // Chỉ chủ trọ
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index_areas')->name('backend_get_list_area');

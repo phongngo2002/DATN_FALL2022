@@ -19,10 +19,16 @@
                 </li>
             @endif
             <li class="sidebar-item">
-                <a class="sidebar-link" data-index="deposit" data-href="{{ route('backend_get_list_deposit') }}"
+                <a class="sidebar-link" data-index="deposit1" data-href="{{ route('backend_get_list_deposit') }}"
                    href="#">
                     <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch sử đặt
                         cọc</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" data-index="deposit" data-href="{{ route('backend_get_history_withdraw') }}"
+                   href="#">
+                    <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch sử rút tiền</span>
                 </a>
             </li>
             @if(\Illuminate\Support\Facades\Auth::user()->is_admin)

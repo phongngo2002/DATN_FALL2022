@@ -24,9 +24,9 @@ class PayPalPaymentController extends Controller
         $gateway1 = Omnipay::create('PayPal_Express');
 
 
-        $gateway1->setUsername('sb-mu6jw21994813_api1.business.example.com');
-        $gateway1->setPassword('A7LMCN2WVW34GBBU');
-        $gateway1->setSignature('A8XXPo0CmklE67u1JvC3Vw9ivgguASbN-XATaT6BU6cQpTrNvt-7.Rsj');
+        $gateway1->setUsername('sb-vpcms21975520_api1.business.example.com');
+        $gateway1->setPassword('YSJASYLTR44CMXST');
+        $gateway1->setSignature('AIsNObN1SyNNjqJjWf1oEu4qD6WYAAFzyPYHt.2lRLj4X8fj6L4UgBhX');
         $gateway1->setTestMode(true);
 
         $this->gateway = $gateway1;
@@ -79,10 +79,11 @@ class PayPalPaymentController extends Controller
                 $payment->recharge_code = $request->input('PayerID') . '-' . Random::generate(5);
                 $payment->payment_type = 1;
                 $payment->status = 1;
+                $payment->fee = $arr['PAYMENTINFO_0_FEEAMT'];
                 $payment->note = 'Nap tien ' . $time->format('H:i d/m/Y');
                 $payment->save();
 
-                $money = 24.855 * $payment->value;
+                $money = 24.855 * ($payment->value - $arr['PAYMENTINFO_0_FEEAMT']);
 
                 $user = User::find(Auth::id());
 

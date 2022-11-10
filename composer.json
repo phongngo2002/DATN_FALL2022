@@ -12,7 +12,7 @@
         "anhskohbo/no-captcha": "^3.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
-        "guzzlehttp/guzzle": "^7.5",
+        "guzzlehttp/guzzle": "*",
         "jrm2k6/cloudder": "0.4.",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -21,6 +21,7 @@
         "league/omnipay": "^3.2",
         "maatwebsite/excel": "^3.1",
         "omnipay/paypal": "^3.0",
+        "paypal/rest-api-sdk-php": "*",
         "srmklive/paypal": "^1.0",
         "yajra/laravel-datatables-oracle": "^10.1"
     },

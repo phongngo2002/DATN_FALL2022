@@ -60,6 +60,7 @@ class User extends Authenticatable
     {
         $user = DB::table('users')
             ->where('email', $email)
+            ->orWhere('id',$email)
             ->first();
 
         if ($user) {

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,16 +12,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recharges', function (Blueprint $table) {
+        Schema::create('withdraws', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->dateTime('date');
-            $table->string('recharge_code');
-            $table->integer('payment_type');
+            $table->integer('user_id')->nullable();
+            $table->float('fee', 11, 2)->default(0);
+            $table->float('money', 11, 2)->default(0);
+            $table->string('address_balance');
             $table->integer('status')->default(1);
-            $table->string('note');
-            $table->float('fee',11,2)->default(0);
-            $table->float('value', 11, 3);
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recharges');
+        Schema::dropIfExists('withdraw');
     }
 };
