@@ -110,54 +110,111 @@
             </div>
             <div class="mx-4">
                 <h3 class="mb-4">Lựa chọn hình thức đặt cọc</h3>
-                <ul class="nav nav-tabs mx-2" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                    <button class="fw-bolder nav-link active " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Đặt cọc bằng xu</button>
-                    </li>
-                    <li class="fw-bolder nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Đặt cọc bằng tiền mặt</button>
-                    </li>
-                </ul>
-                <div class="tab-content mx-2" id="pills-tabContent">
-                    <div class="tab-pane fade show active col-6" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="d-flex flex-row justify-content-between mr-4">
-                            <li style="list-style:none ;">
-                                <p class="">Tài khoản gốc: <span class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
-                                <i class="fa-brands fa-bitcoin text-warning"></i></p>
+                @if ( Session::has('success') )
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <strong>{{ Session::get('success') }}</strong>
+                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Đóng</span>
+                    </button>
+                </div>
+            @endif
+            @if ( Session::has('error') )
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>{{ Session::get('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Đóng</span>
+                    </button>
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                </div>
+            @endif
+
+                
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="nav nav-tabs mx-2" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                            <button class="fw-bolder nav-link active " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Đặt cọc bằng xu</button>
                             </li>
-                            <button class="btn btn-primary">Nạp thêm tiền</button>
-                        </div>
-                        <form action="" method="POST">
-                            <div>
-                                <label for="">Số xu đặt cọc</label>
-                                <input type="number" name="value" class="form-control">
-                            </div>
-                            <div class="my-4">
-                                <button class="btn btn-success">Xác nhận đặt cọc</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="mr-4">
-                            <li style="list-style:none ;">
-                                <p>Họ tên chủ trọ: <span class="font-weight-bold"> {{$motel->user_name}} </span> </p>
-                                <p>Số tài khoản: <span class="font-weight-bold">01234567890</span></p>
+                            <li class="fw-bolder nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Đặt cọc bằng tiền mặt</button>
                             </li>
-                            <p >Cú pháp chuyển khoản: <span class="font-weight-bold">họ tên_mã nhà trọ_mã phòng trọ_datcoc</span></p>
-                            <p>Ví dụ: nguyenquyettien_3_4_datcoc</p>
-                            <p class="text-danger fs-6">Sau khi chuyển tiền, hãy click button bên dưới để thông báo với chủ trọ</p>
-                            <button class="btn btn-primary">Xác nhận đã chuyển tiền</button>
+                        </ul>
+                        <div class="tab-content mx-2" id="pills-tabContent">
+                            <div class="tab-pane fade show active col-6" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="d-flex flex-row justify-content-between mr-4">
+                                    <li style="list-style:none ;">
+                                        <p class="">Tài khoản gốc: <span id="user_money" class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
+                                        <i class="fa-brands fa-bitcoin text-warning"></i></p>
+                                    </li>
+                                    <button class="btn btn-primary">Nạp thêm tiền</button>
+                                </div>
+                                <form action="{{ route('client_post_deposit', ['id'=>$motel->motel_id]) }}" method="POST">@csrf
+                                    <div>
+                                        <label for="">Số xu cọc giữ phòng trong 3 ngày (tương đương 20%)</label>
+                                        <input type="number" name="value" class="form-control" id="money_deposit" value="{{number_format($motel->price*20/100/1000, 0, ',', '.')}}" readonly>
+                                        <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
+                                        <input type="hidden" name="area_id" value="{{$motel->area_id}}">
+                                        <p id="message" class="text-danger mt-1"></p>
+                                    </div>
+                                    <div class="my-4">
+                                        <button type="submit" id="button_submit" class="btn btn-success">Xác nhận đặt cọc</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade col-10" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <div class="mr-4 d-flex flex-row-reverse justify-content-between">
+                                    <div class="col-5">
+                                        <li class="px-3 pt-3" style="list-style:none; border: 2px solid #d3d6d8; border-radius: 5px; background-color: #e2e3e5; color:#41464b;">
+                                            <p>Họ tên chủ trọ: <span class="font-weight-bold"> {{$motel->user_name}} </span> </p>
+                                            <p>Số tài khoản: <span class="font-weight-bold">01234567890</span></p>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <p>Số tiền cọc giữ phòng trong 3 ngày: <span class="font-weight-bold">{{number_format($motel->price*20/100, 0, ',', '.')}} VND</span></p>
+                                        <p>Cú pháp chuyển khoản: <span class="font-weight-bold">họ tên_mã nhà trọ_mã phòng trọ_datcoc</span></p>
+                                        <p>Ví dụ: <span class="font-weight-bold">nguyenquyettien_3_4_datcoc</span></p>
+                                        <p class="text-danger fs-6">Sau khi chuyển tiền, hãy click button bên dưới để thông báo với chủ trọ</p>
+                                        <button class="btn btn-primary">Xác nhận đã chuyển tiền</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {{-- end cọc giữ phòng --}}
+                 
+
                 </div>
             </div>
-           
         </section>
        
     </div>
 </section>
+        <script>
+            var user_money = document.getElementById('user_money');
+            var money_deposit = document.getElementById('money_deposit');
+            console.log(user_money.innerText,money_deposit.value)
+            if (user_money.innerText < money_deposit.value) {
+                document.getElementById('button_submit').setAttribute('disabled','true');
+                document.getElementById('message').innerText = "Tài khoản của bạn không đủ, hãy nạp thêm";
+            }
+        </script>
     <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
 @endsection

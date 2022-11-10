@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('list-live-together', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
+    Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
 
 
     Route::prefix('admin')->group(function () {

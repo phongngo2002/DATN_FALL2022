@@ -36,4 +36,10 @@ class Deposit extends Model
 
         return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);;
     }
+    public function saveNew($params)
+    {
+        $data = array_merge($params);
+        $request = DB::table($this->table)->insertGetId($data);
+        return $request;
+    }
 }
