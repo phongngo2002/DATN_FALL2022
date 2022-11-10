@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Console\Commands\Motels;
 use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Mail\ConfirmOutMotel;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\App;
 
 class MotelController extends Controller
 {
@@ -83,7 +85,6 @@ class MotelController extends Controller
             ])->getSecurePath();;
 
             $imgs[] = $uploadedFileUrl;
-
         }
         $params['cols']['photo_gallery'] = $imgs;
         $model = new Motel();
@@ -114,6 +115,8 @@ class MotelController extends Controller
             'motel_id' => $idMotel,
             'area_id' => $id
         ];
+
+
         return view('admin.motel.info', $this->v);
     }
 
@@ -223,7 +226,6 @@ class MotelController extends Controller
 
             $user->save();
             return redirect()->back()->with('success', 'Thay đổi gói bài đăng thành công');
-
         } else {
             $id = $model->create([
                 'plan_id' => $request->post_plan_id,
@@ -251,14 +253,12 @@ class MotelController extends Controller
 
             return redirect()->back()->with('success', 'Đăng bài thành công');
         }
-
-
     }
 
     public function contact_motel(Request $request, $id, $idMotel)
     {
         $model = new Motel();
-
+        $this->v['info'] = $model->info_motel($idMotel);
         $this->v['list'] = $model->get_list_contact($idMotel, $id);
         $this->v['motel_id'] = $idMotel;
         $this->v['area_id'] = $id;
@@ -334,8 +334,7 @@ class MotelController extends Controller
         return redirect()->route('admin.motel.list', $request->area_id)->with('success', 'Cập nhật phòng trọ thành công');
     }
 
-    public
-    function history_motel($id, $idMotel)
+    public function history_motel($id, $idMotel)
     {
         $model = new UserMotel();
 
@@ -352,7 +351,7 @@ class MotelController extends Controller
             'end_time' => $request->end_time
         ]);
         $model = new PrintPdf();;
-        $pdf = \App::make('dompdf.wrapper');
+        $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
         return $pdf->stream();
     }
@@ -407,7 +406,6 @@ class MotelController extends Controller
                 Motel::where('id', $request->motel_id)->update(['end_time' => null, 'start_time' => null]);
 
                 PlanHistory::where('motel_id', $request->motel_id)->where('status', 1)->update(['status' => 5]);
-
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }

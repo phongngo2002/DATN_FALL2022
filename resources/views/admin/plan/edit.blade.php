@@ -14,97 +14,123 @@
             @csrf
             <div class="row shadow p-3 mb-5 bg-white rounded ">
                 <div class="col-12 col-lg-6">
-                    <div class="">
-                        {{-- input name plans  --}}
-                        <div class="header m-2 p-2">
-                            <h5 class="card-title mb-0">
-                                Tên gói dịch vụ
-                                @error('name')
-                                    <a class="  text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
-                                @enderror
-                            </h5>
 
-                        </div>
-                        <div class="body m-2 p-2">
-                            <input type="text" name="name" id="name" class="form-control"
-                                placeholder="nhập tên của gói dịch vụ" value="{{ $plan->name }}">
-                        </div>
-                        {{-- input name plans  --}}
-                        {{-- ////// --}}
-                        {{-- input priority lever plans  --}}
-                        <div class="header m-2 p-2">
-                            <h5 class="card-title mb-0">
-                                Mức độ ưu tiên
-                                @error('priority_level')
-                                    <a class="  text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
-                                @enderror
-                            </h5>
-                        </div>
-                        <div class="body m-2 p-2">
-                            <select name="priority_level" id="priority_level" class="form-select mb-1">
-                                <option value="0">Chọn mức ưu tiên cho gói dịch vụ</option>
-                                <option value="1" @if ($plan->priority_level == 1) {{ 'selected' }} @endif>
-                                    level 1
-                                </option>
-                                <option value="2" @if ($plan->priority_level == 2) {{ 'selected' }} @endif>
-                                    level 2
-                                </option>
-                                <option value="3" @if ($plan->priority_level == 3) {{ 'selected' }} @endif>
-                                    level 3
-                                </option>
-                            </select>
-                        </div>
-                        {{-- input priority lever plans  --}}
-                        {{-- ////// --}}
-                        {{-- input type plans  --}}
-                        <div class="header m-2 p-2">
-                            <h5 class="card-title mb-0">
-                                Loại của gói dịch vụ
-                                @error('type')
-                                    <a class=" text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
-                                @enderror
-
-                            </h5>
-                        </div>
-
-                        <div class="body m-2 p-2">
-                            <select name="type" id="type" class="form-select mb-1">
-                                <option value="0">Chọn loại dùng cho gói</option>
-                                <option value="1" @if ($plan->type == 1) {{ 'selected' }} @endif>
-                                    Tìm người thuê trọ
-                                </option>
-                                <option value="2" @if ($plan->type == 2) {{ 'selected' }} @endif>
-                                    Tìm người ở ghép
-                                </option>
-                            </select>
-                        </div>
-                        {{-- input type plans  --}}
-                        {{-- ////// --}}
-                        {{-- input price plans  --}}
-                        <div class="header m-2 p-2">
-                            <h5 class="card-title mb-0">
-                                Giá của gói dịch vụ
-                                @error('price')
-                                    <a class="text-danger small ms-2">
-                                        <i data-feather="alert-circle" class="mb-1"></i>
-                                        {{ $message }} </a>
-                                @enderror
-                            </h5>
-                        </div>
-                        <div class="body m-2 p-2">
-                            <input name="price" type="text" id="price" class="form-control"
-                                placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
-                        </div>
-                        {{-- input price plans  --}}
+                    {{-- input name plans  --}}
+                    <div class="header m-2 p-2">
+                        <h5 class="card-title mb-0">
+                            Tên gói dịch vụ
+                            @error('name')
+                                <a class="  text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
+                            @enderror
+                        </h5>
 
                     </div>
+                    <div class="body m-2 p-2">
+                        <input type="text" name="name" id="name" class="form-control"
+                            placeholder="nhập tên của gói dịch vụ" value="{{ $plan->name }}">
+                    </div>
+                    {{-- input name plans  --}}
+
+                    {{-- input priority lever plans  --}}
+                    <div class="header m-2 p-2">
+                        <h5 class="card-title mb-0">
+                            Mức độ ưu tiên
+                            @error('priority_level')
+                                <a class="  text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
+                            @enderror
+                        </h5>
+                    </div>
+                    <div class="body m-2 p-2">
+                        <select name="priority_level" id="priority_level" class="form-select mb-1">
+                            <option value="0">Chọn mức ưu tiên cho gói dịch vụ</option>
+                            <option value="1" @if ($plan->priority_level == 1) {{ 'selected' }} @endif>
+                                level 1
+                            </option>
+                            <option value="2" @if ($plan->priority_level == 2) {{ 'selected' }} @endif>
+                                level 2
+                            </option>
+                            <option value="3" @if ($plan->priority_level == 3) {{ 'selected' }} @endif>
+                                level 3
+                            </option>
+                        </select>
+                    </div>
+                    {{-- input priority lever plans  --}}
+
+                    {{-- input type plans  --}}
+                    <div class="header m-2 p-2">
+                        <h5 class="card-title mb-0">
+                            Loại của gói dịch vụ
+                            @error('type')
+                                <a class=" text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
+                            @enderror
+
+                        </h5>
+                    </div>
+
+                    <div class="body m-2 p-2">
+                        <select name="type" id="type" class="form-select mb-1">
+                            <option value="0">Chọn loại dùng cho gói</option>
+                            <option value="1" @if ($plan->type == 1) {{ 'selected' }} @endif>
+                                Tìm người thuê trọ
+                            </option>
+                            <option value="2" @if ($plan->type == 2) {{ 'selected' }} @endif>
+                                Tìm người ở ghép
+                            </option>
+                        </select>
+                    </div>
+                    {{-- input type plans  --}}
+                    {{-- ////// --}}
+                    {{-- input price plans  --}}
+                    <div class="header m-2 p-2">
+                        <h5 class="card-title mb-0">
+                            Giá của gói dịch vụ
+                            @error('price')
+                                <a class="text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
+                            @enderror
+                        </h5>
+                    </div>
+                    <div class="body m-2 p-2">
+                        <input name="price" type="text" id="price" class="form-control"
+                            placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
+                    </div>
+                    {{-- end input price plans  --}}
+
+                    {{-- select status plans --}}
+                    <div class="header m-2 p-2">
+                        <h5 class="card-title mb-0">
+                            Trạng thái gói dịch vụ
+                            @error('type')
+                                <a class=" text-danger small ms-2">
+                                    <i data-feather="alert-circle" class="mb-1"></i>
+                                    {{ $message }} </a>
+                            @enderror
+
+                        </h5>
+                    </div>
+                    <div class="body m-2 p-2">
+                        <select name="status" id="status" class="form-select mb-1">
+                            <option value="0">Trạng thái</option>
+                            <option value="1" @if ($plan->status == 1) {{ 'selected' }} @endif>
+                                Hoạt động
+                            </option>
+                            <option value="0" @if ($plan->status != 1) {{ 'selected' }} @endif>
+                                Tạm dừng
+                            </option>
+                        </select>
+                    </div>
+                    {{-- end select status plans --}}
                 </div>
+                {{-- end right form plans --}}
+
+                {{-- left form plans --}}
                 <div class="col-12 col-lg-6">
                     <div class="">
                         {{-- input time plans  --}}
@@ -142,11 +168,14 @@
                     </div>
 
                 </div>
+                {{-- end left form plans --}}
+
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Lưu</button>
         <a href="{{ route('backend_admin_get_list_plans') }}" class="btn btn-success">Quay lại</a>
     </form>
+
     @include('layouts.admin._js')
     <script>
         $("#plans_form").validate({

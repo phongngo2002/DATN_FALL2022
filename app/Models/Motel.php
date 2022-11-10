@@ -51,7 +51,6 @@ class Motel extends Model
 
         return $motels->orderBy('id', $params['order_by'])
             ->paginate($params['limit']);
-
     }
 
     public function createMotel($data)
@@ -181,13 +180,14 @@ class Motel extends Model
     public function info_motel($id)
     {
         return DB::table('users')
-            ->select(['name', 'phone_number', 'user_motel.start_time', 'motel_id', 'user_id', 'email', 'motels.status'])
+            ->select(['name', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
     }
+
 
     public function get_list_contact($motel_id, $area_id)
     {
@@ -236,7 +236,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('type', 2)
             ->where('plan_history.status', 1)
-            ->where('motels.end_time', '>',Carbon::now())
+            ->where('motels.end_time', '>', Carbon::now())
             ->orderBy('priority_level', 'asc')
             ->get();
     }
@@ -311,6 +311,5 @@ class Motel extends Model
             return $motel;
         }
         return null;
-
     }
 }

@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
             }
 
         })->daily();
+        $schedule->command('motel:cron')->withoutOverlapping()->everyMinute();
     }
 
     /**
