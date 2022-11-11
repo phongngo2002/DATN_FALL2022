@@ -3,8 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\BillsImport;
+use App\Imports\MotelsImport;
+use App\Mail\ForgotOtp;
+use App\Mail\SendBillToCustomer;
 use App\Models\Area;
+use App\Models\Bill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 use mysql_xdevapi\CollectionModify;
 use PhpParser\Node\Expr\New_;
 use Yajra\DataTables\Facades\DataTables;
@@ -128,5 +136,38 @@ class AreaController extends Controller
         $model->adminDeteletArea($id);
 
         return redirect()->route('backend_get_list_area');
+    }
+
+    public function send_bill(Request $request)
+    {
+        Excel::import(new BillsImport(), $request->file('file'));
+
+        $motels = DB::table('users')
+            ->select(['motel_id', 'email', 'room_number', 'price', 'wifi', 'electric_money', 'warter_money'])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->where('area_id', $request->area_id)
+            ->where('user_motel.status', 1)
+            ->get();
+        foreach ($motels as $motel) {
+            $bill = Bill::where('motel_id', $motel->motel_id)->where('status', 0)->first();
+            if ($bill) {
+                try {
+                    Mail::to($motel->email)->send(new SendBillToCustomer([
+                        'tien_phong' => $motel->price,
+                        'so_dien' => $bill->number_elec,
+                        'so_nuoc' => $bill->number_warter,
+                        'wifi' => $motel->wifi,
+                        'tieu_de' => $bill->title,
+                        'gia_dien' => $motel->electric_money,
+                        'gia_nuoc' => $motel->warter_money,
+                        'ma_phong' => $motel->room_number
+                    ]));
+                } catch (\Exception $e) {
+                    return redirect()->back();
+                }
+            }
+        }
+        dd(1);
     }
 }

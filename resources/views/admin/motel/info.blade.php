@@ -164,7 +164,7 @@
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
             @if (!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id', $params['motel_id'])->first()->start_time)
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hóa đơn
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hợp đồng
                 </button>
             @endif
             <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
@@ -236,15 +236,6 @@
                         <input type="text" class="form-control" disabled id="phone_number">
                     </div>
 
-                    {{--                    @foreach ($info as $a)--}}
-                    {{--                        <div class="mt-3">--}}
-                    {{--                            @if ($a->max_people == $loop->iteration)--}}
-                    {{--                                <label for="" class="text text-danger">--}}
-                    {{--                                    số thành viên của phòng {{ $a->room }} đẵ đầy !--}}
-                    {{--                                </label>--}}
-                    {{--                            @endif--}}
-                    {{--                        </div>--}}
-                    {{--                    @endforeach--}}
 
                     <div class="select-box my-4">
                         <div class="options-container">

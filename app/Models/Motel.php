@@ -28,6 +28,9 @@ class Motel extends Model
         "desc",
         "category_id",
         'created_at',
+        'electric_money',
+        'wifi',
+        'warter_money',
         "video",
     ];
 
@@ -75,6 +78,9 @@ class Motel extends Model
                 "max_people" => $data['max_people'],
                 "category_id" => 1,
                 "video" => $data['video'],
+                'electric_money' => $data['electric_money'],
+                'warter_money' => $data['warter_money'],
+                'wifi' => $data['wifi']
             ]
         );
 
@@ -115,6 +121,9 @@ class Motel extends Model
                 'users.phone_number as user_phone',
                 'users.email as user_email',
                 'start_time',
+                'electric_money',
+                'wifi',
+                'warter_money',
                 'video'
             ])
             ->join('motels', 'categories.id', '=', 'motels.category_id')

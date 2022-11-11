@@ -315,6 +315,9 @@ class MotelController extends Controller
                 'more' => $request->service_more,
                 'actor' => $request->actor
             ]),
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $imgs = [];

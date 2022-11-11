@@ -30,6 +30,9 @@ return new class extends Migration
             $table->integer('category_id')->default(1);
             $table->longText('video')->nullable();
             $table->longText('data_post')->nullable();
+            $table->float('electric_money',11,2)->default(0);
+            $table->float('warter_money',11,2)->default(0);
+            $table->float('wifi',11,2)->default(0);
             $table->timestamps();
         });
     }

@@ -54,6 +54,23 @@
                     </div>
                 </div>
                 <div class="mt-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Tiền điện (số)</label>
+                            <input type="text" value="{{$motel->electric_money}}" name="electric_money"
+                                   id="electric_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền nước</label>
+                            <input type="text" value="{{$motel->warter_money}}" name="warter_money" id="electric_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền mạng</label>
+                            <input type="text" value="{{$motel->wifi}}" name="wifi" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
                     <label for="">Dịch vụ phòng</label>
                     <div class="row">
                         <div class="col-4">

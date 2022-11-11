@@ -45,6 +45,22 @@
                     </div>
                 </div>
                 <div class="mt-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Tiền điện (số)</label>
+                            <input type="text" name="electric_money" id="electric_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền nước</label>
+                            <input type="text" name="electric_money" id="warter_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền mạng</label>
+                            <input type="text" name="wifi" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
                     <label for="">Dịch vụ phòng</label>
                     <div class="row">
                         <div class="col-4">

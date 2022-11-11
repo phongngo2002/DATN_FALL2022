@@ -18,6 +18,10 @@ use App\Http\Controllers\Auth\registerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/abc/test', function () {
+    return view('email.bill');
+});
+
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
 Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
@@ -109,6 +113,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@update_areas')->name('backend_get_edit_area');
             Route::post('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@saveUpdate_areas')->name('backend_get_post_edit_area');
             Route::get('/{id}/xoa', 'App\Http\Controllers\Admin\AreaController@delete_areas')->name('backend_delete_area');
+            Route::post('/xuat-hoa-don', 'App\Http\Controllers\Admin\AreaController@send_bill')->name('backend_send_bill');
+
         });
 
         // Quản lý phòng trọ

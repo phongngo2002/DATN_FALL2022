@@ -78,16 +78,46 @@
                     <td>{!! isset($params['name'])
                             ? str_replace($params['name'], '<span class="bg-warning">' . $params['name'] . '</span>', $area->name)
                             : $area->name !!}</td>
-                    <td><img  class="img-thumbnail" width="150px" src="{{$area->img ?? asset('assets/client/images/popular-places/5.jpg')}}" alt=""></td>
+                    <td><img class="img-thumbnail" width="150px"
+                             src="{{$area->img ?? asset('assets/client/images/popular-places/5.jpg')}}" alt=""></td>
                     <td>{{ $area->address }}</td>
                     <td>
                         <a href="{{ route('admin.motel.list', ['id' => $area->id]) }}" class="btn btn-info"><i
                                 class="fa-solid fa-circle-info"></i></a>
                         <a href="{{ route('backend_get_edit_area', ['id' => $area->id]) }}" class="btn btn-warning"><i
                                 class="fa-solid fa-pen-to-square"></i></a>
-                        {{--                            <a href="{{ route('backend_delete_area', ['id' => $area->id]) }}"--}}
-                        {{--                                onclick="return confirm('Bạn có chăc muốn xóa khu trọ này')" class="btn btn-danger"><i--}}
-                        {{--                                    class="fa-solid fa-trash"></i></a>--}}
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal{{$area->id}}"
+                                class="btn btn-danger"
+                                title="Gửi hóa đơn tiên phòng"><i class="fa-solid fa-paper-plane"></i></button>
+                        <div class="modal fade" id="exampleModal{{$area->id}}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <form action="{{route('backend_send_bill')}}" method="POST" enctype="multipart/form-data">
+                                <div class="modal-dialog">
+                                    @csrf
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Gửi hóa đơn tháng</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <input type="hidden" name="area_id" value="{{$area->id}}">
+                                        <div class="modal-body">
+                                            <div>
+                                                <label for="">File tiền dịch vụ</label>
+                                                <input type="file" class="form-control" name="file">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Hủy
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Gửi hóa đơn</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
@@ -96,4 +126,5 @@
         </table>
         {{ $areas->links() }}
     </div>
+
 @endsection
