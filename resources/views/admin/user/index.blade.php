@@ -75,7 +75,7 @@
                <div class="col-4 d-flex flex-row">
                    <button class="btn btn-primary">Tìm kiếm</button>
                    <a class="btn btn-danger mx-2" href="{{route('backend_user_getAll')}}">Bỏ chọn</a>
-                   <a class="btn btn-secondary" href="{{route('backend_user_getAll')}}"><i class="fa-solid fa-file-export"></i>  Xuất danh sách</i></a>
+                   <a class="btn btn-secondary" href="{{route('backend_user_getAll')}}" onclick="return confirm('Bạn có muốn xuất danh sách không')"><i class="fa-solid fa-file-export"></i>  Xuất danh sách</i></a>
                </div>
            </div>
        </form>
@@ -106,9 +106,9 @@
                        <img src="{{$user->avatar}}" alt="" width="50px">
                    </td>
                    <td class="">
-                       @if ($user->role_id === 1)
+                       @if ($user-> role_id === 2)
                            {{'Admin'}}
-                       @elseif($user->role_id === 2)
+                       @elseif($user->role_id === 1)
                            {{'Chủ trọ'}}
                        @else
                            {{'Thành viên'}}

@@ -48,7 +48,7 @@
                     <li><a href="{{route('client.get_profile')}}">Thông tin cá nhân</a></li>
                     <li><a href={{route('client.change_password')}}>Đổi mật khẩu</a></li>
                     <li><a href="{{route('getRecharge')}}">Nạp tiền</a></li>
-                    <li><a href="{{route('logout')}}">Đăng xuất</a></li>
+                    <li><a href="{{route('logout')}}" onclick="return confirm('Bạn có muốn đăng xuất không')">Đăng xuất</a></li>
                 </ul>
             </div>
             <!-- Right Side Content / End -->

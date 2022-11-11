@@ -29,18 +29,40 @@
                      @endif</td>
                  <td class="d-none d-md-table-cell" colspan="2">
                      <a class="btn btn-warning" href="{{route('edit_role',$item->id)}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                     <a class="btn btn-danger" onclick="myFunction()" href="{{route('del_role',$item->id)}}"><i class="fa-solid fa-trash"></i></a>
-                 </td>
+                     <a class="btn btn-danger"  href="{{route('del_role',$item->id)}}" onclick="return confirm('Bạn có chắc muốn xóa không')"><i class="fa-solid fa-trash"></i></a>                    </td>
              </tr>
          @endforeach
 
 
          </tbody>
      </table>
-     <script>
-         function myFunction() {
-             confirm("Bạn có chắc muốn xóa!");
-         }
-     </script>
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (\Illuminate\Support\Facades\Session::has('success'))
+    <script>
+        function modal() {
+            Swal.fire(
+                'Thêm thành công',
+                '',
+                'success'
+            )
+        }
+
+        modal();
+    </script>
+    @endif
+    @if (\Illuminate\Support\Facades\Session::has('faild'))
+    <script>
+        function modal() {
+            Swal.fire(
+                'Xóa thành công',
+                '',
+                'error'
+            )
+        }
+
+        modal();
+    </script>
+    @endif
  </div>
 @endsection

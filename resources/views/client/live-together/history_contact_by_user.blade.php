@@ -145,7 +145,7 @@
             </div>
         @endif
         <h4>Lịch sử đăng ký ở ghép của bạn</h4>
-        <div class="my-properties shadow-lg">
+        <div class="my-properties shadow-lg" style="min-height: 700px;">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
@@ -185,8 +185,8 @@
                                 <button class="btn btn-danger" disabled>Hùy</button>
                             @else
                                 <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 4,'contact_id' => $item->contact_id])}}"
-                                   onclick="return confirm('Bạn có chắc muốn hùy đăng ký ở ghép')"
-                                   class="btn btn-danger">Hùy</a>
+                                   onclick="return confirm('Bạn có chắc muốn hủy đăng ký ở ghép')"
+                                   class="btn btn-danger">Hủy</a>
                             @endif
 
                         </td>

@@ -10,7 +10,7 @@
         });
     </script>
     <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" method="POST"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data" id="content">
         <div class="row">
             <div class="bg-white p-4 shadow-lg rounded-4 col-6">
                 <div class="mt-4">
@@ -167,5 +167,99 @@
 
         }
     </script>
+    <script>
+    $("#content").validate({
+        rules: {
+            room_number: {
+                required: true,
+            },
+            price: {
+                required: true,
+            },
+            category_id: {
+                required: true
+            },
+            area: {
+                required: true,
+            },
+            "actor": {
+                required: true,
+            },
+            "max_people": {
+                required: true,
+            },
+            "toilet": {
+                required: true,
+            },
+            "bedroom": {
+                required: true,
+            },
+            "bed": {
+                required: true,
+            },
+            "desc": {
+                required: true,
+                minlength: 20,
+            },
+            "video": {
+                required: true,
+            },
+            "image360": {
+                required: true,
+            },
+            "drag-drop-area": {
+                required: true,
+            }
+        },
+        messages: {
+            "room_number": {
+                required: 'Vui lòng chọn mã phòng !',
+            },
+            "price": {
+                required: 'Vui lòng chọn giá !',
+            },
+            "category_id": {
+                required: "Vui lòng chọn loại phòng !"
+            },
+            "area": {
+                required: 'Vui lòng chọn diện tích !',
+            },
+            "actor": {
+                required: 'Vui lòng chọn đối tượng thuê nhà !',
+            },
+            "max_people": {
+                required: "Vui lòng chọn số người ở !"
+            },
+            video: {
+                required: "Vui lòng chọn video !"
+            },
+            "bedroom": {
+                required: "Vui lòng chọn số phòng ngủ !",
+            },
+            "toilet": {
+                required: "Vui lòng chọn số nhà vệ sinh !",
+            },
+            "bed": {
+                required: "Vui lòng chọn số giường !",
+            },
+            "desc": {
+                required: "Vui lòng chọn mô tả !",
+                minlength: "Mô tả phải trên 20 kí tự !"
+            },
+            "image360": {
+                required: "Vui lòng nhúng ảnh !"
+            },
+            "drag-drop-area": {
+                required: "Vui lòng chọn ảnh",
+            }
+        },
+        submitHandler: function(form) {
+
+            form.submit();
+
+        }
+
+    });
+</script>
 @endsection
 

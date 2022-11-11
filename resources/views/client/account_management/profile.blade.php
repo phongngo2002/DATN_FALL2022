@@ -102,7 +102,7 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" id="content">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-3">
@@ -156,7 +156,7 @@
                             </div>
                             <div class="row mt-5 ml-2" id="submit" style="display: none">
                                 <button class="btn btn-success mr-1">Lưu thay đổi</button>
-                                <button class="btn btn-warning" type="button" id="cancel">Hùy</button>
+                                <button class="btn btn-warning" type="button" id="cancel">Hủy</button>
                             </div>
                             <hr>
                         </form>
@@ -200,7 +200,59 @@
 
     </div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @include('layouts.admin._js')
 
+<script>
+    $(document).ready(function() {
+        $.validator.addMethod("HoTen", function(value) {
+            return /[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]/.test(value);
+        }, 'Họ và tên không đúng định dạng');
+        $.validator.addMethod("Phone", function(value) {
+            return /(84|0[3|5|7|8|9])+([0-9]{8})/.test(value);
+        }, 'Phone không đúng định dạng');
+
+    })
+    $("#content").validate({
+        rules: {
+            name: {
+                HoTen: true,
+                required: true,
+                minlength: 6
+            },
+            "phone_number": {
+                Phone: true,
+                required: true,
+                minlength: 10,
+                maxlength: 11,
+            },
+            "address": {
+                minlength: 6,
+                required: true,
+            },
+        },
+        messages: {
+            "name": {
+                minlength: 'Tên phải ít nhất 6 ký tự !',
+                required: 'Bắt buộc nhập tên tài khoản !',
+            },
+            "phone_number": {
+                required: "Bắt buộc nhập số điện thoại",
+                minlength: "tối thiểu 10 số !",
+                maxlength: 'Nhập quá giới hạn tối đa !',
+            },
+            "address": {
+                minlength: "tối thiểu nhập 6 ký tự !",
+                required: "Bắt buộc nhập địa chỉ !",
+            },
+        },
+        submitHandler: function(form) {
+
+            form.submit();
+
+        }
+
+    });
+</script>
     <script>
         document.getElementById('upload_img').addEventListener('change', (e) => {
             const file = e.target.files[0];

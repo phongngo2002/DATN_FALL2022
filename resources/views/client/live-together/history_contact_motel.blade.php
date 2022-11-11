@@ -167,11 +167,11 @@
                             @else
                                 @if($item->tt == 3 || $item->tt === 4)
                                     <button
-                                        class="btn btn-warning text-white" disabled>Hùy
+                                        class="btn btn-warning text-white" disabled>Hủy
                                     </button>
                                 @else
                                     <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 0,'contact_id' => $item->contact_id])}}"
-                                       class="btn btn-warning text-white">Hùy</a>
+                                       class="btn btn-warning text-white">Hủy</a>
                                 @endif
 
                             @endif

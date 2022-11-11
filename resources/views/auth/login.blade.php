@@ -53,7 +53,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input class="form-control form-control-lg" type="email" name="email"
+                                        <input class="form-control form-control-lg" type="text" id="email" name="email"
                                                id="email" placeholder="Email"/>
                                     </div>
                                     @error('email')
@@ -61,7 +61,7 @@
                                     @enderror
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
-                                        <input class="form-control form-control-lg" type="password" name="password"
+                                        <input class="form-control form-control-lg" type="password" id="password" name="password"
                                                id="password" placeholder="Mật khẩu"/>
                                     </div>
                                     <small>
@@ -126,12 +126,12 @@
             }
         },
         messages: {
-            "password": {
-                required: 'Mật khẩu bắt buộc nhập'
-            },
             "email": {
                 required: 'Email bắt buộc nhập',
                 email: 'Email không đúng định dạng'
+            },
+            "password": {
+                required: 'Mật khẩu bắt buộc nhập'
             },
 
         },
@@ -156,7 +156,6 @@
             type: 'POST',
             dataType: 'json',
             success: function (result) {
-
                 document.location = JSON.parse(JSON.stringify(result)).url;
 
 
@@ -178,13 +177,13 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endif
-@if (\Illuminate\Support\Facades\Session::has('failed'))
+@if (\Illuminate\Support\Facades\Session::has('login_success'))
     <script>
         function modal() {
             Swal.fire(
-                'Đăng nhập thất bại!',
-                'Thông tin đăng nhập không chính xác.',
-                'error'
+                'Đăng nhập thành công!',
+                '',
+                'success'
             )
         }
 

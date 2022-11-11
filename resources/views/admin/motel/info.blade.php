@@ -227,7 +227,7 @@
 
                             @foreach($user as $i)
                                 <div class="option">
-                                    <input type="radio" class="radio"
+                                    <input type="radio" class="radio" id="radio"
                                            value="{{$i->id}}"/>
                                     <label for="tutorials">{{$i->email}}</label>
                                 </div>
@@ -253,12 +253,11 @@
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST">
+        <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST" id="content">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -269,12 +268,12 @@
                         @csrf
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
-                            <input type="date" name="start_time"
+                            <input type="date" name="start_time" id="start_time"
                                    class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
-                            <input type="date" name="end_time"
+                            <input type="date" name="end_time" id="end_time"
                                    class="form-control">
                         </div>
 
@@ -339,5 +338,43 @@
         function handleChange(id) {
             console.log(id);
         }
+    </script>
+    <script>
+        // $("#member").validate({
+        //     rules:{
+        //         radio:{
+        //             required: true
+        //         }
+        //     },
+        //     messages: {
+        //         "radio": "Vui lòng chọn thành viên"
+        //     }
+        // })
+        $("#content").validate({
+            rules: {
+                start_time: {
+                    date: true,
+                    required: true,
+                },
+                end_time: {
+                    date: true,
+                    required: true,
+                },
+            },
+            messages: {
+                "start_time": {
+                    required: "Vui lòng chọn ngày bắt đầu",
+                },
+                "end_time": {
+                    required: "Vui lòng chọn ngày kết thúc",
+                },
+            },
+            submitHandler: function(form) {
+
+                form.submit();
+
+            }
+
+        });
     </script>
 @endsection

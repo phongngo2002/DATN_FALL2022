@@ -73,6 +73,7 @@
                 </div>
                 <div class="body m-2 p-2">
                     <select name="status" id="" class="form-control">
+                        <option value="">Chọn</option>
                         <option value="0" {{old('status')==0|| $key->status==0?'selected':false}}>Chưa kích hoạt
                         </option>
                         <option value="1" {{old('status')==1|| $key->status==1?'selected':false}}>Kích hoạt</option>

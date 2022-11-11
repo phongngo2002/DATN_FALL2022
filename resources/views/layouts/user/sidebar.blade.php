@@ -50,11 +50,6 @@
                         <i class="fa fa-lock"></i>Đổi mật khẩu
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('logout')}}">
-                        <i class="fas fa-sign-out-alt"></i>Đăng xuất
-                    </a>
-                </li>
             </ul>
         </div>
     </div>

@@ -78,38 +78,43 @@
 @include('layouts.admin._js')
 
 <script>
-    $("#content").validate({
-        rules: {
-            "password_confirmation": {
-                required: true,
-                equalTo: '#password'
+           $(document).ready(function() {
+            $.validator.addMethod("pass", function(value, element) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value);
+            }, 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số:');
+        })
+        $("#content").validate({
+            rules: {
+                "password": {
+                    required: true,
+                    pass: true,
+                },
+                "password_confirmation": {
+                    required: true,
+                    equalTo: "#password"
+                },
+
             },
-            "password": {
-                required: true
+            messages: {
+                "password": {
+                    required: 'Mật khẩu bắt buộc nhập !',
+                },
+                "password_confirmation": {
+                    required: 'Mật khẩu bắt buộc nhập !',
+                    equalTo: "Nhập đúng với password ! "
+                },
+            },
+            submitHandler: function(form) {
+
+                form.submit();
+
             }
-        },
-        messages: {
-            "password": {
-                required: 'Mật khẩu bắt buộc nhập',
 
-            },
-            "password_confirmation": {
-                required: 'Xác nhận mật khẩu bắt buộc nhập',
-                equalTo: 'Xác nhận mật khẩu khòng chính xác'
-            },
-
-        },
-        submitHandler: function (form) {
-
-            form.submit();
-
-        }
-
-    });
+        });
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{{--@if (\Illuminate\Support\Facades\Session::has('failed'))--}}
+<!-- {{--@if (\Illuminate\Support\Facades\Session::has('failed'))--}}
 {{--    <script>--}}
 {{--        function modal() {--}}
 {{--            Swal.fire(--}}
@@ -134,7 +139,7 @@
 
 {{--        modal();--}}
 {{--    </script>--}}
-{{--@endif--}}
+{{--@endif--}} -->
 </body>
 
 </html>

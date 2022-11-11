@@ -39,7 +39,7 @@
                     </td>
                     <td>
                         @if($item->status == 2)
-                            <a href="{{route('admin.motel.confirm_out_motel',['id' => $item->id,'email' => $item->email,'motel_id' => $id[1]])}}"
+                            <a href="{{route('admin.motel.confirm_out_motel',['id' => $item->id,'email' => $item->email,'motel_id' => $id[1]])}}" onclick="return confirm('Bạn có đồng ý không')"
                                class="btn btn-success">Đồng ý</a>
                         @endif
                     </td>

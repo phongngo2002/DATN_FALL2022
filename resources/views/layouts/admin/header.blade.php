@@ -154,8 +154,8 @@
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                     <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}"
                          class="avatar img-fluid rounded me-1"
-                         alt="Charles Hall"/> <span
-                        class="text-dark">{{\Illuminate\Support\Facades\Auth::user()->name ?? 'Tài khoản ảo'}}</span>
+                         alt=""/><span
+                        class="text-dark">Chào,{{\Illuminate\Support\Facades\Auth::user()->name ?? 'Tài khoản ảo'}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
 
@@ -172,7 +172,7 @@
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
                         Center</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{route('logout')}}">Đăng xuất</a>
+                    <a class="dropdown-item" href="{{route('logout')}}" onclick="return confirm('Bạn có muốn đăng xuất không')">Đăng xuất</a>
                 </div>
             </li>
         </ul>

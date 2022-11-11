@@ -145,7 +145,7 @@
             </div>
         @endif
         <h4>Phòng trọ của tôi</h4>
-        <div class="my-properties shadow-lg">
+        <div class="my-properties shadow-lg" style="min-height: 700px;">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
@@ -180,13 +180,13 @@
                         <td>
                             @if ($motel->tt == 1)
                                 <a class="btn btn-success text-white"
-                                   href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng
+                                   href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}" onclick="return confirm('Bạn có muốn đăng tin không')">Đăng
                                     tin ở ghép</a>
                                 <a class="btn btn-warning text-white"
-                                   href="{{ route('client.get_history_contact_motel', ['motel_id'=>$motel->motel_id,'area_id' => $motel->area_id]) }}">Đăng
+                                   href="{{ route('client.get_history_contact_motel', ['motel_id'=>$motel->motel_id,'area_id' => $motel->area_id]) }}" onclick="return confirm('Bạn có muốn đăng ký ở ghép không')">Đăng
                                     ký ở ghép</a>
                                 <a class="btn btn-danger text-white"
-                                   href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}">Rời phòng</a>
+                                   href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}" onclick="return confirm('Bạn có muốn rời phòng không')">Rời phòng</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
                                 <a href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id,'status' => 1]) }}"

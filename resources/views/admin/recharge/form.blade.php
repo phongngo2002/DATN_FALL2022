@@ -116,6 +116,7 @@
 
         }
     </style>
+@include('layouts.admin._css')
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
         @if ( Session::has('recharge_success') )
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -149,7 +150,7 @@
                 </button>
             </div>
         @endif
-        <form action="{{route('make.payment')}}">
+        <form action="{{route('make.payment')}}" id="content">
 
 
             <div class="row g-3">
@@ -171,7 +172,7 @@
                                             <div class="d-flex align-items-center justify-content-between">
 
                                                 <span>Paypal</span>
-                                                <img src="https://i.imgur.com/7kQEsHU.png" width="30">
+                                                <img src="https://cdn.tgdd.vn/Files/2019/07/16/1179841/636629240000820088-760x367.jpg" width="100">
 
                                             </div>
                                         </button>
@@ -179,7 +180,7 @@
                                 </div>
                                 <div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control my-4" name="amount"
+                                        <input type="number" class="form-control my-4" name="amount" id="amount"
                                                placeholder="Số tiền nạp">
                                     </div>
                                 </div>
@@ -235,5 +236,25 @@
 
 
             })
+        </script>
+        <script>
+              $("#content").validate({
+            rules: {
+                amount: {
+                    required: true,
+                },
+            },
+            messages: {
+                "amount": {
+                    required: 'Nhập số tiền cần nạp !',
+                },
+            },
+            submitHandler: function(form) {
+
+                form.submit();
+
+            }
+
+        });
         </script>
 @endsection

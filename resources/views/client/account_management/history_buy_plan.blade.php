@@ -145,7 +145,7 @@
             </div>
         @endif
         <h4>Lịch sử mua gói dịch vụ</h4>
-        <div class="my-properties shadow-lg">
+        <div class="my-properties shadow-lg" style="min-height: 700px;">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
