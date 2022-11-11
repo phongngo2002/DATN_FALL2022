@@ -614,7 +614,7 @@
                     <div class="main-search-field-2">
                         <div class="widget-boxed mt-5">
                             <div class="widget-boxed-header">
-                                <h4>Các phòng trong khu vực</h4>
+                                <h4>Tìm ở ghép trong khu vực</h4>
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
@@ -639,8 +639,8 @@
                         </div>
 
                         <div class="widget-boxed mt-5">
-                            <div class="widget-boxed-header mb-5">
-                                <h4>Phòng Nổi bật</h4>
+                            <div class="widget-boxed-header">
+                                <h4>Bài đăng nổi bật</h4>
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
@@ -655,7 +655,8 @@
                                                 <a href="blog-details.html">
                                                     <h6>{{$item->room_number}}</h6>
                                                 </a>
-                                                <p>{{$item->price}}</p>
+                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                    vnđ</p>
                                             </div>
                                         </div>
                                     @endforeach

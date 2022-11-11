@@ -55,7 +55,7 @@
             margin-top: 54px;
         }
 
-        .select-box .options-container.active + .selected::after {
+        .select-box .options-container.active+.selected::after {
             transform: rotateX(180deg);
             top: -6px;
         }
@@ -110,12 +110,12 @@
             outline: none;
         }
 
-        .select-box .options-container.active ~ .search-box input {
+        .select-box .options-container.active~.search-box input {
             opacity: 1;
             pointer-events: auto;
         }
     </style>
-    @if ( Session::has('success') )
+    @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             <strong>{{ Session::get('success') }}</strong>
             <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
@@ -124,8 +124,9 @@
             </button>
         </div>
     @endif
-    <?php //Hiển thị thông báo lỗi?>
-    @if ( Session::has('error') )
+    <?php //Hiển thị thông báo lỗi
+    ?>
+    @if (Session::has('error'))
         <div class="alert alert-danger alert-dismissible" role="alert">
             <strong>{{ Session::get('error') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -151,49 +152,58 @@
         <div class="mb-4">
             <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
             </button>
-            <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-primary my-2">Đăng tin</a>
-            <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
-            <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-            @if(!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id',$params['motel_id'])->first()->start_time)
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
-                        class="btn btn-dark my-2">Xuất hóa đơn
+            <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                class="btn btn-primary my-2">Đăng tin</a>
+            <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+            <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+            @if (!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id', $params['motel_id'])->first()->start_time)
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hóa đơn
                 </button>
             @endif
-            <a href="{{route('admin.motel.list_out_motel',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
-               class="btn btn-danger position-relative">Yều cầu rời phòng
+            <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                class="btn btn-danger position-relative">Yêu cầu rời phòng
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-    <span class="visually-hidden">unread messages</span>
-  </span>
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
             </a>
         </div>
-        <input type="hidden" value="{{$data}}" id="data">
-        <table class="table text-center">
+        <input type="hidden" value="{{ $data }}" id="data">
+        
+        @foreach ($info as $a)
+            @if ($a->end_time < now() && $a->end_time = now())
+                <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> {{$a->name}} đã hết thời hạn ở. Bạn muốn <a href="{{route('admin.delete_user_motel',['id' => $a->idUserMotel,'email' => $a->email,'motel_id' => $a->motel_id])}}" class="text-danger"><u>XÓA</u></a> hay <a href="#" class="text-danger"><u>GIA HẠN THÊM?</u></a></span>
+            @endif
+        @endforeach
+
+        {{-- @if (count($info) >= $info->max_people)
+            <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
+        @endif --}}
+        <table class="table text-center mt-3">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Họ tên</th>
-                <th>Số điện thoại</th>
-                <th>Ngày bắt đầu thuê</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Họ tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày bắt đầu thuê</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($info as $a)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$a->name}}</td>
-                    <td>{{$a->phone_number}}</td>
-                    <td>{{$a->start_time}}</td>
-                </tr>
-            @endforeach
+                @foreach ($info as $a)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $a->name }}</td>
+                        <td>{{ $a->phone_number }}</td>
+                        <td>{{ $a->start_time }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
 
 
@@ -220,11 +230,10 @@
                     <div class="select-box my-4">
                         <div class="options-container">
 
-                            @foreach($user as $i)
+                            @foreach ($user as $i)
                                 <div class="option">
-                                    <input type="radio" class="radio"
-                                           value="{{$i->id}}"/>
-                                    <label for="tutorials">{{$i->email}}</label>
+                                    <input type="radio" class="radio" value="{{ $i->id }}" />
+                                    <label for="tutorials">{{ $i->email }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -234,7 +243,7 @@
                         </div>
 
                         <div class="search-box">
-                            <input type="text" placeholder="Tìm kiếm..."/>
+                            <input type="text" placeholder="Tìm kiếm..." />
                         </div>
                     </div>
 
@@ -242,7 +251,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     <form
-                        action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
+                        action="{{ route('admin.motel.add_people', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                         method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
@@ -253,7 +262,7 @@
         </div>
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST">
+        <form action="{{ route('admin.print.motel', ['motelId' => $params['motel_id']]) }}" method="POST">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -264,13 +273,11 @@
                         @csrf
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
-                            <input type="date" name="start_time"
-                                   class="form-control">
+                            <input type="date" name="start_time" class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
-                            <input type="date" name="end_time"
-                                   class="form-control">
+                            <input type="date" name="end_time" class="form-control">
                         </div>
 
                     </div>
@@ -315,7 +322,7 @@
             });
         });
 
-        searchBox.addEventListener("keyup", function () {
+        searchBox.addEventListener("keyup", function() {
             filterList(e.target.value);
         });
 
