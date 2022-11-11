@@ -303,6 +303,9 @@ class MotelController extends Controller
             'video' => $request->video,
             'image_360' => $request->image_360,
             'max_people' => $request->max_people,
+            'money_deposit' => $request->money_deposit,
+            'day_deposit' => $request->day_deposit,
+            'transfer_infor' => $request->transfer_infor,
             'services' => json_encode([
                 'bed' => $request->bed,
                 'bedroom' => $request->bedroom,

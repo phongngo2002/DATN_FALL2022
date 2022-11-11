@@ -8,6 +8,10 @@
         tinymce.init({
             selector: 'textarea#desc',
         });
+        tinymce.init({
+            selector: 'textarea#transfer_infor',
+            height: 250
+        });
     </script>
     <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" method="POST"
           enctype="multipart/form-data">
@@ -112,6 +116,24 @@
                         <p class="mt-2 ms-2 text-danger">Nếu bạn chưa biết cách sửa dụng ảnh 360.click vào <a
                                 href="http://help.web60.vn/bai-viet/huong-dan-nhung-anh-360-do-len-website"
                                 target="_blank">đây</a></p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow-lg rounded-4">
+                    <div class="row">
+                        <div class="col-7">
+                            <label>Số tiền đặt cọc giữ phòng</label>
+                            <input type="text" name="money_deposit" value="{{$motel->money_deposit}}" class="form-control">
+                        </div>
+                        <div class="col-5">
+                            <label>Số ngày giữ phòng tối đa</label>
+                            <input type="text" name="day_deposit" value="{{$motel->day_deposit}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Thông tin chuyển khoản</label>
+                        <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                           {{$motel->transfer_infor}}
+                        </textarea>
                     </div>
                 </div>
                 <div class="bg-white p-4 shadow-lg rounded-4">

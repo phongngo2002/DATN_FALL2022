@@ -8,6 +8,10 @@
         tinymce.init({
             selector: 'textarea#desc',
         });
+        tinymce.init({
+            selector: 'textarea#transfer_infor',
+            height: 250
+        });
     </script>
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="row">
@@ -97,6 +101,25 @@
                     </div>
                 </div>
                 <div class="bg-white p-4 shadow-lg rounded-4">
+                    <div class="row">
+                        <div class="col-7">
+                            <label>Số tiền đặt cọc giữ phòng</label>
+                            <input type="text" name="money_deposit" class="form-control">
+                        </div>
+                        <div class="col-5">
+                            <label>Số ngày giữ phòng tối đa</label>
+                            <input type="text" name="day_deposit" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Thông tin chuyển khoản</label>
+                        <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                            <p>Số tài khoản: <span style="font-weight: bold;">00000000 - Techcombank</span></p>
+                            <p>Cú pháp chuyển khoản: <span style="font-weight: bold;">email_mã nhà trọ_mã phòng trọ_datcoc</span></p>
+                        </textarea>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow-lg rounded-4">
                     <label for="photo" class="">Ảnh phòng trọ</label>
                     <input type="hidden" name="img">
                     <input type="file" multiple class="form-control" name="photo_gallery" id="photo_gallery">
@@ -149,5 +172,9 @@
 
         }
     </script>
+      <!-- CSS only -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+      <!-- JavaScript Bundle with Popper -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 @endsection
 

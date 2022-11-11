@@ -75,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');
 
+    Route::get('/quan-ly-tai-khoan/lich-su-dat-coc', 'App\Http\Controllers\Client\DepositController@historyDeposit')->name('get_history_deposit');
+
     Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
     Route::get('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
     Route::post('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");

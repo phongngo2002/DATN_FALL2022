@@ -26,6 +26,9 @@ class Motel extends Model
         "end_time",
         "desc",
         "category_id",
+        "day_deposit",
+        "money_deposit",
+        "transfer_infor",
         'created_at',
         "video",
     ];
@@ -75,6 +78,9 @@ class Motel extends Model
                 "max_people" => $data['max_people'],
                 "category_id" => 1,
                 "video" => $data['video'],
+                "day_deposit" => $data['day_deposit'],
+                "money_deposit" => $data['money_deposit'],
+                "transfer_infor" => $data['transfer_infor'],
             ]
         );
 
@@ -115,7 +121,10 @@ class Motel extends Model
                 'users.phone_number as user_phone',
                 'users.email as user_email',
                 'start_time',
-                'video'
+                'video',
+                'day_deposit',
+                'money_deposit',
+                'transfer_infor',
             ])
             ->join('motels', 'categories.id', '=', 'motels.category_id')
             ->join('areas', 'areas.id', '=', "motels.area_id")

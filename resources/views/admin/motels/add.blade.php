@@ -111,6 +111,18 @@
                     </div>
                 </div>
                 <div class="bg-white p-4 shadow-lg rounded-4">
+                    <div class="row">
+                        <div class="col-7">
+                            <label>Số tiền đặt cọc</label>
+                            <input type="text" placeholder="Ngô Văn Phong" class="form-control" disabled>
+                        </div>
+                        <div class="col-5">
+                            <label>Số ngày đặt cọc tối đa</label>
+                            <input type="text" placeholder="0325500080" class="form-control" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow-lg rounded-4">
                     <label for="photo" class="">Ảnh phòng trọ</label>
                     <div id="drag-drop-area"></div>
                 </div>

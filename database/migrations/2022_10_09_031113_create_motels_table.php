@@ -27,8 +27,11 @@ return new class extends Migration {
             $table->date('end_time')->nullable();
             $table->longText('services')->default('');
             $table->integer('category_id')->default(1);
-            $table->longText('video')->default('');
+            $table->longText('video')->nullable();
             $table->longText('data_post')->nullable();
+            $table->integer('money_deposit')->nullable();
+            $table->integer('day_deposit')->nullable();
+            $table->longText('transfer_infor')->nullable();
             $table->timestamps();
         });
     }

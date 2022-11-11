@@ -52,6 +52,8 @@
             <th>#</th>
             <th>Người đặt cọc</th>
             <th>Tiền cọc</th>
+            <th>Hình thức</th>
+            <th>Số ngày</th>
             <th>Mã phòng</th>
             <th>Khu trọ</th>
             <th>Thời gian</th>
@@ -64,6 +66,8 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) : $deposit->userName!!}</td>
                 <td>{{$deposit->value}}</td>
+                <td>{{$deposit->type == 1 ? "Chuyển xu" : "Chuyển khoản"}}</td>
+                <td>{{$deposit->day}}</td>
                 <td>{{$deposit->room_number}}</td>
                 <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>
                 <td>
@@ -71,11 +75,9 @@
                 </td>
                 <td>
                     @if($deposit->deStatus == 0)
-                        <span class="badge text-bg-secondary p-2">Chờ ký hợp đồng</span>
-                    @elseif($deposit->deStatus == 1)
-                        <span class="badge text-bg-primary p-2">Đã ký hợp đồng</span>
+                        <span class="badge text-bg-warning p-2">Chờ xác nhận</span>
                     @else
-                        <span class="badge text-bg-success p-2">Đã chuyển tiền</span>
+                        <span class="badge text-bg-success p-2">Hoàn thành</span>
                     @endif
                 </td>
             </tr>

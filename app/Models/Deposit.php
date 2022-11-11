@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class Deposit extends Model
         $query = DB::table('users')->select([
             'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
             'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
-            'deposits.status as deStatus'
+            'deposits.status as deStatus','type','day'
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
@@ -39,7 +40,21 @@ class Deposit extends Model
     public function saveNew($params)
     {
         $data = array_merge($params);
+        $data['created_at'] = Carbon::now();
         $request = DB::table($this->table)->insertGetId($data);
         return $request;
+    }
+    public function get_list_client_deposit(){
+        $query = DB::table('users')->select([
+            'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
+            'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
+            'deposits.status as deStatus','type','day'
+        ])
+            ->join($this->table, 'users.id', '=', 'deposits.user_id')
+            ->join('motels', 'deposits.motel_id', '=', 'motels.id')
+            ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->where('deposits.user_id','=', Auth::user()->id)->get();
+        // dd($query);
+        return $query;
     }
 }
