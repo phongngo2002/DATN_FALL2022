@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class Area extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'areas';
 

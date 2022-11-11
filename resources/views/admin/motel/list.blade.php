@@ -38,7 +38,6 @@
                         <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : '' }}>
                             10
                         </option>
-
                         <option value="25" {{ isset($params['limit']) && $params['limit'] == '25' ? 'selected' : '' }}>
                             25
                         </option>

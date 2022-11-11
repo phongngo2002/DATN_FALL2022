@@ -50,6 +50,7 @@ class MotelController extends Controller
 
     public function index_motels($id, Request $request)
     {
+        // dd($request->all());
         $motel = new Motel();
         $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
         $this->v['id'] = $id;
@@ -308,6 +309,9 @@ class MotelController extends Controller
             'video' => $request->video,
             'image_360' => $request->image_360,
             'max_people' => $request->max_people,
+            'money_deposit' => $request->money_deposit,
+            'day_deposit' => $request->day_deposit,
+            'transfer_infor' => $request->transfer_infor,
             'services' => json_encode([
                 'bed' => $request->bed,
                 'bedroom' => $request->bedroom,

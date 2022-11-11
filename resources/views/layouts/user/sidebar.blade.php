@@ -46,6 +46,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('get_history_deposit')}}">
+                        <i class="fas fa-paste"></i>Lịch sử Đặt cọc
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('client.change_password')}}">
                         <i class="fa fa-lock"></i>Đổi mật khẩu
                     </a>

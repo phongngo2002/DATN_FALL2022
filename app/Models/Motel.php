@@ -27,6 +27,9 @@ class Motel extends Model
         "end_time",
         "desc",
         "category_id",
+        "day_deposit",
+        "money_deposit",
+        "transfer_infor",
         'created_at',
         'electric_money',
         'wifi',
@@ -80,7 +83,10 @@ class Motel extends Model
                 "video" => $data['video'],
                 'electric_money' => $data['electric_money'],
                 'warter_money' => $data['warter_money'],
-                'wifi' => $data['wifi']
+                'wifi' => $data['wifi'],
+                "day_deposit" => $data['day_deposit'],
+                "money_deposit" => $data['money_deposit'],
+                "transfer_infor" => $data['transfer_infor'],
             ]
         );
 
@@ -124,7 +130,10 @@ class Motel extends Model
                 'electric_money',
                 'wifi',
                 'warter_money',
-                'video'
+                'video',
+                'day_deposit',
+                'money_deposit',
+                'transfer_infor',
             ])
             ->join('motels', 'categories.id', '=', 'motels.category_id')
             ->join('areas', 'areas.id', '=', "motels.area_id")
@@ -226,7 +235,7 @@ class Motel extends Model
 
     public function client_get_List_Motel_top()
     {
-
+        // dd($params);
         return DB::table('areas')
             ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
@@ -238,7 +247,7 @@ class Motel extends Model
             ->paginate(10);
     }
 
-    public function client_get_List_Motel_contact()
+    public function client_get_List_Motel_contact($params = [])
     {
 
         return DB::table('areas')
