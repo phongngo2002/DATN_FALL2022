@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Mail\ConfirmOutMotel;
 use App\Mail\ForgotOtp;
+use App\Mail\NotificeDelMotel;
 use App\Models\Area;
 use App\Models\Category;
 use App\Models\Deposit;
@@ -424,7 +425,7 @@ class MotelController extends Controller
                 dd($e->getMessage());
             }
         }
-        Mail::to($request->email)->send(new ConfirmOutMotel());
+        Mail::to($request->email)->send(new NotificeDelMotel());
         return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }
