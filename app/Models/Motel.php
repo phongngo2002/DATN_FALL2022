@@ -243,6 +243,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('plan_history.status', 1)
             ->where('type', 1)
+            ->where('motels.status', 1)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
     }

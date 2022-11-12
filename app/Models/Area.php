@@ -74,6 +74,7 @@ class Area extends Model
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->where('plan_history.status', 1)
+            ->where('motels.status', 1)
             ->limit(8)
             ->orderByDesc('quantity')
             ->groupBy('areas.name', 'areas.address', 'areas.id', 'image')
