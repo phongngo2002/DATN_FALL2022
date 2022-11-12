@@ -534,7 +534,42 @@
                             <div class="widget-boxed-header">
                                 <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đặt trước phòng</h4>
                             </div>
-                            <a href="{{ route('client_deposit', ['id'=>$motel->motel_id]) }}" class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
+                            @if ( Session::has('success') )
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{ Session::get('success') }}</strong>
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Đóng</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if ( Session::has('error') )
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ Session::get('error') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Đóng</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if ($deposit_exist !== null)
+                                <a href="{{route('get_history_deposit')}}" class="btn reservation btn-radius theme-btn full-width mrg-top-10">Xem lịch sử đặt cọc</a>
+                            @else
+                                <a href="{{ route('client_deposit', ['id'=>$motel->motel_id]) }}" class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đặt cọc ngay</a>
+                            @endif
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
@@ -809,6 +844,10 @@
             </aside>
         </div>
         </div>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->
     </section>
