@@ -17,28 +17,33 @@ use Illuminate\Support\Facades\Mail;
 class DepositController extends Controller
 {
     private $v;
+
     public function __construct()
     {
         $this->v = [];
     }
-    public function deposit($id){
+
+    public function deposit($id)
+    {
         $motel = new Motel();
         if ($motel->detailMotel($id)) {
             $this->v['motel'] = $motel->detailMotel($id);
             // dd($this->v['motel']);
-            return view('client.deposit.deposit',$this->v);
+            return view('client.deposit.deposit', $this->v);
         }
     }
-    public function post_deposit(Request $request){
-        $params = array_map(function($item){
-            if($item == ""){
+
+    public function post_deposit(Request $request)
+    {
+        $params = array_map(function ($item) {
+            if ($item == "") {
                 $item = null;
             }
-            if(is_string($item)){
+            if (is_string($item)) {
                 $item = trim($item);
             }
             return $item;
-        },$request->all());
+        }, $request->all());
         unset($params['_token']);
         $params['user_id'] = Auth::user()->id;
         $area = Area::find($params['area_id']);
@@ -46,18 +51,20 @@ class DepositController extends Controller
         unset($params['area_id']);
         $depositModel = new Deposit();
         $dataPost = $depositModel->saveNew($params);
-
-        $a = DB::table('motels')->select('room_number')->where('id',1)->first(); 
+        $a = Motel::find($request->motel_id);
+        $a->status = 3;
+        $a->save();
+//        $a = DB::table('motels')->select('room_number')->where('id', $request->motel_id)->first();
         $room_number = $a->room_number;
         $dataMail = [
             'user_email' => Auth::user()->email,
             'area_name' => $area->name,
             'room_number' => $room_number,
             'type' => $params['type'],
-            'value'=> $params['value'],
+            'value' => $params['value'],
         ];
 
-        if(gettype($dataPost) == 'integer'){
+        if (gettype($dataPost) == 'integer') {
             if ($params['type'] == 1) {
                 DB::beginTransaction();
                 try {
@@ -71,18 +78,20 @@ class DepositController extends Controller
                     return redirect()->back()->with('error', 'Đặt cọc thất bại, thử lại sau');
                 }
                 Mail::to($bossMotel->email)->send(new MailDeposit($dataMail));
-                return redirect()->route('client.motel.detail',['id'=>$params['motel_id']])->with('success', 'Đặt cọc thành công, thông tin của bạn đã được lưu vào hệ thống');
-            }else{
+                return redirect()->route('client.motel.detail', ['id' => $params['motel_id']])->with('success', 'Đặt cọc thành công, thông tin của bạn đã được lưu vào hệ thống');
+            } else {
                 Mail::to($bossMotel->email)->send(new MailDeposit($dataMail));
-                return redirect()->route('client.motel.detail',['id'=>$params['motel_id']])->with('success', 'Thông tin đặt cọc của bạn đã được lưu vào hệ thống và được thông báo đến chủ trọ');
+                return redirect()->route('client.motel.detail', ['id' => $params['motel_id']])->with('success', 'Thông tin đặt cọc của bạn đã được lưu vào hệ thống và được thông báo đến chủ trọ');
             }
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Đặt cọc thất bại, thử lại sau');
         }
     }
-    public function historyDeposit(){
+
+    public function historyDeposit()
+    {
         $model = new Deposit();
         $this->v['deposits'] = $model->get_list_client_deposit();
-        return view('client.account_management.history_deposit',$this->v);
+        return view('client.account_management.history_deposit', $this->v);
     }
 }

@@ -84,7 +84,6 @@
             <th>Người đặt cọc</th>
             <th>Tiền cọc</th>
             <th>Hình thức</th>
-            <th>Số ngày</th>
             <th>Mã phòng</th>
             <th>Khu trọ</th>
             <th>Thời gian</th>
@@ -98,7 +97,6 @@
                 <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) : $deposit->userName!!}</td>
                 <td>{{$deposit->value}}</td>
                 <td>{{$deposit->type == 1 ? "Chuyển xu" : "Chuyển khoản"}}</td>
-                <td>{{$deposit->day_deposit}}</td>
                 <td>{{$deposit->room_number}}</td>
                 <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>
                 <td>

@@ -21,7 +21,7 @@ class Deposit extends Model
         $query = DB::table('users')->select([
             'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
             'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
-            'deposits.status as deStatus','type','motels.day_deposit as day_deposit'
+            'deposits.status as deStatus', 'type'
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
@@ -37,6 +37,7 @@ class Deposit extends Model
 
         return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);;
     }
+
     public function saveNew($params)
     {
         $data = array_merge($params);
@@ -44,16 +45,18 @@ class Deposit extends Model
         $request = DB::table($this->table)->insertGetId($data);
         return $request;
     }
-    public function get_list_client_deposit(){
+
+    public function get_list_client_deposit()
+    {
         $query = DB::table('users')->select([
             'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
             'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
-            'deposits.status as deStatus','type','motels.day_deposit as day_deposit'
+            'deposits.status as deStatus', 'type', 'day_deposit'
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('deposits.user_id','=', Auth::user()->id)->get();
+            ->where('deposits.user_id', '=', Auth::user()->id)->get();
         // dd($query);
         return $query;
     }

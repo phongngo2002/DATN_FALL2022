@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->integer('motel_id');
+            $table->integer('number_elec')->default(0);
+            $table->integer('number_warter')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

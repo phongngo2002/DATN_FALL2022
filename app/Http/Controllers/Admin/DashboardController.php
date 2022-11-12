@@ -26,17 +26,17 @@ class DashboardController extends Controller
             Auth::login($user);
         }
         $this->v['plan'] = DB::table('plans')
-            ->selectRaw('SUM(price * day) as sum')
-            ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
-            ->where('plan_history.status', '!=', 1)
-            ->where('plan_history.status', '!=', 0)
-            ->where('plan_history.status', '!=', 4)
-            ->groupBy(['plans.id'])
-            ->first()
-            ->sum;
+                ->selectRaw('SUM(price * day) as sum')
+                ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
+                ->where('plan_history.status', '!=', 1)
+                ->where('plan_history.status', '!=', 0)
+                ->where('plan_history.status', '!=', 4)
+                ->groupBy(['plans.id'])
+                ->first()
+                ->sum ?? 0;
         $this->v['plan'] += DB::table('recharges')->selectRaw('SUM((value - fee)*24.855) as sum')
-            ->first()
-            ->sum;
+                ->first()
+                ->sum ?? 0;
 
         $this->v['motel'] = DB::table('motels')->count();
         return view('admin.dashboard.index', $this->v);

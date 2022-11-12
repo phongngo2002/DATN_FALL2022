@@ -48,7 +48,7 @@ class Motel extends Model
         $params['limit'] = $params['limit'] ?? 10;
 
         $motels = DB::table($this->table)
-            ->select(['room_number', 'price', 'max_people', 'status', 'id', 'area_id', 'image_360'])
+            ->select(['room_number', 'price', 'max_people', 'motels.status', 'id', 'area_id', 'image_360', 'electric_money', 'warter_money', 'start_time', 'end_time'])
             ->where('area_id', $id);
 
         if ($params['name']) {
