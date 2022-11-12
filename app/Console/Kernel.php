@@ -2,12 +2,16 @@
 
 namespace App\Console;
 
+use App\Console\Commands\cronEmail;
 use App\Models\PlanHistory;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        cronEmail::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -16,6 +20,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        
+        $schedule->command('command:email')->daily();
+        
         $schedule->call(function () {
             $plan_history = PlanHistory::where('status', 1)->get();
             foreach ($plan_history as $plan) {
