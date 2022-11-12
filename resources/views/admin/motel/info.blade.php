@@ -158,6 +158,8 @@
                 class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                 class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+            <a href="{{ route('admin.list-deposit.motel', $params['motel_id']) }}"
+                class="btn btn-warning my-2">Danh sách người đặt cọc</a>
             @if (!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id', $params['motel_id'])->first()->start_time)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hóa đơn
                 </button>
@@ -174,7 +176,7 @@
         
         @foreach ($info as $a)
             @if ($a->end_time < now() && $a->end_time = now())
-                <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> {{$a->name}} đã hết thời hạn ở. Bạn muốn <a href="{{route('admin.delete_user_motel',['id' => $a->idUserMotel,'email' => $a->email,'motel_id' => $a->motel_id])}}" class="text-danger"><u>XÓA</u></a> hay <a href="#" class="text-danger"><u>GIA HẠN THÊM?</u></a></span>
+                <p class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> {{$a->name}} đã hết thời hạn ở. Bạn muốn <a href="{{route('admin.delete_user_motel',['id' => $a->idUserMotel,'email' => $a->email,'motel_id' => $a->motel_id])}}" class="text-danger"><u>XÓA</u></a> hay <a href="#" class="text-danger"><u>GIA HẠN THÊM?</u></a></p>
             @endif
         @endforeach
 

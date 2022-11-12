@@ -8,6 +8,7 @@ use App\Mail\ConfirmOutMotel;
 use App\Mail\ForgotOtp;
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\Deposit;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;

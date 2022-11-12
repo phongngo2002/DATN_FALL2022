@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('nhap-danh-sach', [\App\Http\Controllers\Admin\MotelController::class, "import"])->name("admin.motel.import");
 
             Route::post('{motelId}/xuat-hoa-don', [\App\Http\Controllers\Admin\MotelController::class, "print"])->name("admin.print.motel");
+            Route::get('{id}/danh-sach-nguoi-dat-coc', [\App\Http\Controllers\Admin\DepositController::class, "listDeposit"])->name("admin.list-deposit.motel");
             Route::get('{id}/{idMotel}/danh-sach-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "list_out_motel"])->name("admin.motel.list_out_motel");
             Route::get('{id}/dong-y-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "confirm_out_motel"])->name("admin.motel.confirm_out_motel");
             Route::get('{id}/xoa-thanh-vien', [\App\Http\Controllers\Admin\MotelController::class, "deleteUserFormMotel"])->name('admin.delete_user_motel');

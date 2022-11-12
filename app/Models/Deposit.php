@@ -36,4 +36,20 @@ class Deposit extends Model
 
         return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);;
     }
+
+    public function get_list_admin_deposit_in_motel($params = [], $id)
+    {
+        $params['order_by'] = $params['order_by'] ?? 'desc';
+        $params['limit'] = $params['limit'] ?? 10;
+        $query = DB::table('users')->select([
+            'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
+            'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
+            'deposits.status as deStatus'
+        ])
+            ->join($this->table, 'users.id', '=', 'deposits.user_id')
+            ->join('motels', 'deposits.motel_id', '=', 'motels.id')
+            ->where('motels.id', $id);
+
+        return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);;
+    }
 }

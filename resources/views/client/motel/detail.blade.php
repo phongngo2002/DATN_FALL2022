@@ -619,7 +619,7 @@
                                                 <a href="blog-details.html">
                                                     <h6>{{$item->room_number}}</h6>
                                                 </a>
-                                                <p>{{$item->price}}</p>
+                                                <p>{{$item->priceMotel}}</p>
                                             </div>
                                         </div>
                                     @endforeach
