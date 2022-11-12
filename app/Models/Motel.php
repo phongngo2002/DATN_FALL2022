@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +56,7 @@ class Motel extends Model
 
         return $motels->orderBy('id', $params['order_by'])
             ->paginate($params['limit']);
+
     }
 
     public function createMotel($data)
@@ -333,5 +333,75 @@ class Motel extends Model
             return $motel;
         }
         return null;
+    }
+
+    public function getMotelsByAreas($id)
+    {
+        $area = DB::table('motels')->where('id', $id)->first();
+        $motelsByAreas = DB::table('motels')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->where('area_id', $area->area_id)
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 1)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
+        return $motelsByAreas;
+    }
+
+    public function getMotelsHot()
+    {
+        return DB::table('areas')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 1)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
+    }
+
+    public function getLiveTogethersByAreas($id)
+    {
+        $area = DB::table('motels')->where('id', $id)->first();
+        $liveTogethers = DB::table('motels')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->where('area_id', $area->area_id)->orderBy('priority_level', 'asc')->limit(5)->get();
+        return $liveTogethers;
+    }
+
+    public function getLiveTogethersHot()
+    {
+        return DB::table('areas')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
     }
 }

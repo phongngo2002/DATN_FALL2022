@@ -21,6 +21,9 @@ class LiveTogetherController extends Controller
     {
         $infoMotel = new Motel();
         $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
+        $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id);
+        $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot();
+        
         if ($this->v['motel']) {
             return view('client.live-together.detail', $this->v);
         }

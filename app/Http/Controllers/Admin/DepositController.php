@@ -7,7 +7,7 @@ use App\Models\Deposit;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Contracts\DataTable;
+use Illuminate\Support\Facades\DB;
 
 class DepositController extends Controller
 {

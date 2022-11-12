@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Mail\ConfirmOutMotel;
 use App\Mail\ForgotOtp;
+use App\Mail\NotificeDelMotel;
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\Deposit;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -98,6 +100,7 @@ class MotelController extends Controller
     public function info_user_motels($id, $idMotel)
     {
         $model = new Motel();
+        $this->v['id'] = $id;
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
@@ -396,6 +399,7 @@ class MotelController extends Controller
 
     public function confirm_out_motel(Request $request, $id)
     {
+        // dd($request->all(), $id);
         $res = DB::table('user_motel')->where('id', $id)->update([
             'status' => 0,
             'end_time' => Carbon::now()
@@ -419,5 +423,26 @@ class MotelController extends Controller
         }
         Mail::to($request->email)->send(new ConfirmOutMotel());
         return redirect()->back()->with('success', 'Cập nhật đơn rời phòng thành công');
+    }
+
+    public function deleteUserFormMotel(Request $request, $id)
+    {
+        $res = DB::table('user_motel')->where('id', $id)->update([
+            'status' => 3 //status = 3 : bị xóa do hết hạn
+        ]);
+
+        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+        if (count($user) === 0) {
+            try {
+                $motel = Motel::find($request->motel_id);
+                $motel->status = 1;
+                $motel->end_time;
+                $motel->save();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        Mail::to($request->email)->send(new NotificeDelMotel());
+        return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }

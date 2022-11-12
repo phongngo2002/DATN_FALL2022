@@ -55,7 +55,7 @@
             margin-top: 54px;
         }
 
-        .select-box .options-container.active + .selected::after {
+        .select-box .options-container.active+.selected::after {
             transform: rotateX(180deg);
             top: -6px;
         }
@@ -110,7 +110,7 @@
             outline: none;
         }
 
-        .select-box .options-container.active ~ .search-box input {
+        .select-box .options-container.active~.search-box input {
             opacity: 1;
             pointer-events: auto;
         }
@@ -332,7 +332,7 @@
             });
         });
 
-        searchBox.addEventListener("keyup", function () {
+        searchBox.addEventListener("keyup", function() {
             filterList(e.target.value);
         });
 
