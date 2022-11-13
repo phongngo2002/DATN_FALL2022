@@ -199,7 +199,7 @@ class Motel extends Model
     public function info_motel($id)
     {
         $query = DB::table('users')
-            ->select(['name', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
+            ->select(['name', 'motels.status as motel_status', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('motel_id', $id)

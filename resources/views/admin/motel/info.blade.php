@@ -159,8 +159,13 @@
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-            @if (!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id', $params['motel_id'])->first()->start_time)
+            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 1)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hợp đồng
+                </button>
+            @endif
+            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 4)
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Gia hạn hợp
+                    đồng
                 </button>
             @endif
             <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
@@ -280,7 +285,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xuất hóa hơn</h1>
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalLabel">{{isset($info[0]->motel_status) && $info[0]->motel_status  == 4 ? 'Gia hạn hợp đồng' : 'Xuất hợp đồng'}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -300,6 +306,7 @@
                             <input type="number" name="wifi" class="form-control"
                                    placeholder="Số tiền mạng đóng 1 tháng">
                         </div>
+                        @if(isset($info[0]->motel_status) && $info[0]->motel_statush)
                         <div>
                             <label>Số tiền đã cọc</label>
 
