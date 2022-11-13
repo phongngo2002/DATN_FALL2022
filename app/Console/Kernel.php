@@ -24,17 +24,6 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('command:email')->daily();
 
-        $schedule->call(function () {
-            $plan_history = PlanHistory::where('status', 1)->get();
-            foreach ($plan_history as $plan) {
-                if ($plan->day - 1 > 0) {
-                    PlanHistory::where('id', $plan->id)->update(['day' => $plan->day - 1]);
-                } else {
-                    PlanHistory::where('id', $plan->id)->update(['status' => 5]);
-                }
-            }
-
-        })->daily();
     }
 
     /**

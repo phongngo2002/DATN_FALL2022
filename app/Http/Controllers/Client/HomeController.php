@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        
+
         // Đăng nhập google
         if (isset($_GET['id'])) {
             $user = User::where('id', $_GET['id'])->first();
@@ -55,6 +55,14 @@ class HomeController extends Controller
         return view('client.home.motels', [
             'motel' => $motel
         ]);
+    }
+
+    public function motel_by_area($areaID)
+    {
+        $model = new Area();
+
+        $this->v['motels'] = $model->client_get_list_motel($areaID);
+        return view('client.area.list', $this->v);
     }
 
 

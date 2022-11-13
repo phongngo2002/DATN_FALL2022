@@ -23,6 +23,8 @@ Route::get('/abc/test', function () {
 });
 
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/khu-tro/{areaID}', [\App\Http\Controllers\Client\HomeController::class, 'motel_by_area'])->name('motel_by_area');
+
 Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
@@ -91,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
-  
+
 
     Route::prefix('admin')->group(function () {
         // Màn thống kê
@@ -139,7 +141,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/{idMotel}/danh-sach-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "list_out_motel"])->name("admin.motel.list_out_motel");
             Route::get('{id}/dong-y-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "confirm_out_motel"])->name("admin.motel.confirm_out_motel");
             Route::get('{id}/xoa-thanh-vien', [\App\Http\Controllers\Admin\MotelController::class, "deleteUserFormMotel"])->name('admin.delete_user_motel');
-            
+
             Route::get('{id}/{idMotel}/lich-su-thue', [\App\Http\Controllers\Admin\MotelController::class, "history_motel"])->name("admin.motel.history");
             Route::get('{id}', [\App\Http\Controllers\Admin\MotelController::class, "index_motels"])->name("admin.motel.list");
             Route::get('{id}/create', [\App\Http\Controllers\Admin\MotelController::class, "add_motels"])->name("admin.motel.create");
@@ -159,7 +161,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "create_post_motels"])->name("admin.motel.post");
             Route::post('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "save_create_post_motels"])->name("admin.motel.post_post");
             Route::get('{id}/{idMotel}/dang-ky-o-ghep', [\App\Http\Controllers\Admin\MotelController::class, "contact_motel"])->name("admin.motel.contact");
-            
+
         });
 
         // Chỉ có admin
@@ -195,8 +197,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
-        
-  
+
+
 });
 
 Route::get('/403', function () {

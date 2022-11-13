@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -205,7 +206,11 @@ class Motel extends Model
             ->where('user_motel.status', 1)
             ->get();
         $query->max_people = DB::table('motels')->select(['max_people'])->where('id', $id)->first()->max_people;
-
+        $query->money_deposit = DB::table('deposits')
+                ->select(['value', 'type'])
+                ->where('status', 1)
+                ->where('motel_id', $id)
+                ->first() ?? 0;
         return $query;
     }
 

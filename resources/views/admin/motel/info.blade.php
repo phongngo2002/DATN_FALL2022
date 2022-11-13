@@ -55,7 +55,7 @@
             margin-top: 54px;
         }
 
-        .select-box .options-container.active+.selected::after {
+        .select-box .options-container.active + .selected::after {
             transform: rotateX(180deg);
             top: -6px;
         }
@@ -110,7 +110,7 @@
             outline: none;
         }
 
-        .select-box .options-container.active~.search-box input {
+        .select-box .options-container.active ~ .search-box input {
             opacity: 1;
             pointer-events: auto;
         }
@@ -152,12 +152,8 @@
         <div class="mb-4">
             <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
             </button>
-            @if (isset($info[0]->status) && $info[0]->status == 2)
-                <button class="btn btn-primary" disabled>Đăng tin</button>
-            @else
-                <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                   class="btn btn-primary my-2">Đăng tin</a>
-            @endif
+            <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+               class="btn btn-primary my-2">Đăng tin</a>
 
             <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
@@ -177,6 +173,13 @@
         </div>
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
+            <div>
+                @if(count($info) >= $info->max_people)
+                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
+                @elseif(count($info) === $info->max_people - 1)
+                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã sắp tối đa</span>
+                @endif
+            </div>
             <div class="text-right my-2">
                 <p
                     class="font-weight-bold">Số thành viên: <span
@@ -206,10 +209,10 @@
 
 
         </table>
-        @if(count($info) >= $info->max_people)
-            <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
-        @endif
+
     </div>
+    <a href="{{route('admin.motel.list',['id' => $params['area_id']])}}" class="btn btn-warning mt-2 text-white">Quay
+        lại</a>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -270,6 +273,7 @@
 
             </div>
         </div>
+
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form action="{{ route('admin.print.motel', ['motelId' => $params['motel_id']]) }}" method="POST">
@@ -281,6 +285,43 @@
                     </div>
                     <div class="modal-body">
                         @csrf
+                        <div>
+                            <label>Giá điện</label>
+                            <input type="number" name="electric_money" class="form-control"
+                                   placeholder="Bao tiền 1 số điện">
+                        </div>
+                        <div>
+                            <label>Giá nước</label>
+                            <input type="number" name="warter_money" class="form-control"
+                                   placeholder="Bao tiền 1 khối nước">
+                        </div>
+                        <div>
+                            <label>Giá mạng internet</label>
+                            <input type="number" name="wifi" class="form-control"
+                                   placeholder="Số tiền mạng đóng 1 tháng">
+                        </div>
+                        <div>
+                            <label>Số tiền đã cọc</label>
+
+                            <input type="number" name="money_deposit" class="form-control"
+                                   value="{{$info->money_deposit->value ?? 0}}"
+                                   disabled>
+
+                            @if($info->money_deposit)
+                                @if($info->money_deposit->type == 1)
+                                    <p class="">
+                                        Loại đặt cọc: <span class="font-weight-bold">Chuyển xu</span>
+                                    <p class="text-sm">Lưu ý: 1<i
+                                            class="fa-brands fa-bitcoin text-warning"></i> = 24.555 VNĐ</p>
+                                    </p>
+                                @else
+                                    <p class="">
+                                        Loại đặt cọc: <span class="font-weight-bold">Tiền mặt</span>
+                                    </p>
+                                @endif
+                            @endif
+
+                        </div>
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
                             <input type="date" name="start_time" class="form-control">
@@ -332,7 +373,7 @@
             });
         });
 
-        searchBox.addEventListener("keyup", function() {
+        searchBox.addEventListener("keyup", function () {
             filterList(e.target.value);
         });
 

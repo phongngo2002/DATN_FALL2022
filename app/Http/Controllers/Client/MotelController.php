@@ -204,8 +204,13 @@ class MotelController extends Controller
             $this->v['motel'] = $motel->detailMotel1($id);
             $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
             $this->v['motelsHot'] = $motel->getMotelsHot();
+            if (!empty(Auth::user())) {
+                $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();
+            }else{
+                $this->v['deposit_exist'] = null;
+            }
 
-            $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();
+
             return view('client.motel.detail', $this->v);
         }
         abort(404);

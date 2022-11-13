@@ -95,11 +95,13 @@
                         <td>{{$motel->end_time ? \Carbon\Carbon::parse($motel->end_time)->format('d/m/Y') : 'Chưa xác định'}}</td>
                         <td>
                             @if($motel->status == 1)
-                                <span class="badge bg-success p-2">Trống</span>
+                                <span class="badge bg-secondary p-2">Trống</span>
                             @elseif($motel->status == 3)
                                 <span class="badge bg-warning p-2">Đã được đặt cọc</span>
+                            @elseif($motel->status == 4)
+                                <span class="badge bg-danger p-2">Sắp hết hạn hợp đồng</span>
                             @else
-                                <span class="badge bg-danger p-2">Đã được thuê</span>
+                                <span class="badge bg-success p-2">Đã được thuê</span>
                             @endif
                         </td>
                         <td class="">

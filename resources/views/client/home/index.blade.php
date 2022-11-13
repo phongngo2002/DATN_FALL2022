@@ -29,7 +29,8 @@
                                     <div class="banner-search-wrap">
                                         <ul class="nav nav-tabs rld-banner-tab">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#tabs_1">Thuê phòng/căn hộ</a>
+                                                <a class="nav-link active" data-toggle="tab" href="#tabs_1">Thuê
+                                                    phòng/căn hộ</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#tabs_2">Ở ghép</a>
@@ -40,7 +41,8 @@
                                                 <div class="rld-main-search">
                                                     <div class="row">
                                                         <div class="rld-single-input">
-                                                            <input type="text" placeholder="Nhập từ khoá..." name="keyword">
+                                                            <input type="text" placeholder="Nhập từ khoá..."
+                                                                   name="keyword">
                                                         </div>
                                                         <div class="rld-single-select ml-22">
                                                             <select class="select single-select" name="categories">
@@ -62,7 +64,9 @@
                                                         <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
                                                             <span>Tìm kiếm nâng cao</span></div>
                                                         <div class="pl-0">
-                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm ngay</button>
+                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm
+                                                                ngay
+                                                            </button>
                                                         </div>
                                                         <div
                                                             class="explore__form-checkbox-list full-filter d-none d-none d-lg-none d-xl-flex  shadow p-3 mb-5 bg-body rounded">
@@ -70,8 +74,10 @@
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bedrooms -->
                                                                     <div class="form-group beds">
-                                                                        <div class="nice-select form-control wide" tabindex="0">
-                                                                            <span class="current"><i class="fa fa-bed" aria-hidden="true"></i>Phòng ngủ</span>
+                                                                        <div class="nice-select form-control wide"
+                                                                             tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bed"
+                                                                                                     aria-hidden="true"></i>Phòng ngủ</span>
                                                                             <ul class="list">
                                                                                 <li data-value="1"
                                                                                     class="option selected">1
@@ -90,7 +96,7 @@
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
                                                                         <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
+                                                                             tabindex="0"><span class="current"><i
                                                                                     class="fa fa-bath"
                                                                                     aria-hidden="true"></i>
                                                                                     Phòng tắm/WC</span>
@@ -116,9 +122,16 @@
                                                                         <div class="range-slider">
                                                                             <label>Diện tích</label>
                                                                             <div id="area-range" data-min="0"
-                                                                            data-max="50" data-unit="m&#178" class="area_range">
-                                                                                <input type="text" name="" class="first-slider-value" id="first_slider_value" value="13" disabled>
-                                                                                <input type="text" name="" class="second-slider-value" id="second_slider_value" disabled>
+                                                                                 data-max="50" data-unit="m&#178"
+                                                                                 class="area_range">
+                                                                                <input type="text" name=""
+                                                                                       class="first-slider-value"
+                                                                                       id="first_slider_value"
+                                                                                       value="13" disabled>
+                                                                                <input type="text" name=""
+                                                                                       class="second-slider-value"
+                                                                                       id="second_slider_value"
+                                                                                       disabled>
                                                                             </div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
@@ -127,7 +140,8 @@
                                                                         <div class="range-slider">
                                                                             <label>Phạm vi giá</label>
                                                                             <div id="price-range" data-min="0"
-                                                                                data-max="10000000" data-unit="VND "></div>
+                                                                                 data-max="10000000"
+                                                                                 data-unit="VND "></div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                     </div>
@@ -137,25 +151,25 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-1">
                                                                         <input id="check-2" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-2">Điều hoà</label>
                                                                         <input id="check-3" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-3">Thang máy</label>
                                                                         <input id="check-4" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-4">Máy giặt</label>
                                                                         <input id="check-5" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-5">Nóng lạnh</label>
                                                                         <input id="check-6" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-6">Tủ lạnh</label>
                                                                         <input id="check-7" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-7">Giường ngủ</label>
                                                                         <input id="check-8" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-8">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -165,25 +179,25 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-2">
                                                                         <input id="check-9" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-9">WiFi</label>
                                                                         <input id="check-10" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-10">Rèm cửa</label>
                                                                         <input id="check-11" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-11">Bàn ghế ăn</label>
                                                                         <input id="check-12" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-12">Bàn bếp</label>
                                                                         <input id="check-13" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-13">Tủ bếp</label>
                                                                         <input id="check-14" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-14">Chậu rửa</label>
                                                                         <input id="check-15" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-15">Húi mùi</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -216,17 +230,20 @@
                                                                 <option value="3">Bắc Giang</option>
                                                             </select>
                                                         </div>
-                                                        <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span></div>
-                                                        <div class="pl-0">
-                                                            <a class="btn btn-yellow" href="{{route('home')}}" style="width:165px;">Tìm kiếm ngay</a>
+                                                        <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span>
                                                         </div>
-                                                        <div class="explore__form-checkbox-list full-filter shadow p-3 mb-5 bg-body rounded">
+                                                        <div class="pl-0">
+                                                            <a class="btn btn-yellow" href="{{route('home')}}"
+                                                               style="width:165px;">Tìm kiếm ngay</a>
+                                                        </div>
+                                                        <div
+                                                            class="explore__form-checkbox-list full-filter shadow p-3 mb-5 bg-body rounded">
                                                             <div class="row">
                                                                 <div class="col-lg-6 col-md-6 p-2 ">
                                                                     <!-- Form Bedrooms -->
                                                                     <div class="form-group beds">
                                                                         <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
+                                                                             tabindex="0"><span class="current"><i
                                                                                     class="fa fa-bed"
                                                                                     aria-hidden="true"></i>
                                                                                     Phòng ngủ</span>
@@ -247,7 +264,7 @@
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
                                                                         <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
+                                                                             tabindex="0"><span class="current"><i
                                                                                     class="fa fa-bath"
                                                                                     aria-hidden="true"></i>
                                                                                     Phòng tắm/WC</span>
@@ -271,7 +288,7 @@
                                                                         <div class="range-slider">
                                                                             <label>Diện tích</label>
                                                                             <div id="area-range-rent" data-min="0"
-                                                                                data-max="50" data-unit="m&#178" ></div>
+                                                                                 data-max="50" data-unit="m&#178"></div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                         <br>
@@ -279,7 +296,8 @@
                                                                         <div class="range-slider">
                                                                             <label>Phạm vi giá</label>
                                                                             <div id="price-range-rent" data-min="0"
-                                                                                data-max="10000000" data-unit="VND "></div>
+                                                                                 data-max="10000000"
+                                                                                 data-unit="VND "></div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                     </div>
@@ -289,25 +307,25 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-1">
                                                                         <input id="check-2" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-2">Điều hoà</label>
                                                                         <input id="check-3" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-3">Thang máy</label>
                                                                         <input id="check-4" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-4">Máy giặt</label>
                                                                         <input id="check-5" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-5">Nóng lạnh</label>
                                                                         <input id="check-6" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-6">Tủ lạnh</label>
                                                                         <input id="check-7" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-7">Giường ngủ</label>
                                                                         <input id="check-8" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-8">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -317,25 +335,25 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-2">
                                                                         <input id="check-9" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-9">WiFi</label>
                                                                         <input id="check-10" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-10">Rèm cửa</label>
                                                                         <input id="check-11" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-11">Bàn ghế ăn</label>
                                                                         <input id="check-12" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-12">Bàn bếp</label>
                                                                         <input id="check-13" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-13">Tủ bếp</label>
                                                                         <input id="check-14" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-14">Chậu rửa</label>
                                                                         <input id="check-15" type="checkbox"
-                                                                            name="check">
+                                                                               name="check">
                                                                         <label for="check-15">Húi mùi</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -372,12 +390,13 @@
                     <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
                         <div class="small-category-2">
                             <div class="small-category-2-thumb img-1">
-                                <a href="properties-full-grid-1.html"><img
+                                <a href="{{route('motel_by_area',['areaID' => $i->id])}}"><img
                                         src="{{$i->image}}"
                                         alt=""></a>
                             </div>
                             <div class="sc-2-detail">
-                                <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">{{$i->name}}</a></h4>
+                                <h4 class="sc-jb-title"><a
+                                        href="{{route('motel_by_area',['areaID' => $i->id])}}">{{$i->name}}</a></h4>
                                 <span>{{$i->quantity}} Phòng trọ</span>
                             </div>
                         </div>
@@ -567,66 +586,66 @@
     </section>
 
     <!-- START SECTION WHY CHOOSE US -->
-{{--    <section class="how-it-works bg-white rec-pro">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <div class="sec-title">--}}
-{{--                <h2><span>Why </span>Choose Us</h2>--}}
-{{--                <p>We provide full service at every step.</p>--}}
-{{--            </div>--}}
-{{--            <div class="row service-1">--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-13">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
-{{--                            <h3>--}}
-{{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
-{{--                            <h3>Trusted by thousands</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
-{{--                    <div class="serv-flex arrow">--}}
-{{--                        <div class="art-1 img-15">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
-{{--                            <h3>Financing made easy</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
-{{--                         data-aos-delay="450">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
-{{--                            <h3>We are here near you</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--    <section class="how-it-works bg-white rec-pro">--}}
+    {{--        <div class="container-fluid">--}}
+    {{--            <div class="sec-title">--}}
+    {{--                <h2><span>Why </span>Choose Us</h2>--}}
+    {{--                <p>We provide full service at every step.</p>--}}
+    {{--            </div>--}}
+    {{--            <div class="row service-1">--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-13">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
+    {{--                            <h3>--}}
+    {{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
+    {{--                            <h3>Trusted by thousands</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
+    {{--                    <div class="serv-flex arrow">--}}
+    {{--                        <div class="art-1 img-15">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
+    {{--                            <h3>Financing made easy</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
+    {{--                         data-aos-delay="450">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
+    {{--                            <h3>We are here near you</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
     <!-- END SECTION WHY CHOOSE US -->
 
     <!-- START SECTION RECENTLY PROPERTIES -->
@@ -773,11 +792,11 @@
     </section>
     <script>
         window.history.pushState("", "", 'http://phong.ngo');
-            var first_slider_value = document.getElementById('first_slider_value');
-            console.log(first_slider_value)
-            first_slider_value.addEventListener('change',function(){
-                console.log(first_slider_value.value);
-            })
+        var first_slider_value = document.getElementById('first_slider_value');
+        console.log(first_slider_value)
+        first_slider_value.addEventListener('change', function () {
+            console.log(first_slider_value.value);
+        })
 
     </script>
 @endsection
