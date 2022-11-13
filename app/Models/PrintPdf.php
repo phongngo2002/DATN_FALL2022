@@ -38,16 +38,19 @@ class PrintPdf extends Model
 <p >Hôm nay ngày ' . Carbon::now()->format('d') . ' tháng ' . Carbon::now()->format('m') . ' năm ' . Carbon::now()->format('Y') . '; tại địa chỉ: ' . $infoMotel->dc . '</p>
 <p style="font-weight: bold">Chúng tôi gồm:</p>
 <p>1.Đại diện bên cho thuê phòng trọ (Bên A):</p>
-<p>Ông/bà: ' . $infoMotel->boss . '. Sinh ngày: 13/04/2002.</p>
+<p>Ông/bà: ' . $infoMotel->boss . '. Sinh ngày: 13/04/2000.</p>
 <p>Nơi đăng ký HK: Tốt Động,Chương Mỹ,Hà Nội</p>
 <p>CMND số: 001202023168 cấp ngày 23/05/2021 tại: Cục cảnh sát.</p>
 <p>Số điện thoại: ' . $infoMotel->phone_number . '</p>
 <p>2. Bên thuê phòng trọ (Bên B):</p>
-<p>Ông/bà: ' . $user->name . '. Sinh ngày: 22/10/2002.</p>
+<p>Ông/bà: ' . $user->name . '. Sinh ngày: 22/10/2000.</p>
 <p>Nơi đăng ký HK: Tốt Động,Chương Mỹ,Hà Nội</p>
 <p>CMND số: 001202023168 cấp ngày 23/05/2021 tại: Cục cảnh sát.</p>
 <p>Sau khi bàn bạc trên tinh thần dân chủ, hai bên cùng có lợi, cùng thống nhất như sau:</p>
 <p>Bên A đồng ý cho bên B thuê 01 phòng ở tại địa chỉ: ' . $infoMotel->dc . '</p>
+<p>Tiền điện: 4000 đ/kwh tính theo chỉ số công tơ, thanh toán vào cuối các tháng. </p>
+
+<p>Tiền nước: 40000 đ/người thanh toán vào cuối các tháng. </p>
 <p>Giá thuê: ' . $infoMotel->price . '. đ/tháng</p>
 <p>Hình thức thanh toán: Chuyển khoản.</p>
 <p>Tiền điện 3.500đ/kwh tính theo chỉ số công tơ, thanh toán vào cuối các tháng.</p>
@@ -74,8 +77,8 @@ class PrintPdf extends Model
 <p>- Bên nào vi phạm điều khoản chung thì phải chịu trách nhiệm trước pháp luật.</p>
 <p>- Hợp đồng được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ một bản.</p>
 <p>
-<span style="margin-left: 15%;font-weight: bold;margin-bottom: 50px">ĐẠI DIỆN BÊN A</span>
-<span style="margin-left: 28%;font-weight: bold;margin-bottom: 50px"> ĐẠI DIỆN BÊN B</span>
+<span style="margin-left: 15%;font-weight: bold;margin-bottom: 100px">ĐẠI DIỆN BÊN A</span>
+<span style="margin-left: 28%;font-weight: bold;margin-bottom: 100px"> ĐẠI DIỆN BÊN B</span>
 </p>
 </div>
 </div>
