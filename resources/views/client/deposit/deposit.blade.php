@@ -110,37 +110,7 @@
             </div>
             <div class="mx-4">
                 <h3 class="mb-4">Lựa chọn hình thức đặt cọc</h3>
-                @if ( Session::has('success') )
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>{{ Session::get('success') }}</strong>
-                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Đóng</span>
-                    </button>
-                </div>
-            @endif
-            @if ( Session::has('error') )
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>{{ Session::get('error') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Đóng</span>
-                    </button>
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-            @endif
+                
 
                 
                 <div class="tab-content" id="myTabContent">
@@ -168,7 +138,7 @@
                                         <label for="">Số xu cọc giữ phòng</label>
                                         <input type="number" name="value" class="form-control" id="money_deposit" value="{{number_format($motel->money_deposit/1000, 0, ',', '.')}}" readonly>
                                         <label for="">Số ngày giữ phòng tối đa</label>
-                                        <input type="number" name="day" class="form-control" id="day_deposit" value="{{$motel->day_deposit}}" readonly>
+                                        <input type="number" class="form-control" id="day_deposit" value="{{$motel->day_deposit}}" readonly>
                                         <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
                                         <input type="hidden" name="area_id" value="{{$motel->area_id}}">
                                         <input type="hidden" name="type" value="1">
@@ -200,7 +170,6 @@
                                             <p class="text-warning fs-6">Sau khi chuyển tiền, hãy click button bên dưới để thông báo với chủ trọ</p>
                                             
                                             <input type="hidden" name="value" value="{{$motel->money_deposit}}">
-                                            <input type="hidden" name="day" value="{{$motel->day_deposit}}">
                                             <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
                                             <input type="hidden" name="area_id" value="{{$motel->area_id}}">
                                             <input type="hidden" name="type" value="2">

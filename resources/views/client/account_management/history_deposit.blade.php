@@ -167,7 +167,7 @@
                             <td>{!! isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->userName) : $deposit->userName!!}</td>
                             <td>{{number_format($deposit->value, 0, ',', '.')}}</td>
                             <td>{{$deposit->type == 1 ? "Chuyển xu" : "Chuyển khoản"}}</td>
-                            <td>{{$deposit->day}}</td>
+                            <td>{{$deposit->day_deposit}}</td>
                             <td>{{$deposit->room_number}}</td>
                             <td>{!!isset($params['name']) ? str_replace($params['name'],'<span class="bg-warning">'.$params['name'].'</span>',$deposit->areaName) :  $deposit->areaName !!}</td>
                             <td>

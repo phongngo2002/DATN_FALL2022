@@ -71,10 +71,10 @@ class DepositController extends Controller
                     return redirect()->back()->with('error', 'Đặt cọc thất bại, thử lại sau');
                 }
                 Mail::to($bossMotel->email)->send(new MailDeposit($dataMail));
-                return redirect()->back()->with('success', 'Đặt cọc thành công, thông tin của bạn đã được lưu lại');
+                return redirect()->route('client.motel.detail',['id'=>$params['motel_id']])->with('success', 'Đặt cọc thành công, thông tin của bạn đã được lưu vào hệ thống');
             }else{
                 Mail::to($bossMotel->email)->send(new MailDeposit($dataMail));
-                return redirect()->back()->with('success', 'Thông tin đặt cọc của bạn đã được lưu lại và được thông báo đến chủ trọ');
+                return redirect()->route('client.motel.detail',['id'=>$params['motel_id']])->with('success', 'Thông tin đặt cọc của bạn đã được lưu vào hệ thống và được thông báo đến chủ trọ');
             }
         }else{
             return redirect()->back()->with('error', 'Đặt cọc thất bại, thử lại sau');

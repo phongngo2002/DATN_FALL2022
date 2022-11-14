@@ -85,7 +85,7 @@ Route::middleware(['auth'])->group(function () {
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
-
+  
 
     Route::prefix('admin')->group(function () {
         // Màn thống kê
@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
         // Lịch sử đặt cọc
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index_deposits')->name('backend_get_list_deposit');
+            Route::post('/change_status/{id}', 'App\Http\Controllers\Admin\DepositController@change_status_deposit')->name('backend_admin_change_status_deposit');
         });
         // Lịch sử nạp tiền
         Route::prefix('lich-su-nap-tien')->group(function () {

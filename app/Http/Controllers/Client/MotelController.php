@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserMotel;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
+use App\Models\Deposit;
 use App\Models\Motel;
 use Exception;
 use Illuminate\Http\Request;
@@ -196,6 +197,7 @@ class MotelController extends Controller
         if ($motel->detailMotel1($id)) {
             $this->v['motel'] = $motel->detailMotel1($id);
 
+            $this->v['deposit_exist'] = Deposit::where('motel_id',$id)->where('user_id',Auth::user()->id)->first();
             return view('client.motel.detail', $this->v);
         }
         abort(404);

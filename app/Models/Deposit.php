@@ -21,7 +21,7 @@ class Deposit extends Model
         $query = DB::table('users')->select([
             'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
             'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
-            'deposits.status as deStatus','type','day'
+            'deposits.status as deStatus','type','motels.day_deposit as day_deposit'
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
@@ -48,7 +48,7 @@ class Deposit extends Model
         $query = DB::table('users')->select([
             'deposits.id as deID', 'users.name as userName', 'room_number', 'value',
             'areas.name as areaName', 'deposits.created_at as date', 'areas.user_id as boss_id',
-            'deposits.status as deStatus','type','day'
+            'deposits.status as deStatus','type','motels.day_deposit as day_deposit'
         ])
             ->join($this->table, 'users.id', '=', 'deposits.user_id')
             ->join('motels', 'deposits.motel_id', '=', 'motels.id')
