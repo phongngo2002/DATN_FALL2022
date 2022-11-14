@@ -188,6 +188,17 @@ class Motel extends Model
             ->get();
     }
 
+    public function info_motel_email($email)
+    {
+        return DB::table('users')
+            ->select(['name', 'user_id', 'motel_id', 'email', "motels.room_number as room"])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->where('email', $email)
+            ->where('user_motel.status', 1)
+            ->get();
+    }
+
 
     public function get_list_contact($motel_id, $area_id)
     {

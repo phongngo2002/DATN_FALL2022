@@ -229,7 +229,8 @@
                         <div class="mt-3">
                             @if ($a->max_people == $loop->iteration)
                                 <label for="" class="text text-danger">
-                                    số thành viên của phòng {{ $a->room }} đẵ đầy !
+                                    <i class="fa-solid fa-triangle-exclamation"></i> số thành viên của phòng
+                                    {{ $a->room }} đẵ đầy
                                 </label>
                             @endif
                         </div>
