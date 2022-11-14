@@ -6,6 +6,9 @@
             color: white !important;
             font-weight: 400;
         }
+        .inner-pages .main-search-field-2 {
+            margin-top: 0px;
+        }
     </style>
     <section id="hero-area" class="parallax-searchs home15 overlay thome-6 thome-1 d-none d-md-none d-lg-block"
              data-stellar-background-ratio="0.5">
@@ -24,7 +27,7 @@
                             </div>
                             <!--/ End Welcome Text -->
                             <!-- Search Form -->
-                            <form action="{{ route('home') }}" method="GET">
+                            {{-- <form action="{{ route('search') }}" method="GET"> --}}
                                 <div class="col-12">
                                     <div class="banner-search-wrap">
                                         <ul class="nav nav-tabs rld-banner-tab">
@@ -36,15 +39,17 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
+                                            
                                             <div class="tab-pane fade show active" id="tabs_1">
+                                                <form action="{{ route('search') }}" method="GET">
                                                 <div class="rld-main-search">
                                                     <div class="row">
                                                         <div class="rld-single-input">
                                                             <input type="text" placeholder="Nhập từ khoá..." name="keyword">
                                                         </div>
                                                         <div class="rld-single-select ml-22">
-                                                            <select class="select single-select" name="categories">
-                                                                <option>Danh mục</option>
+                                                            <select class="select single-select" name="category">
+                                                                <option value="0">Danh mục</option>
                                                                 <option value="1">Phòng trọ, nhà trọ</option>
                                                                 <option value="2">Căn hộ mini</option>
                                                                 <option value="3">Chung cư</option>
@@ -52,7 +57,7 @@
                                                         </div>
                                                         <div class="rld-single-select">
                                                             <select class="select single-select mr-0" name="address">
-                                                                <option>Địa điểm</option>
+                                                                <option value="0">Địa điểm</option>
                                                                 <option value="1">Hà Nội</option>
                                                                 <option value="2">TP Hồ Chí Minh</option>
                                                                 <option value="3">Đà Nẵng</option>
@@ -73,14 +78,11 @@
                                                                         <div class="nice-select form-control wide" tabindex="0">
                                                                             <span class="current"><i class="fa fa-bed" aria-hidden="true"></i>Phòng ngủ</span>
                                                                             <ul class="list">
-                                                                                <li data-value="1"
-                                                                                    class="option selected">1
-                                                                                </li>
-                                                                                <li data-value="2" class="option">2</li>
-                                                                                <li data-value="3" class="option">3</li>
-                                                                                <li data-value="3" class="option">4</li>
+                                                                                @for ($i = 1; $i < 5; $i++)
+                                                                                    <li data-value="{{$i}}" onclick=getBedroom(event) class="option">{{$i}}</li>
+                                                                                @endfor
                                                                             </ul>
-                                                                            <input type="hidden" name="bedroom">
+                                                                            <input type="hidden" name="bedroom" id="bedroom">
                                                                         </div>
                                                                     </div>
                                                                   
@@ -89,20 +91,14 @@
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
-                                                                        <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
-                                                                                    class="fa fa-bath"
-                                                                                    aria-hidden="true"></i>
-                                                                                    Phòng tắm/WC</span>
+                                                                        <div class="nice-select form-control wide" tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bath" aria-hidden="true"></i>Phòng tắm/WC</span>
                                                                             <ul class="list">
-                                                                                <li data-value="1"
-                                                                                    class="option selected">1
-                                                                                </li>
-                                                                                <li data-value="2" class="option">2</li>
-                                                                                <li data-value="3" class="option">3</li>
-                                                                                <li data-value="3" class="option">4</li>
+                                                                                @for ($i = 1; $i < 5; $i++)
+                                                                                    <li data-value="{{$i}}" onclick=getToilet(event) class="option">{{$i}}</li>
+                                                                                @endfor
                                                                             </ul>
-                                                                            <input type="hidden" name="toilet">
+                                                                            <input type="hidden" name="toilet" id="toilet">
 
                                                                         </div>
                                                                     </div>
@@ -115,10 +111,11 @@
                                                                         <!-- Area Range -->
                                                                         <div class="range-slider">
                                                                             <label>Diện tích</label>
-                                                                            <div id="area-range" data-min="0"
-                                                                            data-max="50" data-unit="m&#178" class="area_range">
-                                                                                <input type="text" name="" class="first-slider-value" id="first_slider_value" value="13" disabled>
-                                                                                <input type="text" name="" class="second-slider-value" id="second_slider_value" disabled>
+                                                                            <div id="area-range" data-min="0" data-max="50" data-unit="m&#178" class="area_range">
+                                                                                <input type="hidden" name="area_min" id="area_min_post">
+                                                                                <input type="hidden" name="area_max" id="area_max_post">
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="area_min"></a>
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="area_max"></a>
                                                                             </div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
@@ -126,65 +123,41 @@
                                                                         <!-- Price Range -->
                                                                         <div class="range-slider">
                                                                             <label>Phạm vi giá</label>
-                                                                            <div id="price-range" data-min="0"
-                                                                                data-max="10000000" data-unit="VND "></div>
+                                                                            <div id="price-range" data-min="0" data-max="10000000" data-unit="VND ">
+                                                                                <input type="hidden" name="price_min" id="price_min_post">
+                                                                                <input type="hidden" name="price_max" id="price_max_post">
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="price_min"></a>
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="price_max"></a>
+                                                                            </div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
-                                                                    <div
-                                                                        class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                                        <input id="check-2" type="checkbox"
-                                                                            name="check">
+                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                                        <input id="check-1" type="checkbox" name="service[cho-de-xe]">
+                                                                        <label for="check-1">Chỗ để xe</label>
+                                                                        <input id="check-2" type="checkbox" name="service[dieu-hoa]">
                                                                         <label for="check-2">Điều hoà</label>
-                                                                        <input id="check-3" type="checkbox"
-                                                                            name="check">
+                                                                        <input id="check-3" type="checkbox" name="service[thang-may]">
                                                                         <label for="check-3">Thang máy</label>
-                                                                        <input id="check-4" type="checkbox"
-                                                                            name="check">
+                                                                        <input id="check-4" type="checkbox" name="service[may-giat]">
                                                                         <label for="check-4">Máy giặt</label>
-                                                                        <input id="check-5" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-5">Nóng lạnh</label>
-                                                                        <input id="check-6" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-6">Tủ lạnh</label>
-                                                                        <input id="check-7" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-7">Giường ngủ</label>
-                                                                        <input id="check-8" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-8">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
-                                                                    <div
-                                                                        class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                                        <input id="check-9" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-9">WiFi</label>
-                                                                        <input id="check-10" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-10">Rèm cửa</label>
-                                                                        <input id="check-11" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-11">Bàn ghế ăn</label>
-                                                                        <input id="check-12" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-12">Bàn bếp</label>
-                                                                        <input id="check-13" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-13">Tủ bếp</label>
-                                                                        <input id="check-14" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-14">Chậu rửa</label>
-                                                                        <input id="check-15" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-15">Húi mùi</label>
+                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-2">
+                                                                        <input id="check-5" type="checkbox" name="service[nong-lanh]">
+                                                                        <label for="check-5">Nóng lạnh</label>
+                                                                        <input id="check-7" type="checkbox" name="service[tu-lanh]">
+                                                                        <label for="check-7">Tủ lạnh</label>
+                                                                        <input id="check-8" type="checkbox" name="service[giuong-ngu]">
+                                                                        <label for="check-8">Giường ngủ</label>
+                                                                        <input id="check-9" type="checkbox" name="service[tu-quan-ao]">
+                                                                        <label for="check-9">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
@@ -192,53 +165,49 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </form>
                                             </div>
                                             <div class="tab-pane fade" id="tabs_2">
+                                                <form action="{{ route('search') }}" method="GET">
                                                 <div class="rld-main-search">
                                                     <div class="row">
                                                         <div class="rld-single-input">
-                                                            <input type="text" placeholder="Nhập từ khoá...">
+                                                            <input type="text" placeholder="Nhập từ khoá..." name="keyword">
                                                         </div>
                                                         <div class="rld-single-select ml-22">
-                                                            <select class="select single-select">
+                                                            <select class="select single-select" name="category">
                                                                 <option>Danh mục</option>
-                                                                <option value="2">Phòng trọ, nhà trọ</option>
-                                                                <option value="3">Căn hộ mini</option>
+                                                                <option value="1">Phòng trọ, nhà trọ</option>
+                                                                <option value="2">Căn hộ mini</option>
                                                                 <option value="3">Chung cư</option>
                                                             </select>
                                                         </div>
                                                         <div class="rld-single-select">
-                                                            <select class="select single-select mr-0">
+                                                            <select class="select single-select mr-0" name="address">
                                                                 <option>Địa điểm</option>
-                                                                <option value="2">Hà Nội</option>
-                                                                <option value="3">TP Hồ Chí Minh</option>
+                                                                <option value="1">Hà Nội</option>
+                                                                <option value="2">TP Hồ Chí Minh</option>
                                                                 <option value="3">Đà Nẵng</option>
-                                                                <option value="3">Bắc Giang</option>
+                                                                <option value="4">Bắc Giang</option>
                                                             </select>
                                                         </div>
                                                         <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span></div>
                                                         <div class="pl-0">
-                                                            <a class="btn btn-yellow" href="{{route('home')}}" style="width:165px;">Tìm kiếm ngay</a>
+                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm ngay</button>
                                                         </div>
                                                         <div class="explore__form-checkbox-list full-filter shadow p-3 mb-5 bg-body rounded">
                                                             <div class="row">
                                                                 <div class="col-lg-6 col-md-6 p-2 ">
                                                                     <!-- Form Bedrooms -->
                                                                     <div class="form-group beds">
-                                                                        <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
-                                                                                    class="fa fa-bed"
-                                                                                    aria-hidden="true"></i>
-                                                                                    Phòng ngủ</span>
+                                                                        <div class="nice-select form-control wide" tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bed" aria-hidden="true"></i>Phòng ngủ</span>
                                                                             <ul class="list">
-                                                                                <li data-value="1"
-                                                                                    class="option selected">1
-                                                                                </li>
-                                                                                <li data-value="2" class="option">2</li>
-                                                                                <li data-value="3" class="option">3</li>
-                                                                                <li data-value="3" class="option">4</li>
-                                                                                </li>
+                                                                                @for ($i = 1; $i < 5; $i++)
+                                                                                <li data-value="{{$i}}" onclick=getBedroom2(event) class="option">{{$i}}</li>
+                                                                            @endfor
                                                                             </ul>
+                                                                            <input type="hidden" name="bedroom" id="bedroom2">
                                                                         </div>
                                                                     </div>
                                                                     <!--/ End Form Bedrooms -->
@@ -246,19 +215,14 @@
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
-                                                                        <div class="nice-select form-control wide"
-                                                                            tabindex="0"><span class="current"><i
-                                                                                    class="fa fa-bath"
-                                                                                    aria-hidden="true"></i>
-                                                                                    Phòng tắm/WC</span>
+                                                                        <div class="nice-select form-control wide" tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bath" aria-hidden="true"></i>Phòng tắm/WC</span>
                                                                             <ul class="list">
-                                                                                <li data-value="1"
-                                                                                    class="option selected">1
-                                                                                </li>
-                                                                                <li data-value="2" class="option">2</li>
-                                                                                <li data-value="3" class="option">3</li>
-                                                                                <li data-value="3" class="option">4</li>
+                                                                                @for ($i = 1; $i < 5; $i++)
+                                                                                    <li data-value="{{$i}}" onclick=getToilet2(event) class="option">{{$i}}</li>
+                                                                                @endfor
                                                                             </ul>
+                                                                            <input type="hidden" name="toilet" id="toilet2">
                                                                         </div>
                                                                     </div>
                                                                     <!--/ End Form Bathrooms -->
@@ -270,73 +234,53 @@
                                                                         <!-- Area Range -->
                                                                         <div class="range-slider">
                                                                             <label>Diện tích</label>
-                                                                            <div id="area-range-rent" data-min="0"
-                                                                                data-max="50" data-unit="m&#178" ></div>
+                                                                            <div id="area-range-rent" data-min="0" data-max="50" data-unit="m&#178">
+                                                                                <input type="hidden" name="area_min" id="area_min_post2">
+                                                                                <input type="hidden" name="area_max" id="area_max_post2">
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="area_min2"></a>
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="area_max2"></a>
+                                                                            </div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                         <br>
                                                                         <!-- Price Range -->
                                                                         <div class="range-slider">
                                                                             <label>Phạm vi giá</label>
-                                                                            <div id="price-range-rent" data-min="0"
-                                                                                data-max="10000000" data-unit="VND "></div>
+                                                                            <div id="price-range-rent" data-min="0" data-max="10000000" data-unit="VND">
+                                                                                <input type="hidden" name="price_min" id="price_min_post2">
+                                                                                <input type="hidden" name="price_max" id="price_max_post2">
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="price_min2"></a>
+                                                                                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="price_max2"></a>
+                                                                            </div>
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
-                                                                    <div
-                                                                        class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                                        <input id="check-2" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-2">Điều hoà</label>
-                                                                        <input id="check-3" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-3">Thang máy</label>
-                                                                        <input id="check-4" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-4">Máy giặt</label>
-                                                                        <input id="check-5" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-5">Nóng lạnh</label>
-                                                                        <input id="check-6" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-6">Tủ lạnh</label>
-                                                                        <input id="check-7" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-7">Giường ngủ</label>
-                                                                        <input id="check-8" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-8">Tủ quần áo</label>
+                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                                        <input id="check2-1" type="checkbox" name="service[cho-de-xe]">
+                                                                        <label for="check2-1">Chỗ để xe</label>
+                                                                        <input id="check2-2" type="checkbox" name="service[dieu-hoa]">
+                                                                        <label for="check2-2">Điều hoà</label>
+                                                                        <input id="check2-3" type="checkbox" name="service[thang-may]">
+                                                                        <label for="check2-3">Thang máy</label>
+                                                                        <input id="check2-4" type="checkbox" name="service[may-giat]">
+                                                                        <label for="check2-4">Máy giặt</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
-                                                                    <div
-                                                                        class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                                        <input id="check-9" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-9">WiFi</label>
-                                                                        <input id="check-10" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-10">Rèm cửa</label>
-                                                                        <input id="check-11" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-11">Bàn ghế ăn</label>
-                                                                        <input id="check-12" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-12">Bàn bếp</label>
-                                                                        <input id="check-13" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-13">Tủ bếp</label>
-                                                                        <input id="check-14" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-14">Chậu rửa</label>
-                                                                        <input id="check-15" type="checkbox"
-                                                                            name="check">
-                                                                        <label for="check-15">Húi mùi</label>
+                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-2">
+                                                                        <input id="check2-5" type="checkbox" name="service[nong-lanh]">
+                                                                        <label for="check2-5">Nóng lạnh</label>
+                                                                        <input id="check2-7" type="checkbox" name="service[tu-lanh]">
+                                                                        <label for="check2-7">Tủ lạnh</label>
+                                                                        <input id="check2-8" type="checkbox" name="service[giuong-ngu]">
+                                                                        <label for="check2-8">Giường ngủ</label>
+                                                                        <input id="check2-9" type="checkbox" name="service[tu-quan-ao]">
+                                                                        <label for="check2-9">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
@@ -344,11 +288,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            {{-- </form> --}}
                             
                             <!--/ End Search Form -->
                         </div>
@@ -766,11 +711,96 @@
     </section>
     <script>
         // window.history.pushState("", "", 'http://phong.ngo');
-            var first_slider_value = document.getElementById('first_slider_value');
-            console.log(first_slider_value)
-            first_slider_value.addEventListener('change',function(){
-                console.log(first_slider_value.value);
-            })
+        // Start search phòng trọ
+        var area_min = document.getElementById('area_min');
+        var area_max = document.getElementById('area_max');
+        var area_min_post = document.getElementById('area_min_post');
+        var area_max_post = document.getElementById('area_max_post');
+        area_max_post.value = 0;
+        area_max_post.value = 50;
+        area_min.onclick = function(){
+            area_min_post.value = Number(area_min.style.left.replace('%',''))*50/100;
+            console.log(area_min_post.value);
+        }
+        area_max.onclick = function(){
+            area_max_post.value = Number(area_max.style.left.replace('%',''))*50/100;
+            console.log(area_max_post.value);
+        }
+
+        var price_min = document.getElementById('price_min');
+        var price_max = document.getElementById('price_max');
+        var price_min_post = document.getElementById('price_min_post');
+        var price_max_post = document.getElementById('price_max_post');
+        price_max_post.value = 0;
+        price_max_post.value = 10000000;
+        price_min.onclick = function(){
+            price_min_post.value = Number(price_min.style.left.replace('%',''))*100000;
+            console.log(price_min_post.value);
+        }
+        price_max.onclick = function(){
+            price_max_post.value = Number(price_max.style.left.replace('%',''))*100000;
+            console.log(price_max_post.value);
+        }
+
+        var bedroom = document.getElementById('bedroom');
+        var toilet = document.getElementById('toilet');
+        function getBedroom(e){
+            var data_bedroom = e.target.dataset.value;
+            bedroom.value = data_bedroom;
+            console.log(bedroom.value)
+        }
+        function getToilet(e){
+            var data_toilet = e.target.dataset.value;
+            toilet.value = data_toilet;
+            console.log(toilet.value)
+        }
+        // End search phòng trọ
+        // Start search ở ghép
+        var area_min2 = document.getElementById('area_min2');
+        var area_max2 = document.getElementById('area_max2');
+        var area_min_post2 = document.getElementById('area_min_post2');
+        var area_max_post2 = document.getElementById('area_max_post2');
+        area_max_post2.value = 0;
+        area_max_post2.value = 50;
+        area_min2.onclick = function(){
+            area_min_post2.value = Number(area_min2.style.left.replace('%',''))*50/100;
+            console.log(area_min_post2.value);
+        }
+        area_max2.onclick = function(){
+            area_max_post2.value = Number(area_max2.style.left.replace('%',''))*50/100;
+            console.log(area_max_post2.value);
+        }
+
+        var price_min2 = document.getElementById('price_min2');
+        var price_max2 = document.getElementById('price_max2');
+        var price_min_post2 = document.getElementById('price_min_post2');
+        var price_max_post2 = document.getElementById('price_max_post2');
+        price_max_post2.value = 0;
+        price_max_post2.value = 10000000;
+        price_min2.onclick = function(){
+            price_min_post2.value = Number(price_min2.style.left.replace('%',''))*100000;
+            console.log(price_min_post2.value);
+        }
+        price_max2.onclick = function(){
+            price_max_post2.value = Number(price_max2.style.left.replace('%',''))*100000;
+            console.log(price_max_post2.value);
+        }
+
+        var bedroom2 = document.getElementById('bedroom2');
+        var toilet2 = document.getElementById('toilet2');
+        function getBedroom2(e){
+            var data_bedroom2 = e.target.dataset.value;
+            bedroom2.value = data_bedroom2;
+            console.log(bedroom2.value)
+        }
+        function getToilet2(e){
+            var data_toilet2 = e.target.dataset.value;
+            toilet2.value = data_toilet2;
+            console.log(toilet2.value)
+        }
+        // End search ở ghép
+
+        
         
     </script>
 @endsection

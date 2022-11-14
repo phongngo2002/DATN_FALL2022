@@ -19,6 +19,7 @@ use App\Http\Controllers\Auth\registerController;
 |
 */
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/search', [\App\Http\Controllers\Client\HomeController::class, 'search'])->name('search');
 Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');

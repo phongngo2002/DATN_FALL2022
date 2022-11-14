@@ -306,6 +306,34 @@ class Motel extends Model
             return $motel;
         }
         return null;
+    }
+    public function search($params = [])
+    {   
+        dd($params);
+        $query =  DB::table('areas')
+            ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id','=', 'plans.id')
+            ->where('plan_history.status','=',1)
+            ->where('type','=',1);
+            if($params['category'] != 0){
+                $query->where('motels.category_id','=',$params['category']);
+            }
+            if($params['address'] != 0){
+                $query->where('areas.address','LIKE','%'.$params['address'].'%');
+            }
 
+            // if($params['bedroom'] != null){
+            //     $query->where('motels.service','=',$params['address']);
+            // }
+            // if($params['toilet'] != null){
+            //     $query->where('motels.service','=',$params['address']);
+            // }
+            $query->whereBetween('motels.area',[$params['area_min'],$params['area_max']])
+            ->whereBetween('motels.price',[$params['price_min'],$params['price_max']]);
+            $query->orderBy('priority_level', 'asc');
+            // dd($query->toSql());
+        return $query->paginate(10);
     }
 }
