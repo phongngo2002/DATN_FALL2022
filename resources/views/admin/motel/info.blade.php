@@ -1,6 +1,6 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Thành viên phòng')
+@section('title_page', 'Thành viên phòng - '.$info->motel->room_number.' '.$info->motel->name)
 @section('content')
     <style>
         .select-box {
@@ -179,16 +179,21 @@
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
             <div>
-                @if(count($info) >= $info->max_people)
-                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
-                @elseif(count($info) === $info->max_people - 1)
-                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã sắp tối đa</span>
+                @if(isset($info[0]) && $info[0]->motel_status == 4)
+                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Phòng trọ sắp hết thời hạn đồng.Thời gian còn lại {{\Carbon\Carbon::now()->diffInDays($info[0]->motel_end ) !== 0 ? \Carbon\Carbon::now()->diffInDays($info[0]->motel_end ) .' ngày' :  \Carbon\Carbon::now()->diffInHours($info[0]->motel_end).' giờ'}}</span>
+                @else
+
+                    @if(count($info) >= $info->motel->max_people)
+                        <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
+                    @elseif(count($info) === $info->motel->max_people - 1)
+                        <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã sắp tối đa</span>
+                    @endif
                 @endif
             </div>
             <div class="text-right my-2">
                 <p
                     class="font-weight-bold">Số thành viên: <span
-                        class="{{count($info) > $info->max_people - 1 ? 'text-danger' : ''}}">{{count($info)}}/{{$info->max_people}}</span>
+                        class="{{count($info) > $info->motel->max_people - 1 ? 'text-danger' : ''}}">{{count($info)}}/{{$info->motel->max_people}}</span>
                 </p>
             </div>
             <thead>
@@ -293,23 +298,23 @@
                         @csrf
                         <div>
                             <label>Giá điện</label>
-                            <input type="number" name="electric_money" class="form-control"
+                            <input type="number" name="electric_money" value="{{$info->motel->electric_money ?? ""}}"
+                                   class="form-control"
                                    placeholder="Bao tiền 1 số điện">
                         </div>
                         <div>
                             <label>Giá nước</label>
-                            <input type="number" name="warter_money" class="form-control"
+                            <input type="number" name="warter_money" value="{{$info->motel->warter_money ?? ""}}"
+                                   class="form-control"
                                    placeholder="Bao tiền 1 khối nước">
                         </div>
                         <div>
                             <label>Giá mạng internet</label>
-                            <input type="number" name="wifi" class="form-control"
+                            <input type="number" name="wifi" value="{{$info->motel->wifi ?? ""}}" class="form-control"
                                    placeholder="Số tiền mạng đóng 1 tháng">
                         </div>
-                        @if(isset($info[0]->motel_status) && $info[0]->motel_statush)
                         <div>
                             <label>Số tiền đã cọc</label>
-
                             <input type="number" name="money_deposit" class="form-control"
                                    value="{{$info->money_deposit->value ?? 0}}"
                                    disabled>
@@ -329,13 +334,23 @@
                             @endif
 
                         </div>
+                        @if(isset($info[0]->motel_status) && $info[0]->motel_status === 4)
+                            <input type="hidden" name="type" value="1">
+                        @else
+                            <input type="hidden" name="type" value="2">
+                        @endif
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
-                            <input type="date" name="start_time" class="form-control">
+                            <input type="date" name="start_time"
+                                   value="{{$info->motel->start_time ?? \Illuminate\Support\Carbon::now()}}"
+                                   class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
-                            <input type="date" name="end_time" class="form-control">
+
+                            <input type="date" name="end_time"
+                                   value="{{$info->motel->end_time ?? \Illuminate\Support\Carbon::now()->addDays(1)}}"
+                                   class="form-control">
                         </div>
 
                     </div>

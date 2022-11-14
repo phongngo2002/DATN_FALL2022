@@ -113,7 +113,6 @@ class MotelController extends Controller
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
-
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -358,12 +357,23 @@ class MotelController extends Controller
     {
         Motel::where('id', $motelId)->update([
             'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+            'status' => 2
         ]);
         $model = new PrintPdf();;
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
-        return $pdf->stream();
+        $pdf->loadHTML($model->printMotel($motelId, [
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+        ]));
+        return $pdf->download('hop_dong.pdf');
+
     }
 
     public function import(Request $request)

@@ -120,6 +120,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/lich-su-rut-tien', 'App\Http\Controllers\WithdrawController@list')->name('backend_get_history_withdraw');
 
         });
+        Route::prefix('hoa-don')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\BillController@index')->name('backend_get_list_bill');
+            Route::post('/xac-nhan', 'App\Http\Controllers\Admin\BillController@confirm')->name('backend_confirm_bill');
+        });
         // Chỉ chủ trọ
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index_areas')->name('backend_get_list_area');

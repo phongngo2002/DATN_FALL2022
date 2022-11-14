@@ -199,13 +199,13 @@ class Motel extends Model
     public function info_motel($id)
     {
         $query = DB::table('users')
-            ->select(['name', 'motels.status as motel_status', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
+            ->select(['name', 'motels.status as motel_status', 'motels.end_time as motel_end', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
-        $query->max_people = DB::table('motels')->select(['max_people'])->where('id', $id)->first()->max_people;
+        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
         $query->money_deposit = DB::table('deposits')
                 ->select(['value', 'type'])
                 ->where('status', 1)
