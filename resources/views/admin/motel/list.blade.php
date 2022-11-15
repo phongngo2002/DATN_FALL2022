@@ -92,11 +92,9 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     <a title="Thông tin phòng trọ" class="btn btn-info" href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}"><i class="fa-solid fa-circle-info"></i></a>
-                    {{-- <button class="btn btn-danger "--}}
-                    {{-- {{$motel->status == 2 ? 'disabled' : ''}}>--}}
-                    {{-- <a title="Xóa phòng trọ"--}}
-                    {{-- href="" onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')"--}}
-                    {{-- class="text-white"><i class="fa-solid fa-trash"></i></a></button>--}}
+                    <!-- <button class="btn btn-danger " {{$motel->status == 2 ? 'disabled' : ''}}>
+                        <a title="Xóa phòng trọ" href="" onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')" 
+                        class="text-white"><i class="fa-solid fa-trash"></i></a></button> -->
                     <a href="{{route('admin.duplicate.motel',['id' => $motel->area_id, 'idMotel' => $motel->id])}}" onclick="return confirm('Bạn có chắc muốn sao chép phòng trọ này ?')" title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i></a>
                 </td>
             </tr>

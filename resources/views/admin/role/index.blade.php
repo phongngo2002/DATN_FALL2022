@@ -3,7 +3,6 @@
 @section('title_page', 'Quản lý quyền')
 
 @section('content')
-
  <div class="bg-white shadow-lg p-4 rounded-4">
      <a class="btn btn-primary my-2 text-white ms-2" href="{{ route('create_role') }}"><i class="fa-solid fa-folder-plus"></i>  Thêm mới</a>
      <table class="table table-hover my-0">

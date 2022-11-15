@@ -19,7 +19,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <form id="plans_form" action="{{route('saveAdd_role')}}" method="POST" >
+    <form id="plans_form" action="{{route('saveAdd_role')}}" method="POST">
                @csrf
             <div class="bg-white shadow-lg rounded-4 p-4">
                 {{-- input name role --}}
@@ -62,17 +62,10 @@
                 <div class="header m-2 p-2">
                     <h5 class="card-title mb-0">
                         Trạng thái
-                        @error('status')
-                        <a class="text-danger small ms-2">
-                            <i data-feather="alert-circle" class="mb-1"></i>
-                            {{ $message }}
-                        </a>
-                        @enderror
                     </h5>
                 </div>
                 <div class="body m-2 p-2">
-                    <select name="status" id="status" class="form-control">
-                        <option value="">Chọn</option>
+                    <select name="status" id="" class="form-control">
                         <option value="0">Chưa kích hoạt</option>
                         <option value="1">Kích hoạt</option>
                     </select>
@@ -103,17 +96,13 @@
         $("#selectAll").click(function () {
             $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
         });
-
         $("input[type=checkbox]").click(function () {
             if (!$(this).prop("checked")) {
                 $("#selectAll").prop("checked", false);
             }
         });
-
         jackHarnerSig();
-    </script>
-    <script>
-        $("plans_form").validate({
+        $("#plans_form").validate({
             rules: {
                 "name": {
                     required: true,
@@ -122,9 +111,6 @@
                 "desc": {
                     required: true,
                     min: 20
-                },
-                "status": {
-                    required: true,
                 }
             },
             messages: {
@@ -135,9 +121,6 @@
                 "desc": {
                     required: 'Bắt buộc nhập mô tả của quyền',
                     min: 'nhập tối thiểu 20 ký tự'
-                },
-                "status": {
-                    required: "Vui lòng chọn !"
                 }
             },
             submitHandler: function (form) {

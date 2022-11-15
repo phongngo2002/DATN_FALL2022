@@ -114,7 +114,7 @@
 
                                     <input type="text" name="name" id="name" class="form-control name"
                                            style="display: none"
-                                           value="{{$user->name}}">
+                                           value="{{$user->name}}" required>
                                 </div>
                             </div>
                             <hr>
@@ -139,7 +139,7 @@
                                     <input type="text" name="phone_number" id="phone_number"
                                            class="form-control phone_number"
                                            style="display: none"
-                                           value="{{$user->phone_number?? '??????????'}}">
+                                           value="{{$user->phone_number?? '??????????'}}" required>
                                 </div>
                             </div>
                             <hr>
@@ -151,7 +151,7 @@
                                     <span class="address">{{$user->address?? '??????????'}}</span>
                                     <input type="text" name="address" id="address" class="form-control address"
                                            style="display: none"
-                                           value="{{$user->address?? '??????????'}}">
+                                           value="{{$user->address?? '??????????'}}" required>
                                 </div>
                             </div>
                             <div class="row mt-5 ml-2" id="submit" style="display: none">
@@ -202,7 +202,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @include('layouts.admin._js')
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $.validator.addMethod("HoTen", function(value) {
             return /[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]/.test(value);
@@ -252,7 +252,7 @@
         }
 
     });
-</script>
+</script> -->
     <script>
         document.getElementById('upload_img').addEventListener('change', (e) => {
             const file = e.target.files[0];

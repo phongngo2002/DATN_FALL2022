@@ -98,7 +98,7 @@
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
-                            <input name="price" type="text" id="price" class="form-control"
+                            <input name="price" type="number" id="price" class="form-control"
                                 placeholder="Nhập giá của gói dịch vụ" value="{{ $plan->price }}">
                         </div>
                         {{-- input price plans  --}}
@@ -119,7 +119,7 @@
                             </h5>
                         </div>
                         <div class="body m-2 p-2">
-                            <input type="text" name="time" class="form-control" id="time"
+                            <input type="number" name="time" class="form-control" id="time"
                                 placeholder="nhập thời hạn của gói dịch vụ" value="{{ $plan->time }}">
                         </div>
                         {{-- input time plans  --}}

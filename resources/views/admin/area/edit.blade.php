@@ -30,7 +30,7 @@
                 <div class="my-2">
                     <label for="">Ảnh mô tả</label>
                     <div>
-                        <img id="preview2" src="https://xaydungthuanphuoc.com/wp-content/uploads/2022/09/mau-phong-tro-co-gac-lung-dep2020-5.jpg" style="width: 100px;height: 100px" class="img-thumbnail my-1" alt="">
+                        <img id="preview2" src="{{$area->img}}" style="width: 100px;height: 100px" class="img-thumbnail my-1" alt="">
                     </div>
                     <input type="hidden" id="imgReal" name="imgReal" value="{{$area->img}}">
                     <input type="file" name="img" class="form-control">

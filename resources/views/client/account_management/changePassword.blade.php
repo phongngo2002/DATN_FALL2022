@@ -1,12 +1,12 @@
 @extends('layouts.user.main')
 @section('content')
 @include('layouts.admin._css')
-    <style>
-        .error {
-            color: red;
-            margin-top: 4px;
-        }
-    </style>
+<style>
+    .error {
+        color: red;
+        margin-top: 4px;
+    }
+</style>
 <h4>Đổi mật khẩu</h4>
 <div class="bg-white p-4 shadow-sm rounded-4" style="min-height: 700px;">
 
@@ -14,15 +14,16 @@
         @csrf
         <div>
             <label for="">Mật khẩu cũ</label>
-            <input type="password" id="password_old" name="password_old" class="form-control">
+            <input type="password" id="password_old" name="password_old" class="form-control" placeholder="Nhập mật khẩu cũ">
         </div>
         <div>
             <label for="">Mật khẩu mới</label>
-            <input type="password" id="password" name="password" class="form-control">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới">
         </div>
+
         <div>
             <label for="">Xác nhận mật khẩu mới</label>
-            <input type="password" id="confirm-password" name="confirm_password" class="form-control">
+            <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Nhập lại mật khẩu">
         </div>
         <div class="my-4">
             <button class="btn btn-success">Lưu thay đổi</button>
@@ -32,19 +33,17 @@
 @include('layouts.admin._js')
 
 <script>
-    $(document).ready(function() {
-        $.validator.addMethod("pass", function(value, element) {
-            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value);
-        }, 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số:');
-    })
+    $.validator.addMethod('pass', function(value) {
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value);
+    }, 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số.');
     $("#content").validate({
         rules: {
-            password_old: {
+            "password_old": {
                 required: true,
             },
             "password": {
                 required: true,
-                pass: true,
+                pass: true
             },
             "confirm_password": {
                 required: true,
@@ -53,13 +52,13 @@
         },
         messages: {
             "password_old": {
-                required: 'Mật khẩu bắt buộc nhập !',
+                required: 'Vui lòng nhập mật khẩu cũ !',
             },
             "password": {
-                required: 'Mật khẩu bắt buộc nhập !',
+                required: 'Vui lòng nhập mật khẩu mới !',
             },
             "confirm_password": {
-                required: 'Mật khẩu bắt buộc nhập !',
+                required: 'Vui lòng nhập lại mật khẩu mới !',
                 equalTo: "Nhập đúng với password ! "
             },
         },

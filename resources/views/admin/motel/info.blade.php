@@ -228,7 +228,7 @@
                             @foreach($user as $i)
                                 <div class="option">
                                     <input type="radio" class="radio" id="radio"
-                                           value="{{$i->id}}"/>
+                                           value="{{$i->id}}" />
                                     <label for="tutorials">{{$i->email}}</label>
                                 </div>
                             @endforeach
@@ -239,7 +239,7 @@
                         </div>
 
                         <div class="search-box">
-                            <input type="text" placeholder="Tìm kiếm..."/>
+                            <input type="text" name="search" id="search" placeholder="Tìm kiếm..." />
                         </div>
                     </div>
 

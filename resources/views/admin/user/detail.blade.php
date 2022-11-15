@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div>
-                <label for="">Ảnh đại diện</label>
+                <label for="">Ảnh đại diệnn</label>
                 <div>
                     <img id="avt_preview" src="{{$user->avatar}}" alt="your image" style="max-width: 200px; height:95px;" class="img-fluid mb-2" />
                 </div>

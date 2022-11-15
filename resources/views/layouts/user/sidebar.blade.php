@@ -45,11 +45,6 @@
                         <i class="fas fa-paste"></i>Lịch sử đăng ký ở ghép
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('client.change_password')}}">
-                        <i class="fa fa-lock"></i>Đổi mật khẩu
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
