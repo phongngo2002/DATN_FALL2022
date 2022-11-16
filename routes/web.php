@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@editProfile')->name('client.edit_profile');
     Route::get('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@changePassword')->name('client.change_password');
     Route::post('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@saveChangePassword')->name('client.save_change_password');
+    Route::get('/quan-ly-tai-khoan/hoa-don-can-thanh-toan', 'App\Http\Controllers\Client\BillController@index')->name('client_get_list_bill');
 
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}', [LiveTogetherController::class, 'historyContactMotel'])->name('client.get_history_contact_motel');
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}/xac-nhan/{status}/{contact_id}', [LiveTogetherController::class, 'ConfirmContactMotel'])->name('client.confirm_contact_motel');
@@ -80,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
     Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
     Route::get('/quan-ly-tai-khoan/dang-ky-o-ghep', 'App\Http\Controllers\Client\AccountManagementController@history_contact_by_user')->name('get_history_contact_by_user');
+    Route::post('/quan-ly-tai-khoan/gui-danh-gia', 'App\Http\Controllers\Client\VoteController@sendVote')->name('client_send_vote');
 
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');

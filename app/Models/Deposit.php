@@ -35,7 +35,7 @@ class Deposit extends Model
                 ->orWhere('areas.name', 'like', '%' . $params['name'] . '%');
         }
 
-        return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);;
+        return $query->orderBy('deID', $params['order_by'])->paginate($params['limit']);
     }
 
     public function saveNew($params)

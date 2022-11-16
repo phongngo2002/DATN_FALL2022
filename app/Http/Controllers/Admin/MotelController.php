@@ -147,7 +147,8 @@ class MotelController extends Controller
                 'id' => $i->id,
                 'title' => $i->name,
                 'price' => $i->price,
-                'time' => $i->time
+                'time' => $i->time,
+                'more' => $i->price == 0 ? 1 : 0
             ];
         }
 
@@ -167,6 +168,7 @@ class MotelController extends Controller
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
         // dd($request->post());
+        DB::table('motels')->where('id', $idMotel)->update(['status' => 5]);
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([

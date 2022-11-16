@@ -51,6 +51,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('client_get_list_bill')}}">
+                        <i class="fas fa-paste"></i>Hóa đơn
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('client.change_password')}}">
                         <i class="fa fa-lock"></i>Đổi mật khẩu
                     </a>

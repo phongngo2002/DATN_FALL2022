@@ -77,37 +77,38 @@
                             <button class="badge bg-danger p-2 text-xl border-0" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal{{$item->room_number}}">Chưa thu
                             </button>
+                            <div class="modal fade" id="exampleModal{{$item->room_number}}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{route('backend_confirm_bill')}}" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận đã thu tiền trọ</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn có chắc muốn thay đổi trạng thái hóa đơn sang đã thu ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+                                                <button type="submit" name="bill_id" value="{{$item->bill_id}}" class="btn btn-primary">
+                                                    Đồng ý
+                                                </button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
                         @endif
                     </td>
                 </tr>
-                <div class="modal fade" id="exampleModal{{$item->room_number}}" tabindex="-1"
-                     aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form action="{{route('backend_confirm_bill')}}" method="POST">
-                                @csrf
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận đã thu tiền trọ</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Bạn có chắc muốn thay đổi trạng thái hóa đơn sang đã thu ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
 
-                                    <button type="submit" name="bill_id" value="{{$item->id}}" class="btn btn-primary">
-                                        Đồng ý
-                                    </button>
-
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
             @endforeach
             </tbody>
         </table>

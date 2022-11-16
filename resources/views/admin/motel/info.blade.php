@@ -159,7 +159,7 @@
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 1)
+            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 2)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hợp đồng
                 </button>
             @endif

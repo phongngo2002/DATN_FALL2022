@@ -105,7 +105,7 @@
                                         <div class="modal-body">
                                             <div>
                                                 <label for="">File tiền dịch vụ</label>
-                                                <input type="file" class="form-control" name="file">
+                                                <input accept=".xlsx" type="file" class="form-control" name="file">
                                             </div>
                                         </div>
                                         <div class="modal-footer">

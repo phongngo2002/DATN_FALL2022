@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ConfirmContactMotel;
 use App\Models\ContactMotelHistory;
 use App\Models\Motel;
+use App\Models\Vote;
 use Illuminate\Support\Facades\Mail;
 
 class LiveTogetherController extends Controller
@@ -23,8 +24,10 @@ class LiveTogetherController extends Controller
         $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
         $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id);
         $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot();
-        
+
+        $vote = new Vote();
         if ($this->v['motel']) {
+            $this->v['votes'] = $vote->client_get_list_vote_motel($id);
             return view('client.live-together.detail', $this->v);
         }
         abort(404);

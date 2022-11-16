@@ -100,6 +100,8 @@
                                 <span class="badge bg-warning p-2">Đã được đặt cọc</span>
                             @elseif($motel->status == 4)
                                 <span class="badge bg-danger p-2">Sắp hết hạn hợp đồng</span>
+                            @elseif($motel->status == 5)
+                                <span class="badge bg-dark p-2">Đang đăng tin</span>
                             @else
                                 <span class="badge bg-success p-2">Đã được thuê</span>
                             @endif

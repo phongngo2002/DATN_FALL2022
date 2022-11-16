@@ -328,7 +328,16 @@
             const obj = data.find(item => item.id === +e.target.value);
             title.innerText = obj.title;
             money.innerText = obj.price;
-            day_plan.innerText = day.value;
+            if (obj.more) {
+                day_plan.innerText = 2;
+                day.value = 2;
+                day.setAttribute('disabled', true);
+            } else {
+                day_plan.innerText = day.value;
+                day.removeAttribute('disabled');
+            }
+
+
             const abc = document.getElementById('moneyO') ? Number(document.getElementById('moneyO').innerText) : 0;
             total.innerText = obj.price * day.value;
             document.getElementById('post_money').value = obj.price * day.value;

@@ -1,315 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
-    <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>white invoice - Bootdey.com</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-        body {
-            margin-top: 20px;
-            color: #2e323c;
-            background: #f5f6fa;
-            position: relative;
-            height: 100%;
-        }
-
-        .invoice-container {
-            padding: 1rem;
-        }
-
-        .invoice-container .invoice-header .invoice-logo {
-            margin: 0.8rem 0 0 0;
-            display: inline-block;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #2e323c;
-        }
-
-        .invoice-container .invoice-header .invoice-logo img {
-            max-width: 130px;
-        }
-
-        .invoice-container .invoice-header address {
-            font-size: 0.8rem;
-            color: #9fa8b9;
+        * {
             margin: 0;
-        }
-
-        .invoice-container .invoice-details {
-            margin: 1rem 0 0 0;
-            padding: 1rem;
-            line-height: 180%;
-            background: #f5f6fa;
-        }
-
-        .invoice-container .invoice-details .invoice-num {
-            text-align: right;
-            font-size: 0.8rem;
-        }
-
-        .invoice-container .invoice-body {
-            padding: 1rem 0 0 0;
-        }
-
-        .invoice-container .invoice-footer {
-            text-align: center;
-            font-size: 0.7rem;
-            margin: 5px 0 0 0;
-        }
-
-        .invoice-status {
-            text-align: center;
-            padding: 1rem;
-            background: #ffffff;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-
-        .invoice-status h2.status {
-            margin: 0 0 0.8rem 0;
-        }
-
-        .invoice-status h5.status-title {
-            margin: 0 0 0.8rem 0;
-            color: #9fa8b9;
-        }
-
-        .invoice-status p.status-type {
-            margin: 0.5rem 0 0 0;
             padding: 0;
-            line-height: 150%;
+            box-sizing: border-box;
         }
 
-        .invoice-status i {
-            font-size: 1.5rem;
-            margin: 0 0 1rem 0;
-            display: inline-block;
-            padding: 1rem;
-            background: #f5f6fa;
-            -webkit-border-radius: 50px;
-            -moz-border-radius: 50px;
-            border-radius: 50px;
+        td {
+            text-align: center;
+            font-size: 20px;
+            padding: 4px;
         }
 
-        .invoice-status .badge {
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 767px) {
-            .invoice-container {
-                padding: 1rem;
-            }
-        }
-
-
-        .custom-table {
-            border: 1px solid #e0e3ec;
-        }
-
-        .custom-table thead {
-            background: #007ae1;
-        }
-
-        .custom-table thead th {
-            border: 0;
-            color: #ffffff;
-        }
-
-        .custom-table > tbody tr:hover {
-            background: #fafafa;
-        }
-
-        .custom-table > tbody tr:nth-of-type(even) {
-            background-color: #ffffff;
-        }
-
-        .custom-table > tbody td {
-            border: 1px solid #e6e9f0;
-        }
-
-
-        .card {
-            background: #ffffff;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            border: 0;
-            margin-bottom: 1rem;
-        }
-
-        .text-success {
-            color: #00bb42 !important;
-        }
-
-        .text-muted {
-            color: #9fa8b9 !important;
-        }
-
-        .custom-actions-btns {
-            margin: auto;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .custom-actions-btns .btn {
-            margin: .3rem 0 .3rem .3rem;
+        span {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="invoice-container">
-                        <div class="invoice-header">
-                            <!-- Row start -->
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="custom-actions-btns mb-5">
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="icon-download"></i> Download
-                                        </a>
-                                        <a href="#" class="btn btn-secondary">
-                                            <i class="icon-printer"></i> Print
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Row end -->
-                            <!-- Row start -->
-                            <div class="row gutters">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <a href="index.html" class="invoice-logo">
-                                        Bootdey.com
-                                    </a>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <address class="text-right">
-                                        Maxwell admin Inc, 45 NorthWest Street.<br>
-                                        Sunrise Blvd, San Francisco.<br>
-                                        00000 00000
-                                    </address>
-                                </div>
-                            </div>
-                            <!-- Row end -->
-                            <!-- Row start -->
-                            <div class="row gutters">
-                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                                    <div class="invoice-details">
-                                        <address>
-                                            Alex Maxwell<br>
-                                            150-600 Church Street, Florida, USA
-                                        </address>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                                    <div class="invoice-details">
-                                        <div class="invoice-num">
-                                            <div>Invoice - #009</div>
-                                            <div>January 10th 2020</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Row end -->
-                        </div>
-                        <div class="invoice-body">
-                            <!-- Row start -->
-                            <div class="row gutters">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="table-responsive">
-                                        <table class="table custom-table m-0">
-                                            <thead>
-                                            <tr>
-                                                <th>Items</th>
-                                                <th>Product ID</th>
-                                                <th>Quantity</th>
-                                                <th>Sub Total</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    Wordpress Template
-                                                    <p class="m-0 text-muted">
-                                                        Reference site about Lorem Ipsum, giving information on its
-                                                        origins.
-                                                    </p>
-                                                </td>
-                                                <td>#50000981</td>
-                                                <td>9</td>
-                                                <td>$5000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Maxwell Admin Template
-                                                    <p class="m-0 text-muted">
-                                                        As well as a random Lipsum generator.
-                                                    </p>
-                                                </td>
-                                                <td>#50000126</td>
-                                                <td>5</td>
-                                                <td>$100.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Unify Admin Template
-                                                    <p class="m-0 text-muted">
-                                                        Lorem ipsum has become the industry standard.
-                                                    </p>
-                                                </td>
-                                                <td>#50000821</td>
-                                                <td>6</td>
-                                                <td>$49.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td>&nbsp;</td>
-                                                <td colspan="2">
-                                                    <p>
-                                                        Subtotal<br>
-                                                        Shipping &amp; Handling<br>
-                                                        Tax<br>
-                                                    </p>
-                                                    <h5 class="text-success"><strong>Grand Total</strong></h5>
-                                                </td>
-                                                <td>
-                                                    <p>
-                                                        $5000.00<br>
-                                                        $100.00<br>
-                                                        $49.00<br>
-                                                    </p>
-                                                    <h5 class="text-success"><strong>$5150.99</strong></h5>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Row end -->
-                        </div>
-                        <div class="invoice-footer">
-                            Thank you for your Business.
-                        </div>
-                    </div>
+<div class="container" style="width: 900px;margin:0 auto;border: 1px solid black;padding: 16px;">
+    <div style="display: flex;width: auto;margin-bottom: 24px;">
+        <div>
+            <img src="https://i.pinimg.com/originals/2c/6a/26/2c6a26997424f975d485dc6678f30a97.jpg" width="100" alt="">
+        </div>
+        <div>
+            <div style="display: flex;justify-content:center;margin-bottom: 8px;">
+                <div style="text-align: center;">
+                    <p style="font-size: 14px;">{{$data['ten_khu_tro']}}</p>
+                    <p style="font-size: 14px;">Hotline: 0325500080</p>
                 </div>
+                <h3 class="" style="margin-left: 190px;font-size: 24px;">{{$data['tieu_de']}}</h3>
+            </div>
+            <div>
+                <p>Người thuê phòng: {{$data['nguoi_thue']}}</p>
+                <p>Số phòng: <span>{{$data['ma_phong']}}</span></p>
+                <p>Địa chỉ: <span>{{$data['dia_chi']}}</span></p>
+                <p>Ngày làm hóa đơn: <span>{{\Carbon\Carbon::parse($data['ngay_lam_hd'])->format('h:i d/m/Y')}}</span>
+                </p>
             </div>
         </div>
     </div>
+    <table border=1 style="width: 100%;margin-bottom: 24px;">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên dịch vụ</th>
+            <th>Chỉ số cũ</th>
+            <th>Chỉ số mới</th>
+            <th>Số lượng</th>
+            <th>Đơn giá<br>(VNĐ)</th>
+            <th>Thành tiền<br>(VNĐ)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="">1</td>
+            <td>Tiền phòng</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>{{number_format($data['tien_phong'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['tien_phong'], 0, ',', '.')}}</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Điện (số)</td>
+            <td>{{number_format($data['so_dien_cu'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['so_dien_moi'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['so_dien_moi'] - $data['so_dien_cu'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['gia_dien'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['tong_dien'], 0, ',', '.')}}</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Nước (m3/tháng)</td>
+            <td>{{number_format($data['so_nuoc_cu'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['so_nuoc_moi'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['so_nuoc_moi'] - $data['so_nuoc_cu'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['gia_nuoc'], 0, ',', '.')}}</td>
+            <td>{{number_format($data['tong_nuoc'], 0, ',', '.')}}</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Internet (phòng/tháng)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{number_format($data['wifi'], 0, ',', '.')}}</td>
+        </tr>
+        <tr>
+            <td colspan="6">Tổng</td>
+            <td>{{number_format($data['tong_tien'], 0, ',', '.')}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><span>BQL xin thông báo: </span> Yêu cầu các phòng thanh toán tiền nhà và tiền dịch vụ từ <span>ngày 01 đến ngày 04</span>
+        của kỳ thanh toán và tất cả
+        đều nhận theo hình thực chuyển khoản <span>KHÔNG DÙNG TIỀN MẶT</span>.Tất cả các trường hợp chậm sau ngày 06 đều
+        bị xử phạt 200.000đ/1 lần trừ vào tiền cọc</p>
+
+    <p style="margin-top: 8px;">Tên TK: Ngô Văn Phong</p>
+    <p style="margin: 8px 0px;">Số TK: 0976322350</p>
+    <p style="margin: 8px 0px;">Ngân hàng: MB bank</p>
+    <p style="margin-bottom: 10px">Nội dung:Tên viết tắt của địa chỉ nhà,số phòng,Tên người chuyển </p>
+    <div style="margin-bottom: 24px">
+        <p style="font-weight: bold;font-size: 16px;float: left;margin-left: 200px;">Người thu tiền</p>
+        <p style="font-weight: bold;font-size: 16px;float: right;margin-right: 200px;">Người nộp tiền</p>
+    </div>
 </div>
-
-
-<script type="text/javascript">
-
-</script>
 </body>
 </html>

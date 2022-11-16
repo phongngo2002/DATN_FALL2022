@@ -22,10 +22,12 @@ class BillsImport implements ToCollection
                 Bill::insertGetId(
                     [
                         'motel_id' => $row[1],
-                        'title' => 'Hóa đơn tiên phòng ' . $row[4] . ' tháng ' . Carbon::now()->format('m') . ' năm' . Carbon::now()->format('Y'),
+                        'title' => 'Hóa đơn tiên phòng tháng ' . Carbon::now()->format('m'),
                         'status' => 0,
-                        'number_elec' => $row[2],
-                        'number_warter' => $row[3],
+                        'number_elec_old' => $row[2],
+                        'number_elec' => $row[3],
+                        'number_warter_old' => $row[4],
+                        'number_warter' => $row[5],
                         'created_at' => Carbon::now()
                     ]
                 );

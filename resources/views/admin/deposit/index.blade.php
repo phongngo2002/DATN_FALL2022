@@ -106,8 +106,8 @@
                         {{\Carbon\Carbon::parse($deposit->date)->format('d/m/Y H:i:s')}}
                     </td>
                     <td>
-                        @if($deposit->type == 0)
-                            @if(!$deposit->deSatus)
+                        @if($deposit->type == 2)
+                            @if(!$deposit->deStatus)
                                 <button type="button" data-bs-toggle="modal" style="border:none"
                                         data-bs-target="#exampleModal{{$deposit->deID}}"
                                         class="badge text-bg-warning p-2">

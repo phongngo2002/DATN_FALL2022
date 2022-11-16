@@ -143,31 +143,66 @@ class AreaController extends Controller
         Excel::import(new BillsImport(), $request->file('file'));
 
         $motels = DB::table('users')
-            ->select(['motel_id', 'email', 'room_number', 'price', 'wifi', 'electric_money', 'warter_money'])
+            ->select(['motel_id', 'email'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('area_id', $request->area_id)
             ->where('user_motel.status', 1)
             ->get();
+
         foreach ($motels as $motel) {
-            $bill = Bill::where('motel_id', $motel->motel_id)->where('status', 0)->first();
+            $bill = Bill::selectRaw('name,room_number,
+            title,
+            areas.address,
+            price,
+            electric_money,
+            number_elec_old,
+            warter_money,
+            number_warter_old,
+            number_warter,
+            number_elec,
+            (electric_money * (number_elec - number_elec_old)) as tien_dien,
+            (warter_money * (number_warter - number_warter_old)) as tien_nuoc,
+            wifi,
+            bills.created_at,
+            (electric_money * (number_elec - number_elec_old) + warter_money * (number_warter - number_warter_old) + wifi + price) as tong')
+                ->where('motel_id', $motel->motel_id)
+                ->join('motels', 'bills.motel_id', '=', 'motels.id')
+                ->join('areas', 'motels.area_id', '=', 'areas.id')
+                ->where('bills.status', 0)->get();
+            $user_name = DB::table('users')
+                ->select(['name'])
+                ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+                ->where('user_motel.status', 1)
+                ->where('motel_id', $motel->motel_id)
+                ->orderBy('user_motel.start_time', 'asc')
+                ->first()->name;
             if ($bill) {
                 try {
                     Mail::to($motel->email)->send(new SendBillToCustomer([
-                        'tien_phong' => $motel->price,
-                        'so_dien' => $bill->number_elec,
-                        'so_nuoc' => $bill->number_warter,
-                        'wifi' => $motel->wifi,
+                        'ten_khu_tro' => $bill->name,
+                        'nguoi_thue' => $user_name,
+                        'ma_phong' => $bill->room_number,
+                        'dia_chi' => $bill->address,
+                        'ngay_lam_hd' => $bill->created_at,
                         'tieu_de' => $bill->title,
-                        'gia_dien' => $motel->electric_money,
-                        'gia_nuoc' => $motel->warter_money,
-                        'ma_phong' => $motel->room_number
+                        'tien_phong' => $bill->price,
+                        'so_dien_cu' => $bill->number_elec_old,
+                        'so_dien_moi' => $bill->number_elec,
+                        'so_nuoc_cu' => $bill->number_warter_old,
+                        'so_nuoc_moi' => $bill->number_warter,
+                        'wifi' => $bill->wifi,
+                        'gia_nuoc' => $bill->warter_money,
+                        'gia_dien' => $bill->electric_money,
+                        'tong_dien' => $bill->tien_dien,
+                        'tong_nuoc' => $bill->tien_nuoc,
+                        'tong_tien' => $bill->tong
                     ]));
                 } catch (\Exception $e) {
                     return redirect()->back();
                 }
             }
         }
-        dd(1);
+        return redirect()->back()->with('success', 'Gửi hóa đơn thành công');
     }
 }
