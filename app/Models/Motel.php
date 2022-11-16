@@ -69,21 +69,20 @@ class Motel extends Model
                 "image_360" => $data['image_360'],
                 "photo_gallery" => json_encode($data['photo_gallery']),
                 "services" => json_encode([
-                    'bed' => $data['bed'],
-                    'bedroom' => $data['bedroom'],
-                    'toilet' => $data['toilet'],
+                    'bedroom' => $data['service']['bedroom'],
+                    'toilet' => $data['service']['toilet'],
+                    'service_checkbox' => $data['service']['service_checkbox'],
                     'more' => $data['service_more'],
                     'actor' => $data['actor']
                 ]),
                 "max_people" => $data['max_people'],
-                "category_id" => 1,
+                "category_id" => $data['category_id'],
                 "video" => $data['video'],
                 "day_deposit" => $data['day_deposit'],
                 "money_deposit" => $data['money_deposit'],
                 "transfer_infor" => $data['transfer_infor'],
             ]
         );
-
         return $res;
     }
 
@@ -309,7 +308,7 @@ class Motel extends Model
     }
     public function search($params = [])
     {   
-        dd($params);
+        // dd($params);
         $query =  DB::table('areas')
             ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')

@@ -58,10 +58,10 @@
                                                         <div class="rld-single-select">
                                                             <select class="select single-select mr-0" name="address">
                                                                 <option value="0">Địa điểm</option>
-                                                                <option value="1">Hà Nội</option>
-                                                                <option value="2">TP Hồ Chí Minh</option>
-                                                                <option value="3">Đà Nẵng</option>
-                                                                <option value="4">Bắc Giang</option>
+                                                                <option value="Hà Nội">Hà Nội</option>
+                                                                <option value="Hồ Chí Minh">TP Hồ Chí Minh</option>
+                                                                <option value="Đà Nẵng">Đà Nẵng</option>
+                                                                <option value="Bắc Giang">Bắc Giang</option>
                                                             </select>
                                                         </div>
                                                         <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
@@ -184,11 +184,11 @@
                                                         </div>
                                                         <div class="rld-single-select">
                                                             <select class="select single-select mr-0" name="address">
-                                                                <option>Địa điểm</option>
-                                                                <option value="1">Hà Nội</option>
-                                                                <option value="2">TP Hồ Chí Minh</option>
-                                                                <option value="3">Đà Nẵng</option>
-                                                                <option value="4">Bắc Giang</option>
+                                                                <option value="0">Địa điểm</option>
+                                                                <option value="Hà Nội">Hà Nội</option>
+                                                                <option value="Hồ Chí Minh">TP Hồ Chí Minh</option>
+                                                                <option value="Đà Nẵng">Đà Nẵng</option>
+                                                                <option value="Bắc Giang">Bắc Giang</option>
                                                             </select>
                                                         </div>
                                                         <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span></div>

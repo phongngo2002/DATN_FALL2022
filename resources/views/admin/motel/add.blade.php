@@ -7,15 +7,16 @@
     <script>
         tinymce.init({
             selector: 'textarea#desc',
+            height: 330
         });
         tinymce.init({
             selector: 'textarea#transfer_infor',
-            height: 250
+            height: 380
         });
     </script>
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="row">
-            <div class="bg-white p-4 shadow-lg rounded-4 col-6">
+            <div class="col-6 bg-white p-4 shadow-sm rounded-4">
                 <div class="mt-4">
                     <div class="row">
                         <div class="col-6">
@@ -51,15 +52,72 @@
                 <div class="mt-4">
                     <label for="">Dịch vụ phòng</label>
                     <div class="row">
-                        <div class="col-4">
-                            <input type="number" name="bedroom" placeholder="Số phòng ngủ" class="form-control">
+                        <div class="col-6">
+                            <input type="number" name="service[bedroom]" placeholder="Số phòng ngủ" class="form-control">
                         </div>
-                        <div class="col-4">
-                            <input type="number" name="bed" placeholder="Số giường" class="form-control">
-                        </div>
-                        <div class="col-4">
-                            <input type="number" name="toilet" id="toilet" placeholder="Nhà vệ sinh"
+                        <div class="col-6">
+                            <input type="number" name="service[toilet]" id="toilet" placeholder="Nhà vệ sinh"
                                    class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="d-flex flex-row">
+                        <div class="ml-2 mr-5">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[cho_de_xe]" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Chỗ để xe
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[dieu_hoa]" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Điều hoà
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mx-5">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[thang_may]" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Thang máy
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[may_giat]" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Máy giặt
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mx-5">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[nong_lanh]" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Nóng lạnh
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_lanh]" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Tủ lạnh
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mx-5">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[giuong_ngu]" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Giường ngủ
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_quan_ao]" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Tủ quần áo
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,12 +126,20 @@
                     <input type="text" name="service_more" placeholder="Gần trường học,chợ..." class="form-control">
                 </div>
                 <div class="mt-4">
+                    <label for="">Loại phòng</label>
+                    <select name="category_id" id="category_id" class="form-control">
+                        @foreach ($categories as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mt-4">
                     <label for="">Mô tả</label>
                     <textarea name="description" id="desc" cols="30" rows="20" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-6">
-                <div class="bg-white p-4 shadow-lg rounded-4">
+                <div class="bg-white p-4 shadow-sm rounded-4">
                     <div class="mt-4">
                         <div class="row">
                             <div class="col-7">
@@ -99,32 +165,32 @@
                                 href="http://help.web60.vn/bai-viet/huong-dan-nhung-anh-360-do-len-website"
                                 target="_blank">đây</a></p>
                     </div>
-                </div>
-                <div class="bg-white p-4 shadow-lg rounded-4">
-                    <div class="row">
-                        <div class="col-7">
-                            <label>Số tiền đặt cọc giữ phòng</label>
-                            <input type="text" name="money_deposit" class="form-control">
+                    <div class="mt-4">
+                        <div class="row">
+                            <div class="col-7">
+                                <label>Số tiền đặt cọc giữ phòng</label>
+                                <input type="number" name="money_deposit" class="form-control">
+                            </div>
+                            <div class="col-5">
+                                <label>Số ngày giữ phòng tối đa</label>
+                                <input type="number" name="day_deposit" class="form-control">
+                            </div>
                         </div>
-                        <div class="col-5">
-                            <label>Số ngày giữ phòng tối đa</label>
-                            <input type="text" name="day_deposit" class="form-control">
+                        <div class="mt-4">
+                            <label for="">Thông tin chuyển khoản</label>
+                            <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                                <p>Số tài khoản: <span style="font-weight: bold;">00000000 - Techcombank</span></p>
+                                <p>Cú pháp chuyển khoản: <span style="font-weight: bold;">email_mã nhà trọ_mã phòng trọ_datcoc</span></p>
+                            </textarea>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label for="">Thông tin chuyển khoản</label>
-                        <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
-                            <p>Số tài khoản: <span style="font-weight: bold;">00000000 - Techcombank</span></p>
-                            <p>Cú pháp chuyển khoản: <span style="font-weight: bold;">email_mã nhà trọ_mã phòng trọ_datcoc</span></p>
-                        </textarea>
-                    </div>
-                </div>
-                <div class="bg-white p-4 shadow-lg rounded-4">
-                    <label for="photo" class="">Ảnh phòng trọ</label>
-                    <input type="hidden" name="img">
-                    <input type="file" multiple class="form-control" name="photo_gallery" id="photo_gallery">
-                    <div class="preview mt-2" style="display: grid;grid-template-columns: repeat(4,1fr);gap: 8px;">
+                        <label for="photo" class="">Ảnh phòng trọ</label>
+                        <input type="hidden" name="img">
+                        <input type="file" multiple class="form-control" name="photo_gallery" id="photo_gallery">
+                        <div class="preview mt-2" style="display: grid;grid-template-columns: repeat(4,1fr);gap: 8px;">
 
+                        </div>
                     </div>
                 </div>
                 @csrf

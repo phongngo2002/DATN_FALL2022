@@ -14,16 +14,9 @@ class HomeController extends Controller
 {
     //
     private $v;
-    private $address = [];
     public function __construct()
     {
         $this->v = [];
-        $this->address = [
-            '1' => 'Hà Nội',
-            '2' => 'Hồ Chí Minh',
-            '3' => 'Đà Nẵng',
-            '4' => 'Bắc Giang',
-        ];
     }
 
 
@@ -72,7 +65,7 @@ class HomeController extends Controller
             }
             return $item;
         },$request->all());
-        // dd($param$params['area_min'] === null);
+        // dd($params);
         if($params['area_min'] === null){
             $params['area_min'] = 0;
         }
@@ -82,14 +75,10 @@ class HomeController extends Controller
         if(array_key_exists('service',$params) == false){
             $params['service'] = [];
         }
-        foreach ($this->address as $key => $value) {
-            if($params['address'] == $key){
-                $params['address'] = $value;
-            } 
-        }
         $modelMotel = new Motel();
         $result = $modelMotel->search($params);
-        return response()->json(['motel'=>$request]);
+        // dd($result);
+        return response()->json(['motel'=>$result]);
     
     }
 
