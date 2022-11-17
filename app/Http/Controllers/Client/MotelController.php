@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -245,8 +246,8 @@ class MotelController extends Controller
             $trong_so = $plan->priority_level != 6 ? 10 / $plan->priority_level : 0;
             $currentTicket =
                 Ticket::where('user_id', Auth::id())
-                ->where('ticket', '<', 10)
-                ->first();
+                    ->where('ticket', '<', 10)
+                    ->first();
             if ($currentTicket) {
                 $ticket = $trong_so + $currentTicket->ticket;
                 if ($ticket > 10) {
@@ -290,11 +291,12 @@ class MotelController extends Controller
     {
         $motel = new Motel();
         $vote = new Vote();
+        $appoint = new Appointment();
         if ($motel->detailMotel1($id)) {
             $this->v['motel'] = $motel->detailMotel1($id);
             $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
             $this->v['motelsHot'] = $motel->getMotelsHot();
-
+            $this->v['appoint'] = $appoint->currentAppoint($id);
             if (!empty(Auth::user())) {
                 $this->v['votes'] = $vote->client_get_list_vote_motel($id);
                 $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();
