@@ -68,6 +68,9 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/quan-ly-tai-khoan/vong-quay', 'App\Http\Controllers\Client\AccountManagementController@wheel_luck')->name('client.get_rotation');
+
+
     Route::get('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@profile')->name('client.get_profile');
     Route::post('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@editProfile')->name('client.edit_profile');
     Route::get('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@changePassword')->name('client.change_password');
@@ -105,6 +108,12 @@ Route::middleware(['auth'])->group(function () {
         // Lịch sửa mua gói dịch vụ
         Route::get('/lich-su-mua-goi', [PlanHistoryController::class, "index_plan_history"])->name("admin.plan-history.list");
         // Lịch sử đặt cọc
+        Route::prefix('vong-quay')->group(function () {
+            Route::post('/doi-ve', 'App\Http\Controllers\Admin\TicketController@admin_swap_gift_to_ticket')->name('admin_swap_gift_to_ticket');
+            Route::get('', 'App\Http\Controllers\Admin\TicketController@get_view_whell_luck')->name('admin_get_view_wheel_luck');
+            Route::post('mua-luot', 'App\Http\Controllers\Admin\TicketController@buy_ticket')->name('buy_ticket');
+
+        });
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index_deposits')->name('backend_get_list_deposit');
             Route::post('/change_status/{id}', 'App\Http\Controllers\Admin\DepositController@change_status_deposit')->name('backend_admin_change_status_deposit');

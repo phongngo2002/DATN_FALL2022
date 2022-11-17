@@ -12,15 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('history_used_ticket', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('motel_id');
-            $table->integer('number_elec')->default(0);
-            $table->integer('number_warter')->default(0);
-            $table->integer('number_elec_old')->default(0);
-            $table->integer('number_warter_old')->default(0);
-            $table->integer('status')->default(0);
+            $table->integer('ticket_id');
+            $table->integer('gift')->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('history_used_ticket');
     }
 };

@@ -19,12 +19,50 @@
 
     <div class="row gap-2" style="display: grid;grid-template-columns: 8fr 3fr;">
         <div class="bg-white p-4 shadow-lg rounded-4">
-            <p class="alert alert-danger">
-                Nếu bạn đã từng đăng tin trên Phongtro123.com, hãy sử dụng chức năng ĐẨY TIN / GIA HẠN / NÂNG CẤP
-                VIP trong
-                mục QUẢN LÝ TIN ĐĂNG để làm mới, đẩy tin lên cao thay vì đăng tin mới. Tin đăng trùng nhau sẽ không
-                được
-                duyệt.
+            <p class="alert alert-success">
+                Tin nóng: Website mới thêm tính năng tích điểm nhận vé quay khi mua gói.
+                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal1000">Xem chi tiết</a>
+            <div class="modal fade" id="exampleModal1000" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết sự kiện mua gói nhận vé quay
+                                miễn phí</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="text-center table table-striped">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Loại gói</th>
+                                    <th>Số điểm nhận</th>
+                                </tr>
+                                @foreach($plans as $plan)
+                                    @if($plan->price > 0)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$plan->name}}</td>
+                                            <td>{{10 / $plan->priority_level}} <i
+                                                    class="fa-solid fa-gift text-danger"></i></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+
+                            </table>
+                            <p><i class="fa-solid fa-triangle-exclamation"></i> Lưu ý: Sự kiện không áp dụng đối với gói
+                                tin thường miễn phí
+                            </p>
+                            <p>Quy đổi: 10 <i
+                                    class="fa-solid fa-gift text-danger"></i> = 1 <i
+                                    class="fa-solid fa-ticket text-warning"></i></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đã hiểu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </p>
             <h5>Thông tin phòng</h5>
             <input type="hidden" value="{{$data}}" id="data">
@@ -104,7 +142,55 @@
                 <p class=" font-weight-bold">Tài khoản gốc: <span
                         id="currentMoney">{{\Illuminate\Support\Facades\Auth::user()->money}}</span> <i
                         class="fa-brands fa-bitcoin text-warning"></i></p>
-
+                <p>Số điểm thưởng hiện có: <span
+                        id="point">{{$gift}}</span>
+                    <i
+                        class="fa-solid fa-gift text-danger"></i> <a
+                        href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2000">Đổi ngay</a>
+                <p>Số vé
+                    có: {{$numberTicket}}
+                    <i
+                        class="fa-solid fa-ticket text-warning"></i></p>
+                <div class="modal fade" id="exampleModal2000" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Đổi điểm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form action="{{route('admin_swap_gift_to_ticket')}}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <p>Điểm hiện có: {{$gift}} <i
+                                            class="fa-solid fa-gift text-danger"></i></p>
+                                    <div class="row">
+                                        <div class="col-5 form-group">
+                                            <label for="">Số điểm muốn đổi</label>
+                                            <input type="number" step="10" name="gift" id="gift" class="form-control">
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <i class="fa-solid fa-right-left"></i>
+                                        </div>
+                                        <div class="col-5 form-group">
+                                            <label for="">Số vé nhận được</label>
+                                            <input type="number" name="ticket" id="ticket" readonly
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <p id="messageSwapTicket"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                    </button>
+                                    <button type="submit" id="swapTicket" class="btn btn-primary">Đổi ngay</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </p>
                 <div class="text-center">
                     <button class="btn btn-info" style="width: 100%">Nạp tiền ngay</button>
                 </div>
@@ -291,6 +377,11 @@
         const date_more = document.getElementById('date_more');
         const btn_more = document.getElementById('btn_more');
         const old_price = document.getElementById('old_price');
+        const ticket = document.getElementById('ticket');
+        const gift = document.getElementById('gift');
+        const point = document.getElementById('point');
+        const swapTicket = document.getElementById('swapTicket');
+        const messageSwapTicket = document.getElementById('messageSwapTicket');
         if (date_more) {
 
             date_more.addEventListener('keyup', (e) => {
@@ -307,6 +398,24 @@
                 }
             })
         }
+        gift.addEventListener('change', (e) => {
+            if (e.target.value > Number(point.innerText)) {
+                swapTicket.setAttribute('disabled', 'true');
+                gift.style.border = '2px solid red';
+                messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Bạn không đủ điểm để thực hiện hành động này !`;
+            } else if (e.target.value < 0) {
+                swapTicket.setAttribute('disabled', 'true');
+                gift.style.border = '2px solid red';
+                messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Dữ liệu không hợp lệ !`;
+            } else {
+                gift.value = e.target.value - e.target.value % 10;
+                ticket.value = (e.target.value - e.target.value % 10) / 10;
+                gift.style.border = '1px solid #ced4da';
+                messageSwapTicket.innerText = '';
+                swapTicket.removeAttribute('disabled');
+            }
+
+        })
 
         function reset() {
             title.innerText = '';

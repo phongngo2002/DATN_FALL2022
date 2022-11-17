@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
+use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
 use App\Models\Deposit;
@@ -39,8 +41,9 @@ class MotelController extends Controller
 
     public function postLiveTogether($motel_id)
     {
+        $this->v['numberTicketUser'] = Ticket::selectRaw('SUM(ticket)  as quantity')->where('user_id', Auth::id())->where('status', 1)->first()->quantity ?? 0;
 
-        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 2)->where('status', 1)->get();
+        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status', 'priority_level'])->where('type', 2)->where('status', 1)->get();
         $data = [];
         foreach ($this->v['plans'] as $i) {
             $data[] = [
@@ -118,6 +121,31 @@ class MotelController extends Controller
 
             $planHistory->save();
 
+            $plan = Plan::find($request->plan_id_old);
+            $trong_so = $plan->priority_level != 6 ? 10 / $plan->priority_level : 0;
+            $currentTicket = Ticket::where('user_id', Auth::id())->where('ticket', '<', 10)->first();
+            if ($currentTicket) {
+                $ticket = $trong_so + $currentTicket->ticket;
+                if ($ticket > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => $ticket - 10,
+                        'created_at' => Carbon::now()
+                    ]);
+                } else {
+                    $currentTicket->ticket = $ticket;
+                }
+                $currentTicket->save();
+            } else {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => $trong_so
+                ]);
+            }
+
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
 
@@ -151,6 +179,36 @@ class MotelController extends Controller
                 'parent_id' => $id,
                 'is_first' => 1
             ]);
+
+            $planOld = Plan::find($request->plan_id_old);
+            $planNew = Plan::find($request->post_plan);
+            $trong_so1 = $planOld->priority_level != 6 ? 10 / $planOld->priority_level : 0;
+            $trong_so2 = $planNew->priority_level != 6 ? 10 / $planNew->priority_level : 0;
+            $currentTicket = Ticket::where('user_id', Auth::id())->where('ticket', '<', 10)->first();
+            if (!$currentTicket) {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => 0 - $trong_so1 + $trong_so2,
+                    'created_at' => Carbon::now()
+                ]);
+            } else {
+                if ($currentTicket->ticket - $trong_so1 + $trong_so2 > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => 10 - $currentTicket->ticket + $trong_so1 - $trong_so2,
+                        'created_at' => Carbon::now()
+                    ]);
+
+                } else {
+                    $currentTicket->ticket = $currentTicket->ticket - $trong_so1 + $trong_so2;
+                }
+
+                $currentTicket->save();
+            }
+
             PlanHistory::where('id', $request->ID)->update([
                 'status' => 0,
             ]);
@@ -182,6 +240,36 @@ class MotelController extends Controller
                 'parent_id' => $id,
                 'is_first' => 1
             ]);
+
+            $plan = Plan::find($request->post_plan);
+            $trong_so = $plan->priority_level != 6 ? 10 / $plan->priority_level : 0;
+            $currentTicket =
+                Ticket::where('user_id', Auth::id())
+                ->where('ticket', '<', 10)
+                ->first();
+            if ($currentTicket) {
+                $ticket = $trong_so + $currentTicket->ticket;
+                if ($ticket > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => $ticket - 10,
+                        'created_at' => Carbon::now()
+                    ]);
+                } else {
+                    $currentTicket->ticket = $ticket;
+                }
+                $currentTicket->save();
+            } else {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => $trong_so,
+                    'created_at' => Carbon::now()
+                ]);
+            }
+
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
             $user->save();

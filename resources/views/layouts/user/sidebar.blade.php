@@ -10,7 +10,8 @@
         </div>
         <div class="active-user">
             <h2>    {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
-            <p class="text-white text-center">Tài khoản gốc: {{\Illuminate\Support\Facades\Auth::user()->money}} <i
+            <p class="text-white text-center">Tài khoản gốc: <span
+                    class="current_money">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span> <i
                     class="fa-brands fa-bitcoin text-warning"></i></p>
         </div>
         <div class="detail clearfix">
@@ -53,6 +54,11 @@
                 <li>
                     <a href="{{route('client_get_list_bill')}}">
                         <i class="fas fa-paste"></i>Hóa đơn
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('client.get_rotation')}}">
+                        <i class="fas fa-paste"></i>Vòng quay
                     </a>
                 </li>
                 <li>
