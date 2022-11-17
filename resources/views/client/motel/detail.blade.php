@@ -433,7 +433,29 @@
                         </div>
                     </div>
                     <!-- End: Schedule a Tour -->
+                    <div class="schedule widget-boxed mt-33 my-4">
+                        <div class="widget-boxed-header">
+                            <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đăt lịch xem phòng</h4>
+                        </div>
+                        <div class="widget-boxed-body">
+                            @if(isset($appoint) && $appoint->status === 3 || !$appoint)
+                                <form action="{{route('client.post_appointment')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
+                                    <input type="datetime-local" id="time" name="time" class="form-control">
+                                    <button type="submit" onclick="return confirm('Bạn có chắc muốn đăt lịch hẹn ?')"
+                                            class="btn reservation btn-radius theme-btn full-width mrg-top-10">Gửi
+                                        yêu cầu
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{route('client.history_appointment')}}"
+                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Xem tình trạng
+                                    lịch đặt</a>
+                            @endif
+                        </div>
 
+                    </div>
                     <!-- end author-verified-badge -->
                     <div class="sidebar">
                         <div class="widget-boxed mt-33 mt-5">
@@ -535,10 +557,10 @@
                     </div>
 
 
-{{--            </div>--}}
+                    {{--            </div>--}}
 
-            </aside>
-        </div>
+                </aside>
+            </div>
         </div>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"

@@ -112,7 +112,7 @@
         }
     </style>
     <div class="w-full overflow-hidden rounded-lg shadow-xs my-3">
-        @if ( Session::has('recharge_success') )
+        @if (Session::has('recharge_success'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 <strong>{{ Session::get('recharge_success') }}</strong>
                 <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
@@ -121,8 +121,9 @@
                 </button>
             </div>
         @endif
-        <?php //Hiển thị thông báo lỗi?>
-        @if ( Session::has('recharge_error') )
+        <?php //Hiển thị thông báo lỗi
+        ?>
+        @if (Session::has('recharge_error'))
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <strong>{{ Session::get('recharge_error') }}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -148,46 +149,45 @@
         <div class="my-properties shadow-lg">
             <table class="table-responsive text-center shadow p-3 mb-5 bg-body rounded">
                 <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Khu trọ</th>
-                    <th>Mã phòng</th>
-                    <th>Tiền phòng</th>
-                    <th>Tiền điện</th>
-                    <th>Tiền nước</th>
-                    <th>Tiền mạng</th>
-                    <th>Tổng thu</th>
-                    <th>Ngày làm hóa đơn</th>
-                    <th>Trạng thái</th>
-                </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Khu trọ</th>
+                        <th>Mã phòng</th>
+                        <th>Tiền phòng</th>
+                        <th>Tiền điện</th>
+                        <th>Tiền nước</th>
+                        <th>Tiền mạng</th>
+                        <th>Tổng thu</th>
+                        <th>Ngày làm hóa đơn</th>
+                        <th>Trạng thái</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($list as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->area_name}}</td>
-                        <td>{{$item->room_number}}</td>
-                        <td>{{number_format($item->price, 0, ',', '.')}} đ</td>
-                        <td>{{number_format($item->tien_dien, 0, ',', '.')}} đ</td>
-                        <td>{{number_format($item->tien_nuoc, 0, ',', '.')}} đ</td>
-                        <td>{{number_format($item->wifi, 0, ',', '.')}} đ</td>
-                        <td>{{number_format($item->tong, 0, ',', '.')}} đ</td>
-                        <td>{{\Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y')}}</td>
-                        <td>
-                            @if($item->status)
-                                <span class="badge bg-success p-2 text-xl">Đã thu</span>
-                            @else
-                                <span class="badge bg-danger p-2 text-xl">Chưa thu</span>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($list as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->area_name }}</td>
+                            <td>{{ $item->room_number }}</td>
+                            <td>{{ number_format($item->price, 0, ',', '.') }} đ</td>
+                            <td>{{ number_format($item->tien_dien, 0, ',', '.') }} đ</td>
+                            <td>{{ number_format($item->tien_nuoc, 0, ',', '.') }} đ</td>
+                            <td>{{ number_format($item->wifi, 0, ',', '.') }} đ</td>
+                            <td>{{ number_format($item->tong, 0, ',', '.') }} đ</td>
+                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y') }}</td>
+                            <td>
+                                @if ($item->status)
+                                    <span class="badge bg-success p-2 text-xl">Đã thu</span>
+                                @else
+                                    <span class="badge bg-danger p-2 text-xl">Chưa thu</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
 
                 </tbody>
             </table>
         </div>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-              crossorigin="anonymous">
-@endsection
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    @endsection

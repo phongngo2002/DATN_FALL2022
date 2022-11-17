@@ -24,7 +24,6 @@ class Bill extends Model
             (electric_money * (number_elec - number_elec_old)) as tien_dien,
             (warter_money * (number_warter - number_warter_old)) as tien_nuoc,
             wifi,
-
             bills.created_at,
             bills.status
             ,(electric_money * (number_elec - number_elec_old) + warter_money * (number_warter - number_warter_old) + wifi  + price) as tong')
@@ -43,7 +42,6 @@ class Bill extends Model
 
         return $query->orderBy('bills.id', 'desc')
             ->paginate($params['limit'] ?? 10);
-
     }
 
 

@@ -17,6 +17,18 @@
                         <i class="fa-solid fa-house-user"></i><span class="align-middle">Khu trọ</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" data-index="bill" data-href="{{ route('backend_get_list_bill') }}"
+                       href="#">
+                        <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Hóa đơn</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" data-index="bill" data-href="{{ route('admin.get_list_appoint') }}"
+                       href="#">
+                        <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch hẹn xem trọ</span>
+                    </a>
+                </li>
             @endif
             <li class="sidebar-item">
                 <a class="sidebar-link" data-index="deposit1" data-href="{{ route('backend_get_list_deposit') }}"
@@ -31,12 +43,7 @@
                     <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch sử rút tiền</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" data-index="bill" data-href="{{ route('backend_get_list_bill') }}"
-                   href="#">
-                    <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Hóa đơn</span>
-                </a>
-            </li>
+
             @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                 <li class="sidebar-item">
                     <a class="sidebar-link" data-index="role" data-href="{{ route('list_role') }}" href="#">

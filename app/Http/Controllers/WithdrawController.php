@@ -142,8 +142,6 @@ class WithdrawController extends Controller
         }
 
         return redirect()->back()->with('error', 'Mã xác minh không chính xác');
-
-
     }
 
     public function list()
@@ -153,5 +151,4 @@ class WithdrawController extends Controller
             'withdraws' => $withdraws
         ]);
     }
-
 }
