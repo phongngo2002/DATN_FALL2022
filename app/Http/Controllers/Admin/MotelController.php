@@ -305,7 +305,6 @@ class MotelController extends Controller
             return $item;
         }, $request->all());
 
-        // dd($params['cols']);
         unset($params['cols']['_token']);
 
         $service_checkbox = [];
@@ -313,10 +312,8 @@ class MotelController extends Controller
             if ($value == 'on') {
                 unset($params['cols']['service'][$key]);
                 array_push($service_checkbox,$key);
-                // $params['cols']['service']['service_checkbox'] = $service_checkbox;
             }
         }
-        dd($service_checkbox);
         $data = [
             'room_number' => $request->room_number,
             'price' => $request->price,
@@ -355,8 +352,7 @@ class MotelController extends Controller
         return redirect()->route('admin.motel.list', $request->area_id)->with('success', 'Cập nhật phòng trọ thành công');
     }
 
-    public
-    function history_motel($id, $idMotel)
+    public function history_motel($id, $idMotel)
     {
         $model = new UserMotel();
 

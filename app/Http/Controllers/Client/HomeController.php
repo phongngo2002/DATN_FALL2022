@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Category;
 use App\Models\Motel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -32,17 +33,19 @@ class HomeController extends Controller
 
         $modelArea = new Area();
         $modelMotel = new Motel();
+        $category = new Category();
+        $categories = $category->getAll();
         $area = $modelArea->client_Get_List_Top_Area();
         // $motel = $modelMotel->client_get_List_Motel_top();
         // $contact = $modelMotel->client_get_List_Motel_contact();
         $motel = $modelMotel->client_get_List_Motel_top($request->all());
         $contact = $modelMotel->client_get_List_Motel_contact($request->all());
 
-        // dd($motel);
         return view('client.home.index', [
             'area' => $area,
             'motel' => $motel,
-            'contact' => $contact
+            'contact' => $contact,
+            'categories' => $categories
         ]);
     }
 
@@ -75,10 +78,20 @@ class HomeController extends Controller
         if(array_key_exists('service',$params) == false){
             $params['service'] = [];
         }
+        foreach ($params['service'] as $key => $value) {
+            if($value == 'on'){
+                array_push($params['service'],$key);
+                unset($params['service'][$key]);
+            }
+        }
         $modelMotel = new Motel();
-        $result = $modelMotel->search($params);
-        // dd($result);
-        return response()->json(['motel'=>$result]);
+        $motels = $modelMotel->search($params);
+        $result = [];
+        foreach ($motels as $item) {
+            $result[] = $item;
+        }
+        // dd(json_encode(['motels'=>$result]));
+        return response()->json(['motels'=>$result]);
     
     }
 

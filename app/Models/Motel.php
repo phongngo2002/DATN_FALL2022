@@ -323,12 +323,36 @@ class Motel extends Model
                 $query->where('areas.address','LIKE','%'.$params['address'].'%');
             }
 
-            // if($params['bedroom'] != null){
-            //     $query->where('motels.service','=',$params['address']);
-            // }
-            // if($params['toilet'] != null){
-            //     $query->where('motels.service','=',$params['address']);
-            // }
+            if($params['bedroom'] != null){
+                $query->where('motels.services','LIKE','%\"bedroom\":\"'.$params['bedroom'].'\"%');
+            }
+            if($params['toilet'] != null){
+                $query->where('motels.services','LIKE','%\"toilet\":\"'.$params['toilet'].'\"%');
+            }
+            if (in_array('cho_de_xe',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"cho_de_xe\"%');
+            }
+            if (in_array('dieu_hoa',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"dieu_hoa\"%');
+            }
+            if (in_array('thang_may',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"thang_may\"%');
+            }
+            if (in_array('may_giat',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"may_giat\"%');
+            }
+            if (in_array('nong_lanh',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"nong_lanh\"%');
+            }
+            if (in_array('tu_lanh',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"tu_lanh\"%');
+            }
+            if (in_array('giuong_ngu',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"giuong_ngu\"%');
+            }
+            if (in_array('tu_quan_ao',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"tu_quan_ao\"%');
+            }
             $query->whereBetween('motels.area',[$params['area_min'],$params['area_max']])
             ->whereBetween('motels.price',[$params['price_min'],$params['price_max']]);
             $query->orderBy('priority_level', 'asc');
