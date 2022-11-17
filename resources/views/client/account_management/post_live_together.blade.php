@@ -106,8 +106,60 @@
                 </button>
             </div>
         @endif
+        <p class="alert alert-success">
+            Tin nóng: Website mới thêm tính năng tích điểm nhận vé quay khi mua gói.
+            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal1000">Xem chi tiết</a>
+        </p>
         <form>@csrf
             <div class="row">
+
+                <div class="modal fade" id="exampleModal1000" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size: 18px">Chi tiết sự
+                                    kiện mua gói nhận vé quay
+                                    miễn phí</h1>
+                                <button type="button" class="btn-close" style="background-color: white;border: none"
+                                        data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"
+                                                                                      style="font-size: 24px"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="text-center table table-striped">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Loại gói</th>
+                                        <th>Số điểm nhận</th>
+                                    </tr>
+                                    @foreach($plans as $plan)
+                                        @if($plan->price > 0)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$plan->name}}</td>
+                                                <td>{{10 / $plan->priority_level}} <i
+                                                        class="fa-solid fa-gift text-danger"></i></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+
+                                </table>
+                                <p><i class="fa-solid fa-triangle-exclamation"></i> Lưu ý: Sự kiện không áp dụng đối với
+                                    gói
+                                    tin thường miễn phí
+                                </p>
+                                <p>Quy đổi: 10 <i
+                                        class="fa-solid fa-gift text-danger"></i> = 1 <i
+                                        class="fa-solid fa-ticket text-warning"></i></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đã hiểu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </p>
                 <div class="col-8">
                     <div class="single-add-property">
                         <h3 class="mb-3">Thông tin bài đăng</h3>
@@ -253,7 +305,10 @@
                                                                                  aria-hidden="true"
                                                                                  style="color:#FF9801;"></i>
                                         </span>
+
                                     </div>
+                                    <p>Số điểm thưởng có: {{$numberTicketUser}} <i
+                                            class="fa-solid fa-gift text-danger"></i></p>
                                     <div class="d-flex flex-column">
                                         <a href="{{route('backend_get_form_recharge')}}" class="btn btn-primary">Nạp
                                             thêm tiền</a>
@@ -530,6 +585,16 @@
                             money_temp = post_plan_price;
                             show_total.innerText = money_temp * post_day.value
                             document.getElementById('post_plan1').value = e.id
+                            if (Number(post_plan_price) === 0) {
+                                post_day.setAttribute('value', 2);
+                                post_day.setAttribute('readonly', 'true');
+                                document.getElementById('post_day1').value = 2;
+                                show_day.innerText = 2;
+                                show_total.innerText = money_temp * 2
+                                document.getElementById('post_money1').setAttribute('value', money_temp * 2);
+                            } else {
+                                post_day.removeAttribute('readonly');
+                            }
                             changeDisable(money_temp * post_day.value);
                         }
                     } else {
@@ -546,10 +611,8 @@
             }
 
             post_day.oninput = function () {
-                console.log(post_day.value);
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
-                document.getElementById('post_day1').value = post_day.value
                 document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);
                 changeDisable(money_temp * post_day.value);
             }

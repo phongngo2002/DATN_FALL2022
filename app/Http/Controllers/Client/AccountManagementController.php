@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotOtp;
 use App\Models\ContactMotelHistory;
+use App\Models\HistoryUsedTicket;
 use App\Models\Motel;
 use App\Models\PlanHistory;
 use App\Models\Recharge;
+use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
 use Carbon\Carbon;
@@ -126,5 +128,17 @@ class AccountManagementController extends Controller
         $this->v['list'] = $model->get_list_contact_by_user(Auth::id());
 
         return view('client.live-together.history_contact_by_user', $this->v);
+    }
+
+    public function wheel_luck()
+    {
+        $this->v['number_ticket_user'] = Ticket::where('status', 2)->where('user_id', Auth::id())->count();
+        $this->v['history_wheel_luck'] = HistoryUsedTicket::select(['gift', 'history_used_ticket.created_at'])
+            ->join('tickets', 'history_used_ticket.ticket_id', '=', 'tickets.id')
+            ->where('user_id', Auth::id())
+            ->orderBy('history_used_ticket.created_at', 'desc')
+            ->get();
+
+        return view('client.rotation.index', $this->v);
     }
 }
