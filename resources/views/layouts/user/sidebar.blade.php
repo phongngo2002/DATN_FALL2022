@@ -11,7 +11,8 @@
         <div class="active-user">
             <h2>    {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
             <p class="text-white text-center">Tài khoản gốc: <span
-                    class="current_money">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span> <i
+                    class="current_money">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span>
+                <i
                     class="fa-brands fa-bitcoin text-warning"></i></p>
         </div>
         <div class="detail clearfix">
@@ -24,6 +25,11 @@
                 <li>
                     <a href="{{route('client_current_motel')}}">
                         <i class="fa fa-heart" aria-hidden="true"></i>Phòng trọ đang ở
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('client.history_appointment')}}">
+                        <i class="fas fa-credit-card"></i>Đặt lịch xem phòng
                     </a>
                 </li>
                 <li>
