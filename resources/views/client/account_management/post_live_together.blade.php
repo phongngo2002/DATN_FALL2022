@@ -130,7 +130,7 @@
                                 <div class="col-lg-4 col-md-12">
                                     <p class="no-mb">
                                         <label for="price">Giá/tháng</label>
-                                        <input type="text" value="{{number_format($motels->price,0,",",".")}}"
+                                        <input type="number" value="{{number_format($motels->price,0,",",".")}}"
                                                id="price" readonly>
                                     </p>
                                 </div>

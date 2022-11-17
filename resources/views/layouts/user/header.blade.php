@@ -38,11 +38,11 @@
             <!-- Left Side Content / End -->
             <!-- Right Side Content / -->
             <div class="header-user-menu user-menu">
-                <div class="header-user-name">
+                <div class="header-user-name active-user">
                     <span><img class="avatar_admin"
                                src="{{\Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj'}}"
                                alt=""></span>Chào,
-                    {{\Illuminate\Support\Facades\Auth::user()->name}}!
+                               {{ucwords(\Illuminate\Support\Facades\Auth::user()->name)}}!
                 </div>
                 <ul>
                     <li><a href="{{route('client.get_profile')}}">Thông tin cá nhân</a></li>

@@ -21,9 +21,9 @@
                             </div>
 
                             <div class="mt-3">
-                                <h4>{{\Illuminate\Support\Facades\Auth::user()->name}}</h4>
-                                <p class="text-secondary mb-1">Thành viên</p>
-                                <p class="text-muted font-size-sm">{{\Illuminate\Support\Facades\Auth::user()->address}}</p>
+                                <h4>{{(ucwords(\Illuminate\Support\Facades\Auth::user()->name))}}</h4>
+                                <p class="text-secondary mb-1">Thành Viên</p>
+                                <p class="text-muted font-size-sm">{{ucwords(\Illuminate\Support\Facades\Auth::user()->address)}}!</p>
                             </div>
                         </div>
                     </div>

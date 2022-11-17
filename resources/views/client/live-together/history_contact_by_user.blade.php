@@ -161,7 +161,6 @@
                 <tbody>
                 @foreach($list as $item)
                     <tr>
-                        <td></td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{$item->phone_number}}</td>

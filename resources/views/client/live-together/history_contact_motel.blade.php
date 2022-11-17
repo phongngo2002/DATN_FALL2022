@@ -122,7 +122,7 @@
             </div>
         @endif
         <h4>Lịch sử đăng ký ở ghép</h4>
-        <div class="my-properties shadow-lg">
+        <div class="my-properties shadow-lg" style="min-height: 700px;">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
@@ -161,9 +161,9 @@
                             @if($item->tt == 0)
                                 <a href="{{route('client.confirm_contact_motel',
 ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 1,'contact_id' => $item->contact_id])}}"
-                                   class="btn btn-success text-white">Chấp nhận</a>
+                                   class="btn btn-success text-white" onclick="return confirm('Chấp nhận')">Chấp nhận</a>
                                 <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 2,'contact_id' => $item->contact_id])}}"
-                                   class="btn btn-danger text-white">Không chấp nhận</a>
+                                   class="btn btn-danger text-white" onclick="return confirm('Không chấp nhận')">Không chấp nhận</a>
                             @else
                                 @if($item->tt == 3 || $item->tt === 4)
                                     <button
@@ -171,7 +171,7 @@
                                     </button>
                                 @else
                                     <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 0,'contact_id' => $item->contact_id])}}"
-                                       class="btn btn-warning text-white">Hủy</a>
+                                       class="btn btn-warning text-white" onclick="return confirm('Bạn có chắc muốn hủy đăng ký ở ghép')">Hủy</a>
                                 @endif
 
                             @endif

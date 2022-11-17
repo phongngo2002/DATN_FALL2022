@@ -36,7 +36,7 @@
                     </td>
                     <td>
                         @if($item->tt == 1)
-                            <a href="{{route('admin.motel.add_people',['id' => $area_id,'idMotel' => $motel_id,'user_id' => $item->user_id,'type' => 2])}}"
+                            <a  href="{{route('admin.motel.add_people',['id' => $area_id,'idMotel' => $motel_id,'user_id' => $item->user_id,'type' => 2])}}"
                                disabled="true"
                                class="btn btn-success">Thêm vào phòng</a>
                         @else

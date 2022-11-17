@@ -40,7 +40,7 @@
                     <div class="header-user-name a">
                         <span><img class="avatar_admin"
                                 src="{{ \Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://yt3.ggpht.com/ytc/AMLnZu_LsaWhvhA9-Hbda7_l-pQJCN8wB6nbhYBiDW4C0A=s900-c-k-c0x00ffffff-no-rj' }}"
-                                alt=""></span>Chào, {{ \Illuminate\Support\Facades\Auth::user()->name }}!
+                                alt=""></span>Chào, {{ucwords(\Illuminate\Support\Facades\Auth::user()->name)}}!
                     </div>
                     <ul>
                         @if(\Illuminate\Support\Facades\Auth::user()->role_id === 3)
