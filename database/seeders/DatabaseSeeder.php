@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         foreach (array_shift($data) as $item) {
             DB::table('deposits')->insert(
                 [
+                    "type" => 1,
                     "user_id" => $item["user_id"],
                     "value" => $item["value"],
                     "motel_id" => $item['motel_id'],

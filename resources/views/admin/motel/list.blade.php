@@ -38,7 +38,6 @@
                         <option value="10" {{ isset($params['limit']) && $params['limit'] == '10' ? 'selected' : '' }}>
                             10
                         </option>
-
                         <option value="25" {{ isset($params['limit']) && $params['limit'] == '25' ? 'selected' : '' }}>
                             25
                         </option>
@@ -66,17 +65,21 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Room Number</th>
-                <th class="">Price</th>
-                <th>Max people</th>
-                <th>Status</th>
+                <th>Mã phòng</th>
+                <th class="">Giá thuê(đ)</th>
+                <th>Số người tối đa</th>
+                <th>Giá điện(số)</th>
+                <th>Giá nước(số)</th>
+                <th>Thời gian bắt đầu thuê</th>
+                <th>Thời gian kết thúc hợp đồng</th>
+                <th>Trạng thái</th>
                 <th class="">Chức năng</th>
             </tr>
             </thead>
             <tbody>
             @if(count($motels) === 0)
                 <tr>
-                    <td colspan="7"><span class="text-warning" style="font-size: 16px">Bạn chưa có phòng trọ nào</span>
+                    <td colspan="11"><span class="text-warning" style="font-size: 16px">Bạn chưa có phòng trọ nào</span>
                     </td>
                 </tr>
             @else
@@ -84,13 +87,23 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{ $motel->room_number }}</td>
-                        <td class="">{{ $motel->price }}</td>
+                        <td class="">{{ number_format($motel->price, 0, ',', '.') }}</td>
                         <td class="">{{ $motel->max_people }}</td>
+                        <td>{{number_format($motel->electric_money, 0, ',', '.')}}</td>
+                        <td>{{number_format($motel->warter_money, 0, ',', '.')}}</td>
+                        <td>{{$motel->start_time ? \Carbon\Carbon::parse($motel->start_time)->format('d/m/Y') : 'Chưa xác định'}}</td>
+                        <td>{{$motel->end_time ? \Carbon\Carbon::parse($motel->end_time)->format('d/m/Y') : 'Chưa xác định'}}</td>
                         <td>
                             @if($motel->status == 1)
-                                <span class="badge bg-success p-2">Trống</span>
+                                <span class="badge bg-secondary p-2">Trống</span>
+                            @elseif($motel->status == 3)
+                                <span class="badge bg-warning p-2">Đã được đặt cọc</span>
+                            @elseif($motel->status == 4)
+                                <span class="badge bg-danger p-2">Sắp hết hạn hợp đồng</span>
+                            @elseif($motel->status == 5)
+                                <span class="badge bg-dark p-2">Đang đăng tin</span>
                             @else
-                                <span class="badge bg-danger p-2">Đầy</span>
+                                <span class="badge bg-success p-2">Đã được thuê</span>
                             @endif
                         </td>
                         <td class="">
@@ -102,11 +115,11 @@
                             <a title="Thông tin phòng trọ" class="btn btn-info"
                                href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}"><i
                                     class="fa-solid fa-circle-info"></i></a>
-{{--                            <button class="btn btn-danger "--}}
-{{--                                {{$motel->status == 2 ? 'disabled' : ''}}>--}}
-{{--                                <a title="Xóa phòng trọ"--}}
-{{--                                   href="" onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')"--}}
-{{--                                   class="text-white"><i class="fa-solid fa-trash"></i></a></button>--}}
+                            {{--                            <button class="btn btn-danger "--}}
+                            {{--                                {{$motel->status == 2 ? 'disabled' : ''}}>--}}
+                            {{--                                <a title="Xóa phòng trọ"--}}
+                            {{--                                   href="" onclick="return confirm('Bạn có chắc muốn xóa phòng trọ')"--}}
+                            {{--                                   class="text-white"><i class="fa-solid fa-trash"></i></a></button>--}}
                             <a href="{{route('admin.duplicate.motel',['id' => $motel->area_id, 'idMotel' => $motel->id])}}"
                                onclick="return confirm('Bạn có chắc muốn sao chép phòng trọ này ?')"
                                title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i></a>

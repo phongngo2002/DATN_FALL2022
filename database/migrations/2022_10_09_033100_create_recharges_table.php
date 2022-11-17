@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('payment_type');
             $table->integer('status')->default(1);
             $table->string('note');
+            $table->float('fee',11,2)->default(0);
             $table->float('value', 11, 3);
             $table->timestamps();
         });

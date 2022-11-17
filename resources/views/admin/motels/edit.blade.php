@@ -8,6 +8,10 @@
         tinymce.init({
             selector: 'textarea#desc',
         });
+        tinymce.init({
+            selector: 'textarea#transfer_infor',
+            height: 250
+        });
     </script>
     <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" method="POST"
           enctype="multipart/form-data">
@@ -50,6 +54,23 @@
                         <div class="col-4">
                             <label for="">Số người ở tối đa</label>
                             <input type="text" name="max_people" value="{{$motel->max_people}}" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Tiền điện (số)</label>
+                            <input type="text" value="{{$motel->electric_money}}" name="electric_money"
+                                   id="electric_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền nước</label>
+                            <input type="text" value="{{$motel->warter_money}}" name="warter_money" id="electric_money" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <label for="">Tiền mạng</label>
+                            <input type="text" value="{{$motel->wifi}}" name="wifi" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -112,6 +133,24 @@
                         <p class="mt-2 ms-2 text-danger">Nếu bạn chưa biết cách sửa dụng ảnh 360.click vào <a
                                 href="http://help.web60.vn/bai-viet/huong-dan-nhung-anh-360-do-len-website"
                                 target="_blank">đây</a></p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow-lg rounded-4">
+                    <div class="row">
+                        <div class="col-7">
+                            <label>Số tiền đặt cọc giữ phòng</label>
+                            <input type="text" name="money_deposit" value="{{$motel->money_deposit}}" class="form-control">
+                        </div>
+                        <div class="col-5">
+                            <label>Số ngày giữ phòng tối đa</label>
+                            <input type="text" name="day_deposit" value="{{$motel->day_deposit}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Thông tin chuyển khoản</label>
+                        <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                           {{$motel->transfer_infor}}
+                        </textarea>
                     </div>
                 </div>
                 <div class="bg-white p-4 shadow-lg rounded-4">

@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Mail\ConfirmOutMotel;
 use App\Mail\ForgotOtp;
+use App\Mail\NotificeDelMotel;
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\Deposit;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -50,6 +52,7 @@ class MotelController extends Controller
 
     public function index_motels($id, Request $request)
     {
+        // dd($request->all());
         $motel = new Motel();
         $this->v['motels'] = $motel->LoadMotelsWithPage($request->all(), $id);
         $this->v['id'] = $id;
@@ -97,6 +100,7 @@ class MotelController extends Controller
     public function info_user_motels($id, $idMotel)
     {
         $model = new Motel();
+        $this->v['id'] = $id;
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
@@ -115,7 +119,6 @@ class MotelController extends Controller
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
-
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
@@ -150,7 +153,8 @@ class MotelController extends Controller
                 'id' => $i->id,
                 'title' => $i->name,
                 'price' => $i->price,
-                'time' => $i->time
+                'time' => $i->time,
+                'more' => $i->price == 0 ? 1 : 0
             ];
         }
 
@@ -170,6 +174,7 @@ class MotelController extends Controller
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
         // dd($request->post());
+        DB::table('motels')->where('id', $idMotel)->update(['status' => 5]);
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([
@@ -314,6 +319,9 @@ class MotelController extends Controller
             'video' => $request->video,
             'image_360' => $request->image_360,
             'max_people' => $request->max_people,
+            'money_deposit' => $request->money_deposit,
+            'day_deposit' => $request->day_deposit,
+            'transfer_infor' => $request->transfer_infor,
             'services' => json_encode([
                 'bed' => $request->bed,
                 'bedroom' => $request->bedroom,
@@ -321,6 +329,9 @@ class MotelController extends Controller
                 'more' => $request->service_more,
                 'actor' => $request->actor
             ]),
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $imgs = [];
@@ -354,12 +365,23 @@ class MotelController extends Controller
     {
         Motel::where('id', $motelId)->update([
             'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+            'status' => 2
         ]);
         $model = new PrintPdf();;
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
-        return $pdf->stream();
+        $pdf->loadHTML($model->printMotel($motelId, [
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+        ]));
+        return $pdf->download('hop_dong.pdf');
+
     }
 
     public function import(Request $request)
@@ -395,6 +417,7 @@ class MotelController extends Controller
 
     public function confirm_out_motel(Request $request, $id)
     {
+        // dd($request->all(), $id);
         $res = DB::table('user_motel')->where('id', $id)->update([
             'status' => 0,
             'end_time' => Carbon::now()
@@ -418,5 +441,26 @@ class MotelController extends Controller
         }
         Mail::to($request->email)->send(new ConfirmOutMotel());
         return redirect()->back()->with('success', 'Cập nhật đơn rời phòng thành công');
+    }
+
+    public function deleteUserFormMotel(Request $request, $id)
+    {
+        $res = DB::table('user_motel')->where('id', $id)->update([
+            'status' => 3 //status = 3 : bị xóa do hết hạn
+        ]);
+
+        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+        if (count($user) === 0) {
+            try {
+                $motel = Motel::find($request->motel_id);
+                $motel->status = 1;
+                $motel->end_time;
+                $motel->save();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        Mail::to($request->email)->send(new NotificeDelMotel());
+        return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }

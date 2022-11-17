@@ -8,8 +8,10 @@ use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\User;
 use App\Models\UserMotel;
+use App\Models\Vote;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
+use App\Models\Deposit;
 use App\Models\Motel;
 use Exception;
 use Illuminate\Http\Request;
@@ -199,8 +201,19 @@ class MotelController extends Controller
     public function detail($id)
     {
         $motel = new Motel();
+        $vote = new Vote();
         if ($motel->detailMotel1($id)) {
             $this->v['motel'] = $motel->detailMotel1($id);
+            $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
+            $this->v['motelsHot'] = $motel->getMotelsHot();
+
+            if (!empty(Auth::user())) {
+                $this->v['votes'] = $vote->client_get_list_vote_motel($id);
+                $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();
+            } else {
+                $this->v['deposit_exist'] = null;
+            }
+
 
             return view('client.motel.detail', $this->v);
         }

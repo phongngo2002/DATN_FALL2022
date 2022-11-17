@@ -21,14 +21,14 @@ $("#area-range").each(function () {
     var dataMax = $(this).attr('data-max');
     var dataUnit = $(this).attr('data-unit');
 
-    $(this).append("<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>");
+    // $(this).append("<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>");
 
     $(this).slider({
 
         range: true,
         min: dataMin,
         max: dataMax,
-        step: 10,
+        step: 1,
         values: [dataMin, dataMax],
 
         slide: function (event, ui) {
@@ -58,6 +58,7 @@ $("#price-range").each(function () {
         range: true,
         min: dataMin,
         max: dataMax,
+        step: 100000,
         values: [dataMin, dataMax],
 
         slide: function (event, ui) {
@@ -90,7 +91,7 @@ $("#area-range-rent").each(function () {
         range: true,
         min: dataMin,
         max: dataMax,
-        step: 10,
+        step: 1,
         values: [dataMin, dataMax],
 
         slide: function (event, ui) {
@@ -120,6 +121,7 @@ $("#price-range-rent").each(function () {
         range: true,
         min: dataMin,
         max: dataMax,
+        step: 100000,
         values: [dataMin, dataMax],
 
         slide: function (event, ui) {
