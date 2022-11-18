@@ -34,7 +34,6 @@ class Kernel extends ConsoleKernel
                     PlanHistory::where('id', $plan->id)->update(['status' => 5]);
                 }
             }
-
         })->daily();
 
     }

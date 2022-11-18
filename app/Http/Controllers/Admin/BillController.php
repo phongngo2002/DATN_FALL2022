@@ -21,7 +21,7 @@ class BillController extends Controller
     {
         $model = new Bill();
         $this->v['list'] = $model->admin_get_list_bill([]);
-
+        // dd($this->v['list']);
         return view('admin.bill.index', $this->v);
     }
 

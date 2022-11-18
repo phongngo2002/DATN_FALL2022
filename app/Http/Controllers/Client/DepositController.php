@@ -44,18 +44,26 @@ class DepositController extends Controller
             }
             return $item;
         }, $request->all());
+
         unset($params['_token']);
+
         $params['user_id'] = Auth::user()->id;
+
         $area = Area::find($params['area_id']);
+
         $bossMotel = User::find($area->user_id);
+
         unset($params['area_id']);
+
         $depositModel = new Deposit();
+
         $dataPost = $depositModel->saveNew($params);
+
         $a = Motel::find($request->motel_id);
         $a->status = 3;
         $a->save();
-//        $a = DB::table('motels')->select('room_number')->where('id', $request->motel_id)->first();
         $room_number = $a->room_number;
+
         $dataMail = [
             'user_email' => Auth::user()->email,
             'area_name' => $area->name,
@@ -77,6 +85,7 @@ class DepositController extends Controller
                     throw new Exception($e->getMessage());
                     return redirect()->back()->with('error', 'Đặt cọc thất bại, thử lại sau');
                 }
+
                 Mail::to($bossMotel->email)->send(new MailDeposit($dataMail));
                 return redirect()->route('client.motel.detail', ['id' => $params['motel_id']])->with('success', 'Đặt cọc thành công, thông tin của bạn đã được lưu vào hệ thống');
             } else {

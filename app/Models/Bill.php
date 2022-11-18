@@ -24,7 +24,6 @@ class Bill extends Model
             (electric_money * (number_elec - number_elec_old)) as tien_dien,
             (warter_money * (number_warter - number_warter_old)) as tien_nuoc,
             wifi,
-
             bills.created_at,
             bills.status
             ,(electric_money * (number_elec - number_elec_old) + warter_money * (number_warter - number_warter_old) + wifi  + price) as tong')
@@ -43,7 +42,6 @@ class Bill extends Model
 
         return $query->orderBy('bills.id', 'desc')
             ->paginate($params['limit'] ?? 10);
-
     }
 
 
@@ -69,6 +67,29 @@ class Bill extends Model
         foreach ($query as $a) {
             $a->area_name = DB::table('areas')->select('name')->where('id', $a->area_id)->first()->name;
         }
+        return $query;
+    }
+    public function client_get_bill_user($id)
+    {
+        $bill = 'bills.id,area_id,room_number,price,wifi,bills.created_at,bills.status,';
+        $money = 'motels.electric_money,motels.warter_money,';
+        $number = 'bills.number_elec,bills.number_warter,bills.number_elec_old,bills.number_warter_old,';
+        $electric_money = '(electric_money * (number_elec - number_elec_old)) as tien_dien,';
+        $warter_money = '(warter_money * (number_warter - number_warter_old)) as tien_nuoc,';
+        $sum_money = '(electric_money * (number_elec - number_elec_old) + warter_money * (number_warter - number_warter_old) + wifi + price) as tong';
+
+        $query = DB::table('user_motel')
+            ->selectRaw($bill . $money . $number . $electric_money . $warter_money . $sum_money)
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->join('bills', 'motels.id', '=', 'bills.motel_id')
+            ->orderBy('bills.created_at', 'desc')
+            ->where('user_motel.user_id', Auth::id())
+            ->where('user_motel.status', 1)
+            ->where('bills.id', $id)
+            ->first();
+
+        $query->area_name = DB::table('areas')->select('name')->where('id', $query->area_id)->first()->name;
+
         return $query;
     }
 }
