@@ -175,12 +175,18 @@
                             <td>{{ number_format($item->tong, 0, ',', '.') }} đ</td>
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y') }}</td>
                             <td>
-                                @if ($item->status)
+                                @if ($item->status == 2)
                                     <span class="badge bg-success p-2 text-xl">Đã thu</span>
                                 @else
                                     <span class="badge bg-danger p-2 text-xl">Chưa thu</span>
+                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                        class=" btn badge bg-success text-white p-2">thanh toán</a>
                                 @endif
+
+
                             </td>
+
+
                         </tr>
                     @endforeach
 
