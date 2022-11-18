@@ -16,10 +16,13 @@
         "jrm2k6/cloudder": "0.4.",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "league/omnipay": "^3.2",
+        "maatwebsite/excel": "^3.1",
         "omnipay/paypal": "^3.0",
         "paypal/rest-api-sdk-php": "*",
+        "psr/simple-cache": "2.0",
         "srmklive/paypal": "^1.0",
         "yajra/laravel-datatables-oracle": "^10.1"
     },
