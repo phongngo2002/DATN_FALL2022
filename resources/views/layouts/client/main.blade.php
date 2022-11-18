@@ -29,8 +29,6 @@
     @include('layouts.client.footer')
     @include('layouts.client._js')
 </div>
-</body>
-<script type="text/javascript" src="https://smartarget.online/loader.js?u=4f5e48b830f0155b61852a69551b1ef8725fef04"></script>
-<!-- Mirrored from code-theme.com/html/findhouses/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 14:23:46 GMT -->
+</body><!-- Mirrored from code-theme.com/html/findhouses/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 14:23:46 GMT -->
 
 </html>
