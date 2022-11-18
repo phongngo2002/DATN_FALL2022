@@ -132,4 +132,9 @@ class User extends Authenticatable
         $user = $query->delete();
         return $user;
     }
+
+    // public function countOwnMotel() {
+    //     $query = DB::table('users')->where('is_admin', 1)
+    // }
+    
 }

@@ -1,9 +1,108 @@
 @extends('layouts.admin.main')
 
-@section('title_page','Dashboard')
+@section('title_page', 'Dashboard')
 
 @section('content')
     <div class="row">
+        @if (\Illuminate\Support\Facades\Auth::user()->is_admin)
+            <div class="col-xl-12 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng số người dùng</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="users"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
+                                            {{ $AdminCountUserIsOwnMotel }} </span>
+                                        <span class="text-muted">Chủ trọ</span>
+                                    </div>
+                                    <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
+                                            {{ $AdminCountUserIsAdmin }} </span>
+                                        <span class="text-muted">Quản trị viên</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng số khu trọ</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-house"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $AdminCountArea }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
+                                        <span class="text-muted"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng phòng trọ</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-hotel"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $AdminCountMotel }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success">{{ $AdminCountMotelActive }}</span>
+                                        <span class="text-muted"> Phòng trọ đang hoạt động</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng gói dịch vụ</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-wallet"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="mt-1 mb-3">{{ $AdminCountPlan }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @else
         <div class="col-xl-12 col-xxl-5 d-flex">
             <div class="w-100">
                 <div class="row">
@@ -12,7 +111,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Số khách hàng</h5>
+                                        <h5 class="card-title">Tổng số người dùng</h5>
                                     </div>
 
                                     <div class="col-auto">
@@ -21,10 +120,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">20</h1>
+                                <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
                                 <div class="mb-0">
-                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
+                                        {{ $OwnMotelCountUser }} </span>
+                                    <span class="text-muted">Chủ trọ</span>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +134,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Tổng khu trọ</h5>
+                                        <h5 class="card-title">Tổng số khu trọ</h5>
                                     </div>
 
                                     <div class="col-auto">
@@ -43,10 +143,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">14.212</h1>
+                                <h1 class="mt-1 mb-3">{{ $OwnMotelCountArea }}</h1>
                                 <div class="mb-0">
-                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
+                                    <span class="text-muted"></span>
                                 </div>
                             </div>
                         </div>
@@ -65,8 +165,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">{{$motel}}</h1>
-
+                                <h1 class="mt-1 mb-3">{{ $OwnMotelCountMotel }}</h1>
+                                <div class="mb-0">
+                                    <span class="text-success">{{ $AdminCountMotelActive }}</span>
+                                    <span class="text-muted"> Phòng trọ đang hoạt động</span>
+                                </div>
                             </div>
                         </div>
 
@@ -76,7 +179,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Doanh thu</h5>
+                                        <h5 class="card-title">Tổng gói dịch vụ đã mua</h5>
                                     </div>
 
                                     <div class="col-auto">
@@ -85,14 +188,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="mt-1 mb-3">{{$plan}} <i
-                                        class="fa-brands fa-bitcoin text-warning"></i></h4>
+                                <h4 class="mt-1 mb-3">{{ $OwnMoteCountPlanBuyed}}</h4>
+                                <div class="mb-0">
+                                    <span class="text-success">{{ $OwnMoteCountPlanBuyedActive}}</span>
+                                    <span class="text-muted"> gói dịch vụ đang hoạt động</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endif
+
 
         <div class="col-xl-12 col-xxl-7">
             <div class="card flex-fill w-100">
@@ -111,7 +219,7 @@
 @endsection
 @section('custom_js')
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
             var gradient = ctx.createLinearGradient(0, 0, 0, 225);
             gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -120,7 +228,9 @@
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                        "Dec"
+                    ],
                     datasets: [{
                         label: "Sales ($)",
                         fill: true,
@@ -181,7 +291,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Pie chart
             new Chart(document.getElementById("chartjs-dashboard-pie"), {
                 type: "pie",
@@ -209,12 +319,14 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                        "Dec"
+                    ],
                     datasets: [{
                         label: "This year",
                         backgroundColor: window.theme.primary,
@@ -253,11 +365,11 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             var markers = [{
-                coords: [31.230391, 121.473701],
-                name: "Shanghai"
-            },
+                    coords: [31.230391, 121.473701],
+                    name: "Shanghai"
+                },
                 {
                     coords: [28.704060, 77.102493],
                     name: "Delhi"
@@ -320,7 +432,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
             var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
             document.getElementById("datetimepicker-dashboard").flatpickr({
