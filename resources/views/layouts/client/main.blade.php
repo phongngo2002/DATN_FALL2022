@@ -13,6 +13,11 @@
     <title>Chợ phòng trọ - Website tìm kiếm phòng trọ số 1 Việt Nam</title>
     <!-- FAVICON -->
     @include('layouts.client._css')
+    <style>
+        #header.cloned{
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body class="homepage-9 hp-6 homepage-1 mh inner-pages sin-1 homepage-4 hd-white">

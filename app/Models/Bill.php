@@ -64,6 +64,7 @@ class Bill extends Model
             ->join('bills', 'motels.id', '=', 'bills.motel_id')
             ->orderBy('bills.created_at', 'desc')
             ->where('user_motel.user_id', Auth::id())
+            ->where('user_motel.status', 1)
             ->paginate(10);
         foreach ($query as $a) {
             $a->area_name = DB::table('areas')->select('name')->where('id', $a->area_id)->first()->name;

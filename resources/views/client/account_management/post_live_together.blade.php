@@ -580,6 +580,7 @@
                 data.forEach(e => {
                     if (post_plan_value != 0) {
                         if (post_plan_value == e.id) {
+
                             show_plan.innerText = post_plan_title;
                             show_money.innerText = post_plan_price
                             money_temp = post_plan_price;
@@ -593,9 +594,16 @@
                                 show_total.innerText = money_temp * 2
                                 document.getElementById('post_money1').setAttribute('value', money_temp * 2);
                             } else {
+                                document.getElementById('post_day1').value = +post_day.value;
                                 post_day.removeAttribute('readonly');
                             }
-                            changeDisable(money_temp * post_day.value);
+                            const currentPlanId = document.querySelector('#plan_id_old').value;
+                            // console.log(currentPlanId, post_plan_value);
+                            if (currentPlanId && currentPlanId !== post_plan_value) {
+                                changeDisable(money_temp * post_day.value);
+                            }else{
+                                document.getElementById('tt').setAttribute('disabled', 'true');
+                            }
                         }
                     } else {
                         show_plan.innerText = '';
@@ -611,6 +619,7 @@
             }
 
             post_day.oninput = function () {
+                document.getElementById('post_day1').value = +post_day.value;
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
                 document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);

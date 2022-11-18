@@ -514,7 +514,6 @@
             </div>
         </div>
     </section>
-    {{$motel->links()}}
     <!-- END SECTION FEATURED PROPERTIES -->
 
 
