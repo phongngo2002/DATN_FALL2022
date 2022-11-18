@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Console\Commands\Motels;
+use App\Models\Motel;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;

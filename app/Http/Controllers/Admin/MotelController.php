@@ -117,6 +117,12 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
+
+
+
+
+        // dd($model->info_motel_email('hoangxuanvu248@gmail.com'));
+
         $userInfo = DB::table('users')
             ->select(['user_id'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')

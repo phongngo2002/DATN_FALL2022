@@ -171,7 +171,8 @@ class Motel extends Model
                 'users.phone_number as user_phone',
                 'users.email as user_email',
                 'start_time',
-                'video'
+                'video',
+                'script_fb'
             ])
             ->join('motels', 'categories.id', '=', 'motels.category_id')
             ->join('areas', 'areas.id', '=', "motels.area_id")
@@ -211,6 +212,17 @@ class Motel extends Model
                 ->where('motel_id', $id)
                 ->first() ?? 0;
         return $query;
+    }
+
+    public function info_motel_email($email)
+    {
+        return DB::table('users')
+            ->select(['name', 'user_id', 'motel_id', 'email', "motels.room_number as room"])
+            ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+            ->where('email', $email)
+            ->where('user_motel.status', 1)
+            ->get();
     }
 
 

@@ -21,10 +21,12 @@
         "league/omnipay": "^3.2",
         "maatwebsite/excel": "^3.1",
         "omnipay/paypal": "^3.0",
+        "maatwebsite/excel": "^3.0.1",
         "paypal/rest-api-sdk-php": "*",
         "psr/simple-cache": "2.0",
         "srmklive/paypal": "^1.0",
-        "yajra/laravel-datatables-oracle": "^10.1"
+        "yajra/laravel-datatables-oracle": "^10.1",
+        "laravel/socialite": "^5.0.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
