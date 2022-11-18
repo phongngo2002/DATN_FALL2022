@@ -95,5 +95,13 @@ class HomeController extends Controller
     
     }
 
+    public function motel_by_area($areaID)
+    {
+        $model = new Area();
+
+        $this->v['motels'] = $model->client_get_list_motel($areaID);
+        return view('client.area.list', $this->v);
+    }
+
 
 }

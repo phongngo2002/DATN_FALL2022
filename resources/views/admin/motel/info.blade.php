@@ -1,6 +1,6 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Thành viên phòng')
+@section('title_page', 'Thành viên phòng - '.$info->motel->room_number.' '.$info->motel->name)
 @section('content')
     <style>
         .select-box {
@@ -115,7 +115,7 @@
             pointer-events: auto;
         }
     </style>
-    @if ( Session::has('success') )
+    @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             <strong>{{ Session::get('success') }}</strong>
             <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
@@ -124,8 +124,9 @@
             </button>
         </div>
     @endif
-    <?php //Hiển thị thông báo lỗi?>
-    @if ( Session::has('error') )
+    <?php //Hiển thị thông báo lỗi
+    ?>
+    @if (Session::has('error'))
         <div class="alert alert-danger alert-dismissible" role="alert">
             <strong>{{ Session::get('error') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -151,47 +152,77 @@
         <div class="mb-4">
             <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
             </button>
-            <a href="{{route('admin.motel.post',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+            <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-primary my-2">Đăng tin</a>
-            <a href="{{route('admin.motel.contact',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+
+            <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
-            <a href="{{route('admin.motel.history',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+            <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-            @if(!\Illuminate\Support\Facades\DB::table('motels')->select('start_time')->where('id',$params['motel_id'])->first()->start_time)
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
-                        class="btn btn-dark my-2">Xuất hóa đơn
+            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 2)
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hợp đồng
                 </button>
             @endif
-            <a href="{{route('admin.motel.list_out_motel',['id' => $params['area_id'],'idMotel' => $params['motel_id']])}}"
+            @if (isset($info[0]->motel_status) && $info[0]->motel_status  == 4)
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Gia hạn hợp
+                    đồng
+                </button>
+            @endif
+            <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-danger position-relative">Yều cầu rời phòng
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-    <span class="visually-hidden">unread messages</span>
-  </span>
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
             </a>
         </div>
-        <input type="hidden" value="{{$data}}" id="data">
+        <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
+            <div>
+                @if(isset($info[0]) && $info[0]->motel_status == 4)
+                    <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Phòng trọ sắp hết thời hạn đồng.Thời gian còn lại {{\Carbon\Carbon::now()->diffInDays($info[0]->motel_end ) !== 0 ? \Carbon\Carbon::now()->diffInDays($info[0]->motel_end ) .' ngày' :  \Carbon\Carbon::now()->diffInHours($info[0]->motel_end).' giờ'}}</span>
+                @else
+
+                    @if(count($info) >= $info->motel->max_people)
+                        <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã đạt tối đa</span>
+                    @elseif(count($info) === $info->motel->max_people - 1)
+                        <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng thành viên đã sắp tối đa</span>
+                    @endif
+                @endif
+            </div>
+            <div class="text-right my-2">
+                <p
+                    class="font-weight-bold">Số thành viên: <span
+                        class="{{count($info) > $info->motel->max_people - 1 ? 'text-danger' : ''}}">{{count($info)}}/{{$info->motel->max_people}}</span>
+                </p>
+            </div>
             <thead>
             <tr>
                 <th>#</th>
                 <th>Họ tên</th>
                 <th>Số điện thoại</th>
+                {{-- <th>Số thành viên</th> --}}
                 <th>Ngày bắt đầu thuê</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($info as $a)
+            @foreach ($info as $a)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$a->name}}</td>
-                    <td>{{$a->phone_number}}</td>
-                    <td>{{$a->start_time}}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $a->name }}</td>
+                    <td>{{ $a->phone_number }}</td>
+                    {{-- <td>{{ $a->max_people }}</td> --}}
+                    <td>{{ $a->start_time }}</td>
                 </tr>
             @endforeach
             </tbody>
+
+
         </table>
+
     </div>
+    <a href="{{route('admin.motel.list',['id' => $params['area_id']])}}" class="btn btn-warning mt-2 text-white">Quay
+        lại</a>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -217,14 +248,15 @@
                         <label for="">Số điện thoại</label>
                         <input type="text" class="form-control" disabled id="phone_number">
                     </div>
+
+
                     <div class="select-box my-4">
                         <div class="options-container">
 
-                            @foreach($user as $i)
+                            @foreach ($user as $i)
                                 <div class="option">
-                                    <input type="radio" class="radio"
-                                           value="{{$i->id}}"/>
-                                    <label for="tutorials">{{$i->email}}</label>
+                                    <input type="radio" class="radio" value="{{ $i->id }}"/>
+                                    <label for="tutorials">{{ $i->email }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -242,7 +274,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     <form
-                        action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
+                        action="{{ route('admin.motel.add_people', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                         method="">
                         @csrf
                         <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
@@ -251,25 +283,73 @@
 
             </div>
         </div>
+
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST">
+        <form action="{{ route('admin.print.motel', ['motelId' => $params['motel_id']]) }}" method="POST">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xuất hóa hơn</h1>
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalLabel">{{isset($info[0]->motel_status) && $info[0]->motel_status  == 4 ? 'Gia hạn hợp đồng' : 'Xuất hợp đồng'}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         @csrf
                         <div>
+                            <label>Giá điện</label>
+                            <input type="number" name="electric_money" value="{{$info->motel->electric_money ?? ""}}"
+                                   class="form-control"
+                                   placeholder="Bao tiền 1 số điện">
+                        </div>
+                        <div>
+                            <label>Giá nước</label>
+                            <input type="number" name="warter_money" value="{{$info->motel->warter_money ?? ""}}"
+                                   class="form-control"
+                                   placeholder="Bao tiền 1 khối nước">
+                        </div>
+                        <div>
+                            <label>Giá mạng internet</label>
+                            <input type="number" name="wifi" value="{{$info->motel->wifi ?? ""}}" class="form-control"
+                                   placeholder="Số tiền mạng đóng 1 tháng">
+                        </div>
+                        <div>
+                            <label>Số tiền đã cọc</label>
+                            <input type="number" name="money_deposit" class="form-control"
+                                   value="{{$info->money_deposit->value ?? 0}}"
+                                   disabled>
+
+                            @if($info->money_deposit)
+                                @if($info->money_deposit->type == 1)
+                                    <p class="">
+                                        Loại đặt cọc: <span class="font-weight-bold">Chuyển xu</span>
+                                    <p class="text-sm">Lưu ý: 1<i
+                                            class="fa-brands fa-bitcoin text-warning"></i> = 24.555 VNĐ</p>
+                                    </p>
+                                @else
+                                    <p class="">
+                                        Loại đặt cọc: <span class="font-weight-bold">Tiền mặt</span>
+                                    </p>
+                                @endif
+                            @endif
+
+                        </div>
+                        @if(isset($info[0]->motel_status) && $info[0]->motel_status === 4)
+                            <input type="hidden" name="type" value="1">
+                        @else
+                            <input type="hidden" name="type" value="2">
+                        @endif
+                        <div>
                             <label>Thời gian bắt đầu thuê</label>
                             <input type="date" name="start_time"
+                                   value="{{$info->motel->start_time ?? \Illuminate\Support\Carbon::now()}}"
                                    class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
+
                             <input type="date" name="end_time"
+                                   value="{{$info->motel->end_time ?? \Illuminate\Support\Carbon::now()->addDays(1)}}"
                                    class="form-control">
                         </div>
 

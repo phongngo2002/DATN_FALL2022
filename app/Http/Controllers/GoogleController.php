@@ -57,11 +57,34 @@ class GoogleController extends Controller
                 $user->is_admin = 0;
                 $user->save();
 
-                return redirect()->route('home', ['id' => $user->id]);
+                return redirect()->route('get_select_role_resign', ['id' => $user->id]);
             }
         } catch (\Exception $exception) {
             Session::flash('gg_error', 'Có lỗi xảy ra vui lòng thử lại');
             return redirect()->route('get_login', ['success' => 'gg_error']);
         }
     }
+
+    public function getFormSelectRole(Request $request)
+    {
+
+
+        return view('auth.select_role', [
+            'user_id' => $_GET['id']
+        ]);
+    }
+
+    public function postFormSelectRole(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->role_id = $request->role_id;
+        $user->save();
+        Auth::login($user);
+        if ($request->role_id == 1) {
+            return redirect()->route('backend_get_dashboard');
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
 }

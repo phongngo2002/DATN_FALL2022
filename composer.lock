@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00dd23544e5785a56924e222cf48c927",
+    "content-hash": "b5856f4acf20747d8e75da0793814234",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -45,7 +45,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": ["MIT"],
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "anhskohbo",
@@ -99,7 +101,9 @@
                     "dev-master": "2.0-dev"
                 },
                 "laravel": {
-                    "providers": ["Barryvdh\\DomPDF\\ServiceProvider"],
+                    "providers": [
+                        "Barryvdh\\DomPDF\\ServiceProvider"
+                    ],
                     "aliases": {
                         "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf",
                         "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"

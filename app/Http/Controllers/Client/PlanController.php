@@ -13,13 +13,13 @@ class PlanController extends Controller
 
     public function __construct()
     {
-        $this->Plans = new Plans();
+        $this->v = [];
     }
+
     public function index_plan()
     {
-        $data = $this->Plans->list();
-        return view('client.home.Plans', [
-            'plans' => $data
-        ]);
+        $model = new Plans();
+        $this->v['plans'] = $model->list();
+        return view('client.home.Plans', $this->v);
     }
 }

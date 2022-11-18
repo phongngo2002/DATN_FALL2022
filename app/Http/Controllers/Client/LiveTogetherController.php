@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ConfirmContactMotel;
 use App\Models\ContactMotelHistory;
 use App\Models\Motel;
+use App\Models\Vote;
 use Illuminate\Support\Facades\Mail;
 
 class LiveTogetherController extends Controller
@@ -21,7 +22,12 @@ class LiveTogetherController extends Controller
     {
         $infoMotel = new Motel();
         $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
+        $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id);
+        $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot();
+
+        $vote = new Vote();
         if ($this->v['motel']) {
+            $this->v['votes'] = $vote->client_get_list_vote_motel($id);
             return view('client.live-together.detail', $this->v);
         }
         abort(404);
@@ -41,8 +47,14 @@ class LiveTogetherController extends Controller
 
         $res = $model->confirmContact($motel_id, $area_id, $status, $contact_id);
         try {
-            Mail::to($res['email'])->send(new ConfirmContactMotel($res['actor']));
-            return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
+            if ($status === 4) {
+                return redirect()->route('get_history_contact_by_user');
+            } else {
+                Mail::to($res['email'])->send(new ConfirmContactMotel($res['actor']));
+                return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
+            }
+
+
         } catch (\Exception $err) {
             dd($err->getMessage());
         }

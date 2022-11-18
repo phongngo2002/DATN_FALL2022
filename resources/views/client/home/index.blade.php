@@ -19,7 +19,7 @@
                         <div class="hero-inner">
                             <!-- Welcome Text -->
                             <div class="welcome-text">
-                                <h1 class="h1">Find Your Dream
+                                <h1 class="h1">Tìm giấc mơ của bạn
                                     <br class="d-md-none">
                                     <span class="typed border-bottom"></span>
                                 </h1>
@@ -32,7 +32,8 @@
                                     <div class="banner-search-wrap">
                                         <ul class="nav nav-tabs rld-banner-tab">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#tabs_1">Thuê phòng/căn hộ</a>
+                                                <a class="nav-link active" data-toggle="tab" href="#tabs_1">Thuê
+                                                    phòng/căn hộ</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#tabs_2">Ở ghép</a>
@@ -45,7 +46,8 @@
                                                 <div class="rld-main-search">
                                                     <div class="row">
                                                         <div class="rld-single-input">
-                                                            <input type="text" placeholder="Nhập từ khoá..." name="keyword">
+                                                            <input type="text" placeholder="Nhập từ khoá..."
+                                                                   name="keyword">
                                                         </div>
                                                         <div class="rld-single-select ml-22">
                                                             <select class="select single-select" name="category">
@@ -67,7 +69,9 @@
                                                         <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
                                                             <span>Tìm kiếm nâng cao</span></div>
                                                         <div class="pl-0">
-                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm ngay</button>
+                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm
+                                                                ngay
+                                                            </button>
                                                         </div>
                                                         <div
                                                             class="explore__form-checkbox-list full-filter d-none d-none d-lg-none d-xl-flex  shadow p-3 mb-5 bg-body rounded">
@@ -75,8 +79,10 @@
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bedrooms -->
                                                                     <div class="form-group beds">
-                                                                        <div class="nice-select form-control wide" tabindex="0">
-                                                                            <span class="current"><i class="fa fa-bed" aria-hidden="true"></i>Phòng ngủ</span>
+                                                                        <div class="nice-select form-control wide"
+                                                                             tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bed"
+                                                                                                     aria-hidden="true"></i>Phòng ngủ</span>
                                                                             <ul class="list">
                                                                                 @for ($i = 1; $i < 5; $i++)
                                                                                     <li data-value="{{$i}}" onclick=getBedroom(event) class="option">{{$i}}</li>
@@ -85,14 +91,14 @@
                                                                             <input type="hidden" name="bedroom" id="bedroom">
                                                                         </div>
                                                                     </div>
-                                                                  
+
                                                                     <!--/ End Form Bedrooms -->
                                                                 </div>
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
                                                                         <div class="nice-select form-control wide" tabindex="0">
-                                                                            <span class="current"><i class="fa fa-bath" aria-hidden="true"></i>Phòng tắm/WC</span>
+                                                                             <span class="current"><i class="fa fa-bath" aria-hidden="true"></i>Phòng tắm/WC</span>
                                                                             <ul class="list">
                                                                                 @for ($i = 1; $i < 5; $i++)
                                                                                     <li data-value="{{$i}}" onclick=getToilet(event) class="option">{{$i}}</li>
@@ -191,7 +197,8 @@
                                                                 <option value="Bắc Giang">Bắc Giang</option>
                                                             </select>
                                                         </div>
-                                                        <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span></div>
+                                                        <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span>
+                                                        </div>
                                                         <div class="pl-0">
                                                             <button class="btn btn-yellow" style="width:165px;">Tìm kiếm ngay</button>
                                                         </div>
@@ -447,17 +454,21 @@
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="btn"><i
+                                            class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}" class="img-poppu btn"><i
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                       class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
                             <div class="homes-content">
                                 <!-- homes address -->
-                                <h3><a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{json_decode($key->data_post)->title}} </a></h3>
+                                <h3>
+                                    <a href="{{route('client.live-together.detail',['id' => $key->id])}}">{{json_decode($key->data_post)->title}} </a>
+                                </h3>
                                 <p class="homes-address mb-3">
                                     <a href="{{route('client.live-together.detail',['id' => $key->id])}}">
                                         <i class="fa fa-map-marker"></i><span>{{$key->address}}</span>
@@ -480,13 +491,16 @@
                                             VNĐ</a>
                                     </h3>
                                     <div class="compare">
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Compare">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Compare">
                                             <i class="flaticon-compare"></i>
                                         </a>
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Share">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Share">
                                             <i class="flaticon-share"></i>
                                         </a>
-                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}" title="Favorites">
+                                        <a href="{{route('client.live-together.detail',['id' => $key->id])}}"
+                                           title="Favorites">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
@@ -505,66 +519,66 @@
     </section>
 
     <!-- START SECTION WHY CHOOSE US -->
-{{--    <section class="how-it-works bg-white rec-pro">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <div class="sec-title">--}}
-{{--                <h2><span>Why </span>Choose Us</h2>--}}
-{{--                <p>We provide full service at every step.</p>--}}
-{{--            </div>--}}
-{{--            <div class="row service-1">--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-13">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
-{{--                            <h3>--}}
-{{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
-{{--                            <h3>Trusted by thousands</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
-{{--                    <div class="serv-flex arrow">--}}
-{{--                        <div class="art-1 img-15">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
-{{--                            <h3>Financing made easy</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
-{{--                         data-aos-delay="450">--}}
-{{--                    <div class="serv-flex">--}}
-{{--                        <div class="art-1 img-14">--}}
-{{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
-{{--                            <h3>We are here near you</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="service-text-p">--}}
-{{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-{{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--    <section class="how-it-works bg-white rec-pro">--}}
+    {{--        <div class="container-fluid">--}}
+    {{--            <div class="sec-title">--}}
+    {{--                <h2><span>Why </span>Choose Us</h2>--}}
+    {{--                <p>We provide full service at every step.</p>--}}
+    {{--            </div>--}}
+    {{--            <div class="row service-1">--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-13">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
+    {{--                            <h3>--}}
+    {{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
+    {{--                            <h3>Trusted by thousands</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
+    {{--                    <div class="serv-flex arrow">--}}
+    {{--                        <div class="art-1 img-15">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
+    {{--                            <h3>Financing made easy</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
+    {{--                         data-aos-delay="450">--}}
+    {{--                    <div class="serv-flex">--}}
+    {{--                        <div class="art-1 img-14">--}}
+    {{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
+    {{--                            <h3>We are here near you</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div class="service-text-p">--}}
+    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
+    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </article>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
     <!-- END SECTION WHY CHOOSE US -->
 
     <!-- START SECTION RECENTLY PROPERTIES -->

@@ -18,6 +18,9 @@ Route::post('/get-google-sign-in-url', [\App\Http\Controllers\GoogleController::
 Route::get('/callback', [\App\Http\Controllers\GoogleController::class, 'loginCallback']);
 Route::post('/quan-ly-tai-khoan-upload-anh', [\App\Http\Controllers\Admin\UserController::class, 'uploadImg'])->name('upload_img');
 Route::get('/search', [\App\Http\Controllers\Client\HomeController::class, 'search'])->name('search');
+Route::post('/lay-ma-rut-tien', 'App\Http\Controllers\WithdrawController@getCode')->name('backend_get_code_withdraw');
+Route::post('/ket-toan-phan-thuong', 'App\Http\Controllers\Admin\TicketController@post_wheel_luck')->name('post_wheel_luck');
+Route::get('/lay-lich-quay-thuong', 'App\Http\Controllers\Admin\TicketController@get_history_wheel_luck')->name('get_history_whell_luck');
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();

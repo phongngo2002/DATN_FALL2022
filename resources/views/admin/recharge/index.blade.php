@@ -56,9 +56,9 @@
             <tr>
                 <th>Mã giao dịch</th>
                 <th>Email</th>
-                <th>Họ tên</th>
                 <th>Phương thức</th>
-                <th>Số tiền</th>
+                <th>Số tiền nạp</th>
+                <th>Phí giao dịch</th>
                 <th>Số xu nhận đc</th>
                 <th>Trạng thái</th>
                 <th>Ghi chú</th>
@@ -70,7 +70,6 @@
                 <tr>
                     <td>#{{ $item->recharge_code }}</td>
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->name }}</td>
                     <td>
                         @if ($item->payment_type)
                             <span class="text-primary font-weight-bold">PayPal</span>
@@ -78,8 +77,9 @@
                             <span class="text-info font-weight-bold">Tiền mặt</span>
                         @endif
                     </td>
-                    <td>{{ $item->value }} $</td>
-                    <td><span class="text-success mx-1">+{{ $item->value * 24.855 }}</span><i
+                    <td>$ {{ $item->value }}</td>
+                    <td>$ {{$item->fee ?? 0}}</td>
+                    <td><span class="text-success mx-1">+{{ ($item->value - $item->fee) * 24.855 }}</span><i
                             class="fa-brands fa-bitcoin text-warning"></i></td>
                     <td>
                         @if ($item->tt)

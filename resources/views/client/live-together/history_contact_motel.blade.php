@@ -151,6 +151,8 @@
                                 <span class="text-success">Đồng ý</span>
                             @elseif($item->tt == 3)
                                 <span class="text-warning">Đã thêm vào phòng</span>
+                            @elseif($item->tt == 4)
+                                <span class="text-danger">Đã hủy</span>
                             @else
                                 <span class="text-danger">Từ chối</span>
                             @endif
@@ -163,9 +165,10 @@
                                 <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 2,'contact_id' => $item->contact_id])}}"
                                    class="btn btn-danger text-white">Không chấp nhận</a>
                             @else
-                                @if($item->tt == 3)
+                                @if($item->tt == 3 || $item->tt === 4)
                                     <button
-                                       class="btn btn-warning text-white" disabled>Hùy</button>
+                                        class="btn btn-warning text-white" disabled>Hùy
+                                    </button>
                                 @else
                                     <a href="{{route('client.confirm_contact_motel', ['motel_id'=>$item->motel_id,'area_id' => $item->area_id,'status' => 0,'contact_id' => $item->contact_id])}}"
                                        class="btn btn-warning text-white">Hùy</a>

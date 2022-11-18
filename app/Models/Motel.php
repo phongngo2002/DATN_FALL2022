@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,9 @@ class Motel extends Model
         "money_deposit",
         "transfer_infor",
         'created_at',
+        'electric_money',
+        'wifi',
+        'warter_money',
         "video",
     ];
 
@@ -44,7 +48,7 @@ class Motel extends Model
         $params['limit'] = $params['limit'] ?? 10;
 
         $motels = DB::table($this->table)
-            ->select(['room_number', 'price', 'max_people', 'status', 'id', 'area_id', 'image_360'])
+            ->select(['room_number', 'price', 'max_people', 'motels.status', 'id', 'area_id', 'image_360', 'electric_money', 'warter_money', 'start_time', 'end_time'])
             ->where('area_id', $id);
 
         if ($params['name']) {
@@ -78,6 +82,9 @@ class Motel extends Model
                 "max_people" => $data['max_people'],
                 "category_id" => $data['category_id'],
                 "video" => $data['video'],
+                'electric_money' => $data['electric_money'],
+                'warter_money' => $data['warter_money'],
+                'wifi' => $data['wifi'],
                 "day_deposit" => $data['day_deposit'],
                 "money_deposit" => $data['money_deposit'],
                 "transfer_infor" => $data['transfer_infor'],
@@ -120,6 +127,9 @@ class Motel extends Model
                 'users.phone_number as user_phone',
                 'users.email as user_email',
                 'start_time',
+                'electric_money',
+                'wifi',
+                'warter_money',
                 'video',
                 'day_deposit',
                 'money_deposit',
@@ -187,13 +197,22 @@ class Motel extends Model
 
     public function info_motel($id)
     {
-        return DB::table('users')
-            ->select(['name', 'phone_number', 'start_time', 'motel_id', 'user_id', 'email'])
+        $query = DB::table('users')
+            ->select(['name', 'motels.status as motel_status', 'motels.end_time as motel_end', 'phone_number', 'user_motel.start_time', "max_people", 'motel_id', 'user_id', 'email', "motels.room_number as room", 'motels.status'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
+            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
+        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
+        $query->money_deposit = DB::table('deposits')
+                ->select(['value', 'type'])
+                ->where('status', 1)
+                ->where('motel_id', $id)
+                ->first() ?? 0;
+        return $query;
     }
+
 
     public function get_list_contact($motel_id, $area_id)
     {
@@ -207,7 +226,18 @@ class Motel extends Model
             ->paginate(10);
     }
 
-    public function client_get_List_Motel_top($params = [])
+    public function get_list_contact_by_user($id)
+    {
+        return DB::table('users')
+            ->select(['contact_motel_history.user_id', 'motels.id as motel_id', 'area_id', 'name', 'email', 'phone_number', 'contact_motel_history.status as tt', 'contact_motel_history.created_at as tg', 'contact_motel_history.id as contact_id'])
+            ->join('contact_motel_history', 'users.id', '=', 'contact_motel_history.user_id')
+            ->join('motels', 'contact_motel_history.motel_id', '=', 'motels.id')
+            ->where('user_id', $id)
+            ->orderBy('contact_motel_history.created_at', 'desc')
+            ->paginate(10);
+    }
+
+    public function client_get_List_Motel_top()
     {
         // dd($params);
         return DB::table('areas')
@@ -217,6 +247,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('plan_history.status', 1)
             ->where('type', 1)
+            ->where('motels.status', 5)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
     }
@@ -231,6 +262,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('type', 2)
             ->where('plan_history.status', 1)
+            ->where('motels.end_time', '>', Carbon::now())
             ->orderBy('priority_level', 'asc')
             ->get();
     }
@@ -358,5 +390,73 @@ class Motel extends Model
             $query->orderBy('priority_level', 'asc');
             // dd($query->toSql());
         return $query->paginate(10);
+    public function getMotelsByAreas($id)
+    {
+        $area = DB::table('motels')->where('id', $id)->first();
+        $motelsByAreas = DB::table('motels')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->where('area_id', $area->area_id)
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 1)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
+        return $motelsByAreas;
+    }
+
+    public function getMotelsHot()
+    {
+        return DB::table('areas')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 1)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
+    }
+
+    public function getLiveTogethersByAreas($id)
+    {
+        $area = DB::table('motels')->where('id', $id)->first();
+        $liveTogethers = DB::table('motels')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->where('area_id', $area->area_id)->orderBy('priority_level', 'asc')->limit(5)->get();
+        return $liveTogethers;
+    }
+
+    public function getLiveTogethersHot()
+    {
+        return DB::table('areas')
+            ->select([
+                'photo_gallery',
+                'room_number',
+                'motels.price as priceMotel'
+            ])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 2)
+            ->orderBy('priority_level', 'asc')
+            ->limit(5)->get();
     }
 }

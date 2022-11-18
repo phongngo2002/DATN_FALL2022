@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Console\Commands\Motels;
 use App\Http\Controllers\Controller;
 use App\Imports\MotelsImport;
 use App\Mail\ConfirmOutMotel;
 use App\Mail\ForgotOtp;
+use App\Mail\NotificeDelMotel;
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\Deposit;
 use App\Models\Motel;
 use App\Models\Plan;
 use App\Models\PlanHistory;
 use App\Models\PrintPdf;
+use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
 use Carbon\Carbon;
@@ -21,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\App;
 
 class MotelController extends Controller
 {
@@ -94,7 +99,6 @@ class MotelController extends Controller
             ])->getSecurePath();;
 
             $imgs[] = $uploadedFileUrl;
-
         }
         $params['cols']['photo_gallery'] = $imgs;
         $model = new Motel();
@@ -109,6 +113,7 @@ class MotelController extends Controller
     public function info_user_motels($id, $idMotel)
     {
         $model = new Motel();
+        $this->v['id'] = $id;
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
@@ -121,12 +126,13 @@ class MotelController extends Controller
             $ids[] = $item->user_id;
         }
         $this->v['user'] = DB::table('users')->where('role_id', '3')->whereNotIn('id', $ids)->get();
-
         $this->v['data'] = json_encode($this->v['user']);
         $this->v['params'] = [
             'motel_id' => $idMotel,
             'area_id' => $id
         ];
+
+
         return view('admin.motel.info', $this->v);
     }
 
@@ -146,15 +152,17 @@ class MotelController extends Controller
             'motel_id' => $idMotel,
             'area_id' => $id
         ];
-
-        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status'])->where('type', 1)->where('status', 1)->get();
+        $this->v['gift'] = Ticket::selectRaw('SUM(ticket)  as quantity')->where('user_id', Auth::id())->where('status', 1)->first()->quantity ?? 0;
+        $this->v['numberTicket'] = Ticket::selectRaw('SUM(ticket)  as quantity')->where('user_id', Auth::id())->where('status', 2)->first()->quantity / 10 ?? 0;
+        $this->v['plans'] = Plan::select(['id', 'name', 'type', 'time', 'price', 'status', 'priority_level'])->where('type', 1)->where('status', 1)->get();
         $data = [];
         foreach ($this->v['plans'] as $i) {
             $data[] = [
                 'id' => $i->id,
                 'title' => $i->name,
                 'price' => $i->price,
-                'time' => $i->time
+                'time' => $i->time,
+                'more' => $i->price == 0 ? 1 : 0
             ];
         }
 
@@ -174,6 +182,7 @@ class MotelController extends Controller
     public function save_create_post_motels(Request $request, $id, $idMotel)
     {
         // dd($request->post());
+        DB::table('motels')->where('id', $idMotel)->update(['status' => 5]);
         $model = new PlanHistory();
         if ($request->gia_han) {
             $model->create([
@@ -182,6 +191,7 @@ class MotelController extends Controller
                 'day' => $request->post_day_more,
                 'status' => 2,
                 'parent_id' => $request->ID,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
 
@@ -190,6 +200,30 @@ class MotelController extends Controller
             $planHistory->day += $request->post_day_more;
 
             $planHistory->save();
+            $plan = Plan::find($request->plan_id_o);
+            $trong_so = $plan->priority_level != 6 ? 10 / $plan->priority_level : 0;
+            $currentTicket = Ticket::where('user_id', Auth::id())->where('ticket', '<', 10)->first();
+            if ($currentTicket) {
+                $ticket = $trong_so + $currentTicket->ticket;
+                if ($ticket > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => $ticket - 10,
+                        'created_at' => Carbon::now()
+                    ]);
+                } else {
+                    $currentTicket->ticket = $ticket;
+                }
+                $currentTicket->save();
+            } else {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => $trong_so
+                ]);
+            }
 
             $user = User::find(Auth::id());
             $user->money -= $request->post_money_more;
@@ -203,6 +237,7 @@ class MotelController extends Controller
                 'day' => $request->old_day,
                 'status' => 4,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $id = $model->create([
@@ -211,6 +246,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $model->create([
@@ -219,8 +255,37 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'user_id' => Auth::id(),
                 'is_first' => 1
             ]);
+            $planOld = Plan::find($request->plan_id_o);
+            $planNew = Plan::find($request->post_plan_id);
+            $trong_so1 = $planOld->priority_level != 6 ? 10 / $planOld->priority_level : 0;
+            $trong_so2 = $planNew->priority_level != 6 ? 10 / $planNew->priority_level : 0;
+            $currentTicket = Ticket::where('user_id', Auth::id())->where('ticket', '<', 10)->first();
+            if (!$currentTicket) {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => 0 - $trong_so1 + $trong_so2,
+                    'created_at' => Carbon::now()
+                ]);
+            } else {
+                if ($currentTicket->ticket - $trong_so1 + $trong_so2 > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => 10 - $currentTicket->ticket + $trong_so1 - $trong_so2,
+                        'created_at' => Carbon::now()
+                    ]);
+
+                } else {
+                    $currentTicket->ticket = $currentTicket->ticket - $trong_so1 + $trong_so2;
+                }
+
+                $currentTicket->save();
+            }
 
             PlanHistory::where('id', $request->ID)->update([
                 'status' => 0,
@@ -232,7 +297,6 @@ class MotelController extends Controller
 
             $user->save();
             return redirect()->back()->with('success', 'Thay đổi gói bài đăng thành công');
-
         } else {
             $id = $model->create([
                 'plan_id' => $request->post_plan_id,
@@ -240,6 +304,7 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 1,
                 'parent_id' => 0,
+                'user_id' => Auth::id(),
                 'is_first' => 0
             ]);
             $model->create([
@@ -248,24 +313,49 @@ class MotelController extends Controller
                 'day' => $request->post_day,
                 'status' => 2,
                 'parent_id' => $id,
+                'user_id' => Auth::id(),
                 'is_first' => 1
             ]);
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
 
             $user->save();
-
+            $plan = Plan::find($request->post_plan_id);
+            $trong_so = $plan->priority_level != 6 ? 10 / $plan->priority_level : 0;
+            $currentTicket = Ticket::where('user_id', Auth::id())
+                ->where('ticket', '<', 10)
+                ->first();
+            if ($currentTicket) {
+                $ticket = $trong_so + $currentTicket->ticket;
+                if ($ticket > 10) {
+                    $currentTicket->ticket = 10;
+                    Ticket::insert([
+                        'user_id' => Auth::id(),
+                        'status' => 1,
+                        'ticket' => $ticket - 10,
+                        'created_at' => Carbon::now()
+                    ]);
+                } else {
+                    $currentTicket->ticket = $ticket;
+                }
+                $currentTicket->save();
+            } else {
+                Ticket::insert([
+                    'user_id' => Auth::id(),
+                    'status' => 1,
+                    'ticket' => $trong_so,
+                    'created_at' => Carbon::now()
+                ]);
+            }
 
             return redirect()->back()->with('success', 'Đăng bài thành công');
         }
-
-
     }
 
     public function contact_motel(Request $request, $id, $idMotel)
     {
         $model = new Motel();
-
+        $this->v['info'] = $model->info_motel($idMotel);
         $this->v['list'] = $model->get_list_contact($idMotel, $id);
         $this->v['motel_id'] = $idMotel;
         $this->v['area_id'] = $id;
@@ -333,6 +423,9 @@ class MotelController extends Controller
                 'more' => $request->service_more,
                 'actor' => $request->actor
             ]),
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $imgs = [];
@@ -366,12 +459,23 @@ class MotelController extends Controller
     {
         Motel::where('id', $motelId)->update([
             'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+            'status' => 2
         ]);
         $model = new PrintPdf();;
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($model->printMotel($motelId, $request->start_time, $request->end_time));
-        return $pdf->stream();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($model->printMotel($motelId, [
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'electric_money' => $request->electric_money,
+            'warter_money' => $request->warter_money,
+            'wifi' => $request->wifi,
+        ]));
+        return $pdf->download('hop_dong.pdf');
+
     }
 
     public function import(Request $request)
@@ -407,6 +511,7 @@ class MotelController extends Controller
 
     public function confirm_out_motel(Request $request, $id)
     {
+        // dd($request->all(), $id);
         $res = DB::table('user_motel')->where('id', $id)->update([
             'status' => 0,
             'end_time' => Carbon::now()
@@ -418,13 +523,38 @@ class MotelController extends Controller
             try {
                 $motel = Motel::find($request->motel_id);
                 $motel->status = 1;
-                $motel->end_time = Carbon::now()->format('Y-m-d');
+                $motel->end_time = date('Y-m-d');
                 $motel->save();
+
+                Motel::where('id', $request->motel_id)->update(['end_time' => null, 'start_time' => null]);
+
+                PlanHistory::where('motel_id', $request->motel_id)->where('status', 1)->update(['status' => 5]);
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
         }
         Mail::to($request->email)->send(new ConfirmOutMotel());
         return redirect()->back()->with('success', 'Cập nhật đơn rời phòng thành công');
+    }
+
+    public function deleteUserFormMotel(Request $request, $id)
+    {
+        $res = DB::table('user_motel')->where('id', $id)->update([
+            'status' => 3 //status = 3 : bị xóa do hết hạn
+        ]);
+
+        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+        if (count($user) === 0) {
+            try {
+                $motel = Motel::find($request->motel_id);
+                $motel->status = 1;
+                $motel->end_time;
+                $motel->save();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        Mail::to($request->email)->send(new NotificeDelMotel());
+        return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }

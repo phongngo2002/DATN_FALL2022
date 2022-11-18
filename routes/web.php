@@ -18,11 +18,19 @@ use App\Http\Controllers\Auth\registerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/abc/test', function () {
+    return view('email.bill');
+});
+
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/khu-tro/{areaID}', [\App\Http\Controllers\Client\HomeController::class, 'motel_by_area'])->name('motel_by_area');
+
 Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
 });
+Route::get('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@getFormSelectRole')->name('get_select_role_resign');
+Route::post('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@postFormSelectRole')->name('get_select_role_resign');
 
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -60,10 +68,16 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/quan-ly-tai-khoan/vong-quay', 'App\Http\Controllers\Client\AccountManagementController@wheel_luck')->name('client.get_rotation');
+    Route::post('/dat-lich-hen', 'App\Http\Controllers\Client\AppointmentController@post_appointment')->name('client.post_appointment');
+    Route::get('/quan-ly-tai-khoan/lich-su-dat', 'App\Http\Controllers\Client\AppointmentController@history_appointment')->name('client.history_appointment');
+    Route::get('/quan-ly-tai-khoan/lich-su-dat/{appoint_id}', 'App\Http\Controllers\Client\AppointmentController@cancelAppoint')->name('client.cancelAppoint');
+
     Route::get('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@profile')->name('client.get_profile');
     Route::post('/quan-ly-tai-khoan/', 'App\Http\Controllers\Client\AccountManagementController@editProfile')->name('client.edit_profile');
     Route::get('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@changePassword')->name('client.change_password');
     Route::post('/quan-ly-tai-khoan/doi-mat-khau', 'App\Http\Controllers\Client\AccountManagementController@saveChangePassword')->name('client.save_change_password');
+    Route::get('/quan-ly-tai-khoan/hoa-don-can-thanh-toan', 'App\Http\Controllers\Client\BillController@index')->name('client_get_list_bill');
 
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}', [LiveTogetherController::class, 'historyContactMotel'])->name('client.get_history_contact_motel');
     Route::get('/quan-ly-tai-khoan/lich-su-dang-ky/{motel_id}/{area_id}/xac-nhan/{status}/{contact_id}', [LiveTogetherController::class, 'ConfirmContactMotel'])->name('client.confirm_contact_motel');
@@ -71,6 +85,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
     Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
+    Route::get('/quan-ly-tai-khoan/dang-ky-o-ghep', 'App\Http\Controllers\Client\AccountManagementController@history_contact_by_user')->name('get_history_contact_by_user');
+    Route::post('/quan-ly-tai-khoan/gui-danh-gia', 'App\Http\Controllers\Client\VoteController@sendVote')->name('client_send_vote');
 
     Route::get('/quan-ly-tai-khoan/lich-su-mua-goi', 'App\Http\Controllers\Client\AccountManagementController@historyBuyPlan')->name('get_history_buy_plan');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');
@@ -84,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
-  
+
 
     Route::prefix('admin')->group(function () {
         // Màn thống kê
@@ -93,7 +109,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('thong-tin-tai-khoan', 'App\Http\Controllers\Admin\DashboardController@profile')->name('backend_get_profile');
         // Lịch sửa mua gói dịch vụ
         Route::get('/lich-su-mua-goi', [PlanHistoryController::class, "index_plan_history"])->name("admin.plan-history.list");
+        Route::get('/lich-hen-xem-phong', 'App\Http\Controllers\Admin\AppointmentController@get_list_appoint')->name("admin.get_list_appoint");
+        Route::post('/xac-nhan-lich-hen', 'App\Http\Controllers\Admin\AppointmentController@confirm_appoint')->name("admin.confirm_appoint");
+
         // Lịch sử đặt cọc
+        Route::prefix('vong-quay')->group(function () {
+            Route::post('/doi-ve', 'App\Http\Controllers\Admin\TicketController@admin_swap_gift_to_ticket')->name('admin_swap_gift_to_ticket');
+            Route::get('', 'App\Http\Controllers\Admin\TicketController@get_view_whell_luck')->name('admin_get_view_wheel_luck');
+            Route::post('mua-luot', 'App\Http\Controllers\Admin\TicketController@buy_ticket')->name('buy_ticket');
+
+        });
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index_deposits')->name('backend_get_list_deposit');
             Route::post('/change_status/{id}', 'App\Http\Controllers\Admin\DepositController@change_status_deposit')->name('backend_admin_change_status_deposit');
@@ -105,6 +130,16 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('nap-tien')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\RechargeController@get_form_recharge')->name('backend_get_form_recharge');
         });
+        Route::prefix('rut-tien')->group(function () {
+            Route::get('/', 'App\Http\Controllers\WithdrawController@get_form_withdraw')->name('backend_get_form_withdraw');
+            Route::post('/', 'App\Http\Controllers\WithdrawController@withdraw');
+            Route::get('/lich-su-rut-tien', 'App\Http\Controllers\WithdrawController@list')->name('backend_get_history_withdraw');
+
+        });
+        Route::prefix('hoa-don')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\BillController@index')->name('backend_get_list_bill');
+            Route::post('/xac-nhan', 'App\Http\Controllers\Admin\BillController@confirm')->name('backend_confirm_bill');
+        });
         // Chỉ chủ trọ
         Route::prefix('khu-tro')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\AreaController@index_areas')->name('backend_get_list_area');
@@ -113,6 +148,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@update_areas')->name('backend_get_edit_area');
             Route::post('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@saveUpdate_areas')->name('backend_get_post_edit_area');
             Route::get('/{id}/xoa', 'App\Http\Controllers\Admin\AreaController@delete_areas')->name('backend_delete_area');
+            Route::post('/xuat-hoa-don', 'App\Http\Controllers\Admin\AreaController@send_bill')->name('backend_send_bill');
+
         });
 
         // Quản lý phòng trọ
@@ -120,9 +157,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('nhap-danh-sach', [\App\Http\Controllers\Admin\MotelController::class, "import"])->name("admin.motel.import");
 
             Route::post('{motelId}/xuat-hoa-don', [\App\Http\Controllers\Admin\MotelController::class, "print"])->name("admin.print.motel");
+            Route::get('{id}/danh-sach-nguoi-dat-coc', [\App\Http\Controllers\Admin\DepositController::class, "listDeposit"])->name("admin.list-deposit.motel");
             Route::get('{id}/{idMotel}/danh-sach-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "list_out_motel"])->name("admin.motel.list_out_motel");
             Route::get('{id}/dong-y-roi-phong', [\App\Http\Controllers\Admin\MotelController::class, "confirm_out_motel"])->name("admin.motel.confirm_out_motel");
-
+            Route::get('{id}/xoa-thanh-vien', [\App\Http\Controllers\Admin\MotelController::class, "deleteUserFormMotel"])->name('admin.delete_user_motel');
 
             Route::get('{id}/{idMotel}/lich-su-thue', [\App\Http\Controllers\Admin\MotelController::class, "history_motel"])->name("admin.motel.history");
             Route::get('{id}', [\App\Http\Controllers\Admin\MotelController::class, "index_motels"])->name("admin.motel.list");
@@ -143,6 +181,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "create_post_motels"])->name("admin.motel.post");
             Route::post('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "save_create_post_motels"])->name("admin.motel.post_post");
             Route::get('{id}/{idMotel}/dang-ky-o-ghep', [\App\Http\Controllers\Admin\MotelController::class, "contact_motel"])->name("admin.motel.contact");
+
         });
 
         // Chỉ có admin
@@ -178,8 +217,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
-        
-  
+
+
 });
 
 Route::get('/403', function () {

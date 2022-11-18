@@ -15,7 +15,6 @@ class UserMotel extends Model
     protected $table = "user_motel";
 
 
-
     public function add($motel_id, $user_id, $type)
     {
         $model = DB::table($this->table)->insert([
@@ -73,6 +72,7 @@ class UserMotel extends Model
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
             ->where('user_motel.user_id', Auth::id())
+            ->orderBy('user_motel_start_time', 'desc')
             // ->limit(1)
             ->get();
     }

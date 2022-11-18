@@ -160,7 +160,8 @@
                 <div class="dropdown-menu dropdown-menu-end">
 
                     <a class="dropdown-item" href="#"><i class="fa-sharp fa-solid fa-piggy-bank"></i>
-                        Tài khoản gốc: {{\Illuminate\Support\Facades\Auth::user()->money}} <i
+                        Tài khoản gốc: <span
+                            class="current_money">{{\Illuminate\Support\Facades\Auth::user()->money}}</span> <i
                             class="fa-brands fa-bitcoin text-warning"></i></a>
                     <a class="dropdown-item" href="{{route('backend_get_profile')}}"><i class="align-middle me-1"
                                                                                         data-feather="user"></i> Thông
@@ -169,6 +170,12 @@
                     <a class="dropdown-item" href="{{route('backend_get_form_recharge')}}"><i
                             class="fa-solid fa-money-check"></i>
                         Nạp tiền</a>
+                    <a class="dropdown-item" href="{{route('admin_get_view_wheel_luck')}}"><i
+                            class="fa-solid fa-money-check"></i>
+                        Vòng quay may mắn</a>
+                    <a class="dropdown-item" href="{{route('backend_get_form_withdraw')}}"><i
+                            class="fa-solid fa-money-check"></i>
+                        Rút tiền</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
                         Center</a>
                     <div class="dropdown-divider"></div>

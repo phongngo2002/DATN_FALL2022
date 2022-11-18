@@ -217,7 +217,22 @@
         modal();
     </script>
 @endif
+@if (isset($_GET['success']))
+    <script>
+        function modal() {
+            Swal.fire(
+                'Có lỗi xảy ra vui lòng thử lại sau',
+                '',
+                'error'
+            )
+        }
 
+        modal();
+    </script>
+@endif
+<script>
+    window.history.pushState("", "", 'http://phong.ngo/dang-nhap');
+</script>
 </body>
 
 </html>

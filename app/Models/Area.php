@@ -74,10 +74,41 @@ class Area extends Model
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->where('plan_history.status', 1)
+            ->where('motels.status', 5)
             ->limit(8)
             ->orderByDesc('quantity')
             ->groupBy('areas.name', 'areas.address', 'areas.id', 'image')
             ->get();
         return $res;
+    }
+
+    public function client_get_list_motel($area_id)
+    {
+        $query = DB::table('users')
+            ->select(['users.name',
+                'motel_id',
+                'electric_money',
+                'warter_money',
+                'motels.price',
+                'area',
+                'avatar',
+                'plan_history.created_at',
+                'room_number',
+                'areas.address',
+                'link_gg_map',
+                'services',
+                'photo_gallery',
+                'areas.name as area_name'])
+            ->join('areas', 'users.id', '=', 'areas.user_id')
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
+            ->where('plan_history.status', 1)
+            ->where('type', 1)
+            ->where('motels.status', '!=', 3)
+            ->where('area_id', $area_id)
+            ->orderBy('priority_level')
+            ->paginate(10);
+        return $query;
     }
 }

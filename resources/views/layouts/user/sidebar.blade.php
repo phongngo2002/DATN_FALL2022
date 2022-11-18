@@ -10,7 +10,9 @@
         </div>
         <div class="active-user">
             <h2>    {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
-            <p class="text-white text-center">Tài khoản gốc: {{\Illuminate\Support\Facades\Auth::user()->money}} <i
+            <p class="text-white text-center">Tài khoản gốc: <span
+                    class="current_money">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span>
+                <i
                     class="fa-brands fa-bitcoin text-warning"></i></p>
         </div>
         <div class="detail clearfix">
@@ -23,6 +25,11 @@
                 <li>
                     <a href="{{route('client_current_motel')}}">
                         <i class="fa fa-heart" aria-hidden="true"></i>Phòng trọ đang ở
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('client.history_appointment')}}">
+                        <i class="fas fa-credit-card"></i>Đặt lịch xem phòng
                     </a>
                 </li>
                 <li>
@@ -41,8 +48,23 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('get_history_contact_by_user')}}">
+                        <i class="fas fa-paste"></i>Lịch sử đăng ký ở ghép
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('get_history_deposit')}}">
                         <i class="fas fa-paste"></i>Lịch sử Đặt cọc
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('client_get_list_bill')}}">
+                        <i class="fas fa-paste"></i>Hóa đơn
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('client.get_rotation')}}">
+                        <i class="fas fa-paste"></i>Vòng quay
                     </a>
                 </li>
                 <li>

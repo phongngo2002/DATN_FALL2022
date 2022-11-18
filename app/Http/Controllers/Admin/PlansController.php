@@ -83,19 +83,12 @@ class PlansController extends Controller
         $plans->price = (float)$request->price;
 
         $plans->save();
-
-
         return redirect()->route('backend_admin_get_list_plans')->with('success', "Insert successfully");
     }
 
     public function delete_plans($id)
     {
         Plan::where('id', $id)->update(['status' => 0]);
-
         return redirect()->route('backend_admin_get_list_plans');
-
-        //        return response()->json([
-        //            'success' => 'User Deleted Successfully!'
-        //        ]);
     }
 }

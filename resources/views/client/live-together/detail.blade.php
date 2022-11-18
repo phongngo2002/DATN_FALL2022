@@ -347,108 +347,37 @@
 
                     <!-- Star Reviews -->
                     <section class="reviews comments ">
-                        <h3 class="mb-5">3 Đánh giá</h3>
-                        <div class="row mb-5">
-                            <ul class="col-12 commented pl-0">
-                                <li class="comm-inf">
-                                    <div class="col-md-2">
-                                        <img src="{{asset('assets/client/images/testimonials/ts-5.jpg')}}"
-                                             class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-md-10 comments-info">
-                                        <div class="conra">
-                                            <h5 class="mb-2">Mary Smith</h5>
-                                            <div class="rating-box">
-                                                <div class="detail-list-rating mr-0">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
+                        <h3 class="mb-5">{{count($votes)}} đánh giá</h3>
+                        @foreach($votes as $vote)
+                            <div class="row my-4">
+                                <ul class="col-12 commented pl-0">
+                                    <li class="comm-inf">
+                                        <div class="col-md-2">
+                                            <img
+                                                src="{{!$vote->avatar ? 'https://toigingiuvedep.vn/wp-content/uploads/2021/05/hinh-anh-dai-dien-nguoi-giau-mat-bi-an.jpg' : $vote->avatar}}"
+                                                class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-md-10 comments-info">
+                                            <div class="conra">
+                                                <h5 class="mb-2">{{$vote->name}}</h5>
+                                                <div class="rating-box">
+                                                    <div class="detail-list-rating mr-0">
+                                                        @for($i = 0 ; $i < $vote->score;$i++)
+                                                            <i class="fa fa-star"></i>
+                                                        @endfor
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <p class="mb-4">{{\Carbon\Carbon::parse($vote->created_at)->format('h:i d/m/Y')}}</p>
+                                            <p>{{$vote->message}}</p>
                                         </div>
-                                        <p class="mb-4">May 30 2020</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam,
-                                            quam congue dictum luctus, lacus magna congue ante, in finibus dui
-                                            sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum
-                                            vestibulum sed.</p>
-                                        <div class="rest"><img
-                                                src="{{asset('assets/client/images/single-property/s-1.jpg')}}"
-                                                class="img-fluid"
-                                                alt=""></div>
-                                    </div>
-                                </li>
+                                    </li>
 
-                            </ul>
-                        </div>
-                        <div class="row">
-                            <ul class="col-12 commented pl-0">
-                                <li class="comm-inf">
-                                    <div class="col-md-2">
-                                        <img src="{{asset('assets/client/images/testimonials/ts-4.jpg')}}"
-                                             class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-md-10 comments-info">
-                                        <div class="conra">
-                                            <h5 class="mb-2">Abraham Tyron</h5>
-                                            <div class="rating-box">
-                                                <div class="detail-list-rating mr-0">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="mb-4">june 1 2020</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam,
-                                            quam congue dictum luctus, lacus magna congue ante, in finibus dui
-                                            sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum
-                                            vestibulum sed.</p>
-                                    </div>
-                                </li>
+                                </ul>
+                            </div>
+                        @endforeach
 
-                            </ul>
-                        </div>
-                        <div class="row mt-5">
-                            <ul class="col-12 commented mb-0 pl-0">
-                                <li class="comm-inf">
-                                    <div class="col-md-2">
-                                        <img src="{{asset('assets/client/images/testimonials/ts-3.jpg')}}"
-                                             class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-md-10 comments-info">
-                                        <div class="conra">
-                                            <h5 class="mb-2">Lisa Williams</h5>
-                                            <div class="rating-box">
-                                                <div class="detail-list-rating mr-0">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="mb-4">jul 12 2020</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam,
-                                            quam congue dictum luctus, lacus magna congue ante, in finibus dui
-                                            sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum
-                                            vestibulum sed.</p>
-                                        <div class="resti">
-                                            <div class="rest"><img
-                                                    src="{{asset('assets/client/images/single-property/s-2.jpg')}}"
-                                                    class="img-fluid" alt=""></div>
-                                            <div class="rest"><img
-                                                    src="{{asset('assets/client/images/single-property/s-3.jpg')}}"
-                                                    class="img-fluid" alt=""></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+
                     </section>
                     <!-- Star Add Review -->
 
@@ -546,20 +475,20 @@
                                     </button>
                                 </div>
                             @endif
-                            @if(!\Illuminate\Support\Facades\DB::table('contact_motel_history')
-  ->where('user_id',\Illuminate\Support\Facades\Auth::id())
-  ->where('motel_id',$motel->motel_id)->whereNotIn('status',[0,1])->first())
-                                <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
-                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
-                            @elseif(\Illuminate\Support\Facades\DB::table('user_motel')
-  ->where('user_id',\Illuminate\Support\Facades\Auth::id())->where('motel_id',$motel->motel_id)->where('status',1)->first())
+                            @if(\Illuminate\Support\Facades\DB::table('user_motel')
+->where('user_id',\Illuminate\Support\Facades\Auth::id())->where('motel_id',$motel->motel_id)->where('status',1)->first())
                                 <a href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}"
                                    class="btn reservation btn-radius theme-btn full-width mrg-top-10">Lịch sử đăng
                                     ký</a>
-                            @else
+                            @elseif(\Illuminate\Support\Facades\DB::table('contact_motel_history')
+  ->where('user_id',\Illuminate\Support\Facades\Auth::id())
+  ->where('motel_id',$motel->motel_id)->where('status','!=',4)->first())
                                 <p>Bạn đã đăng ký ở ghép phòng này. <a
-                                        href="{{route('client.get_history_contact_motel',['motel_id' => $motel->motel_id,'area_id' => $motel->area_id])}}">Xem
+                                        href="{{route('get_history_contact_by_user')}}">Xem
                                         chi tiết</a></p>
+                            @else
+                                <a href="{{route('client.contact.send',['id' => $motel->motel_id])}}"
+                                   class="btn reservation btn-radius theme-btn full-width mrg-top-10">Đăng ký</a>
                             @endif
                         </div>
                     </div>
@@ -614,208 +543,55 @@
                     <div class="main-search-field-2">
                         <div class="widget-boxed mt-5">
                             <div class="widget-boxed-header">
-                                <h4>Các phòng mới đăng</h4>
+                                <h4>Tìm ở ghép trong khu vực</h4>
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
-                                    <div class="recent-main">
-                                        <div class="recent-img">
-                                            <a href="blog-details.html"><img
-                                                    src="{{asset('assets/client/images/feature-properties/fp-1.jpg')}}"
-                                                    alt=""></a>
+                                    @foreach ($liveTogetherByArea as $item)
+                                        <div class="recent-main mb-4">
+                                            <div class="recent-img">
+                                                <a href="blog-details.html"><img
+                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                        alt=""></a>
+                                            </div>
+                                            <div class="info-img">
+                                                <a href="blog-details.html">
+                                                    <h6>{{$item->room_number}}</h6>
+                                                </a>
+                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                    vnđ</p>
+                                            </div>
                                         </div>
-                                        <div class="info-img">
-                                            <a href="blog-details.html">
-                                                <h6>Family Home</h6>
-                                            </a>
-                                            <p>$230,000</p>
-                                        </div>
-                                    </div>
-                                    <div class="recent-main my-4">
-                                        <div class="recent-img">
-                                            <a href="blog-details.html"><img
-                                                    src="{{asset('assets/client/images/feature-properties/fp-1.jpg')}}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="info-img">
-                                            <a href="blog-details.html">
-                                                <h6>Family Home</h6>
-                                            </a>
-                                            <p>$230,000</p>
-                                        </div>
-                                    </div>
-                                    <div class="recent-main">
-                                        <div class="recent-img">
-                                            <a href="blog-details.html"><img
-                                                    src="{{asset('assets/client/images/feature-properties/fp-1.jpg')}}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="info-img">
-                                            <a href="blog-details.html">
-                                                <h6>Family Home</h6>
-                                            </a>
-                                            <p>$230,000</p>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
 
                         <div class="widget-boxed mt-5">
-                            <div class="widget-boxed-header mb-5">
-                                <h4>Phòng Nổi bật</h4>
+                            <div class="widget-boxed-header">
+                                <h4>Bài đăng nổi bật</h4>
                             </div>
                             <div class="widget-boxed-body">
-                                <div class="slick-lancers">
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 230,000</span>
-                                                    <span>For Sale</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>New
-                                                                York</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-1.jpg')}}"
-                                                     alt="">
-                                            </a>
+                                <div class="recent-post">
+                                    @foreach ($liveTogethersHot as $item)
+                                        <div class="recent-main mb-4">
+                                            <div class="recent-img">
+                                                <a href="blog-details.html"><img
+                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                        alt=""></a>
+                                            </div>
+                                            <div class="info-img">
+                                                <a href="blog-details.html">
+                                                    <h6>{{$item->room_number}}</h6>
+                                                </a>
+                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                    vnđ</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 6,500</span>
-                                                    <span class="rent">For Rent</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>Los
-                                                                Angles</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-2.jpg')}}"
-                                                     alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 230,000</span>
-                                                    <span>For Sale</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>San
-                                                                Francisco</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img
-                                                    src="{{asset('assets/client/images/feature-properties/fp-3.jpg')}}"
-                                                    alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 6,500</span>
-                                                    <span class="rent">For Rent</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury
-                                                            <i>Miami FL</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-4.jpg')}}"
-                                                     alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 230,000</span>
-                                                    <span>For Sale</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury
-                                                            <i>Chicago IL</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-5.jpg')}}"
-                                                     alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="agents-grid mr-0">
-                                        <div class="listing-item compact">
-                                            <a href="properties-details.html" class="listing-img-container">
-                                                <div class="listing-badges">
-                                                    <span class="featured">$ 6,500</span>
-                                                    <span class="rent">For Rent</span>
-                                                </div>
-                                                <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury
-                                                            <i>Toronto CA</i></span>
-                                                    <ul class="listing-hidden-content">
-                                                        <li>Area <span>720 sq ft</span></li>
-                                                        <li>Rooms <span>6</span></li>
-                                                        <li>Beds <span>2</span></li>
-                                                        <li>Baths <span>3</span></li>
-                                                    </ul>
-                                                </div>
-                                                <img src="{{asset('assets/client/images/feature-properties/fp-6.jpg')}}"
-                                                     alt="">
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                        <!-- Start: Specials offer -->
-                        {{--                        <div class="widget-boxed popular mt-5">--}}
-                        {{--                            <div class="widget-boxed-header">--}}
-                        {{--                                <h4>Phòng cùng khu vực</h4>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="widget-boxed-body">--}}
-                        {{--                                <div class="banner"><img src="{{asset('assets/client/feature-properties/fp-6.jpg')}}" alt="">--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
-                        <!-- End: Specials offer -->
-
-
                     </div>
                     <div class="property-location map mt-3">
                         <h5>Link google map</h5>
