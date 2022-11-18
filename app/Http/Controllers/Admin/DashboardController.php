@@ -46,4 +46,13 @@ class DashboardController extends Controller
     {
         return view('admin.user.profile', $this->v);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $user->script_fb = $request->script_fb;
+        $user->save();
+
+        return redirect()->back();
+    }
 }

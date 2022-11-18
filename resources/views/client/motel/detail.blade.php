@@ -348,35 +348,37 @@
 
                     <!-- Star Reviews -->
                     <section class="reviews comments ">
-                        <h3 class="mb-5">{{count($votes)}} đánh giá</h3>
-                        @foreach($votes as $vote)
-                            <div class="row my-4">
-                                <ul class="col-12 commented pl-0">
-                                    <li class="comm-inf">
-                                        <div class="col-md-2">
-                                            <img
-                                                src="{{!$vote->avatar ? 'https://toigingiuvedep.vn/wp-content/uploads/2021/05/hinh-anh-dai-dien-nguoi-giau-mat-bi-an.jpg' : $vote->avatar}}"
-                                                class="img-fluid" alt="">
-                                        </div>
-                                        <div class="col-md-10 comments-info">
-                                            <div class="conra">
-                                                <h5 class="mb-2">{{$vote->name}}</h5>
-                                                <div class="rating-box">
-                                                    <div class="detail-list-rating mr-0">
-                                                        @for($i = 0 ; $i < $vote->score;$i++)
-                                                            <i class="fa fa-star"></i>
-                                                        @endfor
+                        <h3 class="mb-5">{{isset($votes) ? count($votes) : 0}} đánh giá</h3>
+                        @if(isset($votes))
+                            @foreach($votes as $vote)
+                                <div class="row my-4">
+                                    <ul class="col-12 commented pl-0">
+                                        <li class="comm-inf">
+                                            <div class="col-md-2">
+                                                <img
+                                                    src="{{!$vote->avatar ? 'https://toigingiuvedep.vn/wp-content/uploads/2021/05/hinh-anh-dai-dien-nguoi-giau-mat-bi-an.jpg' : $vote->avatar}}"
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-md-10 comments-info">
+                                                <div class="conra">
+                                                    <h5 class="mb-2">{{$vote->name}}</h5>
+                                                    <div class="rating-box">
+                                                        <div class="detail-list-rating mr-0">
+                                                            @for($i = 0 ; $i < $vote->score;$i++)
+                                                                <i class="fa fa-star"></i>
+                                                            @endfor
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <p class="mb-4">{{\Carbon\Carbon::parse($vote->created_at)->format('h:i d/m/Y')}}</p>
+                                                <p>{{$vote->message}}</p>
                                             </div>
-                                            <p class="mb-4">{{\Carbon\Carbon::parse($vote->created_at)->format('h:i d/m/Y')}}</p>
-                                            <p>{{$vote->message}}</p>
-                                        </div>
-                                    </li>
+                                        </li>
 
-                                </ul>
-                            </div>
-                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
+                        @endif
 
 
                     </section>
@@ -573,4 +575,6 @@
         <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->
     </section>
+    <!-- Messenger Plugin chat Code -->
+    {!! \Illuminate\Support\Facades\Auth::user()->script_fb ?? ''!!}
 @endsection

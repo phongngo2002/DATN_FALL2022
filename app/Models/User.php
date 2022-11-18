@@ -35,7 +35,8 @@ class User extends Authenticatable
         'token',
         'status',
         'money',
-        'google_id'
+        'google_id',
+        'script_fb'
     ];
 
     /**
@@ -60,7 +61,7 @@ class User extends Authenticatable
     {
         $user = DB::table('users')
             ->where('email', $email)
-            ->orWhere('id',$email)
+            ->orWhere('id', $email)
             ->first();
 
         if ($user) {
