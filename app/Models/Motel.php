@@ -390,6 +390,7 @@ class Motel extends Model
             $query->orderBy('priority_level', 'asc');
             // dd($query->toSql());
         return $query->paginate(10);
+    }
     public function getMotelsByAreas($id)
     {
         $area = DB::table('motels')->where('id', $id)->first();
