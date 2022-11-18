@@ -297,6 +297,7 @@ class MotelController extends Controller
             $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
             $this->v['motelsHot'] = $motel->getMotelsHot();
             $this->v['appoint'] = $appoint->currentAppoint($id);
+
             if (!empty(Auth::user())) {
                 $this->v['votes'] = $vote->client_get_list_vote_motel($id);
                 $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();

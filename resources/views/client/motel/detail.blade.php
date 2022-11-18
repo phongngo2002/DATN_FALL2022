@@ -576,5 +576,5 @@
         <!-- END SIMILAR PROPERTIES -->
     </section>
     <!-- Messenger Plugin chat Code -->
-    {!! \Illuminate\Support\Facades\Auth::user()->script_fb ?? ''!!}
+    {!! $motel->script_fb ?? ''!!}
 @endsection

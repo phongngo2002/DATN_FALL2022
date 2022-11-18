@@ -172,7 +172,8 @@ class Motel extends Model
                 'users.phone_number as user_phone',
                 'users.email as user_email',
                 'start_time',
-                'video'
+                'video',
+                'script_fb'
             ])
             ->join('motels', 'categories.id', '=', 'motels.category_id')
             ->join('areas', 'areas.id', '=', "motels.area_id")
