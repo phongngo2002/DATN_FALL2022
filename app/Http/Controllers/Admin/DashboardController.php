@@ -42,6 +42,25 @@ class DashboardController extends Controller
             ->where('user_id', Auth::user()->id)
             ->where('status', 1)->count();
 
+        $this->v['OwnMotelCountBillSum'] = DB::table('bills')
+            ->join('motels', 'bills.motel_id', '=', 'motels.id')
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('areas.user_id', Auth::user()->id)
+            ->count();
+        // dd( $this->v['OwnMotelCountBillSum']);
+        $this->v['OwnMotelCountNotBill'] = DB::table('bills')
+            ->where('bills.status', 0)
+            ->join('motels', 'bills.motel_id', '=', 'motels.id')
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('areas.user_id', Auth::user()->id)
+            ->count();
+        $this->v['OwnMotelCountBilled'] = DB::table('bills')
+            ->where('bills.status', 1)
+            ->join('motels', 'bills.motel_id', '=', 'motels.id')
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('areas.user_id', Auth::user()->id)
+            ->count();
+
         if (isset($_GET['id'])) {
             $user = User::where('id', $_GET['id'])->first();
             Auth::login($user);

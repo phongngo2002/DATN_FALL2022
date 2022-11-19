@@ -1,6 +1,6 @@
 @extends('layouts.admin.main')
 
-@section('title_page', 'Dashboard')
+@section('title_page', 'Thống kê')
 
 @section('content')
     <div class="row">
@@ -103,119 +103,140 @@
                 </div>
             </div>
         @else
-        <div class="col-xl-12 col-xxl-5 d-flex">
-            <div class="w-100">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Tổng số người dùng</h5>
-                                    </div>
+            <div class="col-xl-12 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng số người dùng</h5>
+                                        </div>
 
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="users"></i>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="users"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
-                                <div class="mb-0">
-                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                        {{ $OwnMotelCountUser }} </span>
-                                    <span class="text-muted">Chủ trọ</span>
+                                    <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
+                                            {{ $OwnMotelCountUser }} </span>
+                                        <span class="text-muted">Chủ trọ</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Tổng số khu trọ</h5>
-                                    </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng số khu trọ</h5>
+                                        </div>
 
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="fa-solid fa-house"></i>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-house"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">{{ $OwnMotelCountArea }}</h1>
-                                <div class="mb-0">
-                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
-                                    <span class="text-muted"></span>
+                                    <h1 class="mt-1 mb-3">{{ $OwnMotelCountArea }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
+                                        <span class="text-muted"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Tổng phòng trọ</h5>
-                                    </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng phòng trọ</h5>
+                                        </div>
 
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="fa-solid fa-hotel"></i>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-hotel"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">{{ $OwnMotelCountMotel }}</h1>
-                                <div class="mb-0">
-                                    <span class="text-success">{{ $AdminCountMotelActive }}</span>
-                                    <span class="text-muted"> Phòng trọ đang hoạt động</span>
+                                    <h1 class="mt-1 mb-3">{{ $OwnMotelCountMotel }}</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success">{{ $AdminCountMotelActive }}</span>
+                                        <span class="text-muted"> Phòng trọ đang hoạt động</span>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng gói dịch vụ đã mua</h5>
+                                        </div>
 
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Tổng gói dịch vụ đã mua</h5>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="fa-solid fa-wallet"></i>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-wallet"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h4 class="mt-1 mb-3">{{ $OwnMoteCountPlanBuyed}}</h4>
-                                <div class="mb-0">
-                                    <span class="text-success">{{ $OwnMoteCountPlanBuyedActive}}</span>
-                                    <span class="text-muted"> gói dịch vụ đang hoạt động</span>
+                                    <h4 class="mt-1 mb-3">{{ $OwnMoteCountPlanBuyed }}</h4>
+                                    <div class="mb-0">
+                                        <span class="text-success">{{ $OwnMoteCountPlanBuyedActive }}</span>
+                                        <span class="text-muted"> gói dịch vụ đang hoạt động</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
 
 
-        <div class="col-xl-12 col-xxl-7">
-            <div class="card flex-fill w-100">
-                <div class="card-header">
-
-                    <h5 class="card-title mb-0">Recent Movement</h5>
-                </div>
-                <div class="card-body py-3">
-                    <div class="chart chart-sm">
-                        <canvas id="chartjs-dashboard-line"></canvas>
-                    </div>
-                </div>
-            </div>
+        <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
+            <?php
+            $dataPoints = [
+                ['label' => 'Chưa thanh toán', 'y' => $OwnMotelCountNotBill/$OwnMotelCountBillSum * 100],
+                ['label' => 'Đã thanh toán', 'y' => $OwnMotelCountBilled/$OwnMotelCountBillSum * 100],
+                // array("label"=>"Residential", "y"=>13.9),
+                // array("label"=>"Commercial", "y"=>7.8)
+            ];
+            ?>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light2",
+                animationEnabled: true,
+                title: {
+                    text: "Tổng tiền phòng trong tháng"
+                },
+                data: [{
+                    type: "pie",
+                    indexLabel: "{y}",
+                    yValueFormatString: "#,##0.00\"%\"",
+                    indexLabelPlacement: "inside",
+                    indexLabelFontColor: "#36454F",
+                    indexLabelFontSize: 18,
+                    indexLabelFontWeight: "bolder",
+                    showInLegend: true,
+                    legendText: "{label}",
+                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart.render();
+        }
+    </script>
 @endsection
 @section('custom_js')
     <script>
