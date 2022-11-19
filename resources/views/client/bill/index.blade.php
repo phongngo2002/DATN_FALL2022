@@ -176,7 +176,11 @@
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y') }}</td>
                             <td>
                                 @if ($item->status == 2)
-                                    <span class="badge bg-success p-2 text-xl">Đã thu</span>
+                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                        class="btn badge bg-success p-2 white">Đã thu</a>
+                                @elseif($item->status == 3)
+                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                        class="btn badge bg-primary p-2 white">chờ xác nhận</a>
                                 @else
                                     <span class="badge bg-danger p-2 text-xl">Chưa thu</span>
                                     <a href="{{ route('client_get_pay_bill', $item->id) }}"
