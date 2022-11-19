@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->integer('is_admin')->default(0);
             $table->string('google_id')->nullable();
             $table->integer('status')->default(0);
-            $table->longText('script_fb');
+            $table->longText('script_fb')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -73,14 +73,14 @@ class Motel extends Model
                 "image_360" => $data['image_360'],
                 "photo_gallery" => json_encode($data['photo_gallery']),
                 "services" => json_encode([
-                    'bed' => $data['bed'],
-                    'bedroom' => $data['bedroom'],
-                    'toilet' => $data['toilet'],
+                    'bedroom' => $data['service']['bedroom'],
+                    'toilet' => $data['service']['toilet'],
+                    'service_checkbox' => $data['service']['service_checkbox'],
                     'more' => $data['service_more'],
                     'actor' => $data['actor']
                 ]),
                 "max_people" => $data['max_people'],
-                "category_id" => 1,
+                "category_id" => $data['category_id'],
                 "video" => $data['video'],
                 'electric_money' => $data['electric_money'],
                 'warter_money' => $data['warter_money'],
@@ -90,7 +90,6 @@ class Motel extends Model
                 "transfer_infor" => $data['transfer_infor'],
             ]
         );
-
         return $res;
     }
 
@@ -351,7 +350,59 @@ class Motel extends Model
         }
         return null;
     }
+    public function search($params = [])
+    {   
+        // dd($params);
+        $query =  DB::table('areas')
+            ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
+            ->join('motels', 'areas.id', '=', 'motels.area_id')
+            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+            ->join('plans', 'plan_history.plan_id','=', 'plans.id')
+            ->where('plan_history.status','=',1)
+            ->where('type','=',$params['type']);
+            if($params['category'] != 0){
+                $query->where('motels.category_id','=',$params['category']);
+            }
+            if($params['address'] != 0){
+                $query->where('areas.address','LIKE','%'.$params['address'].'%');
+            }
 
+            if($params['bedroom'] != null){
+                $query->where('motels.services','LIKE','%\"bedroom\":\"'.$params['bedroom'].'\"%');
+            }
+            if($params['toilet'] != null){
+                $query->where('motels.services','LIKE','%\"toilet\":\"'.$params['toilet'].'\"%');
+            }
+            if (in_array('cho_de_xe',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"cho_de_xe\"%');
+            }
+            if (in_array('dieu_hoa',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"dieu_hoa\"%');
+            }
+            if (in_array('thang_may',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"thang_may\"%');
+            }
+            if (in_array('may_giat',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"may_giat\"%');
+            }
+            if (in_array('nong_lanh',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"nong_lanh\"%');
+            }
+            if (in_array('tu_lanh',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"tu_lanh\"%');
+            }
+            if (in_array('giuong_ngu',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"giuong_ngu\"%');
+            }
+            if (in_array('tu_quan_ao',$params['service']) == true) {
+                $query->where('motels.services','LIKE','%\"tu_quan_ao\"%');
+            }
+            $query->whereBetween('motels.area',[$params['area_min'],$params['area_max']])
+            ->whereBetween('motels.price',[$params['price_min'],$params['price_max']]);
+            $query->orderBy('priority_level', 'asc');
+            // dd($query->toSql());
+        return $query->paginate(10);
+    }
     public function getMotelsByAreas($id)
     {
         $area = DB::table('motels')->where('id', $id)->first();
