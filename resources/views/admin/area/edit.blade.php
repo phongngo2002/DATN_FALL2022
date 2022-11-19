@@ -10,7 +10,7 @@
         }
     </style>
 
-    <form action="" method="POST">
+    <form action="" method="POST" id="formEditArea">
         <div class="bg-white shadow-lg p-4">
             <div class="row">
                 @csrf
@@ -62,5 +62,42 @@
             }
             reader.readAsDataURL(file);
         })
+
+
+        $(document).ready(function() {
+
+//Khi bàn phím được nhấn và thả ra thì sẽ chạy phương thức này
+$("#formEditArea").validate({
+    rules: {
+        name: {
+            required: true,
+            minlength: 6
+        },
+        address: {
+            required: true,
+            minlength: 15
+        },
+        link_gg_map: {
+            required: true,
+        },
+
+        img: "required"
+    },
+    messages: {
+        name: {
+            required: "Vui lòng nhập tên khu trọ",
+            minlength: "Tên khu trọ phải có ít nhất 6 kí tự"
+        },
+        address: {
+            required: "Vui lòng nhập địa chỉ cụ thể của khu trọ",
+            minlength: "Địa chỉ khu trọ phải có ít nhất 15 kí tự"
+        },
+        link_gg_map: "Vui lòng thêm link Google map cho khu trọ",
+        img: {
+            required: "Vui lòng thêm ảnh mô tả"
+        }
+    }
+});
+});
     </script>
 @endsection

@@ -192,6 +192,7 @@
             </tbody>
         </table>
     </div>
+    <form  id="add_member" action="">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -207,15 +208,15 @@
                 <div class="modal-body">
                     <div>
                         <label for="">Họ tên</label>
-                        <input type="text" class="form-control" disabled id="name">
+                        <input  type="text" class="form-control" disabled id="name" name="name">
                     </div>
                     <div>
                         <label for="">Email</label>
-                        <input type="text" class="form-control" disabled id="email">
+                        <input type="text" class="form-control" disabled id="email" name="email">
                     </div>
                     <div>
                         <label for="">Số điện thoại</label>
-                        <input type="text" class="form-control" disabled id="phone_number">
+                        <input type="text" class="form-control" disabled id="phone_number" name="phone_number">
                     </div>
                     <div class="select-box my-4">
                         <div class="options-container">
@@ -229,12 +230,12 @@
                             @endforeach
                         </div>
 
-                        <div class="selected">
+                        <div class="selected" >
                             Lựa chọn thành viên muốn thêm
                         </div>
 
                         <div class="search-box">
-                            <input type="text" placeholder="Tìm kiếm..."/>
+                            <input name="search" id="search" type="text" placeholder="Tìm kiếm..."/>
                         </div>
                     </div>
 
@@ -245,13 +246,15 @@
                         action="{{route('admin.motel.add_people',['id' => $params['area_id'] ,'idMotel' => $params['motel_id']])}}"
                         method="">
                         @csrf
-                        <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
+                        <button type="submit" class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
                     </form>
                 </div>
 
             </div>
         </div>
     </div>
+    </form>
+    
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form action="{{route('admin.print.motel',['motelId' => $params['motel_id']])}}" method="POST">
             <div class="modal-dialog">
@@ -334,5 +337,27 @@
         function handleChange(id) {
             console.log(id);
         }
+
+
+
+
+        $("#add_member").validate({
+            rules: {
+                search: {
+                    required: true,
+                    
+                },
+                
+            },
+            messages: {
+
+                search: {
+                    required: 'Bạn chưa chọn thành viên nào',
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
     </script>
 @endsection
