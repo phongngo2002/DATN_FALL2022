@@ -53,11 +53,14 @@
 @include('layouts.admin._js')
 
 @yield('custom_js')
+
 <script !src="">
     const loaderContainer = document.querySelector('.loader-container');
     window.addEventListener('load', () => {
         loaderContainer.style.display = 'none';
     });
+
+
 </script>
 </body>
 
