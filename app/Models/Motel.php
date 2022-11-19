@@ -359,7 +359,7 @@ class Motel extends Model
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id','=', 'plans.id')
             ->where('plan_history.status','=',1)
-            ->where('type','=',1);
+            ->where('type','=',$params['type']);
             if($params['category'] != 0){
                 $query->where('motels.category_id','=',$params['category']);
             }

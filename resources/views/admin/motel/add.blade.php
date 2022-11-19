@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-4">
                             <label for="">Tiền nước</label>
-                            <input type="text" name="electric_money" id="warter_money" class="form-control">
+                            <input type="text" name="warter_money" id="warter_money" class="form-control">
                         </div>
                         <div class="col-4">
                             <label for="">Tiền mạng</label>
