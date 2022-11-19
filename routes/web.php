@@ -104,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
 
-    // thành toán hóa đơn 
+    // thành toán hóa đơn
     Route::get('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'get_pay_bill'])->name("client_get_pay_bill");
     Route::post('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'pay_bill_coin'])->name("client_pay_bill_coin");
 

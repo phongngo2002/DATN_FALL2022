@@ -55,7 +55,7 @@
             margin-top: 54px;
         }
 
-        .select-box .options-container.active+.selected::after {
+        .select-box .options-container.active + .selected::after {
             transform: rotateX(180deg);
             top: -6px;
         }
@@ -110,7 +110,7 @@
             outline: none;
         }
 
-        .select-box .options-container.active~.search-box input {
+        .select-box .options-container.active ~ .search-box input {
             opacity: 1;
             pointer-events: auto;
         }
@@ -150,46 +150,56 @@
     @endif
     <div class="bg-white p-4 shadow-lg rounded-4">
         <div class="mb-4">
-            <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
-            </button>
+            @if($info->motel->status === 6)
+                <a href="{{route('admin.delete_user_motel',['motel_id' => $params['motel_id'],'id' => 'null'])}}"
+                   class="btn btn-success" onclick="return confirm('Bạn có chắc muốn xóa thành viên phòng này ?')">Xóa
+                    thành viên phòng</a>
+            @else
+                <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
+                </button>
+            @endif
+
             <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-primary my-2">Đăng tin</a>
+               class="btn btn-primary my-2">Đăng tin</a>
 
             <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
+               class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
             <a href="{{ route('admin.motel.history', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
-            @if (isset($info[0]->motel_status) && $info[0]->motel_status == 2)
+               class="btn btn-secondary my-2">Lịch sử thuê phòng</a>
+            @if ($info->motel->status === 2)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Xuất hợp đồng
                 </button>
             @endif
-            @if (isset($info[0]->motel_status) && $info[0]->motel_status == 4)
+            @if ($info->motel->status === 6 || $info->motel->status === 4)
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-dark my-2">Gia hạn hợp
                     đồng
                 </button>
             @endif
             <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-                class="btn btn-danger position-relative">Yều cầu rời phòng
+               class="btn btn-danger position-relative">Yều cầu rời phòng
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    99+
-                    <span class="visually-hidden">unread messages</span>
-                </span>
+            99+
+            <span class="visually-hidden">unread messages</span>
+        </span>
             </a>
         </div>
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
             <div>
-                @if (isset($info[0]) && $info[0]->motel_status == 4)
+                @if ($info->motel->status === 4)
                     <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Phòng trọ
-                        sắp hết thời hạn đồng.Thời gian còn lại
-                        {{ \Carbon\Carbon::now()->diffInDays($info[0]->motel_end) !== 0 ? \Carbon\Carbon::now()->diffInDays($info[0]->motel_end) . ' ngày' : \Carbon\Carbon::now()->diffInHours($info[0]->motel_end) . ' giờ' }}</span>
+                sắp hết thời hạn đồng.Thời gian còn lại
+                {{ \Carbon\Carbon::now()->diffInDays($info[0]->motel_end) !== 0 ? \Carbon\Carbon::now()->diffInDays($info[0]->motel_end) . ' ngày' : \Carbon\Carbon::now()->diffInHours($info[0]->motel_end) . ' giờ' }}</span>
+                @elseif($info->motel->status === 6)
+                    <span class="text-danger font-weight-bold"> <i class="fa-solid fa-triangle-exclamation"></i> <m>Phòng trọ hết thời hạn hợp đồng</m></span>
+
                 @else
                     @if (count($info) >= $info->motel->max_people)
                         <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng
-                            thành viên đã đạt tối đa</span>
+                    thành viên đã đạt tối đa</span>
                     @elseif(count($info) === $info->motel->max_people - 1)
                         <span class="text-danger font-weight-bold"><i class="fa-solid fa-triangle-exclamation"></i> Số lượng
-                            thành viên đã sắp tối đa</span>
+                    thành viên đã sắp tối đa</span>
                     @endif
                 @endif
             </div>
@@ -199,24 +209,24 @@
                 </p>
             </div>
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    {{-- <th>Số thành viên</th> --}}
-                    <th>Ngày bắt đầu thuê</th>
-                </tr>
+            <tr>
+                <th>#</th>
+                <th>Họ tên</th>
+                <th>Số điện thoại</th>
+                {{-- <th>Số thành viên</th> --}}
+                <th>Ngày bắt đầu thuê</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach ($info as $a)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $a->name }}</td>
-                        <td>{{ $a->phone_number }}</td>
-                        {{-- <td>{{ $a->max_people }}</td> --}}
-                        <td>{{ $a->start_time }}</td>
-                    </tr>
-                @endforeach
+            @foreach ($info as $a)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $a->name }}</td>
+                    <td>{{ $a->phone_number }}</td>
+                    {{-- <td>{{ $a->max_people }}</td> --}}
+                    <td>{{ $a->start_time }}</td>
+                </tr>
+            @endforeach
             </tbody>
 
 
@@ -226,7 +236,7 @@
     <a href="{{ route('admin.motel.list', ['id' => $params['area_id']]) }}" class="btn btn-warning mt-2 text-white">Quay
         lại</a>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
 
 
@@ -257,7 +267,7 @@
 
                             @foreach ($user as $i)
                                 <div class="option">
-                                    <input type="radio" class="radio" value="{{ $i->id }}" />
+                                    <input type="radio" class="radio" value="{{ $i->id }}"/>
                                     <label for="tutorials">{{ $i->email }}</label>
                                 </div>
                             @endforeach
@@ -268,7 +278,7 @@
                         </div>
 
                         <div class="search-box">
-                            <input type="text" placeholder="Tìm kiếm..." />
+                            <input type="text" placeholder="Tìm kiếm..."/>
                         </div>
                     </div>
 
@@ -293,7 +303,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            {{ isset($info[0]->motel_status) && $info[0]->motel_status == 4 ? 'Gia hạn hợp đồng' : 'Xuất hợp đồng' }}
+                            {{ $info->motel->status === 4 ? 'Gia hạn hợp đồng' : 'Xuất hợp đồng' }}
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -302,28 +312,29 @@
                         <div>
                             <label>Giá điện</label>
                             <input type="number" name="electric_money" value="{{ $info->motel->electric_money ?? '' }}"
-                                class="form-control" placeholder="Bao tiền 1 số điện">
+                                   class="form-control" placeholder="Bao tiền 1 số điện">
                         </div>
                         <div>
                             <label>Giá nước</label>
                             <input type="number" name="warter_money" value="{{ $info->motel->warter_money ?? '' }}"
-                                class="form-control" placeholder="Bao tiền 1 khối nước">
+                                   class="form-control" placeholder="Bao tiền 1 khối nước">
                         </div>
                         <div>
                             <label>Giá mạng internet</label>
                             <input type="number" name="wifi" value="{{ $info->motel->wifi ?? '' }}"
-                                class="form-control" placeholder="Số tiền mạng đóng 1 tháng">
+                                   class="form-control" placeholder="Số tiền mạng đóng 1 tháng">
                         </div>
                         <div>
                             <label>Số tiền đã cọc</label>
                             <input type="number" name="money_deposit" class="form-control"
-                                value="{{ $info->money_deposit->value ?? 0 }}" disabled>
+                                   value="{{ $info->money_deposit->value ?? 0 }}" disabled>
 
                             @if ($info->money_deposit)
                                 @if ($info->money_deposit->type == 1)
                                     <p class="">
                                         Loại đặt cọc: <span class="font-weight-bold">Chuyển xu</span>
-                                    <p class="text-sm">Lưu ý: 1<i class="fa-brands fa-bitcoin text-warning"></i> = 24.555
+                                    <p class="text-sm">Lưu ý: 1<i class="fa-brands fa-bitcoin text-warning"></i> =
+                                        24.555
                                         VNĐ</p>
                                     </p>
                                 @else
@@ -342,15 +353,15 @@
                         <div>
                             <label>Thời gian bắt đầu thuê</label>
                             <input type="date" name="start_time"
-                                value="{{ $info->motel->start_time ?? \Illuminate\Support\Carbon::now() }}"
-                                class="form-control">
+                                   value="{{ $info->motel->start_time ?? \Illuminate\Support\Carbon::now() }}"
+                                   class="form-control">
                         </div>
                         <div class="my-4">
                             <label>Thời gian kết thúc hợp đồng</label>
 
                             <input type="date" name="end_time"
-                                value="{{ $info->motel->end_time ?? \Illuminate\Support\Carbon::now()->addDays(1) }}"
-                                class="form-control">
+                                   value="{{ $info->motel->end_time ?? \Illuminate\Support\Carbon::now()->addDays(1) }}"
+                                   class="form-control">
                         </div>
 
                     </div>
@@ -395,7 +406,7 @@
             });
         });
 
-        searchBox.addEventListener("keyup", function() {
+        searchBox.addEventListener("keyup", function () {
             filterList(e.target.value);
         });
 

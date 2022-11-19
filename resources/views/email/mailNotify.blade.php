@@ -11,14 +11,14 @@
     <h3>Chào {{$data->name}}</h3>
     <div class="card">
         <div class="card-header">
-        
+
         </div>
         <div class="card-body">
             <h5 class="card-title">Hợp đồng của bạn sắp hết hạn </h5>
             <p class="card-text"> Hợp đồng thuê trọ phòng {{$data->room_number}} của bạn sẽ hết hạn vào ngày {{$data->end_time}} </p>
             <p class="card-text">Để tránh các trường hợp rủi ro <br> chúng tôi cần xác nhận có tiếp tục gia hạn hợp đồng nhà trọ hay không  </p><br>
             <p class="card-text"> Vui lòng liên hệ chủ trọ </p>
-             
+
         </div>
     </div>
 </body>

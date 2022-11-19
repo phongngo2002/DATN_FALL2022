@@ -85,7 +85,7 @@ class MotelController extends Controller
         foreach ($params['cols']['service'] as $key => $value) {
             if ($value == 'on') {
                 unset($params['cols']['service'][$key]);
-                array_push($service_checkbox,$key);
+                array_push($service_checkbox, $key);
                 $params['cols']['service']['service_checkbox'] = $service_checkbox;
             }
         }
@@ -104,10 +104,10 @@ class MotelController extends Controller
         $model = new Motel();
 
         $result = $model->createMotel($params['cols']);
-        if($result !== true){
-            return redirect()->route('admin.motel.list', ['id' => $id])->with('error','Thêm mới phòng trọ thất bại');
+        if ($result !== true) {
+            return redirect()->route('admin.motel.list', ['id' => $id])->with('error', 'Thêm mới phòng trọ thất bại');
         }
-        return redirect()->route('admin.motel.list', ['id' => $id])->with('success','Thêm mới phòng trọ thành công');
+        return redirect()->route('admin.motel.list', ['id' => $id])->with('success', 'Thêm mới phòng trọ thành công');
     }
 
     public function info_user_motels($id, $idMotel)
@@ -117,9 +117,6 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
-
-
-
 
         // dd($model->info_motel_email('hoangxuanvu248@gmail.com'));
 
@@ -407,7 +404,7 @@ class MotelController extends Controller
         foreach ($params['cols']['service'] as $key => $value) {
             if ($value == 'on') {
                 unset($params['cols']['service'][$key]);
-                array_push($service_checkbox,$key);
+                array_push($service_checkbox, $key);
             }
         }
         $data = [
@@ -425,7 +422,7 @@ class MotelController extends Controller
             'services' => json_encode([
                 'bedroom' => $request->bedroom,
                 'toilet' => $request->toilet,
-                'service_checkbox'=> $service_checkbox,
+                'service_checkbox' => $service_checkbox,
                 'more' => $request->service_more,
                 'actor' => $request->actor
             ]),
@@ -545,22 +542,34 @@ class MotelController extends Controller
 
     public function deleteUserFormMotel(Request $request, $id)
     {
-        $res = DB::table('user_motel')->where('id', $id)->update([
-            'status' => 3 //status = 3 : bị xóa do hết hạn
-        ]);
-
-        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
-        if (count($user) === 0) {
+        if ($id !== 'null') {
+            $res = DB::table('user_motel')->where('id', $id)->update([
+                'status' => 3 //status = 3 : bị xóa do hết hạn
+            ]);
+            $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+            if (count($user) === 0 || !$user) {
+                try {
+                    $motel = Motel::find($request->motel_id);
+                    $motel->status = 1;
+                    $motel->end_time;
+                    $motel->save();
+                } catch (\Exception $e) {
+                    return redirect()->back();
+                }
+            }
+        } else {
+            $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->update(['status' => 3]);
             try {
                 $motel = Motel::find($request->motel_id);
                 $motel->status = 1;
                 $motel->end_time;
                 $motel->save();
             } catch (\Exception $e) {
-                dd($e->getMessage());
+                return redirect()->back();
             }
         }
-        Mail::to($request->email)->send(new NotificeDelMotel());
+
+
         return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }
