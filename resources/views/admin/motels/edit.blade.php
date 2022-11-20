@@ -67,7 +67,8 @@
                         </div>
                         <div class="col-4">
                             <label for="">Tiền nước</label>
-                            <input type="text" value="{{$motel->warter_money}}" name="warter_money" id="electric_money" class="form-control">
+                            <input type="text" value="{{$motel->warter_money}}" name="warter_money" id="electric_money"
+                                   class="form-control">
                         </div>
                         <div class="col-4">
                             <label for="">Tiền mạng</label>
@@ -87,7 +88,8 @@
                                    placeholder="Số giường" class="form-control">
                         </div> --}}
                         <div class="col-6">
-                            <input type="text" value="{{json_decode($motel->services)->toilet}}" name="toilet" id="toilet"
+                            <input type="text" value="{{json_decode($motel->services)->toilet}}" name="toilet"
+                                   id="toilet"
                                    placeholder="Nhà vệ sinh" class="form-control">
                         </div>
                     </div>
@@ -96,8 +98,9 @@
                     <div class="d-flex flex-row">
                         <div class="ml-2 mr-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[cho_de_xe]" id="flexCheckDefault" @php
-                                    if(in_array('cho_de_xe',json_decode($motel->services)->service_checkbox) == true){
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[cho_de_xe]" id="flexCheckDefault" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) && in_array('cho_de_xe',json_decode($motel->services)->service_checkbox)){
                                         echo 'checked';
                                     }
                                 @endphp>
@@ -106,8 +109,9 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[dieu_hoa]" id="flexCheckChecked" @php
-                                    if(in_array('dieu_hoa',json_decode($motel->services)->service_checkbox) == true){
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[dieu_hoa]" id="flexCheckChecked" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) && in_array('dieu_hoa',json_decode($motel->services)->service_checkbox)){
                                         echo 'checked';
                                     }
                                 @endphp>
@@ -118,20 +122,22 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[thang_may]" id="flexCheckDefault" @php
-                                     if(in_array('thang_may',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[thang_may]" id="flexCheckDefault" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) &&  in_array('thang_may',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Thang máy
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[may_giat]" id="flexCheckChecked" @php
-                                     if(in_array('may_giat',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[may_giat]" id="flexCheckChecked" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) && in_array('may_giat',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Máy giặt
@@ -140,20 +146,22 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[nong_lanh]" id="flexCheckDefault" @php
-                                     if(in_array('nong_lanh',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[nong_lanh]" id="flexCheckDefault" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) && in_array('nong_lanh',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Nóng lạnh
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_lanh]" id="flexCheckChecked" @php
-                                     if(in_array('tu_lanh',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[tu_lanh]" id="flexCheckChecked" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) &&  in_array('tu_lanh',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Tủ lạnh
@@ -162,20 +170,22 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[giuong_ngu]" id="flexCheckDefault" @php
-                                     if(in_array('giuong_ngu',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[giuong_ngu]" id="flexCheckDefault" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) && in_array('giuong_ngu',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Giường ngủ
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_quan_ao]" id="flexCheckChecked" @php
-                                     if(in_array('tu_quan_ao',json_decode($motel->services)->service_checkbox) == true){
-                                        echo 'checked';
-                                    }
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[tu_quan_ao]" id="flexCheckChecked" @php
+                                    if(isset(json_decode($motel->services)->service_checkbox) &&  in_array('tu_quan_ao',json_decode($motel->services)->service_checkbox)){
+                                       echo 'checked';
+                                   }
                                 @endphp>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Tủ quần áo
@@ -241,16 +251,19 @@
                         <div class="row">
                             <div class="col-7">
                                 <label>Số tiền đặt cọc giữ phòng</label>
-                                <input type="text" name="money_deposit" value="{{$motel->money_deposit}}" class="form-control">
+                                <input type="text" name="money_deposit" value="{{$motel->money_deposit}}"
+                                       class="form-control">
                             </div>
                             <div class="col-5">
                                 <label>Số ngày giữ phòng tối đa</label>
-                                <input type="text" name="day_deposit" value="{{$motel->day_deposit}}" class="form-control">
+                                <input type="text" name="day_deposit" value="{{$motel->day_deposit}}"
+                                       class="form-control">
                             </div>
                         </div>
                         <div class="mt-4">
                             <label for="">Thông tin chuyển khoản</label>
-                            <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                            <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20"
+                                      class="form-control">
                                {{$motel->transfer_infor}}
                             </textarea>
                         </div>

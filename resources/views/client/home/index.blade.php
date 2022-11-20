@@ -70,7 +70,8 @@
                                                         <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
                                                             <span>Tìm kiếm nâng cao</span></div>
                                                         <div class="pl-0">
-                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm
+                                                            <button type="button" class="btn btn-yellow search"
+                                                                    style="width:165px;">Tìm kiếm
                                                                 ngay
                                                             </button>
                                                         </div>
@@ -167,18 +168,20 @@
                                                                     <!-- Checkboxes -->
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                                        <input id="check-1" type="checkbox"
+                                                                        <input id="check2-1" type="checkbox"
                                                                                name="service[cho-de-xe]">
-                                                                        <label for="check-1">Chỗ để xe</label>
-                                                                        <input id="check-2" type="checkbox"
-                                                                               name="service[dieu-hoa]">
-                                                                        <label for="check-2">Điều hoà</label>
-                                                                        <input id="check-3" type="checkbox"
-                                                                               name="service[thang-may]">
-                                                                        <label for="check-3">Thang máy</label>
-                                                                        <input id="check-4" type="checkbox"
-                                                                               name="service[may-giat]">
-                                                                        <label for="check-4">Máy giặt</label>
+                                                                        <label for="check2-1">Chỗ để xe</label>
+                                                                        <input id="check2-2" value="cho_de_xe"
+                                                                               type="checkbox"
+                                                                               name="services">
+                                                                        <label for="check2-2">Điều hoà</label>
+                                                                        <input id="check2-3" value="dieu_hoa"
+                                                                               type="checkbox"
+                                                                               name="services">
+                                                                        <label for="check2-3">Thang máy</label>
+                                                                        <input id="check2-4" type="checkbox"
+                                                                               name="services" value="may_giat">
+                                                                        <label ư for="check2-4">Máy giặt</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
@@ -186,18 +189,18 @@
                                                                     <!-- Checkboxes -->
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                                        <input id="check-5" type="checkbox"
-                                                                               name="service[nong-lanh]">
-                                                                        <label for="check-5">Nóng lạnh</label>
-                                                                        <input id="check-7" type="checkbox"
-                                                                               name="service[tu-lanh]">
-                                                                        <label for="check-7">Tủ lạnh</label>
-                                                                        <input id="check-8" type="checkbox"
-                                                                               name="service[giuong-ngu]">
-                                                                        <label for="check-8">Giường ngủ</label>
-                                                                        <input id="check-9" type="checkbox"
-                                                                               name="service[tu-quan-ao]">
-                                                                        <label for="check-9">Tủ quần áo</label>
+                                                                        <input id="check2-5" type="checkbox"
+                                                                               name="services" value="nong_lanh">
+                                                                        <label for="check2-5">Nóng lạnh</label>
+                                                                        <input id="check2-7" type="checkbox"
+                                                                               name="services" value="tu_lanh">
+                                                                        <label for="check2-7">Tủ lạnh</label>
+                                                                        <input id="check2-8" type="checkbox"
+                                                                               name="services" value="giuong_ngu">
+                                                                        <label for="check2-8">Giường ngủ</label>
+                                                                        <input id="check2-9" type="checkbox"
+                                                                               name="services" value="tu_quan_ao">
+                                                                        <label for="check2-9">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
@@ -235,7 +238,8 @@
                                                         <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span>
                                                         </div>
                                                         <div class="pl-0">
-                                                            <button class="btn btn-yellow" style="width:165px;">Tìm kiếm
+                                                            <button type="button" class="btn btn-yellow search"
+                                                                    style="width:165px;">Tìm kiếm
                                                                 ngay
                                                             </button>
                                                         </div>
@@ -332,15 +336,17 @@
                                                                         <input id="check2-1" type="checkbox"
                                                                                name="service[cho-de-xe]">
                                                                         <label for="check2-1">Chỗ để xe</label>
-                                                                        <input id="check2-2" type="checkbox"
-                                                                               name="service[dieu-hoa]">
+                                                                        <input id="check2-2" value="cho_de_xe"
+                                                                               type="checkbox"
+                                                                               name="services">
                                                                         <label for="check2-2">Điều hoà</label>
-                                                                        <input id="check2-3" type="checkbox"
-                                                                               name="service[thang-may]">
+                                                                        <input id="check2-3" value="dieu_hoa"
+                                                                               type="checkbox"
+                                                                               name="services">
                                                                         <label for="check2-3">Thang máy</label>
                                                                         <input id="check2-4" type="checkbox"
-                                                                               name="service[may-giat]">
-                                                                        <label for="check2-4">Máy giặt</label>
+                                                                               name="services" value="may_giat">
+                                                                        <label ư for="check2-4">Máy giặt</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                 </div>
@@ -349,16 +355,16 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-2">
                                                                         <input id="check2-5" type="checkbox"
-                                                                               name="service[nong-lanh]">
+                                                                               name="services" value="nong_lanh">
                                                                         <label for="check2-5">Nóng lạnh</label>
                                                                         <input id="check2-7" type="checkbox"
-                                                                               name="service[tu-lanh]">
+                                                                               name="services" value="tu_lanh">
                                                                         <label for="check2-7">Tủ lạnh</label>
                                                                         <input id="check2-8" type="checkbox"
-                                                                               name="service[giuong-ngu]">
+                                                                               name="services" value="giuong_ngu">
                                                                         <label for="check2-8">Giường ngủ</label>
                                                                         <input id="check2-9" type="checkbox"
-                                                                               name="service[tu-quan-ao]">
+                                                                               name="services" value="tu_quan_ao">
                                                                         <label for="check2-9">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -421,7 +427,7 @@
                 <h2>Phòng trọ Nổi bật</h2>
                 <p>These are our featured properties</p>
             </div>
-            <div class="row portfolio-items">
+            <div class="row portfolio-items" id="tin_dang">
                 {{-- Start div motel --}}
                 @foreach($motel as $key)
                     <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
@@ -591,74 +597,6 @@
         </div>
     </section>
 
-    <!-- START SECTION WHY CHOOSE US -->
-    {{--    <section class="how-it-works bg-white rec-pro">--}}
-    {{--        <div class="container-fluid">--}}
-    {{--            <div class="sec-title">--}}
-    {{--                <h2><span>Why </span>Choose Us</h2>--}}
-    {{--                <p>We provide full service at every step.</p>--}}
-    {{--            </div>--}}
-    {{--            <div class="row service-1">--}}
-    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">--}}
-    {{--                    <div class="serv-flex">--}}
-    {{--                        <div class="art-1 img-13">--}}
-    {{--                            <img src="{{asset('assets/client/images/icons/icon-4.svg')}}" alt="">--}}
-    {{--                            <h3>--}}
-    {{--                                Sự biến đổi đa dạng của các thuộc tính</h3>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="service-text-p">--}}
-    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </article>--}}
-    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">--}}
-    {{--                    <div class="serv-flex">--}}
-    {{--                        <div class="art-1 img-14">--}}
-    {{--                            <img src="{{asset('assets/client/images/icons/icon-5.svg')}}" alt="">--}}
-    {{--                            <h3>Trusted by thousands</h3>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="service-text-p">--}}
-    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </article>--}}
-    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt" data-aos="fade-up" data-aos-delay="350">--}}
-    {{--                    <div class="serv-flex arrow">--}}
-    {{--                        <div class="art-1 img-15">--}}
-    {{--                            <img src="{{asset('assets/client/images/icons/icon-6.svg')}}" alt="">--}}
-    {{--                            <h3>Financing made easy</h3>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="service-text-p">--}}
-    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </article>--}}
-    {{--                <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up"--}}
-    {{--                         data-aos-delay="450">--}}
-    {{--                    <div class="serv-flex">--}}
-    {{--                        <div class="art-1 img-14">--}}
-    {{--                            <img src="{{asset('assets/client/images/icons/icon-15.svg')}}" alt="">--}}
-    {{--                            <h3>We are here near you</h3>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="service-text-p">--}}
-    {{--                            <p class="text-center">lorem ipsum dolor sit amet, consectetur pro adipisici consectetur--}}
-    {{--                                debits adipisicing lacus consectetur Business Directory.</p>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </article>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </section>--}}
-    <!-- END SECTION WHY CHOOSE US -->
-
-    <!-- START SECTION RECENTLY PROPERTIES -->
-
-    <!-- END SECTION RECENTLY PROPERTIES -->
-
-    <!-- START SECTION AGENTS -->
     <section class="team bg-white rec-pro">
         <div class="container-fluid">
             <div class="sec-title">
@@ -797,102 +735,7 @@
         </div>
     </section>
     <script>
-        // window.history.pushState("", "", 'http://phong.ngo');
-        // Start search phòng trọ
-        var area_min = document.getElementById('area_min');
-        var area_max = document.getElementById('area_max');
-        var area_min_post = document.getElementById('area_min_post');
-        var area_max_post = document.getElementById('area_max_post');
-        area_max_post.value = 0;
-        area_max_post.value = 50;
-        area_min.onclick = function () {
-            area_min_post.value = Number(area_min.style.left.replace('%', '')) * 50 / 100;
-            console.log(area_min_post.value);
-        }
-        area_max.onclick = function () {
-            area_max_post.value = Number(area_max.style.left.replace('%', '')) * 50 / 100;
-            console.log(area_max_post.value);
-        }
-
-        var price_min = document.getElementById('price_min');
-        var price_max = document.getElementById('price_max');
-        var price_min_post = document.getElementById('price_min_post');
-        var price_max_post = document.getElementById('price_max_post');
-        price_max_post.value = 0;
-        price_max_post.value = 10000000;
-        price_min.onclick = function () {
-            price_min_post.value = Number(price_min.style.left.replace('%', '')) * 100000;
-            console.log(price_min_post.value);
-        }
-        price_max.onclick = function () {
-            price_max_post.value = Number(price_max.style.left.replace('%', '')) * 100000;
-            console.log(price_max_post.value);
-        }
-
-        var bedroom = document.getElementById('bedroom');
-        var toilet = document.getElementById('toilet');
-
-        function getBedroom(e) {
-            var data_bedroom = e.target.dataset.value;
-            bedroom.value = data_bedroom;
-            console.log(bedroom.value)
-        }
-
-        function getToilet(e) {
-            var data_toilet = e.target.dataset.value;
-            toilet.value = data_toilet;
-            console.log(toilet.value)
-        }
-
-        // End search phòng trọ
-        // Start search ở ghép
-        var area_min2 = document.getElementById('area_min2');
-        var area_max2 = document.getElementById('area_max2');
-        var area_min_post2 = document.getElementById('area_min_post2');
-        var area_max_post2 = document.getElementById('area_max_post2');
-        area_max_post2.value = 0;
-        area_max_post2.value = 50;
-        area_min2.onclick = function () {
-            area_min_post2.value = Number(area_min2.style.left.replace('%', '')) * 50 / 100;
-            console.log(area_min_post2.value);
-        }
-        area_max2.onclick = function () {
-            area_max_post2.value = Number(area_max2.style.left.replace('%', '')) * 50 / 100;
-            console.log(area_max_post2.value);
-        }
-
-        var price_min2 = document.getElementById('price_min2');
-        var price_max2 = document.getElementById('price_max2');
-        var price_min_post2 = document.getElementById('price_min_post2');
-        var price_max_post2 = document.getElementById('price_max_post2');
-        price_max_post2.value = 0;
-        price_max_post2.value = 10000000;
-        price_min2.onclick = function () {
-            price_min_post2.value = Number(price_min2.style.left.replace('%', '')) * 100000;
-            console.log(price_min_post2.value);
-        }
-        price_max2.onclick = function () {
-            price_max_post2.value = Number(price_max2.style.left.replace('%', '')) * 100000;
-            console.log(price_max_post2.value);
-        }
-
-        var bedroom2 = document.getElementById('bedroom2');
-        var toilet2 = document.getElementById('toilet2');
-
-        function getBedroom2(e) {
-            var data_bedroom2 = e.target.dataset.value;
-            bedroom2.value = data_bedroom2;
-            console.log(bedroom2.value)
-        }
-
-        function getToilet2(e) {
-            var data_toilet2 = e.target.dataset.value;
-            toilet2.value = data_toilet2;
-            console.log(toilet2.value)
-        }
-
-        // End search ở ghép
-
-
+        window.history.pushState("", "", 'http://phong.ngo');
+        Start search phòng trọ
     </script>
 @endsection

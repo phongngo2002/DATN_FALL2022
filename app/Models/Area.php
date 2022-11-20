@@ -105,7 +105,7 @@ class Area extends Model
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('plan_history.status', 1)
             ->where('type', 1)
-            ->where('motels.status', '!=', 3)
+            ->where('motels.status', '=', 5)
             ->where('area_id', $area_id)
             ->orderBy('priority_level')
             ->paginate(10);
