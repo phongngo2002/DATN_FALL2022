@@ -60,50 +60,56 @@
                                         <div class="row table-row">
                                             <table class="table table-striped">
                                                 <thead>
-                                                    <tr>
-                                                        <th class="col-4">Dịch vụ</th>
-                                                        <th class="text-right col-2">Số lượng/cũ</th>
-                                                        <th class="text-right col-2">Số lượng/mới</th>
-                                                        <th class="text-right col-2">Giá tiền/số</th>
-                                                        <th class="text-right col-4">Thành tiền</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th class="col-4">Dịch vụ</th>
+                                                    <th class="text-right col-2">Số lượng/cũ</th>
+                                                    <th class="text-right col-2">Số lượng/mới</th>
+                                                    <th class="text-right col-2">Giá tiền/số</th>
+                                                    <th class="text-right col-4">Thành tiền</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Tiền điện</td>
-                                                        <td class="text-right">{{ $item->number_elec_old }}</td>
-                                                        <td class="text-right">{{ $item->number_elec }}</td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->electric_money, 0, ',', '.') }} đ</td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->tien_dien, 0, ',', '.') }} đ</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td>Tiền điện</td>
+                                                    <td class="text-right">{{ $item->number_elec_old }}</td>
+                                                    <td class="text-right">{{ $item->number_elec }}</td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->electric_money, 0, ',', '.') }} đ
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->tien_dien, 0, ',', '.') }} đ
+                                                    </td>
+                                                </tr>
 
-                                                    <tr>
-                                                        <td>Tiền nước</td>
-                                                        <td class="text-right">{{ $item->number_warter_old }}</td>
-                                                        <td class="text-right">{{ $item->number_warter }}</td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->warter_money, 0, ',', '.') }} đ</td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->tien_nuoc, 0, ',', '.') }} đ</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tiền trọ</td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->price, 0, ',', '.') }} đ</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tiền Wifi</td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right"></td>
-                                                        <td class="text-right">
-                                                            {{ number_format($item->wifi, 0, ',', '.') }} đ</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td>Tiền nước</td>
+                                                    <td class="text-right">{{ $item->number_warter_old }}</td>
+                                                    <td class="text-right">{{ $item->number_warter }}</td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->warter_money, 0, ',', '.') }} đ
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->tien_nuoc, 0, ',', '.') }} đ
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiền trọ</td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->price, 0, ',', '.') }} đ
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiền Wifi</td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right">
+                                                        {{ number_format($item->wifi, 0, ',', '.') }} đ
+                                                    </td>
+                                                </tr>
 
                                                 </tbody>
                                             </table>
@@ -111,11 +117,6 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-xs-6 mt-4">
-                                                <button class="btn btn-success" id="invoice-print"><i
-                                                        class="fa fa-print"></i> Print Invoice</button>
-
-                                            </div>
                                             <div class="col-xs-6 text-right pull-right invoice-total">
                                                 <p>Tổng : {{ number_format($item->tong, 0, ',', '.') }} đ</p>
                                                 <p>Thành xu : {{ number_format($item->tong / 1000, 0, ',', '.') }} </p>
@@ -170,25 +171,26 @@
                             <ul class="nav nav-tabs mx-2" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="fw-bolder nav-link active " id="pills-home-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-home" type="button" role="tab"
-                                        aria-controls="pills-home" aria-selected="true">Thanh toán bằng xu
+                                            data-bs-target="#pills-home" type="button" role="tab"
+                                            aria-controls="pills-home" aria-selected="true">Thanh toán bằng xu
                                     </button>
                                 </li>
                                 <li class="fw-bolder nav-item" role="presentation">
                                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile" type="button" role="tab"
-                                        aria-controls="pills-profile" aria-selected="false">Thanh toán bằng chuyển khoản
+                                            data-bs-target="#pills-profile" type="button" role="tab"
+                                            aria-controls="pills-profile" aria-selected="false">Thanh toán bằng chuyển
+                                        khoản
                                     </button>
                                 </li>
                             </ul>
                             <div class="tab-content mx-2" id="pills-tabContent">
                                 {{-- Đặt cọc bằng xu --}}
                                 <div class="tab-pane fade show active col-6" id="pills-home" role="tabpanel"
-                                    aria-labelledby="pills-home-tab">
+                                     aria-labelledby="pills-home-tab">
                                     <div class="d-flex flex-row justify-content-between mr-4">
                                         <li style="list-style:none ;">
                                             <p class="">Tài khoản gốc: <span id="user_money"
-                                                    class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
+                                                                             class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
                                                 <i class="fa-brands fa-bitcoin text-warning"></i>
                                             </p>
                                         </li>
@@ -197,19 +199,12 @@
                                     </div>
 
                                     @if ($item->status == 2)
-                                        <div class="alert alert-success alert-dismissible mt-3" role="alert">
-                                            <strong>Hóa đơn đã được thanh toán</strong>
-                                            <button type="button" class="close" data-bs-dismiss="alert"
-                                                aria-label="Close">
-                                                {{-- <span aria-hidden="true">&times;</span> --}}
-                                                {{-- <span class="sr-only">Đóng</span> --}}
-                                            </button>
-                                        </div>
+                                        <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
                                     @elseif($item->status == 3)
                                         <div class="alert alert-success alert-dismissible mt-3" role="alert">
                                             <strong>Hóa đơn đang được xác nhận thanh toán</strong>
                                             <button type="button" class="close" data-bs-dismiss="alert"
-                                                aria-label="Close">
+                                                    aria-label="Close">
                                                 {{-- <span aria-hidden="true">&times;</span> --}}
                                                 {{-- <span class="sr-only">Đóng</span> --}}
                                             </button>
@@ -220,10 +215,11 @@
                                             <div>
                                                 <label for="">Tổng tiền thanh toán</label>
                                                 <input type="number" class="form-control" name="tong"
-                                                    value="{{ number_format($item->tong, 0, ',', '.') }}" readonly>
-                                                <label for="">quy đổi thành xu</label>
-                                                <input type="number" class="form-control" name="coin"
-                                                    value="{{ $item->tong / 1000 }}" readonly>
+                                                       value="{{ number_format($item->tong, 0, ',', '.') }}" readonly>
+                                                <label for="">Quy đổi thành xu</label>
+                                                <input type="test" class="form-control" name="coin"
+                                                       value="{{ number_format($item->tong/1000, 0, ',', '.') }}"
+                                                       readonly>
                                             </div>
                                             <input type="text" hidden name="pay_type" value="1">
 
@@ -239,7 +235,7 @@
 
                                 {{-- Đặt cọc chuyển khoản --}}
                                 <div class="tab-pane fade col-10" id="pills-profile" role="tabpanel"
-                                    aria-labelledby="pills-profile-tab">
+                                     aria-labelledby="pills-profile-tab">
                                     <div class="mr-4 d-flex flex-row-reverse justify-content-between">
                                         <div class="col-5">
                                             <div class="mt-2">
@@ -253,19 +249,12 @@
                                         </div>
                                         <div>
                                             @if ($item->status == 2)
-                                                <div class="alert alert-success alert-dismissible mt-3" role="alert">
-                                                    <strong>Hóa đơn đã được thanh toán</strong>
-                                                    <button type="button" class="close" data-bs-dismiss="alert"
-                                                        aria-label="Close">
-                                                        {{-- <span aria-hidden="true">&times;</span> --}}
-                                                        {{-- <span class="sr-only">Đóng</span> --}}
-                                                    </button>
-                                                </div>
+                                               <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
                                             @elseif($item->status == 3)
                                                 <div class="alert alert-success alert-dismissible mt-3" role="alert">
                                                     <strong>Hóa đơn đang được xác nhận thanh toán</strong>
                                                     <button type="button" class="close" data-bs-dismiss="alert"
-                                                        aria-label="Close">
+                                                            aria-label="Close">
                                                         {{-- <span aria-hidden="true">&times;</span> --}}
                                                         {{-- <span class="sr-only">Đóng</span> --}}
                                                     </button>
@@ -280,11 +269,13 @@
                                                     </p>
 
                                                     <input type="text" hidden name="pay_type" value="2"
-                                                        id="">
-                                                    <p class="text-warning fs-6">Sau khi chuyển tiền, hãy click button bên
+                                                           id="">
+                                                    <p class="text-warning fs-6">Sau khi chuyển tiền, hãy click button
+                                                        bên
                                                         dưới để thông báo với chủ trọ</p>
 
-                                                    <button type="submit" class="btn btn-primary">Xác nhận đã chuyển tiền
+                                                    <button type="submit" class="btn btn-primary">Xác nhận đã chuyển
+                                                        tiền
                                                     </button>
                                                 </form>
                                             @endif
@@ -294,6 +285,7 @@
                             </div>
                         </div>
                     </div>
+                    <a href="{{route('client_get_list_bill')}}" class="btn btn-success">Quay lại</a>
                 </div>
 
 
@@ -310,9 +302,9 @@
     </script>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
 @endsection

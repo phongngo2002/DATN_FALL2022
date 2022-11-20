@@ -37,8 +37,7 @@ class BillController extends Controller
         try {
             $this->v['item'] = $bill->client_get_bill_user($id);
             $area = Area::find($this->v['item']->area_id);
-            $this->v['boss'] = User::find($area->id);
-            // dd($this->v['boss']);
+            $this->v['boss'] = User::find($area->user_id);
             return view('client.bill.pay_bill', $this->v);
         } catch (Exception $e) {
             return view('errors.404');
@@ -62,8 +61,7 @@ class BillController extends Controller
         $model = new Bill();
         $bill = $model->client_get_bill_user($id);
         $area = Area::find($bill->area_id);
-        $boss = User::find($area->id);
-
+        $boss = User::find($area->user_id);
 
 
         $data_mail = [
@@ -87,26 +85,25 @@ class BillController extends Controller
                         DB::commit();
                     } catch (Exception $e) {
                         DB::rollBack();
-                        throw new Exception($e->getMessage());
                         return redirect()->back()->with('error', 'Thanh toán thất bại, thử lại sau');
                     }
-                    $data_mail['status'] = 'thanh toán thành công';
+                    $data_mail['status'] = 'Thanh toán thành công';
                     Mail::to($boss->email)->send(new bill_pay_bank($data_mail));
 
-                    return redirect()->route('client_get_pay_bill', $id)->with('success', 'thánh toán hóa đơn thành công');
+                    return redirect()->route('client_get_pay_bill', $id)->with('success', 'Thanh toán hóa đơn thành công');
                 }
                 if ($params['pay_type'] == 2) {
                     $model->find($id)->update(['status' => 3]);
                     DB::commit();
                     $data_mail['status'] = 'Chờ xác nhận thanh toán ';
                     Mail::to($boss->email)->send(new bill_pay_bank($data_mail));
-                    return redirect()->route('client_get_pay_bill', $id)->with('success', 'gửi xác nhận hóa đơn thành công');
+                    return redirect()->route('client_get_pay_bill', $id)->with('success', 'Gửi xác nhận hóa đơn thành công');
                 }
             } else {
-                return redirect()->route('client_get_pay_bill', $id)->with('error', 'tài khản đã thanh toán hóa đơn ');
+                return redirect()->route('client_get_pay_bill', $id)->with('error', 'Tài khản đã thanh toán hóa đơn');
             }
         } else {
-            return redirect()->route('client_get_pay_bill', $id)->with('error', 'thanh toán thất bại');
+            return redirect()->route('client_get_pay_bill', $id)->with('error', 'Thanh toán thất bại');
         }
     }
 }
