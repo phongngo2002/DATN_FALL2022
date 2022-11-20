@@ -117,10 +117,8 @@
 
                                             </div>
                                             <div class="col-xs-6 text-right pull-right invoice-total">
-                                                <p>Tổng phụ : {{ number_format($item->tong, 0, ',', '.') }} đ</p>
-                                                <p>Discount (10%) : $101 </p>
-                                                <p>VAT (8%) : $73 </p>
-                                                <p>Tổng cộng : {{ number_format($item->tong, 0, ',', '.') }} đ</p>
+                                                <p>Tổng : {{ number_format($item->tong, 0, ',', '.') }} đ</p>
+                                                <p>Thành xu : {{ number_format($item->tong / 1000, 0, ',', '.') }} </p>
                                             </div>
                                         </div>
 
@@ -207,8 +205,17 @@
                                                 {{-- <span class="sr-only">Đóng</span> --}}
                                             </button>
                                         </div>
+                                    @elseif($item->status == 3)
+                                        <div class="alert alert-success alert-dismissible mt-3" role="alert">
+                                            <strong>Hóa đơn đang được xác nhận thanh toán</strong>
+                                            <button type="button" class="close" data-bs-dismiss="alert"
+                                                aria-label="Close">
+                                                {{-- <span aria-hidden="true">&times;</span> --}}
+                                                {{-- <span class="sr-only">Đóng</span> --}}
+                                            </button>
+                                        </div>
                                     @else
-                                        <form action="{{ route('client_pay_bill_coin', $item->id) }}" method="POST">
+                                        <form action="{{ route('client_pay_bill', $item->id) }}" method="POST">
                                             @csrf
                                             <div>
                                                 <label for="">Tổng tiền thanh toán</label>
@@ -218,6 +225,7 @@
                                                 <input type="number" class="form-control" name="coin"
                                                     value="{{ $item->tong / 1000 }}" readonly>
                                             </div>
+                                            <input type="text" hidden name="pay_type" value="1">
 
                                             <div class="my-4">
                                                 <button type="submit" id="button_submit" class="btn btn-success">
@@ -227,8 +235,6 @@
                                         </form>
                                     @endif
 
-
-
                                 </div>
 
                                 {{-- Đặt cọc chuyển khoản --}}
@@ -236,10 +242,52 @@
                                     aria-labelledby="pills-profile-tab">
                                     <div class="mr-4 d-flex flex-row-reverse justify-content-between">
                                         <div class="col-5">
-
+                                            <div class="mt-2">
+                                                <strong> Chủ phòng :</strong>
+                                                <span>{{ $boss->name }} </span>
+                                            </div>
+                                            <div class="mt-2">
+                                                <strong> Email:</strong>
+                                                <span>{{ $boss->email }} </span>
+                                            </div>
                                         </div>
                                         <div>
+                                            @if ($item->status == 2)
+                                                <div class="alert alert-success alert-dismissible mt-3" role="alert">
+                                                    <strong>Hóa đơn đã được thanh toán</strong>
+                                                    <button type="button" class="close" data-bs-dismiss="alert"
+                                                        aria-label="Close">
+                                                        {{-- <span aria-hidden="true">&times;</span> --}}
+                                                        {{-- <span class="sr-only">Đóng</span> --}}
+                                                    </button>
+                                                </div>
+                                            @elseif($item->status == 3)
+                                                <div class="alert alert-success alert-dismissible mt-3" role="alert">
+                                                    <strong>Hóa đơn đang được xác nhận thanh toán</strong>
+                                                    <button type="button" class="close" data-bs-dismiss="alert"
+                                                        aria-label="Close">
+                                                        {{-- <span aria-hidden="true">&times;</span> --}}
+                                                        {{-- <span class="sr-only">Đóng</span> --}}
+                                                    </button>
+                                                </div>
+                                            @else
+                                                <form action="{{ route('client_pay_bill', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <p>Số tiền cọc giữ phòng:
+                                                        <span class="font-weight-bold">
+                                                            {{ number_format($item->tong, 0, ',', '.') }}đ
+                                                        </span>
+                                                    </p>
 
+                                                    <input type="text" hidden name="pay_type" value="2"
+                                                        id="">
+                                                    <p class="text-warning fs-6">Sau khi chuyển tiền, hãy click button bên
+                                                        dưới để thông báo với chủ trọ</p>
+
+                                                    <button type="submit" class="btn btn-primary">Xác nhận đã chuyển tiền
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -267,5 +315,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-
 @endsection

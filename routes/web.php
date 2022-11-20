@@ -106,7 +106,7 @@ Route::middleware(['auth'])->group(function () {
 
     // thành toán hóa đơn
     Route::get('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'get_pay_bill'])->name("client_get_pay_bill");
-    Route::post('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'pay_bill_coin'])->name("client_pay_bill_coin");
+    Route::post('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'pay_bill'])->name("client_pay_bill");
 
     Route::prefix('admin')->group(function () {
         // Màn thống kê
