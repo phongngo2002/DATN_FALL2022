@@ -478,12 +478,20 @@
                                         <li><span class="la la-map-marker"><i
                                                     class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
                                         </li>
-                                        <li><span class="la la-phone"><i class="fa fa-phone"
-                                                                         aria-hidden="true"></i></span><a
+                                        <li><span class="la la-phone"><i class="fa fa-phone"aria-hidden="true"></i></span><a
                                                 href="#">{{ $motel->user_phone }}</a></li>
+                                               
                                         <li><span class="la la-envelope-o"><i class="fa fa-envelope"
                                                                               aria-hidden="true"></i></span><a
                                                 href="#">{{ $motel->user_email }}</a>
+                                        </li>
+                                        <li>
+
+                                            <a  style="background: white; Color:rgb(0, 149, 255); " class="btn btn-outline-info btn-rounded" href="https://zalo.me/{{$motel->user_phone}}">
+                                                <img  style="width:15%" class="img-fluid"
+                                            src="{{asset('assets/client/images/icons/logo-zalo-02.jpg')}}"
+                                            alt="">
+                                                Liên hệ Zalo </a>
                                         </li>
                                     </ul>
 
