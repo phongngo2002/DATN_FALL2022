@@ -3,8 +3,8 @@
 @section('title_page', 'Thống kê')
 
 @section('content')
-    <div class="row">
-        @if (\Illuminate\Support\Facades\Auth::user()->is_admin)
+    <div class="row">        
+        @if (\Illuminate\Support\Facades\Auth::user()->is_admin == 1)
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
@@ -100,9 +100,13 @@
                             </div>
                         </div>
                     </div>
+                        <?php
+                            $dataPoints = [];
+                        ?>
                 </div>
             </div>
         @else
+        {{-- Chủ trọ --}}
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
@@ -111,7 +115,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Tổng số người dùng</h5>
+                                            <h5 class="card-title">Tổng khách thuê</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -120,12 +124,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                            {{ $OwnMotelCountUser }} </span>
-                                        <span class="text-muted">Chủ trọ</span>
-                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $OwnMotelCountUser }}</h1>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +133,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Tổng số khu trọ</h5>
+                                            <h5 class="card-title">Tổng khu trọ</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -166,10 +165,6 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $OwnMotelCountMotel }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success">{{ $AdminCountMotelActive }}</span>
-                                        <span class="text-muted"> Phòng trọ đang hoạt động</span>
-                                    </div>
                                 </div>
                             </div>
 
@@ -189,52 +184,53 @@
                                         </div>
                                     </div>
                                     <h4 class="mt-1 mb-3">{{ $OwnMoteCountPlanBuyed }}</h4>
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <span class="text-success">{{ $OwnMoteCountPlanBuyedActive }}</span>
                                         <span class="text-muted"> gói dịch vụ đang hoạt động</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
+                        <?php
+                        if ($OwnMotelCountBillSum > 0) {
+                            $dataPoints = [['label' => 'Chưa thanh toán', 'y' => ($OwnMotelCountNotBill / $OwnMotelCountBillSum) * 100], ['label' => 'Đã thanh toán', 'y' => ($OwnMotelCountBilled / $OwnMotelCountBillSum) * 100]];
+                        } else {
+                            $dataPoints = [['label' => 'Chưa thanh toán', 'y' => 100], ['label' => 'Đã thanh toán', 'y' => 0]];
+                        }
+                        
+                        ?>
                     </div>
                 </div>
             </div>
         @endif
 
-
-        <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
-            <?php
-            $dataPoints = [
-                ['label' => 'Chưa thanh toán', 'y' => $OwnMotelCountNotBill/$OwnMotelCountBillSum * 100],
-                ['label' => 'Đã thanh toán', 'y' => $OwnMotelCountBilled/$OwnMotelCountBillSum * 100],
-                // array("label"=>"Residential", "y"=>13.9),
-                // array("label"=>"Commercial", "y"=>7.8)
-            ];
-            ?>
-        </div>
     </div>
     <script>
         window.onload = function() {
-            var chart = new CanvasJS.Chart("chartContainer", {
-                theme: "light2",
-                animationEnabled: true,
-                title: {
-                    text: "Tổng tiền phòng trong tháng"
-                },
-                data: [{
-                    type: "pie",
-                    indexLabel: "{y}",
-                    yValueFormatString: "#,##0.00\"%\"",
-                    indexLabelPlacement: "inside",
-                    indexLabelFontColor: "#36454F",
-                    indexLabelFontSize: 18,
-                    indexLabelFontWeight: "bolder",
-                    showInLegend: true,
-                    legendText: "{label}",
-                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-                }]
-            });
-            chart.render();
+            if (document.getElementById("chartContainer")) {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light2",
+                    animationEnabled: true,
+                    title: {
+                        text: "Biểu đồ tổng tiền phòng"
+                    },
+                    data: [{
+                        type: "pie",
+                        indexLabel: "{y}",
+                        yValueFormatString: "#,##0.00\"%\"",
+                        indexLabelPlacement: "inside",
+                        indexLabelFontColor: "#36454F",
+                        indexLabelFontSize: 18,
+                        indexLabelFontWeight: "bolder",
+                        showInLegend: true,
+                        legendText: "{label}",
+                        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                    }]
+                });
+                chart.render();
+            }
         }
     </script>
 @endsection
