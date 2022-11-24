@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
                     "room_number" => $item['room_number'],
                     "price" => $item['price'],
                     "area" => $item['area'],
-                    'status' => 1,
+                    'status' => $item['status'],
                     "area_id" => $item['area_id'],
                     "description" => $item['description'],
                     "image_360" => $item['image_360'],
