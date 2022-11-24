@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $this->v['AdminCountArea'] = DB::table('areas')->count();
         $this->v['AdminCountMotel'] = DB::table('motels')->count();
         $this->v['AdminCountMotelActive'] = DB::table('motels')->where('status', 2)->count();
-        $this->v['AdminCountUser'] = DB::table('users')->whereNot('is_admin', 1)->count();
+        $this->v['AdminCountUser'] = DB::table('users')->count();
         $this->v['AdminCountPlan'] = DB::table('plans')->count();
         $this->v['AdminCountUserIsOwnMotel'] = DB::table('users')->where('role_id', 1)->where('is_admin', 0)->count();
         $this->v['AdminCountUserIsAdmin'] = DB::table('users')->where('is_admin', 1)->count();
@@ -62,7 +62,26 @@ class DashboardController extends Controller
             ->where('areas.user_id', Auth::user()->id)
             ->count();
 
-        // $this->v['listMotelPostLiveTogether'] = DB::table('motels')
+        $this->v['OwnMotelPostLiveTogether'] = DB::table('motels')
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('areas.user_id', Auth::user()->id)
+            ->whereNot('motels.data_post', null)
+            ->count();
+
+        $this->v['listMotelPostLiveTogether'] = DB::table('motels')
+            ->select([
+                'motels.id as motel_id',
+                'areas.name as area_name',
+                'areas.id as area_id',
+                'motels.room_number as motels_roomNumber'
+            ])
+            ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->where('areas.user_id', Auth::user()->id)
+            ->whereNot('motels.data_post', null)
+            ->orderBy('motels.id', 'desc')
+            ->paginate(5);
+
+        // dd($this->v['listMotelPostLiveTogether']);
 
         if (isset($_GET['id'])) {
             $user = User::where('id', $_GET['id'])->first();

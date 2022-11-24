@@ -3,7 +3,7 @@
 @section('title_page', 'Thống kê')
 
 @section('content')
-    <div class="row">        
+    <div class="row">
         @if (\Illuminate\Support\Facades\Auth::user()->is_admin == 1)
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
@@ -13,7 +13,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Tổng số người dùng</h5>
+                                            <h5 class="card-title">Tổng người dùng</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -23,7 +23,7 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                             {{ $AdminCountUserIsOwnMotel }} </span>
                                         <span class="text-muted">Chủ trọ</span>
@@ -32,7 +32,7 @@
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                             {{ $AdminCountUserIsAdmin }} </span>
                                         <span class="text-muted">Quản trị viên</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -51,10 +51,10 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $AdminCountArea }}</h1>
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
                                         <span class="text-muted"></span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -73,10 +73,10 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $AdminCountMotel }}</h1>
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <span class="text-success">{{ $AdminCountMotelActive }}</span>
                                         <span class="text-muted"> Phòng trọ đang hoạt động</span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -100,13 +100,13 @@
                             </div>
                         </div>
                     </div>
-                        <?php
-                            $dataPoints = [];
-                        ?>
+                    <?php
+                    $dataPoints = [];
+                    ?>
                 </div>
             </div>
         @else
-        {{-- Chủ trọ --}}
+            {{-- Chủ trọ --}}
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
@@ -191,19 +191,99 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Tổng phòng trọ đang đăng tin ở ghép </h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="fa-solid fa-hotel"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="mt-1 mb-3">{{ $OwnMotelPostLiveTogether }}</h4>
+                                    {{-- <div class="mb-0">
+                                        <span class="text-success">{{ $OwnMoteCountPlanBuyedActive }}</span>
+                                        <span class="text-muted"> gói dịch vụ đang hoạt động</span>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
-                        <?php
-                        if ($OwnMotelCountBillSum > 0) {
-                            $dataPoints = [['label' => 'Chưa thanh toán', 'y' => ($OwnMotelCountNotBill / $OwnMotelCountBillSum) * 100], ['label' => 'Đã thanh toán', 'y' => ($OwnMotelCountBilled / $OwnMotelCountBillSum) * 100]];
-                        } else {
-                            $dataPoints = [['label' => 'Chưa thanh toán', 'y' => 100], ['label' => 'Đã thanh toán', 'y' => 0]];
-                        }
-                        
-                        ?>
-                    </div>
+
                 </div>
             </div>
+            <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
+                <?php
+                if ($OwnMotelCountBillSum > 0) {
+                    $dataPoints = [['label' => 'Chưa thanh toán', 'y' => ($OwnMotelCountNotBill / $OwnMotelCountBillSum) * 100], ['label' => 'Đã thanh toán', 'y' => ($OwnMotelCountBilled / $OwnMotelCountBillSum) * 100]];
+                } else {
+                    $dataPoints = [['label' => 'Chưa thanh toán', 'y' => 100], ['label' => 'Đã thanh toán', 'y' => 0]];
+                }
+                
+                ?>
+            </div>
+            <h4  style="margin-top: 50px">Danh sách các phòng đăng tin ở ghép</h4>
+            <table class="w-100 table text-left" style="margin-top: 20px">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Phòng trọ</th>
+                    <th>Khu trọ</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($listMotelPostLiveTogether as $motel)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{$motel->motels_roomNumber}}</td>
+                        {{-- <td>{!! isset($params['name'])
+                                ? str_replace($params['name'], '<span class="bg-warning">' . $params['name'] . '</span>', $area->name)
+                                : $area->name !!}</td> --}}
+                        <td>{{$motel->area_name}}</td>
+                        <td><a title="Thông tin phòng trọ" class="btn btn-info"
+                            href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->motel_id])}}"><i
+                                 class="fa-solid fa-circle-info"></i></a></td>
+                    </tr>
+                @endforeach
+    
+                </tbody>
+            </table>
+            {{ $listMotelPostLiveTogether->links() }}
+
+            <h4  style="margin-top: 50px">Danh sách các phòng thanh toán tiền phòng muộn</h4>
+            <table class="w-100 table text-left" style="margin-top: 20px">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Phòng trọ</th>
+                    <th>Khu trọ</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($listMotelPostLiveTogether as $motel)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{$motel->motels_roomNumber}}</td>
+                        {{-- <td>{!! isset($params['name'])
+                                ? str_replace($params['name'], '<span class="bg-warning">' . $params['name'] . '</span>', $area->name)
+                                : $area->name !!}</td> --}}
+                        <td>{{$motel->area_name}}</td>
+                        <td><a title="Thông tin phòng trọ" class="btn btn-info"
+                            href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->motel_id])}}"><i
+                                 class="fa-solid fa-circle-info"></i></a></td>
+                    </tr>
+                @endforeach
+    
+                </tbody>
+            </table>
+            {{ $listMotelPostLiveTogether->links() }}
         @endif
 
     </div>
