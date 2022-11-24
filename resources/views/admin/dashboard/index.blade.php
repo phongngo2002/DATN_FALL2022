@@ -255,35 +255,6 @@
                 </tbody>
             </table>
             {{ $listMotelPostLiveTogether->links() }}
-
-            <h4  style="margin-top: 50px">Danh sách các phòng thanh toán tiền phòng muộn</h4>
-            <table class="w-100 table text-left" style="margin-top: 20px">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Phòng trọ</th>
-                    <th>Khu trọ</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($listMotelPostLiveTogether as $motel)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{$motel->motels_roomNumber}}</td>
-                        {{-- <td>{!! isset($params['name'])
-                                ? str_replace($params['name'], '<span class="bg-warning">' . $params['name'] . '</span>', $area->name)
-                                : $area->name !!}</td> --}}
-                        <td>{{$motel->area_name}}</td>
-                        <td><a title="Thông tin phòng trọ" class="btn btn-info"
-                            href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->motel_id])}}"><i
-                                 class="fa-solid fa-circle-info"></i></a></td>
-                    </tr>
-                @endforeach
-    
-                </tbody>
-            </table>
-            {{ $listMotelPostLiveTogether->links() }}
         @endif
 
     </div>
