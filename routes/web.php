@@ -24,16 +24,18 @@ use App\Http\Controllers\Auth\registerController;
 Route::get('/abc/test', function () {
     return view('email.bill');
 });
+Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
 Route::get('/khu-tro/{areaID}', [\App\Http\Controllers\Client\HomeController::class, 'motel_by_area'])->name('motel_by_area');
 
-Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
 });
 Route::get('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@getFormSelectRole')->name('get_select_role_resign');
 Route::post('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@postFormSelectRole')->name('get_select_role_resign');
+Route::get('/tim-kiem', [\App\Http\Controllers\Client\HomeController::class, 'search'])->name('search');
+Route::get('/phong-tro/tim-kiem', [\App\Http\Controllers\Client\HomeController::class, 'searchMotels'])->name('search_motels');
 
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -97,9 +99,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/lich-su-dat-coc', 'App\Http\Controllers\Client\DepositController@historyDeposit')->name('get_history_deposit');
 
     Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
-    Route::get('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
-    Route::post('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
-    Route::get('list-live-together', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
+    Route::get('phong-o-ghep/tim-kiem', 'App\Http\Controllers\Client\MotelController@searchListLiveTogether')->name("client_search_list_live_together");
+
+    Route::get('phong-o-ghep/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
+    Route::post('phong-o-ghep/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+    Route::get('phong-o-ghep', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
+
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");

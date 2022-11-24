@@ -72,23 +72,21 @@ class DatabaseSeeder extends Seeder
         $data = File::get(public_path('json/areas.json'));
         $data = json_decode($data, true);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-//        Motel::factory(10)->create();
-
-        // PlanHistory::factory(10)->create();
         foreach (array_shift($data) as $item) {
             DB::table('areas')->insert(
                 [
+                    "id" => $item['id'],
                     "name" => $item["name"],
                     "address" => $item["address"],
                     "img" => $item['img'],
                     'link_gg_map' => $item['link_gg_map'],
                     'user_id' => $item['user_id'],
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
+                    'city_id' => $item['city_id'],
+                    'district_id' => $item['district_id'],
+                    'ward_id' => $item['ward_id'],
+                    'latitude' => $item['latitude'],
+                    'longitude' => $item['longitude']
                 ]
             );
         }
@@ -104,7 +102,7 @@ class DatabaseSeeder extends Seeder
                     "role_id" => $item['role_id'],
                     'created_at' => Carbon::now(),
                     'money' => 0,
-                    'is_admin' => 1,
+                    'is_admin' => $item['is_admin'],
                     'script_fb' => $a,
                 ]
             );
@@ -115,6 +113,7 @@ class DatabaseSeeder extends Seeder
         foreach (array_shift($data) as $item) {
             DB::table('motels')->insert(
                 [
+                    'id' => $item['id'],
                     "room_number" => $item['room_number'],
                     "price" => $item['price'],
                     "area" => $item['area'],
@@ -200,8 +199,166 @@ class DatabaseSeeder extends Seeder
                     'price' => $item['price'],
                     'status' => $item['status'],
                     'created_at' => Carbon::now(),
+                    'title_color' => $item['title_color']
                 ]
             );
+
+
+        }
+        $data = File::get(public_path('json/area_location.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('area_location')->insert(
+                [
+                    "area_id" => $item["area_id"],
+                    "location_id" => $item["location_id"],
+                    "distance" => $item["distance"],
+                ]
+            );
+
+
+        }
+
+        $data = File::get(public_path('json/bills.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('bills')->insert(
+                [
+                    "title" => $item["title"],
+                    "motel_id" => $item["motel_id"],
+                    "number_elec" => $item["number_elec"],
+                    'number_warter' => $item['number_warter'],
+                    'number_elec_old' => $item['number_elec_old'],
+                    'number_warter_old' => $item['number_warter_old'],
+                    'status' => $item['status'],
+                    'created_at' => Carbon::now()->addMonth(-1)]
+            );
+
+
+        }
+        $data = File::get(public_path('json/locations.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('locations')->insert(
+                [
+                    "name" => $item["name"],
+                    "latitude" => $item["latitude"],
+                    "longitude" => $item["longitude"],
+                    'type' => $item['type'],
+                ]
+            );
+
+
+        }
+
+        $data = File::get(public_path('json/motel_vote.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('motel_vote')->insert(
+                [
+                    "motel_id" => $item["motel_id"],
+                    "vote_id" => $item["vote_id"]
+                ]
+            );
+
+
+        }
+        $data = File::get(public_path('json/plan_history.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('plan_history')->insert(
+                [
+                    "plan_id" => $item["plan_id"],
+                    "motel_id" => $item["motel_id"],
+                    "day" => $item["day"],
+                    "status" => $item["status"],
+                    "parent_id" => $item["parent_id"],
+                    "is_first" => $item["is_first"],
+                    "user_id" => $item["user_id"],
+                    "created_at" => Carbon::now()
+                ]
+            );
+
+
+        }
+
+        $data = File::get(public_path('json/recharges.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('recharges')->insert(
+                [
+                    "user_id" => $item["user_id"],
+                    "date" => Carbon::now(),
+                    "recharge_code" => $item["recharge_code"],
+                    "payment_type" => $item["payment_type"],
+                    "status" => $item["status"],
+                    "note" => $item["note"],
+                    "fee" => $item["fee"],
+                    "value" => $item["value"],
+                    'created_at' => Carbon::now()
+                ]
+            );
+
+
+        }
+        $data = File::get(public_path('json/user_motel.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('user_motel')->insert(
+                [
+                    "user_id" => $item["user_id"],
+                    "motel_id" => $item["motel_id"],
+                    "start_time" => Carbon::now(),
+                    "end_time" => Carbon::now(),
+                    "status" => $item["status"],
+                    "created_at" => Carbon::now()
+                ]
+            );
+
+
+        }
+
+        $data = File::get(public_path('json/votes.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('votes')->insert(
+                [
+                    "score" => $item["score"],
+                    "message" => $item["message"],
+                    "question" => $item["question"],
+                    "user_id" => $item["user_id"],
+                    "created_at" => Carbon::now()
+                ]
+            );
+
+
+        }
+
+
+        $data = File::get(public_path('json/withdraws.json'));
+        $data = json_decode($data, true);
+
+        foreach (array_shift($data) as $item) {
+            DB::table('withdraws')->insert(
+                [
+                    "user_id" => $item["user_id"],
+                    "fee" => $item["fee"],
+                    "money" => $item["money"],
+                    "address_balance" => $item["address_balance"],
+                    "status" => $item["status"],
+                    "created_at" => Carbon::now()
+                ]
+            );
+
+
         }
     }
 }

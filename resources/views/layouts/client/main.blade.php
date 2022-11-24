@@ -14,7 +14,7 @@
     <!-- FAVICON -->
     @include('layouts.client._css')
     <style>
-        #header.cloned{
+        #header.cloned {
             background-color: black;
         }
     </style>
@@ -28,7 +28,9 @@
     @yield('content')
     @include('layouts.client.footer')
     @include('layouts.client._js')
+    @yield('custom_js')
 </div>
-</body><!-- Mirrored from code-theme.com/html/findhouses/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 14:23:46 GMT -->
+</body>
+<!-- Mirrored from code-theme.com/html/findhouses/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 14:23:46 GMT -->
 
 </html>

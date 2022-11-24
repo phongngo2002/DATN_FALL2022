@@ -50,7 +50,8 @@ class AppointmentController extends Controller
             $user = User::find($data->user_id);
             $data = [
                 'title' => 'Bạn vừa có 1 lịch hẹn mới',
-                'message' => Auth::user()->name . ' đã đăng ký lịch hẹn xem phòng ' . $data->room_number . ' - ' . $data->area_name . ' của bạn.Thời gian hẹn ' . Carbon::parse($data->time)->format('h:i A d/m/y'),
+                'message' =>
+                    Auth::user()->name . ' đã đăng ký lịch hẹn xem phòng ' . $data->room_number . ' - ' . $data->area_name . ' của bạn.Thời gian hẹn ' . Carbon::parse($data->time)->format('h:i A d/m/y'),
                 'time' => Carbon::now()->format('h:i A d/m/Y'),
                 'href' => route('admin.get_list_appoint')
             ];

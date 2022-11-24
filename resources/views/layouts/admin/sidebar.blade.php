@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" data-index="bill" data-href="{{ route('admin.get_list_appoint') }}"
+                    <a class="sidebar-link" data-index="bill-a" data-href="{{ route('admin.get_list_appoint') }}"
                        href="#">
                         <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch hẹn xem trọ</span>
                     </a>

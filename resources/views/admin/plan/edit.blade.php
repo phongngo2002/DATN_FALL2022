@@ -56,6 +56,15 @@
                             <option value="3" @if ($plan->priority_level == 3) {{ 'selected' }} @endif>
                                 level 3
                             </option>
+                            <option value="4" @if ($plan->priority_level == 4) {{ 'selected' }} @endif>
+                                level 4
+                            </option>
+                            <option value="5" @if ($plan->priority_level == 5) {{ 'selected' }} @endif>
+                                level 5
+                            </option>
+                            <option value="6" @if ($plan->priority_level == 6) {{ 'selected' }} @endif>
+                                level 6 (gói miễn phí)
+                            </option>
                         </select>
                     </div>
                     {{-- input priority lever plans  --}}

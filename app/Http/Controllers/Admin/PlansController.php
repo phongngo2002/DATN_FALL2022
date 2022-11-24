@@ -57,13 +57,29 @@ class PlansController extends Controller
         $plans->time = (int)$request->time;
         $plans->price = (float)$request->price;
         // lưu dữ liệu
+        if ((int)$request->priority_level === 1) {
+            $plans->title_color = '#E13427';
+        } elseif ((int)$request->priority_level === 2) {
+            $plans->title_color = '#ea2e9d';
+        } elseif ((int)$request->priority_level === 3) {
+            $plans->title_color = '#FF6600';
+        } elseif ((int)$request->priority_level === 4) {
+            $plans->title_color = '#007BFF';
+        } elseif ((int)$request->priority_level === 5) {
+            $plans->title_color = '#055699';
+        } else {
+            $plans->title_color = '#333';
+        }
+
+
         $plans->save();
 
         return redirect()->route('backend_admin_get_list_plans');
     }
 
 
-    public function update_plans($id)
+    public
+    function update_plans($id)
     {
         $plans = new Plans;
         return view('admin.plan.edit', [
@@ -71,7 +87,8 @@ class PlansController extends Controller
         ]);
     }
 
-    public function saveUpdate_plans(PlansRequest $request, $id)
+    public
+    function saveUpdate_plans(PlansRequest $request, $id)
     {
         $plans = Plans::find($id);
 
@@ -81,12 +98,25 @@ class PlansController extends Controller
         $plans->type = (int)$request->type;
         $plans->time = (int)$request->time;
         $plans->price = (float)$request->price;
-
+        if ((int)$request->priority_level === 1) {
+            $plans->title_color = '#E13427';
+        } elseif ((int)$request->priority_level === 2) {
+            $plans->title_color = '#ea2e9d';
+        } elseif ((int)$request->priority_level === 3) {
+            $plans->title_color = '#FF6600';
+        } elseif ((int)$request->priority_level === 4) {
+            $plans->title_color = '#007BFF';
+        } elseif ((int)$request->priority_level === 5) {
+            $plans->title_color = '#055699';
+        } else {
+            $plans->title_color = '#333';
+        }
         $plans->save();
         return redirect()->route('backend_admin_get_list_plans')->with('success', "Insert successfully");
     }
 
-    public function delete_plans($id)
+    public
+    function delete_plans($id)
     {
         Plan::where('id', $id)->update(['status' => 0]);
         return redirect()->route('backend_admin_get_list_plans');

@@ -62,6 +62,21 @@
                                     @endif>
                                     level 3
                                 </option>
+                                <option value="4" @if (old('priority_level') == '3')
+                                    {{ 'selected' }}
+                                    @endif>
+                                    level 4
+                                </option>
+                                <option value="5" @if (old('priority_level') == '3')
+                                    {{ 'selected' }}
+                                    @endif>
+                                    level 5
+                                </option>
+                                <option value="6" @if (old('priority_level') == '3')
+                                    {{ 'selected' }}
+                                    @endif>
+                                    level 6
+                                </option>
                             </select>
                         </div>
                         {{-- input priority lever plans  --}}

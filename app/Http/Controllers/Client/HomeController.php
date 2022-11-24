@@ -55,10 +55,30 @@ class HomeController extends Controller
     public function motels()
     {
         $modelMotel = new Motel();
-        $motel = $modelMotel->client_Get_all_Motel();
+        $modelArea = new Area();
+        $this->v['locations'] = DB::table('locations')->get();
+        $this->v['areas'] = $modelArea->client_Get_List_Top_Area();
+        $this->v['motels'] = $modelMotel->client_Get_all_Motel();
+
+        return view('client.home.motels', $this->v);
+    }
+
+    public function searchMotels(Request $request)
+    {
+        $params = array_map(function ($item) {
+            if ($item == "") {
+                $item = null;
+            }
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+            return $item;
+        }, $request->all());
+        $modelMotel = new Motel();
+        $motels = $modelMotel->search($params);
 
         return view('client.home.motels', [
-            'motel' => $motel
+            'motels' => $motels
         ]);
     }
 
@@ -73,22 +93,6 @@ class HomeController extends Controller
             }
             return $item;
         }, $request->all());
-        // dd($params);
-        if ($params['area_min']) {
-            $params['area_min'] = 0;
-        }
-        if ($params['price_min']) {
-            $params['price_min'] = 0;
-        }
-        if (!array_key_exists('service', $params)) {
-            $params['service'] = [];
-        }
-        foreach ($params['service'] as $key => $value) {
-            if ($value == 'on') {
-                array_push($params['service'], $key);
-                unset($params['service'][$key]);
-            }
-        }
         $modelMotel = new Motel();
         $motels = $modelMotel->search($params);
 
@@ -97,7 +101,20 @@ class HomeController extends Controller
 //            $result[] = $item;
 //        }
         // dd(json_encode(['motels'=>$result]));
-        return response()->json($motels);
+        $modelArea = new Area();
+        $modelMotel = new Motel();
+        $category = new Category();
+        $categories = $category->getAll();
+        $area = $modelArea->client_Get_List_Top_Area();
+        $motels = $modelMotel->search($params);
+        $contact = $modelMotel->client_get_List_Motel_contact($request->all());
+
+        return view('client.home.index', [
+            'area' => $area,
+            'motel' => $motels,
+            'contact' => $contact,
+            'categories' => $categories
+        ]);
 
     }
 
@@ -143,7 +160,7 @@ class HomeController extends Controller
         $result = [];
         foreach ($data as $item) {
             $check = false;
-            if (isset($request->service) &&  count($request->service) > 0) {
+            if (isset($request->service) && count($request->service) > 0) {
                 foreach (json_decode($item->services)->service_checkbox as $a) {
                     if (in_array($a, $request->service)) {
                         $check = true;

@@ -252,8 +252,8 @@ class Motel extends Model
     public function client_get_List_Motel_top()
     {
         // dd($params);
-        return DB::table('areas')
-            ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
+        $query = DB::table('areas')
+            ->select(['title_color', 'priority_level', 'motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id', 'plans.id')
@@ -262,6 +262,18 @@ class Motel extends Model
             ->where('motels.status', 5)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
+
+        foreach ($query as $item) {
+            $sql = DB::table('locations')
+                ->selectRaw('COUNT(locations.id) as numberLocation,type,Min(distance) as minDistance')
+                ->join('area_location', 'locations.id', '=', 'area_location.location_id')
+                ->where('area_id', $item->area_id)
+                ->groupBy(['type'])
+                ->orderBy('distance')
+                ->get();
+            $item->locationNearMotel = $sql;
+        }
+        return $query;
     }
 
     public function client_get_List_Motel_contact($params = [])
@@ -282,10 +294,11 @@ class Motel extends Model
     public function client_Get_all_Motel()
     {
         return DB::table('plans')
-            ->select(['motels.room_number', 'areas.name as areaName', 'motels.price', 'priority_level', 'plans.name', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery', 'motels.id as motel_id'])
+            ->select(['plan_history.created_at', 'avatar', 'users.name', 'title_color', 'motels.room_number', 'areas.name as areaName', 'motels.price', 'priority_level', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'motels.id as motel_id'])
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'areas.id', '=', 'motels.area_id')
+            ->join('users', 'areas.user_id', '=', 'users.id')
             ->where('plan_history.status', 1)
             ->where('type', 1)
             ->orderBy('priority_level', 'asc')
@@ -351,58 +364,102 @@ class Motel extends Model
         return null;
     }
 
-    public function search($params = [])
+    public function search($params = [], $type = 1)
     {
         // dd($params)
         $query = DB::table('areas')
-            ->select(['motels.id as motel_id', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
+            ->select(['title_color', 'data_post', 'plans.name', 'plans.type', 'motels.id as motel_id', 'priority_level', 'areas.name as areaName', 'motels.room_number', 'motels.price', 'motels.area', 'services', 'motels.max_people', 'motels.area_id', 'areas.address', 'motels.photo_gallery as photo_gallery_i', 'plan_history.plan_id'])
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('plan_history.status', '=', 1)
-            ->where('type', '=', $params['type']);
-        if ($params['category'] != 0) {
-            $query->where('motels.category_id', '=', $params['category']);
+            ->where('plans.type', $type);
+        if (isset($params['city_id'])) {
+            $query->where('areas.city_id', '=', $params['city_id']);
         }
-        if ($params['address'] != 0) {
-            $query->where('areas.address', 'LIKE', '%' . $params['address'] . '%');
+        if (isset($params['ward_id'])) {
+            $query->where('areas.ward_id', '=', $params['ward_id']);
         }
-
-        if ($params['bedroom'] != null) {
+        if (isset($params['district_id'])) {
+            $query->where('areas.district_id', '=', $params['district_id']);
+        }
+        if (isset($params['bedroom'])) {
             $query->where('motels.services', 'LIKE', '%\"bedroom\":\"' . $params['bedroom'] . '\"%');
         }
-        if ($params['toilet'] != null) {
+        if (isset($params['toilet'])) {
             $query->where('motels.services', 'LIKE', '%\"toilet\":\"' . $params['toilet'] . '\"%');
         }
-        if (in_array('cho_de_xe', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"cho_de_xe\"%');
+        if (isset($params['services'])) {
+            if (in_array('dieu_hoa', $params['services'])) {
+                $query->where('motels.services', 'LIKE', '%\"dieu_hoa\"%');
+            }
+            if (in_array('nong_lanh', $params['services'])) {
+                $query->where('motels.services', 'LIKE', '%\"nong_lanh\"%');
+            }
+            if (in_array('tu_lanh', $params['services'])) {
+                $query->where('motels.services', 'LIKE', '%\"tu_lanh\"%');
+            }
+            if (in_array('tu_quan_ao', $params['services'])) {
+                $query->where('motels.services', 'LIKE', '%\"tu_quan_ao\"%');
+            }
         }
-        if (in_array('dieu_hoa', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"dieu_hoa\"%');
-        }
-        if (in_array('thang_may', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"thang_may\"%');
-        }
-        if (in_array('may_giat', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"may_giat\"%');
-        }
-        if (in_array('nong_lanh', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"nong_lanh\"%');
-        }
-        if (in_array('tu_lanh', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"tu_lanh\"%');
-        }
-        if (in_array('giuong_ngu', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"giuong_ngu\"%');
-        }
-        if (in_array('tu_quan_ao', $params['service'])) {
-            $query->where('motels.services', 'LIKE', '%\"tu_quan_ao\"%');
-        }
+
+
         $query->whereBetween('motels.area', [$params['area_min'], $params['area_max']])
             ->whereBetween('motels.price', [$params['price_min'], $params['price_max']]);
         $query->orderBy('priority_level', 'asc');
         // dd($query->toSql());
-        return $query->get();
+        $query = $query->paginate();
+        if (isset($params['locations'])) {
+            foreach ($query as $item) {
+                $sql = DB::table('locations')
+                    ->selectRaw('COUNT(locations.id) as numberLocation,type,Min(distance) as minDistance')
+                    ->join('area_location', 'locations.id', '=', 'area_location.location_id');
+                foreach ($params['locations'] as $location) {
+                    $sql = $sql->where('type', $location);
+                }
+                $sql = $sql->where('area_id', $item->area_id);
+
+                if (isset($params['dis'])) {
+                    $sql = $sql->where('distance', '<=', $params['dis']);
+                }
+                $sql = $sql->
+                groupBy(['type'])
+                    ->orderBy('distance')
+                    ->get();
+                if (!empty($sql)) {
+                    $item->locationNearMotel = $sql;
+                } else {
+                    unset($item);
+                }
+
+            }
+        } else {
+            foreach ($query as $item) {
+                $sql = DB::table('locations')
+                    ->selectRaw('COUNT(locations.id) as numberLocation,type,Min(distance) as minDistance')
+                    ->join('area_location', 'locations.id', '=', 'area_location.location_id')
+                    ->where('area_id', $item->area_id);
+                if (isset($params['dis'])) {
+                    $sql = $sql->where('distance', '<=', $params['dis']);
+                };
+                $sql = $sql->
+                groupBy(['type'])
+                    ->orderBy('distance')
+                    ->get();
+                $item->locationNearMotel = $sql;
+                if ($sql) {
+                    $item->locationNearMotel = $sql;
+                } else {
+                    unset($item);
+                }
+            }
+        }
+
+
+        return $query;
+
+
     }
 
     public function getMotelsByAreas($id)

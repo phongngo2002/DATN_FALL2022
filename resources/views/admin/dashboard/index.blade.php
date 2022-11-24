@@ -23,47 +23,15 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                            {{ $AdminCountUserIsOwnMotel }} </span>
-                                        <span class="text-muted">Chủ trọ</span>
-                                    </div>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                            {{ $AdminCountUserIsAdmin }} </span>
-                                        <span class="text-muted">Quản trị viên</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="col-sm-4">--}}
-{{--                            <div class="card">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col mt-0">--}}
-{{--                                            <h5 class="card-title">Tổng số khu trọ</h5>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-auto">--}}
-{{--                                            <div class="stat text-primary">--}}
-{{--                                                <i class="fa-solid fa-house"></i>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <h1 class="mt-1 mb-3">{{ $AdminCountArea }}</h1>--}}
-{{--                                    <div class="mb-0">--}}
-{{--                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>--}}
-{{--                                        <span class="text-muted"></span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Tổng phòng trọ</h5>
+                                            <h5 class="card-title">Tổng số khách ghé thăm</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -72,11 +40,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3">{{ $AdminCountMotel }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success">{{ $AdminCountMotelActive }}</span>
-                                        <span class="text-muted"> Phòng trọ đang hoạt động</span>
-                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $views }}</h1>
                                 </div>
                             </div>
 
@@ -86,7 +50,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Tổng gói dịch vụ</h5>
+                                            <h1 class="card-title">Tổng gói dịch vụ</h1>
                                         </div>
 
                                         <div class="col-auto">
@@ -95,8 +59,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 class="mt-1 mb-3">{{ $AdminCountPlan }}</h4>
+                                    <h1 class="mt-1 mb-3">{{ $AdminCountPlan }}</h1>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="bg-white p-4 my-4">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="row">
+                            <canvas id="myChart10" width="400" height="150"></canvas>
+                        </div>
+                        <div class="row">
+                            <canvas id="myChart11" width="400" height="150"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <canvas id="myChart12" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col-6">
+                                <canvas id="myChart13" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <canvas id="myChart14" width="400" height="400"></canvas>
                             </div>
                         </div>
                     </div>
@@ -121,36 +114,9 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $AdminCountUser }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                            {{ $OwnMotelCountUser }} </span>
-                                        <span class="text-muted">Chủ trọ</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="col-sm-4">--}}
-{{--                            <div class="card">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col mt-0">--}}
-{{--                                            <h5 class="card-title">Tổng số khu trọ</h5>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-auto">--}}
-{{--                                            <div class="stat text-primary">--}}
-{{--                                                <i class="fa-solid fa-house"></i>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <h1 class="mt-1 mb-3">{{ $OwnMotelCountArea }}</h1>--}}
-{{--                                    <div class="mb-0">--}}
-{{--                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>--}}
-{{--                                        <span class="text-muted"></span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
@@ -166,10 +132,6 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $OwnMotelCountMotel }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success">{{ $AdminCountMotelActive }}</span>
-                                        <span class="text-muted"> Phòng trọ đang hoạt động</span>
-                                    </div>
                                 </div>
                             </div>
 
@@ -189,283 +151,351 @@
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $OwnMoteCountPlanBuyed }}</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success">{{ $OwnMoteCountPlanBuyedActive }}</span>
-                                        <span class="text-muted"> gói dịch vụ đang hoạt động</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row  bg-white shadow-lg  rounded-3 p-2">
+                <div class="row">
+                    <div class="col-7">
+                        <canvas id="myChart2" width="400" height="250"></canvas>
+                    </div>
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col-6">
+                                <canvas id="myChart3" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <canvas id="myChart4" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col-6">
+                                <canvas id="myChart5" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{--                </div>--}}
+
+            </div>
         @endif
 
+        <script>
+            window.history.pushState("", "", 'http://phong.ngo/admin/dashboard');
+        </script>
 
-        <div id="chartContainer" class="col-6" style="height: 370px; width: 100%">
-            @php
-                $dataPoints = [
-                    ['label' => 'Chưa thanh toán', 'y' => $OwnMotelCountNotBill ?? 0/ $OwnMotelCountBillSum * 100],
-                ['label' => 'Đã thanh toán', 'y' => $OwnMotelCountBilled ?? 0/$OwnMotelCountBillSum * 100],
-                // array("label"=>"Residential", "y"=>13.9),
-                // array("label"=>"Commercial", "y"=>7.8)
-                ];
-            @endphp
+        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"
+                integrity="sha512-tQYZBKe34uzoeOjY9jr3MX7R/mo7n25vnqbnrkskGr4D6YOoPYSpyafUAzQVjV6xAozAqUFIEFsCO4z8mnVBXA=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        </div>
-    </div>
-{{--    <script>--}}
-{{--        window.onload = function () {--}}
-{{--            var chart = new CanvasJS.Chart("chartContainer", {--}}
-{{--                theme: "light2",--}}
-{{--                animationEnabled: true,--}}
-{{--                title: {--}}
-{{--                    text: "Tổng tiền phòng trong tháng"--}}
-{{--                },--}}
-{{--                data: [{--}}
-{{--                    type: "pie",--}}
-{{--                    indexLabel: "{y}",--}}
-{{--                    yValueFormatString: "#,##0.00\"%\"",--}}
-{{--                    indexLabelPlacement: "inside",--}}
-{{--                    indexLabelFontColor: "#36454F",--}}
-{{--                    indexLabelFontSize: 18,--}}
-{{--                    indexLabelFontWeight: "bolder",--}}
-{{--                    showInLegend: true,--}}
-{{--                    legendText: "{label}",--}}
-{{--                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>--}}
-{{--                }]--}}
-{{--            });--}}
-{{--            chart.render();--}}
-{{--        }--}}
-{{--    </script>--}}
-{{--@endsection--}}
-{{--@section('custom_js')--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");--}}
-{{--            var gradient = ctx.createLinearGradient(0, 0, 0, 225);--}}
-{{--            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");--}}
-{{--            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");--}}
-{{--            // Line chart--}}
-{{--            new Chart(document.getElementById("chartjs-dashboard-line"), {--}}
-{{--                type: "line",--}}
-{{--                data: {--}}
-{{--                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",--}}
-{{--                        "Dec"--}}
-{{--                    ],--}}
-{{--                    datasets: [{--}}
-{{--                        label: "Sales ($)",--}}
-{{--                        fill: true,--}}
-{{--                        backgroundColor: gradient,--}}
-{{--                        borderColor: window.theme.primary,--}}
-{{--                        data: [--}}
-{{--                            2115,--}}
-{{--                            1562,--}}
-{{--                            1584,--}}
-{{--                            1892,--}}
-{{--                            1587,--}}
-{{--                            1923,--}}
-{{--                            2566,--}}
-{{--                            2448,--}}
-{{--                            2805,--}}
-{{--                            3438,--}}
-{{--                            2917,--}}
-{{--                            3327--}}
-{{--                        ]--}}
-{{--                    }]--}}
-{{--                },--}}
-{{--                options: {--}}
-{{--                    maintainAspectRatio: false,--}}
-{{--                    legend: {--}}
-{{--                        display: false--}}
-{{--                    },--}}
-{{--                    tooltips: {--}}
-{{--                        intersect: false--}}
-{{--                    },--}}
-{{--                    hover: {--}}
-{{--                        intersect: true--}}
-{{--                    },--}}
-{{--                    plugins: {--}}
-{{--                        filler: {--}}
-{{--                            propagate: false--}}
-{{--                        }--}}
-{{--                    },--}}
-{{--                    scales: {--}}
-{{--                        xAxes: [{--}}
-{{--                            reverse: true,--}}
-{{--                            gridLines: {--}}
-{{--                                color: "rgba(0,0,0,0.0)"--}}
-{{--                            }--}}
-{{--                        }],--}}
-{{--                        yAxes: [{--}}
-{{--                            ticks: {--}}
-{{--                                stepSize: 1000--}}
-{{--                            },--}}
-{{--                            display: true,--}}
-{{--                            borderDash: [3, 3],--}}
-{{--                            gridLines: {--}}
-{{--                                color: "rgba(0,0,0,0.0)"--}}
-{{--                            }--}}
-{{--                        }]--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            // Pie chart--}}
-{{--            new Chart(document.getElementById("chartjs-dashboard-pie"), {--}}
-{{--                type: "pie",--}}
-{{--                data: {--}}
-{{--                    labels: ["Chrome", "Firefox", "IE"],--}}
-{{--                    datasets: [{--}}
-{{--                        data: [4306, 3801, 1689],--}}
-{{--                        backgroundColor: [--}}
-{{--                            window.theme.primary,--}}
-{{--                            window.theme.warning,--}}
-{{--                            window.theme.danger--}}
-{{--                        ],--}}
-{{--                        borderWidth: 5--}}
-{{--                    }]--}}
-{{--                },--}}
-{{--                options: {--}}
-{{--                    responsive: !window.MSInputMethodContext,--}}
-{{--                    maintainAspectRatio: false,--}}
-{{--                    legend: {--}}
-{{--                        display: false--}}
-{{--                    },--}}
-{{--                    cutoutPercentage: 75--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            // Bar chart--}}
-{{--            new Chart(document.getElementById("chartjs-dashboard-bar"), {--}}
-{{--                type: "bar",--}}
-{{--                data: {--}}
-{{--                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",--}}
-{{--                        "Dec"--}}
-{{--                    ],--}}
-{{--                    datasets: [{--}}
-{{--                        label: "This year",--}}
-{{--                        backgroundColor: window.theme.primary,--}}
-{{--                        borderColor: window.theme.primary,--}}
-{{--                        hoverBackgroundColor: window.theme.primary,--}}
-{{--                        hoverBorderColor: window.theme.primary,--}}
-{{--                        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],--}}
-{{--                        barPercentage: .75,--}}
-{{--                        categoryPercentage: .5--}}
-{{--                    }]--}}
-{{--                },--}}
-{{--                options: {--}}
-{{--                    maintainAspectRatio: false,--}}
-{{--                    legend: {--}}
-{{--                        display: false--}}
-{{--                    },--}}
-{{--                    scales: {--}}
-{{--                        yAxes: [{--}}
-{{--                            gridLines: {--}}
-{{--                                display: false--}}
-{{--                            },--}}
-{{--                            stacked: false,--}}
-{{--                            ticks: {--}}
-{{--                                stepSize: 20--}}
-{{--                            }--}}
-{{--                        }],--}}
-{{--                        xAxes: [{--}}
-{{--                            stacked: false,--}}
-{{--                            gridLines: {--}}
-{{--                                color: "transparent"--}}
-{{--                            }--}}
-{{--                        }]--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            var markers = [{--}}
-{{--                coords: [31.230391, 121.473701],--}}
-{{--                name: "Shanghai"--}}
-{{--            },--}}
-{{--                {--}}
-{{--                    coords: [28.704060, 77.102493],--}}
-{{--                    name: "Delhi"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [6.524379, 3.379206],--}}
-{{--                    name: "Lagos"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [35.689487, 139.691711],--}}
-{{--                    name: "Tokyo"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [23.129110, 113.264381],--}}
-{{--                    name: "Guangzhou"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [40.7127837, -74.0059413],--}}
-{{--                    name: "New York"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [34.052235, -118.243683],--}}
-{{--                    name: "Los Angeles"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [41.878113, -87.629799],--}}
-{{--                    name: "Chicago"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [51.507351, -0.127758],--}}
-{{--                    name: "London"--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    coords: [40.416775, -3.703790],--}}
-{{--                    name: "Madrid "--}}
-{{--                }--}}
-{{--            ];--}}
-{{--            var map = new jsVectorMap({--}}
-{{--                map: "world",--}}
-{{--                selector: "#world_map",--}}
-{{--                zoomButtons: true,--}}
-{{--                markers: markers,--}}
-{{--                markerStyle: {--}}
-{{--                    initial: {--}}
-{{--                        r: 9,--}}
-{{--                        strokeWidth: 7,--}}
-{{--                        stokeOpacity: .4,--}}
-{{--                        fill: window.theme.primary--}}
-{{--                    },--}}
-{{--                    hover: {--}}
-{{--                        fill: window.theme.primary,--}}
-{{--                        stroke: window.theme.primary--}}
-{{--                    }--}}
-{{--                },--}}
-{{--                zoomOnScroll: false--}}
-{{--            });--}}
-{{--            window.addEventListener("resize", () => {--}}
-{{--                map.updateSize();--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);--}}
-{{--            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();--}}
-{{--            document.getElementById("datetimepicker-dashboard").flatpickr({--}}
-{{--                inline: true,--}}
-{{--                prevArrow: "<span title=\"Previous month\">&laquo;</span>",--}}
-{{--                nextArrow: "<span title=\"Next month\">&raquo;</span>",--}}
-{{--                defaultDate: defaultDate--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-    <script>
-        window.history.pushState("", "", 'http://phong.ngo/admin/dashboard');
-    </script>
+
+        @if(!\Illuminate\Support\Facades\Auth::user()->is_admin)
+            @section('custom_js')
+                <script>
+                    const ctx = document.getElementById('myChart');
+                    const ctx2 = document.getElementById('myChart2');
+                    const ctx3 = document.getElementById('myChart3');
+                    const ctx4 = document.getElementById('myChart4');
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ route('getDataChartPieBossMotel',['user_id' => \Illuminate\Support\Facades\Auth::id()]) }}",
+                        type: 'GET',
+                        success: function (result) {
+                            const data = JSON.parse(JSON.stringify(result));
+                            let duLieu = {
+                                label: [],
+                                value: []
+                            };
+                            data.user.forEach(item => {
+                                duLieu.label.push(item.label);
+                                duLieu.value.push(item.value);
+                            })
+                            new Chart(ctx2, {
+                                type: 'line',
+                                data: {
+                                    labels: duLieu.label,
+                                    datasets: [{
+                                        label: 'Biều đồ tỉ lệ tăng trưởng khách thuê',
+                                        data: duLieu.value,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ tỉ lệ tăng trưởng khách thuê'
+                                    },
+                                }
+                            });
+                            new Chart(ctx3, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Tệ', 'Bình thường', 'Tốt', 'Rất tốt', 'Tuyệt'],
+                                    datasets: [{
+                                        label: 'Biều đồ thái độ của khách sau khi ở trọ',
+                                        data: data.vote,
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(255, 200, 120)',
+                                            'rgb(255, 180, 15)'
+                                        ],
+                                        hoverOffset: 5
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ thái độ của khách sau khi ở trọ'
+                                    },
+                                }
+                            });
+                            new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels: [
+                                        'Số phòng trống',
+                                        'Số phòng trọ đã có người thuê',
+                                        'Số phòng trọ đăng tin'
+                                    ],
+                                    datasets: [{
+                                        label: 'Biểu đồ trạng thái phòng trọ',
+                                        data: [data.motel[0].value, data.motel[1].value, data.motel[2].value],
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(255, 205, 86)'
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ trạng thái phòng trọ'
+                                    },
+                                }
+                            });
+                            new Chart(ctx4, {
+                                type: 'pie',
+                                data: {
+                                    labels: data.bill.label,
+                                    datasets: [{
+                                        label: 'Biểu đồ tỷ lệ thu tiền phòng tháng {{ now()->month - 1}}',
+                                        data: data.bill.data,
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ tỷ lệ thu tiền phòng tháng {{ now()->month - 1}}'
+                                    },
+                                }
+                            });
+                        }
+                    });
+
+                </script>
+            @endsection
+        @else
+            @section('custom_js')
+                <script>
+                    const ctx = document.getElementById('myChart10');
+                    const ctx2 = document.getElementById('myChart11');
+                    const ctx3 = document.getElementById('myChart12');
+                    const ctx4 = document.getElementById('myChart13');
+                    const ctx5 = document.getElementById('myChart14');
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{ route('getDataChartPieAdmin') }}",
+                        type: 'GET',
+                        success: function (result) {
+                            const data = JSON.parse(JSON.stringify(result));
+                            console.log(ctx);
+                            new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: data.people.label,
+                                    datasets: [{
+                                        label: 'Tỷ lệ tăng trưởng người dùng',
+                                        data: data.people.value,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ tỉ lệ tăng trưởng người dùng'
+                                    },
+                                }
+                            });
+                            new Chart(ctx2, {
+                                type: 'bar',
+                                data: {
+                                    labels: data.plan.label,
+                                    datasets: [{
+                                        label: 'Số lượt mua gọi của từng loại ưu tiên',
+                                        data: data.plan.value,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                        ],
+                                        borderColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(255, 159, 64)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(75, 192, 192)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(153, 102, 255)',
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                    },
+                                }
+                            });
+                            new Chart(ctx3, {
+                                type: 'pie',
+                                data: {
+                                    labels: data.money_day.label,
+                                    datasets: [{
+                                        label: 'Biểu đồ tỷ lệ nạp rút ngày hôm nay',
+                                        data: data.money_day.value,
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ nạp rút ngày hôm nay',
+                                    },
+                                }
+                            });
+                            new Chart(ctx4, {
+                                type: 'pie',
+                                data: {
+                                    labels: data.money_month.label,
+                                    datasets: [{
+                                        label: 'Biểu đồ tỷ lệ nạp rút ngày hôm nay',
+                                        data: data.money_month.value,
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ nạp rút tháng {{now()->month}}',
+                                    },
+                                }
+                            });
+                            new Chart(ctx5, {
+                                type: 'pie',
+                                data: {
+                                    labels: data.money_year.label,
+                                    datasets: [{
+                                        label: 'Biểu đồ tỷ lệ nạp rút ngày hôm nay',
+                                        data: data.money_year.value,
+                                        backgroundColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(54, 162, 235)',
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biều đồ nạp rút năm {{now()->year}}',
+                                    },
+                                }
+                            });
+                        }
+                    });
+                </script>
+@endsection
+@endif
+
 @endsection
