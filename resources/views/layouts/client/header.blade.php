@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <!-- Main Navigation -->
-                <nav id="navigation" class="style-1 ">
+                <nav id="navigation" class="style-1">
                     <ul id="responsive">
                         <li><a class="a" href="{{route('home')}}">Trang chủ</a>
                         </li>

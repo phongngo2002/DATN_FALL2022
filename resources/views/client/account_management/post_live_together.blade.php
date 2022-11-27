@@ -287,6 +287,7 @@
                                 <p class="no-mb">
                                     <label for="" class="mb-2">Số ngày đăng bài</label>
                                     <input type="number" placeholder="Số ngày đăng bài" id="post_day">
+                                    <p id="message" class="text-danger"></p>
                                 </p>
                             </div>
                         </div>
@@ -359,7 +360,7 @@
                                         <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
                                         <button data-toggle="modal" data-target="#exampleModal2" type="button"
                                                 class="btn btn-success" id="btn_more" style="width: 100%"
-                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>Gia
+                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}} disabled>Gia
                                             hạn ngay
                                         </button>
                                     </div>
@@ -564,11 +565,26 @@
             }
 
             function changeDisable(total) {
-                if (Number(total) > Number(money_user.value)) {
+                if(total == 0){
+                    document.getElementById('tt').setAttribute('disabled', 'true');
+                }
+                else if (Number(total) > Number(money_user.value)) {
                     document.getElementById('tt').setAttribute('disabled', 'true');
                     document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
                 } else {
                     document.getElementById('tt').removeAttribute('disabled');
+                    document.getElementById('notification').innerText = '';
+                }
+            }
+            function changeDisable2(total) {
+                if(total == 0){
+                    document.getElementById('btn_more').setAttribute('disabled', 'true');
+                }
+                else if (Number(total) > Number(money_user.value)) {
+                    document.getElementById('btn_more').setAttribute('disabled', 'true');
+                    document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
+                } else {
+                    document.getElementById('btn_more').removeAttribute('disabled');
                     document.getElementById('notification').innerText = '';
                 }
             }
@@ -580,6 +596,7 @@
                 data.forEach(e => {
                     if (post_plan_value != 0) {
                         if (post_plan_value == e.id) {
+                           
                             show_plan.innerText = post_plan_title;
                             show_money.innerText = post_plan_price
                             money_temp = post_plan_price;
@@ -593,9 +610,22 @@
                                 show_total.innerText = money_temp * 2
                                 document.getElementById('post_money1').setAttribute('value', money_temp * 2);
                             } else {
+                                document.getElementById('post_day1').value = +post_day.value;
                                 post_day.removeAttribute('readonly');
                             }
-                            changeDisable(money_temp * post_day.value);
+                            //nếu có trường plan_id_old thì mới thực hiện lấy dữ liệu để kiểm tra
+                            if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
+                                const currentPlanId = document.querySelector('#plan_id_old').value;
+                                if (currentPlanId && currentPlanId == post_plan_value) {
+                                    document.getElementById('tt').setAttribute('disabled', 'true');
+                                    document.getElementById('post_day').setAttribute('disabled', 'true');
+                                    document.getElementById('message').innerText = 'Hãy chọn gói đăng bài khác !'
+                                }else{
+                                    changeDisable(money_temp * post_day.value);
+                                    document.getElementById('post_day').removeAttribute('disabled', 'true');
+                                    document.getElementById('message').innerText = '';
+                                }
+                            }
                         }
                     } else {
                         show_plan.innerText = '';
@@ -611,10 +641,11 @@
             }
 
             post_day.oninput = function () {
+                document.getElementById('post_day1').value = +post_day.value;
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
                 document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);
-                changeDisable(money_temp * post_day.value);
+                changeDisable(money_temp * post_day.value,post_day.value);
             }
 
             if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
@@ -625,7 +656,7 @@
                     document.getElementById('number_people2').value = document.getElementById('number_people').value
                     document.getElementById('post_day_more').value = date_more.value
                     document.getElementById('post_money2').setAttribute('value', old_price.innerText * date_more.value);
-                    changeDisable(old_price.innerText * date_more.value);
+                    changeDisable2(old_price.innerText * date_more.value);
                 }
             }
 

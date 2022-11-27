@@ -33,13 +33,18 @@ class Area extends Model
 
     public function admin_create_area($params = [])
     {
-        $result = DB::table($this->table)->insert([
+        $result = DB::table($this->table)->insertGetId([
             'name' => $params['cols']['name'],
             'address' => $params['cols']['address'],
             'link_gg_map' => $params['cols']['link_gg_map'],
             'user_id' => Auth::id(),
             'created_at' => Carbon::now(),
-            'img' => $params['cols']['img']
+            'img' => $params['cols']['img'],
+            'district_id' => $params['cols']['district_id'],
+            'ward_id' => $params['cols']['ward_id'],
+            'latitude' => $params['cols']['latitude'],
+            'longitude' => $params['cols']['longitude'],
+            'city_id' => $params['cols']['city_id']
         ]);
 
         return $result;
@@ -56,10 +61,15 @@ class Area extends Model
             'name' => $params['cols']['name'],
             'address' => $params['cols']['address'],
             'link_gg_map' => $params['cols']['link_gg_map'],
-            'img' => $params['cols']['img']
+            'img' => $params['cols']['img'],
+            'district_id' => $params['cols']['district_id'],
+            'ward_id' => $params['cols']['ward_id'],
+            'city_id' => $params['cols']['city_id'],
+            'latitude' => $params['cols']['latitude'],
+            'longitude' => $params['cols']['longitude'],
         ]);
 
-        return $result;
+        return $params['cols']['id'];
     }
 
     public function adminDeteletArea($id)
@@ -105,7 +115,7 @@ class Area extends Model
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('plan_history.status', 1)
             ->where('type', 1)
-            ->where('motels.status', '!=', 3)
+            ->where('motels.status', '=', 5)
             ->where('area_id', $area_id)
             ->orderBy('priority_level')
             ->paginate(10);

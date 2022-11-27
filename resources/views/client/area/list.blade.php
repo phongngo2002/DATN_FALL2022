@@ -10,6 +10,7 @@
     <meta name="description" content="html 5 template">
     <meta name="author" content="">
     <title>List View</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/client/favicon.ico')}}">
     <!-- GOOGLE FONTS -->
@@ -160,30 +161,11 @@
                             <div class="rld-main-search">
                                 <div class="row">
                                     <div class="rld-single-input">
-                                        <input type="text" placeholder="Enter Keyword...">
+                                        <input type="text" placeholder="Nhập mã phòng..." id="room_number">
                                     </div>
-                                    <div class="rld-single-select ml-22">
-                                        <select class="select single-select">
-                                            <option value="1">Property Type</option>
-                                            <option value="2">Family House</option>
-                                            <option value="3">Apartment</option>
-                                            <option value="3">Condo</option>
-                                        </select>
-                                    </div>
-                                    <div class="rld-single-select">
-                                        <select class="select single-select mr-0">
-                                            <option value="1">Location</option>
-                                            <option value="2">Los Angeles</option>
-                                            <option value="3">Chicago</option>
-                                            <option value="3">Philadelphia</option>
-                                            <option value="3">San Francisco</option>
-                                            <option value="3">Miami</option>
-                                            <option value="3">Houston</option>
-                                        </select>
-                                    </div>
-                                    <div class="dropdown-filter"><span>Advanced Search</span></div>
+                                    <div class="dropdown-filter"><span>Tìm kiếm nâng cao</span></div>
                                     <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                        <a class="btn btn-yellow" href="#">Search Now</a>
+                                        <a class="btn btn-yellow" style="cursor: pointer" id="search">Tìm kiếm ngay</a>
                                     </div>
                                     <div class="explore__form-checkbox-list full-filter">
                                         <div class="row">
@@ -192,10 +174,10 @@
                                                 <div class="form-group categories">
                                                     <div class="nice-select form-control wide" tabindex="0"><span
                                                             class="current"><i
-                                                                class="fa fa-home"></i>Property Status</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected ">For Sale</li>
-                                                            <li data-value="2" class="option">For Rent</li>
+                                                                class="fa fa-home"></i>Trạng thái</span>
+                                                        <ul class="list" id="status1">
+                                                            <li data-value="1" class="option selected ">Cho thuê</li>
+                                                            <li data-value="2" class="option">Tìm người ở ghép</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -205,9 +187,10 @@
                                                 <!-- Form Bedrooms -->
                                                 <div class="form-group beds">
                                                     <div class="nice-select form-control wide" tabindex="0"><span
-                                                            class="current"><i class="fa fa-bed" aria-hidden="true"></i> Bedrooms</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected">1</li>
+                                                            class="current"><i class="fa fa-bed" aria-hidden="true"></i> Số giường ngủ</span>
+                                                        <ul class="list" id="bedroom">
+                                                            <li data-value="0" class="option selected">0</li>
+                                                            <li data-value="1" class="option">1</li>
                                                             <li data-value="2" class="option">2</li>
                                                             <li data-value="3" class="option">3</li>
                                                             <li data-value="3" class="option">4</li>
@@ -227,9 +210,10 @@
                                                 <div class="form-group bath">
                                                     <div class="nice-select form-control wide" tabindex="0"><span
                                                             class="current"><i class="fa fa-bath"
-                                                                               aria-hidden="true"></i> Bathrooms</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected">1</li>
+                                                                               aria-hidden="true"></i> Số phòng vệ sinh</span>
+                                                        <ul class="list" id="toilet">
+                                                            <li data-value="0" class="option selected">1</li>
+                                                            <li data-value="1" class="option">1</li>
                                                             <li data-value="2" class="option">2</li>
                                                             <li data-value="3" class="option">3</li>
                                                             <li data-value="3" class="option">4</li>
@@ -244,61 +228,44 @@
                                                 </div>
                                                 <!--/ End Form Bathrooms -->
                                             </div>
-                                            <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-                                                <!-- Price Fields -->
-                                                <div class="main-search-field-2">
-                                                    <!-- Area Range -->
-                                                    <div class="range-slider">
-                                                        <label>Area Size</label>
-                                                        <div id="area-range" data-min="0" data-max="1300"
-                                                             data-unit="sq ft"></div>
-                                                    </div>
-                                                    <br>
-                                                    <!-- Price Range -->
-                                                    <div class="range-slider">
-                                                        <label>Price Range</label>
-                                                        <div id="price-range" data-min="0" data-max="600000"
-                                                             data-unit="$"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                 <!-- Checkboxes -->
-                                                <div class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                    <input id="check-2" type="checkbox" name="check">
-                                                    <label for="check-2">Air Conditioning</label>
-                                                    <input id="check-3" type="checkbox" name="check">
-                                                    <label for="check-3">Swimming Pool</label>
-                                                    <input id="check-4" type="checkbox" name="check">
-                                                    <label for="check-4">Central Heating</label>
-                                                    <input id="check-5" type="checkbox" name="check">
-                                                    <label for="check-5">Laundry Room</label>
-                                                    <input id="check-6" type="checkbox" name="check">
-                                                    <label for="check-6">Gym</label>
-                                                    <input id="check-7" type="checkbox" name="check">
-                                                    <label for="check-7">Alarm</label>
-                                                    <input id="check-8" type="checkbox" name="check">
-                                                    <label for="check-8">Window Covering</label>
+                                                <label for="">Dịch vụ phòng</label>
+                                                <div
+                                                    class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                    <input id="check2-1" type="checkbox"
+                                                           name="service[cho-de-xe]">
+                                                    <label for="check2-1">Chỗ để xe</label>
+                                                    <input id="check2-2" value="cho_de_xe"
+                                                           type="checkbox"
+                                                           name="services">
+                                                    <label for="check2-2">Điều hoà</label>
+                                                    <input id="check2-3" value="dieu_hoa"
+                                                           type="checkbox"
+                                                           name="services">
+                                                    <label for="check2-3">Thang máy</label>
+                                                    <input id="check2-4" type="checkbox"
+                                                           name="services" value="may_giat">
+                                                    <label ư for="check2-4">Máy giặt</label>
                                                 </div>
                                                 <!-- Checkboxes / End -->
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                 <!-- Checkboxes -->
-                                                <div class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                    <input id="check-9" type="checkbox" name="check">
-                                                    <label for="check-9">WiFi</label>
-                                                    <input id="check-10" type="checkbox" name="check">
-                                                    <label for="check-10">TV Cable</label>
-                                                    <input id="check-11" type="checkbox" name="check">
-                                                    <label for="check-11">Dryer</label>
-                                                    <input id="check-12" type="checkbox" name="check">
-                                                    <label for="check-12">Microwave</label>
-                                                    <input id="check-13" type="checkbox" name="check">
-                                                    <label for="check-13">Washer</label>
-                                                    <input id="check-14" type="checkbox" name="check">
-                                                    <label for="check-14">Refrigerator</label>
-                                                    <input id="check-15" type="checkbox" name="check">
-                                                    <label for="check-15">Outdoor Shower</label>
+                                                <div
+                                                    class="checkboxes one-in-row margin-bottom-10 ch-2">
+                                                    <input id="check2-5" type="checkbox"
+                                                           name="services" value="nong_lanh">
+                                                    <label for="check2-5">Nóng lạnh</label>
+                                                    <input id="check2-7" type="checkbox"
+                                                           name="services" value="tu_lanh">
+                                                    <label for="check2-7">Tủ lạnh</label>
+                                                    <input id="check2-8" type="checkbox"
+                                                           name="services" value="giuong_ngu">
+                                                    <label for="check2-8">Giường ngủ</label>
+                                                    <input id="check2-9" type="checkbox"
+                                                           name="services" value="tu_quan_ao">
+                                                    <label for="check2-9">Tủ quần áo</label>
                                                 </div>
                                                 <!-- Checkboxes / End -->
                                             </div>
@@ -316,7 +283,7 @@
                     <div class="detail-wrapper-body">
                         <div class="listing-title-bar">
                             <div class="text-heading text-left">
-                                <p class="font-weight-bold mb-0 mt-3">10 kết quả được tìm thấy</p>
+                                <p class="font-weight-bold mb-0 mt-3" id="count_result">10 kết quả được tìm thấy</p>
                             </div>
                         </div>
                     </div>
@@ -325,25 +292,18 @@
                         <div class="input-group border rounded input-group-lg w-auto mr-4">
                             <label
                                 class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
-                                for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
+                                for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sắp xếp:</label>
                             <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
                                     data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3"
                                     id="inputGroupSelect01" name="sortby">
-                                <option selected>Top Selling</option>
-                                <option value="1">Most Viewed</option>
-                                <option value="2">Price(low to high)</option>
-                                <option value="3">Price(high to low)</option>
+                                <option value="asc">Giá từ thấp tời cao</option>
+                                <option value="desc">Giá từ cao xuống thấp</option>
                             </select>
-                        </div>
-                        <div class="sorting-options">
-                            <a href="#" class="change-view-btn active-view-btn"><i class="fa fa-th-list"></i></a>
-                            <a href="properties-full-grid-1.html" class="change-view-btn lde"><i
-                                    class="fa fa-th-large"></i></a>
                         </div>
                     </div>
                 </div>
             </section>
-            <div class="row featured portfolio-items">
+            <div class="row featured portfolio-items" id="motel_area">
                 @foreach($motels as $motel)
                     <div class="item col-lg-4 col-md-12 col-xs-12 landscapes sale pr-0 pb-0 mt-4">
                         <div class="project-single mb-0 bb-0" data-aos="fade-up">
@@ -359,10 +319,12 @@
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}" class="btn"><i
+                                            class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}" class="img-poppu btn"><i
+                                    <a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}"
+                                       class="img-poppu btn"><i
                                             class="fa fa-photo"></i></a>
                                 </div>
                             </div>
@@ -371,7 +333,9 @@
                     <!-- homes content -->
                     <div class="col-lg-8 col-md-12 homes-content pb-0 mb-44 mt-4" data-aos="fade-up">
                         <!-- homes address -->
-                        <h3><a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}">{{$motel->room_number}}</a></h3>
+                        <h3>
+                            <a href="{{route('client.motel.detail',['id' => $motel->motel_id])}}">{{$motel->room_number}}</a>
+                        </h3>
                         <!-- homes List -->
                         <ul class="homes-list clearfix pb-3">
                             <li class="the-icons">
@@ -406,9 +370,9 @@
 
                 @endforeach
             </div>
-            <div class="my-4">
-                {{$motels->links()}}
-            </div>
+            {{--            <div class="my-4">--}}
+            {{--                {{$motels->links()}}--}}
+            {{--            </div>--}}
         </div>
     </section>
     <!-- END SECTION PROPERTIES LISTING -->
@@ -540,7 +504,6 @@
         </div>
     </footer>
 
-    <a data-scroll href="#wrapper" class="go-up"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
     <!-- END FOOTER -->
 
     <!--register form -->
@@ -581,7 +544,125 @@
         });
 
     </script>
+    <script>
+        const room_number = document.getElementById('room_number');
+        const bedroom = document.getElementById('bedroom');
+        const toilet = document.getElementById('toilet');
+        const services1 = document.getElementsByName('services');
+        const status = document.getElementById('status1');
+        const order_by = document.getElementsByName('sortby')[0];
+        document.getElementById('search').addEventListener('click', () => {
+            let obj = {
+                room_number: room_number.value,
+                order_by_price: order_by.value,
+            }
+            let services = [];
+            services1.forEach(element => {
+                if (element.checked) {
+                    services.push(element.value);
+                }
+            })
+            let li = status.querySelectorAll('li');
+            li.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    obj = {...obj, type: +item.dataset.value}
+                }
+            })
+            li = bedroom.querySelectorAll('li');
+            li.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    obj = {...obj, bedroom: +item.dataset.value}
+                }
+            })
+            li = toilet.querySelectorAll('li');
+            li.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    obj = {...obj, toilet: +item.dataset.value}
+                }
+            })
+            // console.log(room_number, bedroom, toilet, services, status, order_by)
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('filter_motel_by_area') }}",
+                data: {
+                    ...obj, service: services, area_id: {{$area_id}}
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+                    const data = JSON.parse(JSON.stringify(result));
+                    document.getElementById('motel_area').innerHTML = data.map(item => {
+                        return `
+                        <div class="item col-lg-4 col-md-12 col-xs-12 landscapes sale pr-0 pb-0 mt-4">
+                            <div class="project-single mb-0 bb-0" data-aos="fade-up">
+                                <div class="project-inner project-head">
+                                    <div class="homes">
+                                        <!-- homes img -->
+                                        <a href="${'http://phong.ngo/phong-tro/' + item.motel_id}"
+                                           class="homes-img">
+                                            <div class="homes-tag button alt featured">Nổi bật</div>
 
+                                            <img src="${JSON.parse(item.photo_gallery)[0]}" alt="home-1"
+                                                 class="img-responsive">
+                                        </a>
+                                    </div>
+                                    <div class="button-effect">
+                                        <a href="${'http://phong.ngo/phong-tro/' + item.motel_id}" class="btn"><i
+                                            class="fa fa-link"></i></a>
+                                        <a href="https://www.youtube.com/watch?v=14semTlwyUY"
+                                           class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                        <a href="${'http://phong.ngo/phong-tro/' + item.motel_id}"
+                                           class="img-poppu btn"><i
+                                            class="fa fa-photo"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- homes content -->
+                        <div class="col-lg-8 col-md-12 homes-content pb-0 mb-44 mt-4" data-aos="fade-up">
+                            <!-- homes address -->
+                            <h3>
+                                <a href="${'http://phong.ngo/phong-tro/' + item.motel_id}">${item.room_number}</a>
+                            </h3>
+                            <!-- homes List -->
+                            <ul class="homes-list clearfix pb-3">
+                                <li class="the-icons">
+                                    <i class="fa-sharp fa-solid fa-bolt"></i>
+                                    <span class="font-weight-bold">${item.electric_money}/số</span>
+                                </li>
+                                <li class="the-icons">
+                                    <i class="fa-sharp fa-solid fa-water"></i>
+                                    <span class="font-weight-bold">${item.warter_money}/khối</span>
+                                </li>
+                                <li class="the-icons">
+                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                    <span class="font-weight-bold">${item.area} m3</span>
+                                </li>
+                                <li class="the-icons">
+                                    <i class="fa-sharp fa-solid fa-shield"></i>
+                                    <span class="font-weight-bold">An ninh tốt</span>
+                                </li>
+                            </ul>
+                            <div><span class="text-danger font-weight-bold">${item.price}/tháng</span></div>
+                            <div class="footer">
+                                <a href="http://phong.ngo/${item.motel_id}""">
+                                    <img
+                                        src="${item.avatar ? item.avatar : 'https://img.thuthuattinhoc.vn/uploads/2019/01/08/anh-anime-boy-dep-nhat_101905549.jpg'}"
+                                        alt="" class="mr-2"> ${item.name}
+                        </a>
+                        <span>
+                        <i class="fa fa-calendar"></i> ${item.created_at}
+                        </span>
+                        </div>
+                    </div>`;
+                    }).join("")
+                }
+            });
+        })
+
+    </script>
 </div>
 <!-- Wrapper / End -->
 </body>

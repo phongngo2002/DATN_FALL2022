@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('type')->default(0);
             $table->integer('time');
             $table->float('price', 11, 3);
+            $table->string('title_color');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

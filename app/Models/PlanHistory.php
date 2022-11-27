@@ -123,7 +123,7 @@ class PlanHistory extends Model
             ->select(['plan_history.status',
                 'motels.id as motel_id',
                 'max_people',
-                'plans.name as plan_title',
+                'plans.name',
                 'plans.id as plan_id',
                 'priority_level',
                 'plans.name as plan_name',
@@ -131,7 +131,7 @@ class PlanHistory extends Model
                 'motels.room_number',
                 'motels.price', 'motels.area',
                 'motels.services', 'motels.data_post',
-                'motels.photo_gallery',
+                'motels.photo_gallery as photo_gallery_i',
                 'areas.name as area_name',
                 'areas.address',])
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')

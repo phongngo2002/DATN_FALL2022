@@ -25,16 +25,17 @@ return new class extends Migration {
             $table->integer('max_people')->default(0);
             $table->date('start_time')->nullable();
             $table->date('end_time')->nullable();
-            $table->longText('services')->default('');
+            $table->longText('services')->nullable();
             $table->integer('category_id')->default(1);
             $table->longText('video')->nullable();
             $table->longText('data_post')->nullable();
-            $table->float('electric_money',11,2)->default(0);
-            $table->float('warter_money',11,2)->default(0);
-            $table->float('wifi',11,2)->default(0);
+            $table->float('electric_money', 11, 2)->default(0);
+            $table->float('warter_money', 11, 2)->default(0);
+            $table->float('wifi', 11, 2)->default(0);
             $table->integer('money_deposit')->nullable();
             $table->integer('day_deposit')->nullable();
             $table->longText('transfer_infor')->nullable();
+            $table->integer('view')->default(0);
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 
-@section('title_page', 'Danh sách khu trọ')
+@section('title_page', 'Danh sách lịch hẹn xem phòng')
 
 @section('content')
     @if ( Session::has('success') )

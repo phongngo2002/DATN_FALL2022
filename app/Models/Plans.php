@@ -22,7 +22,8 @@ class Plans extends Model
         'time',
         'price',
         'created_at',
-        'status'
+        'status',
+        'title_color'
     ];
 
     public function list()

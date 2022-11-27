@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Client\BillController as ClientBillController;
 use App\Http\Controllers\Admin\PlanHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlansController;
@@ -18,19 +20,22 @@ use App\Http\Controllers\Auth\registerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/abc/test', function () {
     return view('email.bill');
 });
+Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 
 Route::get('/', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
 Route::get('/khu-tro/{areaID}', [\App\Http\Controllers\Client\HomeController::class, 'motel_by_area'])->name('motel_by_area');
 
-Route::get('/phong-tro', [\App\Http\Controllers\Client\HomeController::class, 'motels'])->name('motels');
 Route::get('/test', function () {
     return view('test');
 });
 Route::get('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@getFormSelectRole')->name('get_select_role_resign');
 Route::post('/lua-chon-vai-tro', 'App\Http\Controllers\GoogleController@postFormSelectRole')->name('get_select_role_resign');
+Route::get('/tim-kiem', [\App\Http\Controllers\Client\HomeController::class, 'search'])->name('search');
+Route::get('/phong-tro/tim-kiem', [\App\Http\Controllers\Client\HomeController::class, 'searchMotels'])->name('search_motels');
 
 
 Route::get('/dang-nhap', 'App\Http\Controllers\Auth\LoginController@getLogin')->name('get_login');
@@ -94,18 +99,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quan-ly-tai-khoan/lich-su-dat-coc', 'App\Http\Controllers\Client\DepositController@historyDeposit')->name('get_history_deposit');
 
     Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
-    Route::get('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
-    Route::post('post-live-together/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
-    Route::get('list-live-together', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
+    Route::get('phong-o-ghep/tim-kiem', 'App\Http\Controllers\Client\MotelController@searchListLiveTogether')->name("client_search_list_live_together");
+
+    Route::get('phong-o-ghep/{motel_id}', 'App\Http\Controllers\Client\MotelController@postLiveTogether')->name("client_post_live_together");
+    Route::post('phong-o-ghep/{motel_id}', 'App\Http\Controllers\Client\MotelController@savePostLiveTogether')->name("client_save_post_live_together");
+    Route::get('phong-o-ghep', 'App\Http\Controllers\Client\MotelController@listLiveTogether')->name("client_list_live_together");
+
     //Đặt cọc
     Route::get('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@deposit')->name("client_deposit");
     Route::post('phong-tro/dat-coc/{id}', 'App\Http\Controllers\Client\DepositController@post_deposit')->name("client_post_deposit");
 
+    // thành toán hóa đơn
+    Route::get('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'get_pay_bill'])->name("client_get_pay_bill");
+    Route::post('phong-tro/thanh-toan-hoa-don/{bill}', [ClientBillController::class, 'pay_bill'])->name("client_pay_bill");
 
     Route::prefix('admin')->group(function () {
         // Màn thống kê
         // Chủ trọ và admin
         Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('backend_get_dashboard');
+        Route::post('thong-tin-tai-khoan', 'App\Http\Controllers\Admin\DashboardController@updateProfile')->name('updateProfile');
+
         Route::get('thong-tin-tai-khoan', 'App\Http\Controllers\Admin\DashboardController@profile')->name('backend_get_profile');
         // Lịch sửa mua gói dịch vụ
         Route::get('/lich-su-mua-goi', [PlanHistoryController::class, "index_plan_history"])->name("admin.plan-history.list");
@@ -117,7 +130,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/doi-ve', 'App\Http\Controllers\Admin\TicketController@admin_swap_gift_to_ticket')->name('admin_swap_gift_to_ticket');
             Route::get('', 'App\Http\Controllers\Admin\TicketController@get_view_whell_luck')->name('admin_get_view_wheel_luck');
             Route::post('mua-luot', 'App\Http\Controllers\Admin\TicketController@buy_ticket')->name('buy_ticket');
-
         });
         Route::prefix('dat-coc')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\DepositController@index_deposits')->name('backend_get_list_deposit');
@@ -134,7 +146,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', 'App\Http\Controllers\WithdrawController@get_form_withdraw')->name('backend_get_form_withdraw');
             Route::post('/', 'App\Http\Controllers\WithdrawController@withdraw');
             Route::get('/lich-su-rut-tien', 'App\Http\Controllers\WithdrawController@list')->name('backend_get_history_withdraw');
-
         });
         Route::prefix('hoa-don')->group(function () {
             Route::get('/', 'App\Http\Controllers\Admin\BillController@index')->name('backend_get_list_bill');
@@ -149,7 +160,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/{id}/cap-nhat', 'App\Http\Controllers\Admin\AreaController@saveUpdate_areas')->name('backend_get_post_edit_area');
             Route::get('/{id}/xoa', 'App\Http\Controllers\Admin\AreaController@delete_areas')->name('backend_delete_area');
             Route::post('/xuat-hoa-don', 'App\Http\Controllers\Admin\AreaController@send_bill')->name('backend_send_bill');
-
         });
 
         // Quản lý phòng trọ
@@ -181,7 +191,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "create_post_motels"])->name("admin.motel.post");
             Route::post('{id}/{idMotel}/dang-tin', [\App\Http\Controllers\Admin\MotelController::class, "save_create_post_motels"])->name("admin.motel.post_post");
             Route::get('{id}/{idMotel}/dang-ky-o-ghep', [\App\Http\Controllers\Admin\MotelController::class, "contact_motel"])->name("admin.motel.contact");
-
         });
 
         // Chỉ có admin
@@ -217,8 +226,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('success/{id}', 'App\Http\Controllers\PayPalPaymentController@success')->name('success.payment');
     });
-
-
 });
 
 Route::get('/403', function () {

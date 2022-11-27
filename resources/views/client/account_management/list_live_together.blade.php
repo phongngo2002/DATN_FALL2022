@@ -11,403 +11,219 @@
                         <div class="hero-inner">
                             <!-- Welcome Text -->
                             <div class="welcome-text">
-                                <h1 class="h1">Find Your Dream
+                                <h1 class="h1">Tìm giấc mơ của bạn
                                     <br class="d-md-none">
                                     <span class="typed border-bottom"></span>
                                 </h1>
-                                <p class="mt-4">We Have Over Million Properties For You.</p>
+                                <p class="mt-4">Chúng tôi có hơn 1 triệu lựa chọn cho bạn</p>
                             </div>
                             <!--/ End Welcome Text -->
                             <!-- Search Form -->
-                            <div class="col-12">
-                                <div class="banner-search-wrap">
-                                    <ul class="nav nav-tabs rld-banner-tab">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="tabs_1">
-                                            <div class="rld-main-search">
-                                                <div class="row">
-                                                    <div class="rld-single-input">
-                                                        <input type="text" placeholder="Enter Keyword...">
-                                                    </div>
-                                                    <div class="rld-single-select ml-22">
-                                                        <select class="select single-select">
-                                                            <option value="1">Property Type</option>
-                                                            <option value="2">Family House</option>
-                                                            <option value="3">Apartment</option>
-                                                            <option value="3">Condo</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="rld-single-select">
-                                                        <select class="select single-select mr-0">
-                                                            <option value="1">Location</option>
-                                                            <option value="2">Los Angeles</option>
-                                                            <option value="3">Chicago</option>
-                                                            <option value="3">Philadelphia</option>
-                                                            <option value="3">San Francisco</option>
-                                                            <option value="3">Miami</option>
-                                                            <option value="3">Houston</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="dropdown-filter d-none d-none d-lg-none d-xl-block">
-                                                        <span>Advanced Search</span></div>
-                                                    <div class="pl-0">
-                                                        <a class="btn btn-yellow" href="#">Search Now</a>
-                                                    </div>
-                                                    <div
-                                                        class="explore__form-checkbox-list full-filter d-none d-none d-lg-none d-xl-flex">
+                            <div>
+                                <form action="{{route('client_search_list_live_together')}}" method="GET"
+                                      id="formSearch">
+                                    <div class="col-12">
+                                        <div class="banner-search-wrap">
+                                            <ul class="nav nav-tabs rld-banner-tab">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#tabs_1">Tìm kiếm
+                                                        phòng
+                                                        trọ bạn muốn</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+
+                                                <div class="tab-pane fade show active" id="tabs_1">
+                                                    <div class="rld-main-search">
                                                         <div class="row">
-                                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
-                                                                <!-- Form Property Status -->
-                                                                <div class="form-group categories">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-home"></i>Property
-                                                                                Status</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected ">For Sale
-                                                                            </li>
-                                                                            <li data-value="2" class="option">For
-                                                                                Rent
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Property Status -->
+                                                            <div class="rld-single-select ml-22" id="city_id">
+                                                                <select class="select single-select"
+                                                                >
+                                                                    <option value="0">Lựa chọn thành phố</option>
+                                                                </select>
+                                                                <input type="hidden" name="city_id">
                                                             </div>
-                                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-                                                                <!-- Form Bedrooms -->
-                                                                <div class="form-group beds">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-bed"
-                                                                                aria-hidden="true"></i>
-                                                                                Bedrooms</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected">1
-                                                                            </li>
-                                                                            <li data-value="2" class="option">2</li>
-                                                                            <li data-value="3" class="option">3</li>
-                                                                            <li data-value="3" class="option">4</li>
-                                                                            <li data-value="3" class="option">5</li>
-                                                                            <li data-value="3" class="option">6</li>
-                                                                            <li data-value="3" class="option">7</li>
-                                                                            <li data-value="3" class="option">8</li>
-                                                                            <li data-value="3" class="option">9</li>
-                                                                            <li data-value="3" class="option">10
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Bedrooms -->
+                                                            <div class="rld-single-select ml-22" id="district_id">
+                                                                <select class="select single-select"
+
+                                                                >
+                                                                    <option value="0">Lựa chọn quận huyện</option>
+                                                                </select>
+                                                                <input type="hidden" name="district_id">
                                                             </div>
-                                                            <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
-                                                                <!-- Form Bathrooms -->
-                                                                <div class="form-group bath">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-bath"
-                                                                                aria-hidden="true"></i>
-                                                                                Bathrooms</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected">1
-                                                                            </li>
-                                                                            <li data-value="2" class="option">2</li>
-                                                                            <li data-value="3" class="option">3</li>
-                                                                            <li data-value="3" class="option">4</li>
-                                                                            <li data-value="3" class="option">5</li>
-                                                                            <li data-value="3" class="option">6</li>
-                                                                            <li data-value="3" class="option">7</li>
-                                                                            <li data-value="3" class="option">8</li>
-                                                                            <li data-value="3" class="option">9</li>
-                                                                            <li data-value="3" class="option">10
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Bathrooms -->
+                                                            <div class="rld-single-select" id="ward_id">
+                                                                <select class="select single-select mr-0"
+
+                                                                >
+                                                                    <option value="0">Lựa chọn phường/xã</option>
+                                                                </select>
+                                                                <input type="hidden" name="ward_id">
                                                             </div>
                                                             <div
-                                                                class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-                                                                <!-- Price Fields -->
-                                                                <div class="main-search-field-2">
-                                                                    <!-- Area Range -->
-                                                                    <div class="range-slider">
-                                                                        <label>Area Size</label>
-                                                                        <div id="area-range" data-min="0"
-                                                                             data-max="1300" data-unit="sq ft"></div>
-                                                                        <div class="clearfix"></div>
+                                                                class="dropdown-filter d-none d-none d-lg-none d-xl-block">
+                                                                <span>Tìm kiếm nâng cao</span></div>
+                                                            <div class="pl-0">
+                                                                <button type="button" id="btnSearch"
+                                                                        class="btn btn-yellow search"
+                                                                        style="width:165px;">Tìm kiếm
+                                                                    ngay
+                                                                </button>
+                                                            </div>
+                                                            <div
+                                                                class="explore__form-checkbox-list full-filter d-none d-none d-lg-none d-xl-flex  shadow p-3 mb-5 bg-body rounded">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 p-2">
+                                                                        <!-- Form Bedrooms -->
+                                                                        <div class="form-group beds">
+                                                                            <input type="hidden" name="bedroom">
+                                                                            <div
+                                                                                class="nice-select form-control wide"
+                                                                                tabindex="0">
+                                                                            <span class="current"><i class="fa fa-bed"
+                                                                                                     aria-hidden="true"></i>Phòng ngủ</span>
+                                                                                <ul class="list" id="bedroom">
+                                                                                    @for ($i = 1; $i < 5; $i++)
+                                                                                        <li data-value="{{$i}}"
+                                                                                            class="option">{{$i}}</li>
+                                                                                    @endfor
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!--/ End Form Bedrooms -->
                                                                     </div>
-                                                                    <br>
-                                                                    <!-- Price Range -->
-                                                                    <div class="range-slider">
-                                                                        <label>Price Range</label>
-                                                                        <div id="price-range" data-min="0"
-                                                                             data-max="600000" data-unit="$"></div>
-                                                                        <div class="clearfix"></div>
+                                                                    <div class="col-lg-6 col-md-6 p-2">
+                                                                        <!-- Form Bathrooms -->
+                                                                        <div class="form-group bath">
+                                                                            <div
+                                                                                class="nice-select form-control wide"
+                                                                                tabindex="0">
+                                                                                <input type="hidden" name="toilet">
+                                                                                <span class="current"><i
+                                                                                        class="fa fa-bath"
+                                                                                        aria-hidden="true"></i>Phòng tắm/WC</span>
+                                                                                <ul class="list" id="toilet">
+                                                                                    @for ($i = 1; $i < 5; $i++)
+                                                                                        <li data-value="{{$i}}"
+
+                                                                                            class="option">{{$i}}</li>
+                                                                                    @endfor
+                                                                                </ul>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/ End Form Bathrooms -->
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
+                                                                        <!-- Price Fields -->
+                                                                        <div class="main-search-field-2">
+                                                                            <!-- Area Range -->
+                                                                            <div class="range-slider">
+                                                                                <label>Diện tích</label>
+                                                                                <div id="area-range" data-min="0"
+                                                                                     data-max="50"
+                                                                                     data-unit="m&#178"
+                                                                                     class="area_range">
+                                                                                    <a class="ui-slider-handle ui-state-default ui-corner-all"
+                                                                                       href="#" style="left: 0%;"
+                                                                                       id="area_min"></a>
+                                                                                    <a class="ui-slider-handle ui-state-default ui-corner-all"
+                                                                                       href="#" style="left: 0%;"
+                                                                                       id="area_max"></a>
+                                                                                </div>
+                                                                                <input type="hidden"
+                                                                                       name="area_min">
+                                                                                <input type="hidden"
+                                                                                       name="area_max">
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <!-- Price Range -->
+                                                                            <div class="range-slider">
+                                                                                <label>Phạm vi giá</label>
+                                                                                <div id="price-range" data-min="0"
+                                                                                     data-max="10000000"
+                                                                                     data-unit="VND ">
+                                                                                    <a class="ui-slider-handle ui-state-default ui-corner-all"
+                                                                                       href="#" style="left: 0%;"
+                                                                                       id="price_min"></a>
+                                                                                    <a class="ui-slider-handle ui-state-default ui-corner-all"
+                                                                                       href="#" style="left: 0%;"
+                                                                                       id="price_max"></a>
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <input type="hidden"
+                                                                                       name="price_min">
+                                                                                <input type="hidden"
+                                                                                       name="price_max">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                                                        <!-- Checkboxes -->
+                                                                        <div
+                                                                            class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                                            <input id="check2-1" type="checkbox"
+                                                                                   value="1"
+                                                                                   name="locations[]">
+                                                                            <label for="check2-1">Gần trường
+                                                                                học</label>
+                                                                            <input id="check2-2" value="2"
+                                                                                   type="checkbox"
+                                                                                   name="locations[]">
+                                                                            <label for="check2-2">Gần bến xe</label>
+                                                                            <input id="check2-3" value="3"
+                                                                                   type="checkbox"
+                                                                                   name="locations[]">
+                                                                            <label for="check2-3">Gần khu công
+                                                                                nghiệp</label>
+                                                                            <input id="check2-4" type="checkbox"
+                                                                                   name="locations[]" value="4">
+                                                                            <label for="check2-4">Gần bệnh
+                                                                                viện</label>
+                                                                        </div>
+                                                                        <!-- Checkboxes / End -->
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                                                        <!-- Checkboxes -->
+                                                                        <div
+                                                                            class="checkboxes one-in-row margin-bottom-10 ch-2">
+                                                                            <input id="check2-5" type="checkbox"
+                                                                                   name="services[]"
+                                                                                   value="nong_lanh">
+                                                                            <label for="check2-5">Nóng lạnh</label>
+                                                                            <input id="check2-7" type="checkbox"
+                                                                                   name="services[]" value="tu_lanh">
+                                                                            <label for="check2-7">Tủ lạnh</label>
+                                                                            <input id="check2-8" type="checkbox"
+                                                                                   name="services[]"
+                                                                                   value="giuong_ngu">
+                                                                            <label for="check2-8">Điều hòa</label>
+                                                                            <input id="check2-9" type="checkbox"
+                                                                                   name="services[]"
+                                                                                   value="tu_quan_ao">
+                                                                            <label for="check2-9">Tủ quần áo</label>
+                                                                        </div>
+                                                                        <!-- Checkboxes / End -->
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                                <!-- Checkboxes -->
-                                                                <div
-                                                                    class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                                    <input id="check-2" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-2">Air Conditioning</label>
-                                                                    <input id="check-3" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-3">Swimming Pool</label>
-                                                                    <input id="check-4" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-4">Central Heating</label>
-                                                                    <input id="check-5" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-5">Laundry Room</label>
-                                                                    <input id="check-6" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-6">Gym</label>
-                                                                    <input id="check-7" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-7">Alarm</label>
-                                                                    <input id="check-8" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-8">Window Covering</label>
-                                                                </div>
-                                                                <!-- Checkboxes / End -->
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                                <!-- Checkboxes -->
-                                                                <div
-                                                                    class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                                    <input id="check-9" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-9">WiFi</label>
-                                                                    <input id="check-10" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-10">TV Cable</label>
-                                                                    <input id="check-11" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-11">Dryer</label>
-                                                                    <input id="check-12" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-12">Microwave</label>
-                                                                    <input id="check-13" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-13">Washer</label>
-                                                                    <input id="check-14" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-14">Refrigerator</label>
-                                                                    <input id="check-15" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-15">Outdoor Shower</label>
-                                                                </div>
-                                                                <!-- Checkboxes / End -->
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs_2">
-                                            <div class="rld-main-search">
-                                                <div class="row">
-                                                    <div class="rld-single-input">
-                                                        <input type="text" placeholder="Enter Keyword...">
-                                                    </div>
-                                                    <div class="rld-single-select ml-22">
-                                                        <select class="select single-select">
-                                                            <option value="1">Property Type</option>
-                                                            <option value="2">Family House</option>
-                                                            <option value="3">Apartment</option>
-                                                            <option value="3">Condo</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="rld-single-select">
-                                                        <select class="select single-select mr-0">
-                                                            <option value="1">Location</option>
-                                                            <option value="2">Los Angeles</option>
-                                                            <option value="3">Chicago</option>
-                                                            <option value="3">Philadelphia</option>
-                                                            <option value="3">San Francisco</option>
-                                                            <option value="3">Miami</option>
-                                                            <option value="3">Houston</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="dropdown-filter"><span>Advanced Search</span></div>
-                                                    <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                        <a class="btn btn-yellow" href="#">Search Now</a>
-                                                    </div>
-                                                    <div class="explore__form-checkbox-list full-filter">
-                                                        <div class="row">
-                                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
-                                                                <!-- Form Property Status -->
-                                                                <div class="form-group categories">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-home"></i>Property
-                                                                                Status</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected ">For Sale
-                                                                            </li>
-                                                                            <li data-value="2" class="option">For
-                                                                                Rent
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Property Status -->
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-                                                                <!-- Form Bedrooms -->
-                                                                <div class="form-group beds">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-bed"
-                                                                                aria-hidden="true"></i>
-                                                                                Bedrooms</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected">1
-                                                                            </li>
-                                                                            <li data-value="2" class="option">2</li>
-                                                                            <li data-value="3" class="option">3</li>
-                                                                            <li data-value="3" class="option">4</li>
-                                                                            <li data-value="3" class="option">5</li>
-                                                                            <li data-value="3" class="option">6</li>
-                                                                            <li data-value="3" class="option">7</li>
-                                                                            <li data-value="3" class="option">8</li>
-                                                                            <li data-value="3" class="option">9</li>
-                                                                            <li data-value="3" class="option">10
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Bedrooms -->
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
-                                                                <!-- Form Bathrooms -->
-                                                                <div class="form-group bath">
-                                                                    <div class="nice-select form-control wide"
-                                                                         tabindex="0"><span class="current"><i
-                                                                                class="fa fa-bath"
-                                                                                aria-hidden="true"></i>
-                                                                                Bathrooms</span>
-                                                                        <ul class="list">
-                                                                            <li data-value="1"
-                                                                                class="option selected">1
-                                                                            </li>
-                                                                            <li data-value="2" class="option">2</li>
-                                                                            <li data-value="3" class="option">3</li>
-                                                                            <li data-value="3" class="option">4</li>
-                                                                            <li data-value="3" class="option">5</li>
-                                                                            <li data-value="3" class="option">6</li>
-                                                                            <li data-value="3" class="option">7</li>
-                                                                            <li data-value="3" class="option">8</li>
-                                                                            <li data-value="3" class="option">9</li>
-                                                                            <li data-value="3" class="option">10
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/ End Form Bathrooms -->
-                                                            </div>
-                                                            <div
-                                                                class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-                                                                <!-- Price Fields -->
-                                                                <div class="main-search-field-2">
-                                                                    <!-- Area Range -->
-                                                                    <div class="range-slider">
-                                                                        <label>Area Size</label>
-                                                                        <div id="area-range-rent" data-min="0"
-                                                                             data-max="1300" data-unit="sq ft"></div>
-                                                                        <div class="clearfix"></div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <!-- Price Range -->
-                                                                    <div class="range-slider">
-                                                                        <label>Price Range</label>
-                                                                        <div id="price-range-rent" data-min="0"
-                                                                             data-max="600000" data-unit="$"></div>
-                                                                        <div class="clearfix"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                                <!-- Checkboxes -->
-                                                                <div
-                                                                    class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                                    <input id="check-16" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-16">Air Conditioning</label>
-                                                                    <input id="check-17" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-17">Swimming Pool</label>
-                                                                    <input id="check-18" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-18">Central Heating</label>
-                                                                    <input id="check-19" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-19">Laundry Room</label>
-                                                                    <input id="check-20" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-20">Gym</label>
-                                                                    <input id="check-21" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-21">Alarm</label>
-                                                                    <input id="check-22" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-22">Window Covering</label>
-                                                                </div>
-                                                                <!-- Checkboxes / End -->
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                                <!-- Checkboxes -->
-                                                                <div
-                                                                    class="checkboxes one-in-row margin-bottom-10 ch-2">
-                                                                    <input id="check-23" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-23">WiFi</label>
-                                                                    <input id="check-24" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-24">TV Cable</label>
-                                                                    <input id="check-25" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-25">Dryer</label>
-                                                                    <input id="check-26" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-26">Microwave</label>
-                                                                    <input id="check-27" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-27">Washer</label>
-                                                                    <input id="check-28" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-28">Refrigerator</label>
-                                                                    <input id="check-29" type="checkbox"
-                                                                           name="check">
-                                                                    <label for="check-29">Outdoor Shower</label>
-                                                                </div>
-                                                                <!-- Checkboxes / End -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
+
+                                    <!--/ End Search Form -->
+                                </form>
                             </div>
-                            <!--/ End Search Form -->
                         </div>
                     </div>
                 </div>
@@ -434,10 +250,10 @@
                                 <!-- homes img -->
                                 <a href="#" class="homes-img">
                                     <div class="homes-tag button alt featured" style="font-size: 10px;"
-                                    >{{$key->plan_title}}</div>
+                                    >{{$key->name}}</div>
                                     <div class="homes-tag button alt sale">Giảm giá</div>
                                     <img
-                                        src="{{json_decode($key->photo_gallery)[0]}}"
+                                        src="{{json_decode($key->photo_gallery_i)[0]}}"
                                         alt="home-1"
                                         class="img-responsive">
                                 </a>
@@ -518,5 +334,5 @@
     <!-- START SECTION POPULAR PLACES -->
 
     <!-- END SECTION WHY CHOOSE US -->
-
+    @include('custom.js.searchIndex')
 @endsection

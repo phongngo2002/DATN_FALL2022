@@ -8,7 +8,9 @@ use App\Imports\MotelsImport;
 use App\Mail\ForgotOtp;
 use App\Mail\SendBillToCustomer;
 use App\Models\Area;
+use App\Models\AreaLocation;
 use App\Models\Bill;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -59,7 +61,6 @@ class AreaController extends Controller
 
     public function saveAdd_areas(Request $request)
     {
-
         $params = [];
 
         $params['cols'] = array_map(function ($item) {
@@ -81,8 +82,21 @@ class AreaController extends Controller
             $params['cols']['img'] = asset('assets/client/images/popular-places/5.jpg');
         }
         $model = new Area();
+        $area_id = $model->admin_create_area($params);
+        $dataInsertLocation = [];
+        $model = new Location();
 
-        $model->admin_create_area($params);
+        foreach ($model->getAllLocation() as $location) {
+            $distance = $this->haversineGreatCircleDistance((double)$request->latitude, (double)$request->longitude, $location->latitude, $location->longitude);
+            if ($distance <= 10000) {
+                $dataInsertLocation[] = [
+                    'area_id' => $area_id,
+                    'location_id' => $location->id,
+                    'distance' => $distance / 1000
+                ];
+            }
+        }
+        $areaLocation = AreaLocation::insert($dataInsertLocation);
 
         return redirect()->route('backend_get_list_area')->with('success', 'Thêm mới khu trọ thành công');
 
@@ -123,7 +137,26 @@ class AreaController extends Controller
         }
 
         $model = new Area();
-        $model->admin_update_area($params);
+        $area_id = $model->admin_update_area($params);
+
+        $dataInsertLocation = [];
+
+        DB::table('area_location')->where('area_id', $area_id)->delete();
+
+        $model = new Location();
+
+        foreach ($model->getAllLocation() as $location) {
+            $distance = $this->haversineGreatCircleDistance((double)$request->latitude, (double)$request->longitude, $location->latitude, $location->longitude);
+            if ($distance <= 10000) {
+                $dataInsertLocation[] = [
+                    'area_id' => $area_id,
+                    'location_id' => $location->id,
+                    'distance' => $distance / 1000
+                ];
+            }
+        }
+        $areaLocation = AreaLocation::insert($dataInsertLocation);
+
 
         return redirect()->route('backend_get_list_area')->with('success', 'Cập nhật khu trọ thành công');
 
@@ -205,4 +238,22 @@ class AreaController extends Controller
         }
         return redirect()->back()->with('success', 'Gửi hóa đơn thành công');
     }
+
+    public function haversineGreatCircleDistance(
+        $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+    {
+        // convert from degrees to radians
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        return $angle * $earthRadius;
+    }
+
 }

@@ -3,9 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Mail\MailNotify;
+use App\Models\Area;
 use App\Models\Motel;
 use App\Models\User;
+use App\Notifications\AppNotification;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -53,6 +57,25 @@ class cronEmail extends Command
             }
         });
 
+        $phong_tro_het_han = DB::table('motels')
+            ->select('users.name', 'users.email', 'user_id', 'motel_id', 'motels.start_time', 'motels.end_time', 'motels.room_number', 'motel_id', 'area_id')
+            ->join('user_motel', 'motels.id', '=', 'user_motel.motel_id')
+            ->join('users', 'user_motel.user_id', '=', 'users.id')
+            ->where('motels.end_time', '=', Carbon::now())
+            ->get();
+
+        foreach ($phong_tro_het_han as $item) {
+            Motel::where('id', $item->motel_id)->update(['status' => 6]);
+            $user_id = DB::table('areas')->select(['user_id'])->where('id', $item->area_id)->first()->user_id;
+            $user = User::find($user_id);
+            $data = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'message' => 'Phòng ' . $item->room_number . 'đã hết hạn hợp đồng',
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => '#'
+            ];
+            $user->notify(new AppNotification($data));
+        }
     }
 
     private function sendEmailToUser($id, $dataMail)

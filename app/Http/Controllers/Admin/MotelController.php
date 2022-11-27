@@ -62,6 +62,8 @@ class MotelController extends Controller
 
     public function add_motels($id)
     {
+        $category = new Category();
+        $this->v['categories'] = $category->getAll();
         $this->v['area_id'] = $id;
         return view('admin.motel.add', $this->v);
     }
@@ -79,6 +81,14 @@ class MotelController extends Controller
             return $item;
         }, $request->all());
 
+        $service_checkbox = [];
+        foreach ($params['cols']['service'] as $key => $value) {
+            if ($value == 'on') {
+                unset($params['cols']['service'][$key]);
+                array_push($service_checkbox, $key);
+                $params['cols']['service']['service_checkbox'] = $service_checkbox;
+            }
+        }
         unset($params['cols']['_token']);
         $params['cols']['area_id'] = $request->id;
         $imgs = [];
@@ -94,8 +104,10 @@ class MotelController extends Controller
         $model = new Motel();
 
         $result = $model->createMotel($params['cols']);
-
-        return redirect()->route('admin.motel.list', ['id' => $id]);
+        if ($result !== true) {
+            return redirect()->route('admin.motel.list', ['id' => $id])->with('error', 'Thêm mới phòng trọ thất bại');
+        }
+        return redirect()->route('admin.motel.list', ['id' => $id])->with('success', 'Thêm mới phòng trọ thành công');
     }
 
     public function info_user_motels($id, $idMotel)
@@ -105,6 +117,9 @@ class MotelController extends Controller
 
         $this->v['info'] = $model->info_motel($idMotel);
         $ids = [];
+
+        // dd($model->info_motel_email('hoangxuanvu248@gmail.com'));
+
         $userInfo = DB::table('users')
             ->select(['user_id'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
@@ -385,6 +400,13 @@ class MotelController extends Controller
 
         unset($params['cols']['_token']);
 
+        $service_checkbox = [];
+        foreach ($params['cols']['service'] as $key => $value) {
+            if ($value == 'on') {
+                unset($params['cols']['service'][$key]);
+                array_push($service_checkbox, $key);
+            }
+        }
         $data = [
             'room_number' => $request->room_number,
             'price' => $request->price,
@@ -395,11 +417,12 @@ class MotelController extends Controller
             'max_people' => $request->max_people,
             'money_deposit' => $request->money_deposit,
             'day_deposit' => $request->day_deposit,
+            'category_id' => $request->category_id,
             'transfer_infor' => $request->transfer_infor,
             'services' => json_encode([
-                'bed' => $request->bed,
                 'bedroom' => $request->bedroom,
                 'toilet' => $request->toilet,
+                'service_checkbox' => $service_checkbox,
                 'more' => $request->service_more,
                 'actor' => $request->actor
             ]),
@@ -519,22 +542,34 @@ class MotelController extends Controller
 
     public function deleteUserFormMotel(Request $request, $id)
     {
-        $res = DB::table('user_motel')->where('id', $id)->update([
-            'status' => 3 //status = 3 : bị xóa do hết hạn
-        ]);
-
-        $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
-        if (count($user) === 0) {
+        if ($id !== 'null') {
+            $res = DB::table('user_motel')->where('id', $id)->update([
+                'status' => 3 //status = 3 : bị xóa do hết hạn
+            ]);
+            $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->get();
+            if (count($user) === 0 || !$user) {
+                try {
+                    $motel = Motel::find($request->motel_id);
+                    $motel->status = 1;
+                    $motel->end_time;
+                    $motel->save();
+                } catch (\Exception $e) {
+                    return redirect()->back();
+                }
+            }
+        } else {
+            $user = UserMotel::where('motel_id', $request->motel_id)->where('status', 1)->update(['status' => 3]);
             try {
                 $motel = Motel::find($request->motel_id);
                 $motel->status = 1;
                 $motel->end_time;
                 $motel->save();
             } catch (\Exception $e) {
-                dd($e->getMessage());
+                return redirect()->back();
             }
         }
-        Mail::to($request->email)->send(new NotificeDelMotel());
+
+
         return redirect()->back()->with('success', 'Xóa thành công thành viên!');
     }
 }

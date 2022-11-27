@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\AreaLocation;
 use App\Models\ContactMotelHistory;
 use App\Models\Plan;
 use App\Models\PlanHistory;
@@ -282,7 +283,16 @@ class MotelController extends Controller
     public function listLiveTogether()
     {
         $model = new PlanHistory();
+
         $this->v['motel'] = $model->list_live_together();
+
+        return view('client.account_management.list_live_together', $this->v);
+    }
+
+    public function searchListLiveTogether(Request $request)
+    {
+        $model = new Motel();
+        $this->v['motel'] = $model->search($request->all(), 2);
 
         return view('client.account_management.list_live_together', $this->v);
     }
@@ -292,11 +302,13 @@ class MotelController extends Controller
         $motel = new Motel();
         $vote = new Vote();
         $appoint = new Appointment();
+        $areaLocation = new AreaLocation();
         if ($motel->detailMotel1($id)) {
             $this->v['motel'] = $motel->detailMotel1($id);
             $this->v['motelsByAreas'] = $motel->getMotelsByAreas($id);
             $this->v['motelsHot'] = $motel->getMotelsHot();
             $this->v['appoint'] = $appoint->currentAppoint($id);
+            $this->v['locationNearMotel'] = $areaLocation->clientGetListLocationByAreaId($this->v['motel']->area_id);
             if (!empty(Auth::user())) {
                 $this->v['votes'] = $vote->client_get_list_vote_motel($id);
                 $this->v['deposit_exist'] = Deposit::where('motel_id', $id)->where('user_id', Auth::user()->id)->first();
@@ -331,5 +343,11 @@ class MotelController extends Controller
         }
 
         return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
+    }
+
+
+    public function search()
+    {
+
     }
 }
