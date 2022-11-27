@@ -54,9 +54,7 @@
                                                                 <input type="hidden" name="city_id">
                                                             </div>
                                                             <div class="rld-single-select ml-22" id="district_id">
-                                                                <select class="select single-select"
-
-                                                                >
+                                                                <select class="select single-select">
                                                                     <option value="0">Lựa chọn quận huyện</option>
                                                                 </select>
                                                                 <input type="hidden" name="district_id">

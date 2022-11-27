@@ -95,12 +95,6 @@ class HomeController extends Controller
         }, $request->all());
         $modelMotel = new Motel();
         $motels = $modelMotel->search($params);
-
-//        $result = [];
-//        foreach ($motels as $item) {
-//            $result[] = $item;
-//        }
-        // dd(json_encode(['motels'=>$result]));
         $modelArea = new Area();
         $modelMotel = new Motel();
         $category = new Category();

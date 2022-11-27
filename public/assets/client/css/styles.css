@@ -6557,7 +6557,7 @@ a.button,
 .homepage-4 #header.cloned.sticky .header-user-name,
 .homepage-4 #navigation.style-2.cloned .header-user-name:before,
 .homepage-4 #header.cloned.sticky .header-user-name:before {
-  color: #666;
+  color: #fff;
 }
 
 .welcome-area .video-icon {
@@ -7913,7 +7913,7 @@ a.button {
 }
 
 .hp-6 .rld-single-select .single-select {
-  width: 180px;
+  width: 200px;
 }
 
 .hp-6 .rld-single-input input {

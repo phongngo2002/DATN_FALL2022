@@ -15,7 +15,7 @@
     @include('layouts.client._css')
     <style>
         #header.cloned {
-            background-color: black;
+            background-color: #FF385C;
         }
     </style>
 </head>
