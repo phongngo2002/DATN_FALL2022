@@ -198,10 +198,10 @@
                             class="fa-brands fa-bitcoin text-warning"></i></p>
                     <div>
                         <label for="">Nhập số lượt quay bạn muốn mua</label>
-                        <input type="number" name="number_ticket_buy" id="number_ticket_buy" class="form-control"
+                        <input type="number" min="1" name="number_ticket_buy" id="number_ticket_buy" class="form-control"
                                value="1">
                     </div>
-                    <p class="mt-2">Phí tạm tính: <span id="fee">0</span> <i
+                    <p class="mt-2">Phí tạm tính: <span id="fee">20</span> <i
                             class="fa-brands fa-bitcoin text-warning"></i></p>
                     <p class="messageTicket mt-2"></p>
                     <p class="mt-2">1 lượt quay = 20 <i
@@ -221,7 +221,7 @@
     const point = document.getElementById('point');
     const swapTicket = document.getElementById('swapTicket');
     const messageSwapTicket = document.getElementById('messageSwapTicket');
-    document.getElementById('btnBuyTicket').setAttribute('disabled', true);
+    // document.getElementById('btnBuyTicket').setAttribute('disabled', true);
     gift.addEventListener('change', (e) => {
         if (e.target.value > Number(point.innerText)) {
             swapTicket.setAttribute('redo', 'true');
