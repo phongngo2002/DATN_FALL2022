@@ -580,6 +580,7 @@
             function changeDisable2(total) {
                 if(total == 0){
                     document.getElementById('btn_more').setAttribute('disabled', 'true');
+                    document.getElementById('notification').innerText = '';
                 }
                 else if (Number(total) > Number(money_user.value)) {
                     document.getElementById('btn_more').setAttribute('disabled', 'true');
