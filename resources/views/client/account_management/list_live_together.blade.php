@@ -277,14 +277,11 @@
                                         <i class="fa-solid fa-star"></i>
                                     @endfor
                               </span>
-                                <a href="{{route('client.live-together.detail',['id' => $key->motel_id])}}">
-
-
-                                    @if($key->priority_level == 1)
-                                        <span
-                                            title="{{json_decode($key->data_post)->title}}"
-                                            style="color: #E13427">{{substr(json_decode($key->data_post)->title,0,40).'...'}}</span>
-                                    @endif
+                                <a style="color: {{$key->title_color}}" href="{{route('client.live-together.detail',['id' => $key->motel_id])}}">
+                                    {{-- @if($key->priority_level == 1) --}}
+                                        <span title="{{json_decode($key->data_post)->title}}"
+                                            style="color: {{$key->title_color}}">{{substr(json_decode($key->data_post)->title,0,40).'...'}}</span>
+                                    {{-- @endif --}}
                                 </a>
                             </h3>
                             <p class="homes-address mb-3">

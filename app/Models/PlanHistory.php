@@ -133,7 +133,8 @@ class PlanHistory extends Model
                 'motels.services', 'motels.data_post',
                 'motels.photo_gallery as photo_gallery_i',
                 'areas.name as area_name',
-                'areas.address',])
+                'areas.address',
+                'title_color'])
             ->join('plan_history', 'plans.id', '=', 'plan_history.plan_id')
             ->join('motels', 'plan_history.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')

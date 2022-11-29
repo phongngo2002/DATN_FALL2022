@@ -567,6 +567,7 @@
             function changeDisable(total) {
                 if(total == 0){
                     document.getElementById('tt').setAttribute('disabled', 'true');
+                    document.getElementById('notification').innerText = '';
                 }
                 else if (Number(total) > Number(money_user.value)) {
                     document.getElementById('tt').setAttribute('disabled', 'true');
@@ -613,6 +614,7 @@
                                 document.getElementById('post_day1').value = +post_day.value;
                                 post_day.removeAttribute('readonly');
                             }
+                            changeDisable(money_temp * post_day.value);
                             //nếu có trường plan_id_old thì mới thực hiện lấy dữ liệu để kiểm tra
                             if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
                                 const currentPlanId = document.querySelector('#plan_id_old').value;
