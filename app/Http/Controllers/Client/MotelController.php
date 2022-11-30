@@ -294,7 +294,10 @@ class MotelController extends Controller
         $model = new Motel();
         $this->v['motel'] = $model->search($request->all(), 2);
 
-        return view('client.account_management.list_live_together', $this->v);
+        // return view('client.account_management.list_live_together', $this->v);
+        return response()->json([
+            'motel' => view('custom.js.resultSearchLiveTogether', ["motel" => $this->v['motel']])->render(),
+        ]);
     }
 
     public function detail($id)

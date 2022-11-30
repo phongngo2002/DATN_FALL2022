@@ -308,9 +308,8 @@
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
                                                                         <div class="nice-select form-control wide"
-                                                                             tabindex="0">
-                                                                            <input type="hidden" name="toilet"
-                                                                            >
+                                                                            tabindex="0">
+                                                                            <input type="hidden" name="toilet" id="toilet">
                                                                             <span class="current"><i class="fa fa-bath"
                                                                                                      aria-hidden="true"></i>Phòng
                                                                                 tắm/WC</span>
@@ -805,7 +804,7 @@
 
     @include('custom.js.searchIndex')
     <script>
-        // window.history.pushState("", "", 'http://phong.ngo');
+        window.history.pushState("", "", 'http://phong.ngo');
 
 
         $(document).ready(function () {
