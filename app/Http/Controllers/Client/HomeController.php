@@ -84,6 +84,9 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        // dd(123);
+        return $request->all();
+
         $params = array_map(function ($item) {
             if ($item == "") {
                 $item = null;
