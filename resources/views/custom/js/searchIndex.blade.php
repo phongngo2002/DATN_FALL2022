@@ -156,7 +156,5 @@
 
         document.getElementsByName('price_min')[0].value = priceMin.value.split(" ")[1].replaceAll(",", "");
         document.getElementsByName('price_max')[0].value = priceMax.value.split(" ")[1].replaceAll(",", "");
-
-        document.getElementById('formSearch').submit();
     });
 </script>
