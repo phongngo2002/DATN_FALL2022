@@ -129,7 +129,8 @@
         selectBedroom.querySelectorAll('li').forEach(element => {
             const {value} = element.dataset;
             if (element.classList.contains('selected')) {
-                document.getElementsByName('bedroom').value = value;
+                console.log(value);
+                document.getElementsByName('bedroom')[0].value = value;
             }
 
         })
@@ -138,7 +139,7 @@
         selectToilet.querySelectorAll('li').forEach(element => {
             const {value} = element.dataset;
             if (element.classList.contains('selected')) {
-                document.getElementsByName('toilet').value = value;
+                document.getElementsByName('toilet')[0].value = value;
             }
 
         })

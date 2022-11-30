@@ -12,8 +12,8 @@
         }
     </style>
     <section style="position: relative" id="hero-area"
-        class="parallax-searchs home15 overlay thome-6 thome-1 d-none d-md-none d-lg-block"
-        data-stellar-background-ratio="0.5">
+             class="parallax-searchs home15 overlay thome-6 thome-1 d-none d-md-none d-lg-block"
+             data-stellar-background-ratio="0.5">
         <div class="hero-main">
 
             <div class="container" data-aos="zoom-in">
@@ -259,7 +259,8 @@
                                                             <select class="select single-select">
                                                                 <option value="0">Lựa chọn quận huyện</option>
                                                             </select>
-                                                            <input type="hidden" name="district_id" id="district_id_value">
+                                                            <input type="hidden" name="district_id"
+                                                                   id="district_id_value">
                                                         </div>
                                                         <div class="rld-single-select" id="ward_id">
                                                             <select class="select single-select mr-0">
@@ -272,7 +273,8 @@
                                                         </div>
                                                         <div class="pl-0">
                                                             <button type="button" id="btnSearch"
-                                                                class="btn btn-yellow search" style="width:165px;">Tìm
+                                                                    class="btn btn-yellow search" style="width:165px;">
+                                                                Tìm
                                                                 kiếm
                                                                 ngay
                                                             </button>
@@ -283,11 +285,12 @@
                                                                 <div class="col-lg-6 col-md-6 p-2">
                                                                     <!-- Form Bedrooms -->
                                                                     <div class="form-group beds">
-                                                                        <input type="hidden" name="bedroom" id="bedroom">
+                                                                        <input type="hidden" name="bedroom"
+                                                                        >
                                                                         <div class="nice-select form-control wide"
-                                                                            tabindex="0">
+                                                                             tabindex="0">
                                                                             <span class="current"><i class="fa fa-bed"
-                                                                                    aria-hidden="true"></i>Phòng
+                                                                                                     aria-hidden="true"></i>Phòng
                                                                                 ngủ</span>
                                                                             <ul class="list" id="bedroom">
                                                                                 @for ($i = 1; $i < 5; $i++)
@@ -305,10 +308,11 @@
                                                                     <!-- Form Bathrooms -->
                                                                     <div class="form-group bath">
                                                                         <div class="nice-select form-control wide"
-                                                                            tabindex="0">
-                                                                            <input type="hidden" name="toilet" id="toilet">
+                                                                             tabindex="0">
+                                                                            <input type="hidden" name="toilet"
+                                                                            >
                                                                             <span class="current"><i class="fa fa-bath"
-                                                                                    aria-hidden="true"></i>Phòng
+                                                                                                     aria-hidden="true"></i>Phòng
                                                                                 tắm/WC</span>
                                                                             <ul class="list" id="toilet">
                                                                                 @for ($i = 1; $i < 5; $i++)
@@ -330,19 +334,19 @@
                                                                         <div class="range-slider">
                                                                             <label>Diện tích</label>
                                                                             <div id="area-range" data-min="0"
-                                                                                data-max="50" data-unit="m&#178"
-                                                                                class="area_range">
+                                                                                 data-max="50" data-unit="m&#178"
+                                                                                 class="area_range">
                                                                                 <a class="ui-slider-handle ui-state-default ui-corner-all"
-                                                                                    href="#" style="left: 0%;"
-                                                                                    id="area_min"></a>
+                                                                                   href="#" style="left: 0%;"
+                                                                                   id="area_min"></a>
                                                                                 <a class="ui-slider-handle ui-state-default ui-corner-all"
-                                                                                    href="#" style="left: 0%;"
-                                                                                    id="area_max"></a>
+                                                                                   href="#" style="left: 0%;"
+                                                                                   id="area_max"></a>
                                                                             </div>
                                                                             <input type="hidden" name="area_min"
-                                                                                id="area_min">
+                                                                                   id="area_min">
                                                                             <input type="hidden" name="area_max"
-                                                                                id="area_max">
+                                                                                   id="area_max">
                                                                             <div class="clearfix"></div>
                                                                         </div>
                                                                         <br>
@@ -350,19 +354,19 @@
                                                                         <div class="range-slider">
                                                                             <label>Phạm vi giá</label>
                                                                             <div id="price-range" data-min="0"
-                                                                                data-max="10000000" data-unit="VND ">
+                                                                                 data-max="10000000" data-unit="VND ">
                                                                                 <a class="ui-slider-handle ui-state-default ui-corner-all"
-                                                                                    href="#" style="left: 0%;"
-                                                                                    id="price_min"></a>
+                                                                                   href="#" style="left: 0%;"
+                                                                                   id="price_min"></a>
                                                                                 <a class="ui-slider-handle ui-state-default ui-corner-all"
-                                                                                    href="#" style="left: 0%;"
-                                                                                    id="price_max"></a>
+                                                                                   href="#" style="left: 0%;"
+                                                                                   id="price_max"></a>
                                                                             </div>
                                                                             <div class="clearfix"></div>
                                                                             <input type="hidden" name="price_min"
-                                                                                id="price_min">
+                                                                                   id="price_min">
                                                                             <input type="hidden" name="price_max"
-                                                                                id="price_max">
+                                                                                   id="price_max">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -371,43 +375,43 @@
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-1">
                                                                         <input id="check2-1" type="checkbox"
-                                                                            value="1" name="locations[]"
-                                                                            class="location">
+                                                                               value="1" name="locations[]"
+                                                                               class="location">
                                                                         <label for="check2-1">Gần trường
                                                                             học</label>
                                                                         <input id="check2-2" value="2"
-                                                                            type="checkbox" name="locations[]">
+                                                                               type="checkbox" name="locations[]">
                                                                         <label for="check2-2">Bệnh viện</label>
                                                                         <input id="check2-3" value="3"
-                                                                            type="checkbox" name="locations[]"
-                                                                            class="location">
+                                                                               type="checkbox" name="locations[]"
+                                                                               class="location">
                                                                         <label for="check2-3">Gần siêu thị</label>
                                                                         <input id="check2-4" type="checkbox"
-                                                                            name="locations[]" value="4"
-                                                                            class="location">
+                                                                               name="locations[]" value="4"
+                                                                               class="location">
                                                                         <label for="check2-4">Gần bến xe</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
                                                                     <input type="number" style="width: 400px" required
-                                                                        placeholder="Lựa chọn phạm vị muốn tìm kiếm"
-                                                                        name="dis" class="form-control"
-                                                                        max="10" id="dis">
+                                                                           placeholder="Lựa chọn phạm vị muốn tìm kiếm"
+                                                                           name="dis" class="form-control"
+                                                                           max="10" id="dis">
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
                                                                     <div
                                                                         class="checkboxes one-in-row margin-bottom-10 ch-2">
                                                                         <input id="check2-5" type="checkbox"
-                                                                            name="services[]" value="nong_lanh">
+                                                                               name="services[]" value="nong_lanh">
                                                                         <label for="check2-5">Nóng lạnh</label>
                                                                         <input id="check2-7" type="checkbox"
-                                                                            name="services[]" value="tu_lanh">
+                                                                               name="services[]" value="tu_lanh">
                                                                         <label for="check2-7">Tủ lạnh</label>
                                                                         <input id="check2-8" type="checkbox"
-                                                                            name="services[]" value="giuong_ngu">
+                                                                               name="services[]" value="giuong_ngu">
                                                                         <label for="check2-8">Điều hòa</label>
                                                                         <input id="check2-9" type="checkbox"
-                                                                            name="services[]" value="tu_quan_ao">
+                                                                               name="services[]" value="tu_quan_ao">
                                                                         <label for="check2-9">Tủ quần áo</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
@@ -484,16 +488,16 @@
                                     <!-- homes img -->
                                     <a href="#" class="homes-img">
                                         <img src="{{ json_decode($key->photo_gallery_i)[0] }}" alt="home-1"
-                                            class="img-responsive">
+                                             class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="button-effect">
                                     <a href="{{ route('client.live-together.detail', ['id' => $key->motel_id]) }}"
-                                        class="btn"><i class="fa fa-link"></i></a>
+                                       class="btn"><i class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=48EgQXJrww0"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                       class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
                                     <a href="{{ route('client.live-together.detail', ['id' => $key->motel_id]) }}"
-                                        class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                                       class="img-poppu btn"><i class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
@@ -502,7 +506,7 @@
                                 <h3>
 
                                     <a class="font-weight-bold" style="color: {{ $key->title_color }}"
-                                        href="{{ route('client.motel.detail', ['id' => $key->motel_id]) }}">
+                                       href="{{ route('client.motel.detail', ['id' => $key->motel_id]) }}">
                                         {{ $key->areaName . ' - ' . $key->room_number }}
                                     </a>
                                     <p class="text-warning" style="font-size: 12px">
@@ -593,16 +597,16 @@
                                         <div class="homes-tag button alt featured">Nổi bật</div>
                                         <div class="homes-tag button alt sale">Giảm giá</div>
                                         <img src="{{ json_decode($key->photo_gallery)[0] }}" alt="home-1"
-                                            class="img-responsive">
+                                             class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="button-effect">
                                     <a href="{{ route('client.live-together.detail', ['id' => $key->id]) }}"
-                                        class="btn"><i class="fa fa-link"></i></a>
+                                       class="btn"><i class="fa fa-link"></i></a>
                                     <a href="https://www.youtube.com/watch?v=14semTlwyUY"
-                                        class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                       class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
                                     <a href="{{ route('client.live-together.detail', ['id' => $key->id]) }}"
-                                        class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                                       class="img-poppu btn"><i class="fa fa-photo"></i></a>
                                 </div>
                             </div>
                             <!-- homes content -->
@@ -635,15 +639,15 @@
                                     </h3>
                                     <div class="compare">
                                         <a href="{{ route('client.live-together.detail', ['id' => $key->id]) }}"
-                                            title="Compare">
+                                           title="Compare">
                                             <i class="flaticon-compare"></i>
                                         </a>
                                         <a href="{{ route('client.live-together.detail', ['id' => $key->id]) }}"
-                                            title="Share">
+                                           title="Share">
                                             <i class="flaticon-share"></i>
                                         </a>
                                         <a href="{{ route('client.live-together.detail', ['id' => $key->id]) }}"
-                                            title="Favorites">
+                                           title="Favorites">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
@@ -673,7 +677,7 @@
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/t-5.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/t-5.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -694,7 +698,7 @@
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/t-6.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/t-6.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -715,7 +719,7 @@
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/t-7.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/t-7.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -733,11 +737,11 @@
                 </div>
                 <!--Team Block-->
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2 pb-none" data-aos="fade-up"
-                    data-aos-delay="450">
+                     data-aos-delay="450">
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/t-8.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/t-8.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -754,11 +758,11 @@
                     </div>
                 </div>
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2 pb-none" data-aos="fade-up"
-                    data-aos-delay="550">
+                     data-aos-delay="550">
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/team-image-2.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/team-image-2.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -775,11 +779,11 @@
                     </div>
                 </div>
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2 pb-none" data-aos="fade-up"
-                    data-aos-delay="650">
+                     data-aos-delay="650">
                     <div class="inner-box team-details">
                         <div class="image team-head">
                             <a href="agents-listing-grid.html"><img
-                                    src="{{ asset('assets/client/images/team/team-image-7.jpg') }}" alt="" /></a>
+                                    src="{{ asset('assets/client/images/team/team-image-7.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
                                     <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
@@ -804,27 +808,35 @@
         // window.history.pushState("", "", 'http://phong.ngo');
 
 
-        $(document).ready(function() {
-            $("#btnSearch").on('click', function(e) {
+        $(document).ready(function () {
+            $("#btnSearch").on('click', function (e) {
                 e.preventDefault();
 
                 let city_id = $("#city_id_value").val();
                 let district_id = $("#district_id_value").val();
                 let ward_id = $("#ward_id_value").val();
-                let bedroom = $('#bedroom').val();
-                let toilet = $('#toilet').val();
-                let area_min = $("area_min").val();
-                let area_max = $("area_max").val();
-                let price_min = $("price_min").val();
-                let price_max = $("price_max").val();
-                let location = $("locations").val();
-                let services = $("services").val();
-                let dis = $("dis").val();
+                let bedroom = document.getElementsByName('bedroom')[0].value;
+                let toilet = document.getElementsByName('toilet')[0].value;
+                let area_min = document.getElementsByName('area_min')[0].value;
+                let area_max = document.getElementsByName('area_max')[0].value;
+                let price_min = document.getElementsByName('price_min')[0].value;
+                let price_max = document.getElementsByName('price_max')[0].value;
+                let location = [];
+                document.getElementsByName('locations[]').forEach(item => {
+                    if (item.checked) {
+                        location.push(+item.value);
+                    }
+                })
+                let services = [];
 
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('search') }}",
-                    data: {
+                document.getElementsByName('services[]').forEach(item => {
+                    if (item.checked) {
+                        services.push(item.value);
+                    }
+                })
+                let dis = document.getElementsByName('dis')[0].value;
+                console.log(
+                    {
                         'city_id': city_id,
                         'district_id': district_id,
                         'ward_id': ward_id,
@@ -837,12 +849,30 @@
                         'location': location,
                         'services': services,
                         'dis': dis
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log(data);
                     }
-                })
+                )
+                {{--$.ajax({--}}
+                {{--    type: 'GET',--}}
+                {{--    url: "{{ route('search') }}",--}}
+                {{--    data: {--}}
+                {{--        'city_id': city_id,--}}
+                {{--        'district_id': district_id,--}}
+                {{--        'ward_id': ward_id,--}}
+                {{--        'bedroom': bedroom,--}}
+                {{--        'toilet': toilet,--}}
+                {{--        'area_min': area_min,--}}
+                {{--        'area_max': area_max,--}}
+                {{--        'price_min': price_min,--}}
+                {{--        'price_max': price_max,--}}
+                {{--        'location': location,--}}
+                {{--        'services': services,--}}
+                {{--        'dis': dis--}}
+                {{--    },--}}
+                {{--    dataType: 'json',--}}
+                {{--    success: function(data) {--}}
+                {{--        console.log(data);--}}
+                {{--    }--}}
+                {{--})--}}
                 $.ajaxSetup({
                     headers: {
                         'csrftoken': '{{ csrf_token() }}'
