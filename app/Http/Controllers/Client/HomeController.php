@@ -77,25 +77,28 @@ class HomeController extends Controller
         $modelMotel = new Motel();
         $motels = $modelMotel->search($params);
 
-        return view('client.home.motels', [
-            'motels' => $motels
+        return response()->json([
+            'motel' => view('custom.js.resultSearchMotel', ["motels" => $motels])->render()
         ]);
     }
 
     public function search(Request $request)
     {
-        // dd(123);
-        return $request->all();
+        // dd($request->all());
+        // return $request->all();
 
-        $params = array_map(function ($item) {
-            if ($item == "") {
-                $item = null;
-            }
-            if (is_string($item)) {
-                $item = trim($item);
-            }
-            return $item;
-        }, $request->all());
+        $params = array_map(
+            function ($item) {
+                if ($item == "") {
+                    $item = null;
+                }
+                if (is_string($item)) {
+                    $item = trim($item);
+                }
+                return $item;
+            },
+            $request->all()
+        );
         $modelMotel = new Motel();
         $motels = $modelMotel->search($params);
         $modelArea = new Area();
@@ -106,13 +109,12 @@ class HomeController extends Controller
         $motels = $modelMotel->search($params);
         $contact = $modelMotel->client_get_List_Motel_contact($request->all());
 
-        return view('client.home.index', [
+        return response()->json([
             'area' => $area,
-            'motel' => $motels,
+            'motel' => view('custom.js.resultSearch', ["motel" => $motels])->render(),
             'contact' => $contact,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
-
     }
 
     public function motel_by_area($areaID)
@@ -127,7 +129,8 @@ class HomeController extends Controller
     public function filter_motel_by_area(Request $request)
     {
         $query = DB::table('users')
-            ->select(['users.name',
+            ->select([
+                'users.name',
                 'motel_id',
                 'electric_money',
                 'warter_money',
@@ -140,7 +143,8 @@ class HomeController extends Controller
                 'link_gg_map',
                 'services',
                 'photo_gallery',
-                'areas.name as area_name'])
+                'areas.name as area_name'
+            ])
             ->join('areas', 'users.id', '=', 'areas.user_id')
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
@@ -165,7 +169,6 @@ class HomeController extends Controller
                         $check = false;
                         break;
                     }
-
                 }
                 if (!$check) {
                     $item->created_at = Carbon::parse($item->created_at)->format('h:i A d/m/Y');
@@ -175,10 +178,7 @@ class HomeController extends Controller
                 $item->created_at = Carbon::parse($item->created_at)->format('h:i A d/m/Y');
                 $result[] = $item;
             }
-
-
         }
         return response()->json($result);
-
     }
 }
