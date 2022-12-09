@@ -102,7 +102,7 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" id="content">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-3">
@@ -199,6 +199,29 @@
         </div>
 
     </div>
+    @include('layouts.admin._js')
+<script>
+        $("#content").validate({
+            rules: {
+                "name": {
+                    required: true,
+                    minlength: 6
+                },
+            },
+            messages: {
+                "name": {
+                    minlength: 'Tên phải ít nhất 6 ký tự !',
+                    required: 'Bắt buộc nhập tên tài khoản !',
+                },
+            },
+            submitHandler: function(form) {
+
+                form.submit();
+
+            }
+
+        });
+</script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

@@ -140,7 +140,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
-                                        <form action="{{route('admin.confirm_appoint')}}" method="POST">
+                                        <form action="{{route('admin.confirm_appoint')}}" method="POST" id="content">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group text-left">
@@ -153,6 +153,7 @@
                                                 <div class="form-group text-left">
                                                     <label for="status">Tình trạng lịch hẹn</label>
                                                     <select name="status" class="form-control" id="status">
+                                                        <option value="">Chọn tình trạng</option>
                                                         <option value="1">Đồng ý</option>
                                                         <option value="2">Đã xem phòng</option>
                                                         <option value="3">Từ chối</option>
@@ -179,5 +180,25 @@
         </table>
         {{--        {{ $areas->links() }}--}}
     </div>
+    @include('layouts.admin._js')
+<script>
+    $("#content").validate({
+        rules: {
+            "status": {
+                required: true,
+            }
+        },
+        messages: {
+            "status": {
+                required: "Chọn tình trạng đặt lịch",
+            }
+        },
+        submitHandler: function(form) {
 
+            form.submit();
+
+        }
+
+    });
+</script>
 @endsection

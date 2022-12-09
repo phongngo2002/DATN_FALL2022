@@ -79,7 +79,6 @@
                     <div class="d-flex align-items-start">
                         <img src="{{asset('assets/admin/img/avatars/avatar.jpg')}}" width="36" height="36"
                              class="rounded-circle me-2"
-                             alt="Charles Hall">
                         <div class="flex-grow-1">
                             <small class="float-end text-navy">30m ago</small>
                             <strong>Nguyễn Quyết Tiến</strong> đã bật trạng thái tìm người ghép phòng P302 - <strong>Nhà

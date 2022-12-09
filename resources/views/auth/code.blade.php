@@ -129,33 +129,6 @@
     };
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-{{--@if (\Illuminate\Support\Facades\Session::has('failed'))--}}
-{{--    <script>--}}
-{{--        function modal() {--}}
-{{--            Swal.fire(--}}
-{{--                'Đăng nhập thất bại!',--}}
-{{--                'Thông tin đăng nhập không chính xác.',--}}
-{{--                'error'--}}
-{{--            )--}}
-{{--        }--}}
-
-{{--        modal();--}}
-{{--    </script>--}}
-{{--@endif--}}
-{{--@if(\Illuminate\Support\Facades\Session::has('logout'))--}}
-{{--    <script>--}}
-{{--        function modal() {--}}
-{{--            Swal.fire(--}}
-{{--                'Đăng xuất thành công!',--}}
-{{--                '',--}}
-{{--                'success'--}}
-{{--            )--}}
-{{--        }--}}
-
-{{--        modal();--}}
-{{--    </script>--}}
-{{--@endif--}}
 </body>
 
 </html>

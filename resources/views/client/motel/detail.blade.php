@@ -359,11 +359,11 @@
                         </div>
                         <div class="widget-boxed-body">
                             @if(isset($appoint) && $appoint->status === 3 || !$appoint)
-                                <form action="{{route('client.post_appointment')}}" method="POST">
+                                <form action="{{route('client.post_appointment')}}" method="POST" id="content">
                                     @csrf
                                     <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
                                     <input type="datetime-local" id="time" name="time" class="form-control">
-                                    <button type="submit" onclick="return confirm('Bạn có chắc muốn đăt lịch hẹn ?')"
+                                    <button type="submit"
                                             class="btn reservation btn-radius theme-btn full-width mrg-top-10">Gửi
                                         yêu cầu
                                     </button>
@@ -520,5 +520,26 @@
 
             })
         })
+    </script>
+    @include('layouts.admin._js')
+    <script>
+     $("#content").validate({
+        rules: {
+            "time": {
+                required: true,
+            },
+        },
+        messages: {
+            "time": {
+                required: 'Vui lòng nhập thời gian',
+            },
+        },
+        submitHandler: function(form) {
+
+            form.submit();
+
+        }
+
+    });
     </script>
 @endsection

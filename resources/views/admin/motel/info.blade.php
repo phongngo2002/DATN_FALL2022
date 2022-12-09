@@ -268,7 +268,7 @@
                             @foreach ($user as $i)
                                 <div class="option">
                                     <input type="radio" class="radio" value="{{ $i->id }}"/>
-                                    <label for="tutorials">{{ $i->email }}</label>
+                                    <label for="tutorials" class="email-member">{{ $i->email }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -289,7 +289,7 @@
                         action="{{ route('admin.motel.add_people', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                         method="">
                         @csrf
-                        <button class="btn btn-primary" name="user_id" id="user_id">Lưu</button>
+                        <button class="btn btn-primary btn-save-data" name="user_id" id="user_id">Lưu</button>
                     </form>
                 </div>
 
@@ -298,7 +298,7 @@
 
     </div>
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="{{ route('admin.print.motel', ['motelId' => $params['motel_id']]) }}" method="POST">
+        <form action="{{ route('admin.print.motel', ['motelId' => $params['motel_id']]) }}" method="POST" id="content">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -378,6 +378,7 @@
         const selected = document.querySelector(".selected");
         const optionsContainer = document.querySelector(".options-container");
         const searchBox = document.querySelector(".search-box input");
+        const btnSaveData = document.getElementsByClassName('btn-save-data')
 
         const optionsList = document.querySelectorAll(".option");
 
@@ -392,6 +393,21 @@
             }
         });
 
+        const emailMember = document.getElementsByClassName('email-member')
+        
+        function checkDisabledBtnSaveData() {
+            for (let i=0; i<emailMember.length; i++) {
+                if (String(emailMember[i].textContent.trim()) === String(selected.textContent.trim())) {
+                    btnSaveData[0].removeAttribute('disabled')
+                    break
+                } else {
+                    btnSaveData[0].setAttribute('disabled', true)
+                }
+            }
+        }
+
+        checkDisabledBtnSaveData()
+
         optionsList.forEach(o => {
             o.addEventListener("click", (e) => {
                 const id = o.querySelector('input').value;
@@ -403,6 +419,8 @@
                 document.getElementById('phone_number').value = obj.phone_number;
                 selected.innerHTML = o.querySelector("label").innerHTML;
                 optionsContainer.classList.remove("active");
+
+                checkDisabledBtnSaveData()
             });
         });
 
@@ -426,4 +444,52 @@
             console.log(id);
         }
     </script>
+    @include('layouts.admin._js')
+<script>
+    $("#content").validate({
+        rules: {
+            electric_money: {
+                required: true,
+                digits: true
+            },
+            warter_money: {
+                required: true,
+                digits: true,
+            },
+            wifi: {
+                required: true,
+                digits: true,
+            },
+            start_time: {
+                required: true,
+            },
+            end_time: {
+                required: true,
+            },
+        },
+        messages: {
+            electric_money: {
+                required: "Nhập giá tiền điện",
+                digits: "Không được nhập số âm"
+            },
+            warter_money: {
+                required: "Nhập giá tiền nước",
+                digits: "Không được nhập số âm",
+            },
+            wifi: {
+                required: "Nhập giá tiền wifi",
+                digits: "Không được nhập số âm",
+            },
+            start_time: {
+                required: "Nhập thời gian bắt đầu thuê",
+            },
+            end_time: {
+                required: "Nhập thời gian kết thúc",
+            },
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+</script>
 @endsection

@@ -145,7 +145,7 @@
             </div>
         @endif
         <h4>Phòng trọ của tôi</h4>
-        <div class="my-properties shadow-lg">
+        <div class="my-properties shadow-lg" style="min-height: 700px;">
             <table class="table-responsive text-center">
                 <thead>
                 <tr>
@@ -180,108 +180,17 @@
                         <td>
                             @if ($motel->tt == 1)
                                 <a class="btn btn-success text-white"
-                                   href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}">Đăng
+                                   href="{{ route('client_post_live_together', ['motel_id'=>$motel->motel_id]) }}" onclick="return confirm('Bạn có muốn đăng tin không')">Đăng
                                     tin ở ghép</a>
                                 <a class="btn btn-warning text-white"
-                                   href="{{ route('client.get_history_contact_motel', ['motel_id'=>$motel->motel_id,'area_id' => $motel->area_id]) }}">Đăng
+                                   href="{{ route('client.get_history_contact_motel', ['motel_id'=>$motel->motel_id,'area_id' => $motel->area_id]) }}" onclick="return confirm('Bạn có muốn đăng ký ở ghép không')">Đăng
                                     ký ở ghép</a>
                                 <a class="btn btn-danger text-white"
-                                   href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}">Rời phòng</a>
+                                   href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}" onclick="return confirm('Bạn có muốn rời phòng không')">Rời phòng</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
-                                @if($motel->tt === 0)
-                                    <button class="btn btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal{{$motel->motel_id}}">
-                                        Gửi đánh giá
-                                    </button>
-                                    <div class="modal fade" id="exampleModal{{$motel->motel_id}}" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" style="font-size: 14px"
-                                                        id="exampleModalLabel">Gửi đánh giá của bạn về phòng trọ
-                                                        này</h1>
-                                                    <button type="button"
-                                                            style="background: white;border: none;font-size: 24px"
-                                                            class="btn-close"
-                                                            data-bs-dismiss="modal"
-                                                            aria-label="Close"><i
-                                                            class="fa-sharp fa-solid fa-xmark"></i>
-                                                    </button>
-                                                </div>
-                                                <form action="{{route('client_send_vote')}}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
-                                                    <div class="modal-body">
-                                                        <div class="form-group text-left">
-                                                            <label for="">Mức độ hài lòng của bạn về phòng trọ này
-                                                                ?</label>
-                                                            <div class="clearfix"></div>
-                                                            <div class="leave-rating margin-bottom-30">
-                                                                <input type="radio" name="rating" id="rating-5"
-                                                                       value="5"/>
-                                                                <label for="rating-5" class="fa fa-star"></label>
-                                                                <input type="radio" name="rating" id="rating-4"
-                                                                       value="4"/>
-                                                                <label for="rating-4" class="fa fa-star"></label>
-                                                                <input type="radio" name="rating" id="rating-3"
-                                                                       value="3"/>
-                                                                <label for="rating-3" class="fa fa-star"></label>
-                                                                <input type="radio" name="rating" id="rating-2"
-                                                                       value="2"/>
-                                                                <label for="rating-2" class="fa fa-star"></label>
-                                                                <input type="radio" name="rating" id="rating-1"
-                                                                       value="1"/>
-                                                                <label for="rating-1" class="fa fa-star"></label>
-                                                            </div>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="text-left form-group">
-                                                            <label for="">Hãy cho chúng tôi biết suy nghĩ của bạn về
-                                                                phòng
-                                                                trọ của chúng tôi</label>
-                                                            <textarea name="message" class="form-control" id=""
-                                                                      cols="30"
-                                                                      rows="10"
-                                                                      placeholder="Nội dung"></textarea>
-                                                        </div>
-                                                        <div class="form-group text-left">
-                                                            <label for="">Trong tương lai bạn sẽ quay lại ở phòng trọ
-                                                                của
-                                                                chúng tôi không ?</label>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                       name="question" id="inlineRadio1"
-                                                                       value="1">
-                                                                <label class="form-check-label"
-                                                                       for="inlineRadio1">Có</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                       name="question" id="inlineRadio2"
-                                                                       value="1">
-                                                                <label class="form-check-label"
-                                                                       for="inlineRadio2">Không</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Đóng
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">Gửi đánh giá
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <a href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id,'status' => 1]) }}"
-                                       class="btn btn-danger">Hủy</a>
-                                @endif
-
+                                <a href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id,'status' => 1]) }}"
+                                   class="btn btn-danger">Hủy</a>
                             @endif
                         </td>
                     </tr>
@@ -289,10 +198,4 @@
                 </tbody>
             </table>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-                integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
-                crossorigin="anonymous"></script>
 @endsection
