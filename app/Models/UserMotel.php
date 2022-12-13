@@ -57,7 +57,7 @@ class UserMotel extends Model
     public function currentMotel($motel_id = null)
     {
         return DB::table($this->table)
-            ->select(['motels.id as motel_id',
+            ->select(['user_motel.id', 'motels.id as motel_id',
                 'area_id',
                 'motels.photo_gallery',
                 'motels.description',
@@ -68,7 +68,9 @@ class UserMotel extends Model
                 'user_motel.end_time as user_motel_end_time',
                 'motels.room_number',
                 'motels.price',
-                'motels.data_post'])
+                'motels.data_post',
+                'is_vote'
+            ])
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
             ->where('user_motel.user_id', Auth::id())

@@ -297,12 +297,16 @@
         })
         document.getElementsByName('money')[0].addEventListener('keyup', (e) => {
             if (e.target.value) {
-                document.getElementById('money').innerText = `$ ${e.target.value * 24.855}`;
+                document.getElementById('money').innerText = `$ ${e.target.value / 24.855}`;
             } else {
                 document.getElementById('money').innerText = `$ ${0}`;
             }
 
         })
+
+        if (+document.querySelector('.super-price').innerHTML === 0) {
+            document.querySelector('.free-button').setAttribute('disabled', 'true');
+        }
     </script>
 
 @endsection

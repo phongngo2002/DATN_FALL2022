@@ -26,7 +26,8 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" data-index="bill-a" data-href="{{ route('admin.get_list_appoint') }}"
                        href="#">
-                        <i class="fa-solid fa-money-bill-transfer"></i><span class="align-middle">Lịch hẹn xem trọ</span>
+                        <i class="fa-solid fa-money-bill-transfer"></i><span
+                            class="align-middle">Lịch hẹn xem trọ</span>
                     </a>
                 </li>
             @endif
@@ -60,6 +61,18 @@
                     <a class="sidebar-link" data-index="service" data-href="{{route('backend_admin_get_list_plans')}}"
                        href="#">
                         <i class="fa-solid fa-earth-asia"></i><span class="align-middle">Gói dịch vụ</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" data-index="location" data-href="{{route('backend_get_list_location')}}"
+                       href="#">
+                        <i class="fa-solid fa-earth-asia"></i><span class="align-middle">Địa điểm</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" data-index="search" data-href="{{route('backend_get_history_search')}}"
+                       href="#">
+                        <i class="fa-solid fa-earth-asia"></i><span class="align-middle">Thống kê tìm kiếm</span>
                     </a>
                 </li>
             @endif

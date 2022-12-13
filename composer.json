@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": " ^8.0.2",
         "anhskohbo/no-captcha": "^3.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
@@ -44,7 +44,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "PayPal\\" : "src/Components/PayPal/",
+            "PayPal\\Api\\" : "src/Components/PayPal/Api/",
+            "PayPal\\Rest\\" : "src/Components/PayPal/Rest/",
+            "PayPal\\Auth\\" : "src/Components/PayPal/Auth/",
+            "PayPal\\Exception\\" : "src/Components/PayPal/Exception/"
         }
     },
     "scripts": {

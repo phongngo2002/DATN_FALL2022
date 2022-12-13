@@ -12,8 +12,13 @@ class Location extends Model
 
     protected $table = 'locations';
 
-    public function getAllLocation()
+    protected $fillable = ['name', 'type', 'latitude', 'longitude'];
+
+    public function getAllLocation($paginate = 0)
     {
+        if ($paginate) {
+            return DB::table($this->table)->select(['id', 'latitude', 'longitude', 'name', 'type'])->orderBy('id', 'desc')->paginate(10);
+        }
         return DB::table($this->table)->select(['id', 'latitude', 'longitude'])->get();
     }
 }

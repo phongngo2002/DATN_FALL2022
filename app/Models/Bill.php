@@ -30,22 +30,27 @@ class Bill extends Model
             ->join('motels', 'areas.id', '=', 'motels.area_id')
             ->join('bills', 'motels.id', '=', 'bills.motel_id')
             ->where('areas.user_id', Auth::id());
-        if (isset($params['area_id'])) {
+        if (isset($params['area_id']) && $params['area_id']) {
             $query = $query
-                ->where('area_id', $params['area_id'])
-                ->where('room_number', $params['room_number']);
+                ->where('area_id', $params['area_id']);
         }
-        if (isset($params['year'])) {
-            $query = $query->whereRaw('YEAR(created_at) = ' . $params['year'])
-                ->whereRaw('Month(created_at) ' . $params['month']);
+        if (isset($params['room_number']) && $params['room_number']) {
+            $query = $query
+                ->where('motels.id', $params['room_number']);
         }
-
+        if (isset($params['year']) && $params['year']) {
+            $query = $query->whereRaw('YEAR(bills.created_at) = ' . $params['year']);
+        }
+        if (isset($params['month']) && $params['month']) {
+            $query = $query->whereRaw('MONTH(bills.created_at) = ' . $params['month']);
+        }
         return $query->orderBy('bills.id', 'desc')
             ->paginate($params['limit'] ?? 10);
     }
 
 
-    public function client_get_list_bill_user()
+    public
+    function client_get_list_bill_user()
     {
         $query = DB::table('user_motel')
             ->selectRaw('bills.id,
@@ -69,7 +74,9 @@ class Bill extends Model
         }
         return $query;
     }
-    public function client_get_bill_user($id)
+
+    public
+    function client_get_bill_user($id)
     {
         $bill = 'bills.id,area_id,room_number,price,wifi,bills.created_at,bills.status,';
         $money = 'motels.electric_money,motels.warter_money,';

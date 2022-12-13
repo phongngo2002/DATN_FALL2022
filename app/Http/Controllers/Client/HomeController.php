@@ -43,12 +43,15 @@ class HomeController extends Controller
         // $contact = $modelMotel->client_get_List_Motel_contact();
         $motel = $modelMotel->client_get_List_Motel_top($request->all());
         $contact = $modelMotel->client_get_List_Motel_contact($request->all());
+        $template_search = DB::table('motels')->
+        selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
 
         return view('client.home.index', [
             'area' => $area,
             'motel' => $motel,
             'contact' => $contact,
-            'categories' => $categories
+            'categories' => $categories,
+            'template_search' => $template_search
         ]);
     }
 
@@ -59,7 +62,8 @@ class HomeController extends Controller
         $this->v['locations'] = DB::table('locations')->get();
         $this->v['areas'] = $modelArea->client_Get_List_Top_Area();
         $this->v['motels'] = $modelMotel->client_Get_all_Motel();
-
+        $this->v['template_search'] = DB::table('motels')->
+        selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
         return view('client.home.motels', $this->v);
     }
 
@@ -76,7 +80,11 @@ class HomeController extends Controller
         }, $request->all());
         $modelMotel = new Motel();
         $motels = $modelMotel->search($params);
-
+        $res = DB::table('history_area_search')->insert([
+            'city' => $request->all()['city'],
+            'ward' => $request->all()['ward'],
+            'district' => $request->all()['district']
+        ]);
         return response()->json([
             'motel' => view('custom.js.resultSearchMotel', ["motels" => $motels])->render()
         ]);
@@ -108,7 +116,11 @@ class HomeController extends Controller
         $area = $modelArea->client_Get_List_Top_Area();
         $motels = $modelMotel->search($params);
         $contact = $modelMotel->client_get_List_Motel_contact($request->all());
-
+        $res = DB::table('history_area_search')->insert([
+            'city' => $request->all()['city'],
+            'ward' => $request->all()['ward'],
+            'district' => $request->all()['district']
+        ]);
         return response()->json([
             'area' => $area,
             'motel' => view('custom.js.resultSearch', ["motel" => $motels])->render(),

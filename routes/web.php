@@ -213,8 +213,21 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/cap-nhat', [RoleController::class, 'saveUpdate_roles'])->name('saveEdit_role');
             Route::get('/xoa/{id}', [RoleController::class, 'delete_roles'])->name('del_role');
         });
+        Route::prefix('lich-su-tim-kiem')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\HistorySearchController@index')->name('backend_get_history_search');
+            Route::get('/thong-ke', 'App\Http\Controllers\Admin\HistorySearchController@api')->name('backend_api_history_search');
 
+
+        });
+        Route::prefix('dia-diem')->group(function () {
+            Route::get('/', 'App\Http\Controllers\Admin\LocationController@index')->name('backend_get_list_location');
+            Route::post('/nhap-danh-sach', 'App\Http\Controllers\Admin\LocationController@importFileExcel')->name('backend_importFileExcel_location');
+
+        });
         Route::prefix('tai-khoan')->group(function () {
+            Route::get('/doi-mat-khau', 'App\Http\Controllers\Admin\UserController@changePassword')->name('backend_user_change_password');
+            Route::post('/doi-mat-khau', 'App\Http\Controllers\Admin\UserController@saveChangePassword');
+
             Route::get('/', 'App\Http\Controllers\Admin\UserController@index_users')->name('backend_user_getAll');
             Route::get('/chi-tiet/{id}/{used_to}', 'App\Http\Controllers\Admin\UserController@update_users')->name('backend_user_detail');
             Route::match(['get', 'post'], '/add', 'App\Http\Controllers\Admin\UserController@add')->name('backend_user_add');

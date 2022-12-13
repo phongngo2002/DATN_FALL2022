@@ -285,7 +285,8 @@ class MotelController extends Controller
         $model = new PlanHistory();
 
         $this->v['motel'] = $model->list_live_together();
-
+        $this->v['template_search'] = DB::table('motels')->
+        selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
         return view('client.account_management.list_live_together', $this->v);
     }
 
@@ -293,7 +294,11 @@ class MotelController extends Controller
     {
         $model = new Motel();
         $this->v['motel'] = $model->search($request->all(), 2);
-
+        $res = DB::table('history_area_search')->insert([
+            'city' => $request->all()['city'],
+            'ward' => $request->all()['ward'],
+            'district' => $request->all()['district']
+        ]);
         // return view('client.account_management.list_live_together', $this->v);
         return response()->json([
             'motel' => view('custom.js.resultSearchLiveTogether', ["motel" => $this->v['motel']])->render(),

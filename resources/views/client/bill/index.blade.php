@@ -145,7 +145,7 @@
                 </button>
             </div>
         @endif
-        <h4>Lịch sử đặt cọc</h4>
+        <h4>Hóa đơn tiền phòng</h4>
         <div class="my-properties shadow-lg">
             <table class="table-responsive text-center shadow p-3 mb-5 bg-body rounded">
                 <thead>

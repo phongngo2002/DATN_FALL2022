@@ -20,7 +20,6 @@ class Vote extends Model
         return DB::table('users')
             ->select(['avatar', 'name', 'votes.created_at', 'score', 'message'])
             ->join('votes', 'users.id', '=', 'votes.user_id')
-            ->join('motel_vote', 'votes.id', '=', 'motel_vote.vote_id')
             ->where('motel_id', $motel_id)
             ->paginate(10);
     }

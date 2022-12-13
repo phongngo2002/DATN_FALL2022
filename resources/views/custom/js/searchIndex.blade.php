@@ -94,7 +94,10 @@
             const {value} = element.dataset;
             if (+value > 0) {
                 if (element.classList.contains('selected')) {
-                    document.getElementsByName('city_id')[0].value = value;
+                    document.getElementsByName('city_id')[0].value = JSON.stringify({
+                        id: value,
+                        label: element.innerHTML
+                    });
                 }
             }
 
@@ -106,7 +109,10 @@
                 const {value} = element.dataset;
                 if (+value > 0) {
                     if (element.classList.contains('selected')) {
-                        document.getElementsByName('district_id')[0].value = value;
+                        document.getElementsByName('district_id')[0].value = JSON.stringify({
+                            id: value,
+                            label: element.innerHTML
+                        });
                     }
                 }
             })
@@ -118,7 +124,10 @@
                 const {value} = element.dataset;
                 if (+value > 0) {
                     if (element.classList.contains('selected')) {
-                        document.getElementsByName('ward_id')[0].value = value;
+                        document.getElementsByName('ward_id')[0].value = JSON.stringify({
+                            id: value,
+                            label: element.innerHTML
+                        });
                     }
                 }
             })

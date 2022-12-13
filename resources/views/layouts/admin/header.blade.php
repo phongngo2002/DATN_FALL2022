@@ -61,6 +61,9 @@
                                                                                         data-feather="user"></i> Thông
                         tin tài khoản</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('backend_user_change_password')}}"><i
+                            class="fa-solid fa-money-check"></i>
+                        Đổi mật khẩu</a>
                     <a class="dropdown-item" href="{{route('backend_get_form_recharge')}}"><i
                             class="fa-solid fa-money-check"></i>
                         Nạp tiền</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\MotelVote;
+use App\Models\UserMotel;
 use App\Models\Vote;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,15 +21,15 @@ class VoteController extends Controller
             'message' => $request->message,
             'question' => $request->question,
             'user_id' => Auth::id(),
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'motel_id' => $request->motel_id
         ]);
 
-        $res = MotelVote::insert([
-            'vote_id' => $id,
-            'motel_id' => $request->motel_id,
+        UserMotel::where('id', $request->user_motel_id)->update([
+            'is_vote' => 1
         ]);
 
-        if ($res) {
+        if ($id) {
             return redirect()->back()->with('success', 'Gửi đánh giá thành công');
         } else {
             return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');

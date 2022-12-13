@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->longText('message');
             $table->integer('question')->default(1);
             $table->integer('user_id');
+            $table->integer('motel_id');
             $table->timestamps();
         });
     }

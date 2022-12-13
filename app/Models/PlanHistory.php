@@ -119,7 +119,7 @@ class PlanHistory extends Model
 
     public function list_live_together()
     {
-        return DB::table('plans')
+        $query = DB::table('plans')
             ->select(['plan_history.status',
                 'motels.id as motel_id',
                 'max_people',
@@ -141,5 +141,13 @@ class PlanHistory extends Model
             ->where('type', 2)
             ->orderBy('priority_level', 'asc')
             ->paginate(10);
+
+        foreach ($query as $item) {
+            $sql2 = DB::table('votes')->selectRaw('AVG(score) as tb')->where('motel_id', $item->motel_id)->groupBy(['motel_id'])->first()->tb ?? 0;
+
+            $item->vote = $sql2;
+        }
+
+        return $query;
     }
 }

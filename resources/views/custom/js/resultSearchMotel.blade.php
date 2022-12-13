@@ -1,7 +1,7 @@
-<div class="row portfolio-items" style="position: relative; min-height: 1200px;left: 7%;">
+<div class="row portfolio-items">
     @foreach($motels as $key)
         <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-            <div class="project-single" data-aos="fade-right">
+            <div class="project-single">
                 <div class="project-inner project-head">
                     <div class="homes">
                         <!-- homes img -->
@@ -37,7 +37,7 @@
                         </a>
                     </p>
                     <!-- homes List -->
-                    <ul class="homes-list clearfix pb-3">
+                    <ul class="homes-list clearfix pb-3" style="height: 80px;overflow-y: auto">
                         @if(isset($key->locationNearMotel))
                         @foreach($key->locationNearMotel as $location)
                             @if($location->type === 1)
@@ -72,25 +72,23 @@
                             <a href="{{route('client.motel.detail',['id' => $key->motel_id])}}">{{number_format($key->price, 0, ',', '.')}}
                                 VNĐ</a>
                         </h3>
-                        <div class="compare">
-                            <a href="#" title="Compare">
-                                <i class="flaticon-compare"></i>
-                            </a>
-                            <a href="#" title="Share">
-                                <i class="flaticon-share"></i>
-                            </a>
-                            <a href="#" title="Favorites">
-                                <i class="flaticon-heart"></i>
-                            </a>
-                        </div>
+                        <p class="text-warning" style="font-size: 12px">
+                            @if($key->vote > 0)
+                                @for ($i = 1; $i <= round($key->vote,0); $i++)
+                                    <i class="fa-solid fa-star"></i>
+                                @endfor
+                                <span>({{round($key->vote,0)}})</span>
+                            @else
+                                <span>Chưa có lượt đánh giá nào</span>
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
     {{-- End div motel --}}
-    <div class="bg-all">
-        <nav aria-label="..." class="agents pt-55">
-            {!! $motels->links() !!}
-        </nav>
-    </div>
+        <div style="margin-left: 50%" id="phan_trang">
+            {{$motels->links()}}
+        </div>
+</div>

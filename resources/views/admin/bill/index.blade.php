@@ -18,23 +18,42 @@
         <form action="">
             <div class="row">
                 <div class="col-3 form-group">
-                    <select name="area_id" id="" class="form-control">
+                    <select name="area_id" id="area_id" class="form-control">
                         <option value="">Lựa chọn khu trọ</option>
+                        @foreach($areas as $area)
+                            <option
+                                value="{{$area->id}}" {{isset($params['area_id']) &&   $params['area_id'] == $area->id ? 'selected' : ''}}>{{$area->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-2 form-group">
-                    <select name="room_number" id="" class="form-control">
+                    <select name="room_number" id="room_number" class="form-control">
                         <option value="">Lựa chọn mã phòng</option>
+                        @if(isset($motels))
+                            @foreach($motels as $motel)
+                                <option
+                                    value="{{$motel->id}}" {{isset($params['room_number']) &&   $params['room_number'] == $motel->id ? 'selected' : ''}} >{{$motel->room_number}}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="col-2 form-group">
                     <select name="year" id="" class="form-control">
                         <option value="">Lựa chọn năm</option>
+                        <option
+                            value="2022" {{isset($params['year']) &&   $params['year'] == 2022     ? 'selected' : ''}}>
+                            Năm 2022
+                        </option>
                     </select>
                 </div>
                 <div class="col-2 form-group">
                     <select name="month" id="" class="form-control">
                         <option value="">Lựa chọn tháng</option>
+                        @for($i = 1 ; $i < 13; $i++)
+                            <option
+                                value="{{$i}}" {{isset($params['month']) &&  $params['month'] == $i ? 'selected' : ''}}>
+                                Tháng {{$i}}</option>
+                        @endfor
                     </select>
                 </div>
                 <div class="col-3">
@@ -85,7 +104,8 @@
                                         <form action="{{route('backend_confirm_bill')}}" method="POST">
                                             @csrf
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận đã thu tiền trọ</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận đã thu tiền
+                                                    trọ</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -93,9 +113,12 @@
                                                 Bạn có chắc muốn thay đổi trạng thái hóa đơn sang đã thu ?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Hủy
+                                                </button>
 
-                                                <button type="submit" name="bill_id" value="{{$item->bill_id}}" class="btn btn-primary">
+                                                <button type="submit" name="bill_id" value="{{$item->bill_id}}"
+                                                        class="btn btn-primary">
                                                     Đồng ý
                                                 </button>
 
@@ -114,4 +137,33 @@
         </table>
     </div>
 
+@endsection
+
+@section('custom_js')
+    <script>
+        document.getElementById('area_id').addEventListener('change', (e) => {
+            if (e.target.value) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('get_motel_by_area') }}",
+                    data: {
+                        area_id: +e.target.value,
+                    },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (result) {
+                        document.getElementById('room_number').innerHTML = `
+                         <option value="">Lựa chọn mã phòng</option>
+                            ${result.map(item => `<option value="${item.id}">${item.room_number}</option>`).join("")}
+                        `;
+                    }
+                });
+            } else {
+                document.getElementById('room_number').innerHTML = `
+                         <option value="">Bạn chưa chọn khu <trọ></trọ></option>`;
+            }
+        })
+    </script>
 @endsection

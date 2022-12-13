@@ -26,18 +26,18 @@ class DashboardController extends Controller
 
 
         $this->v['OwnMotelCountUser'] = DB::table('users')
-            ->join('user_motel', 'user_motel.motel_id', '=', 'users.id')
-            ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
-            ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('areas.user_id', Auth::user()->id)->count() ?? 0;
+                ->join('user_motel', 'user_motel.motel_id', '=', 'users.id')
+                ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
+                ->join('areas', 'motels.area_id', '=', 'areas.id')
+                ->where('areas.user_id', Auth::user()->id)->count() ?? 0;
         $this->v['OwnMotelCountMotel'] = DB::table('motels')
-            ->join('areas', 'motels.area_id', '=', 'areas.id')
-            ->where('areas.user_id', Auth::user()->id)->count() ?? 0;
+                ->join('areas', 'motels.area_id', '=', 'areas.id')
+                ->where('areas.user_id', Auth::user()->id)->count() ?? 0;
 
         $this->v['OwnMoteCountPlanBuyed'] = DB::table('plan_history')->where('user_id', Auth::user()->id)->count() ?? 0;
         $this->v['OwnMoteCountPlanBuyedActive'] = DB::table('plan_history')
-            ->where('user_id', Auth::user()->id)
-            ->where('status', 1)->count() ?? 0;
+                ->where('user_id', Auth::user()->id)
+                ->where('status', 1)->count() ?? 0;
         $this->v['views'] = DB::table('motels')->selectRaw('SUM(view) as sum')->first()->sum ?? 0;
         if (isset($_GET['id'])) {
             $user = User::where('id', $_GET['id'])->first();
@@ -75,10 +75,10 @@ class DashboardController extends Controller
         $people = [];
         for ($i = 1; $i < Carbon::now()->month + 1; $i++) {
             $query2 = DB::table('users')
-                ->selectRaw('COUNT(id) as value')
-                ->whereRaw('MONTH(created_at) = ' . $i)
-                ->where('role_id', '!=', 2)
-                ->first()->value ?? 0;
+                    ->selectRaw('COUNT(id) as value')
+                    ->whereRaw('MONTH(created_at) = ' . $i)
+                    ->where('role_id', '!=', 2)
+                    ->first()->value ?? 0;
 
             $people['label'][] = 'Tháng ' . $i;
             $people['value'][] = $query2;
@@ -98,43 +98,43 @@ class DashboardController extends Controller
             'value' => []
         ];
         $withdraw_recharge_day['value'][] = DB::table('recharges')
-            ->selectRaw('SUM(value - fee) as sum')
-            ->where('status', 1)
-            ->whereRaw('DAY(created_at) = ' . now()->day)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM(value - fee) as sum')
+                ->where('status', 1)
+                ->whereRaw('DAY(created_at) = ' . now()->day)
+                ->first()->sum ?? 0;
         $withdraw_recharge_day['value'][] = DB::table('withdraws')
-            ->selectRaw('SUM((money - (fee /  24.855))) as sum')
-            ->where('status', 1)
-            ->whereRaw('DAY(created_at) = ' . now()->day)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM((money - (fee /  24.855))) as sum')
+                ->where('status', 1)
+                ->whereRaw('DAY(created_at) = ' . now()->day)
+                ->first()->sum ?? 0;
         $withdraw_recharge_month = [
             'label' => ['Nạp tiền', 'Rút tiền'],
             'value' => []
         ];
         $withdraw_recharge_month['value'][] = DB::table('recharges')
-            ->selectRaw('SUM(value - fee) as sum')
-            ->where('status', 1)
-            ->whereRaw('MONTH(created_at) = ' . now()->month)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM(value - fee) as sum')
+                ->where('status', 1)
+                ->whereRaw('MONTH(created_at) = ' . now()->month)
+                ->first()->sum ?? 0;
         $withdraw_recharge_month['value'][] = DB::table('withdraws')
-            ->selectRaw('SUM((money - (fee/24.855))) as sum')
-            ->where('status', 1)
-            ->whereRaw('MONTH(created_at) = ' . now()->month)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM((money - (fee/24.855))) as sum')
+                ->where('status', 1)
+                ->whereRaw('MONTH(created_at) = ' . now()->month)
+                ->first()->sum ?? 0;
         $withdraw_recharge_year = [
             'label' => ['Nạp tiền', 'Rút tiền'],
             'value' => []
         ];
         $withdraw_recharge_year['value'][] = DB::table('recharges')
-            ->selectRaw('SUM(value - fee) as sum')
-            ->where('status', 1)
-            ->whereRaw('YEAR(created_at) = ' . now()->year)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM(value - fee) as sum')
+                ->where('status', 1)
+                ->whereRaw('YEAR(created_at) = ' . now()->year)
+                ->first()->sum ?? 0;
         $withdraw_recharge_year['value'][] = DB::table('withdraws')
-            ->selectRaw('SUM((money - (fee /  24.855))) as sum')
-            ->where('status', 1)
-            ->whereRaw('YEAR(created_at) = ' . now()->year)
-            ->first()->sum ?? 0;
+                ->selectRaw('SUM((money - (fee /  24.855))) as sum')
+                ->where('status', 1)
+                ->whereRaw('YEAR(created_at) = ' . now()->year)
+                ->first()->sum ?? 0;
         //        $new_user_in_motel = [];
         //        for ($i = 1; $i < now()->month + 1; $i++) {
         //            $new_user_in_motel['label'][] = 'Tháng ' . $i;
@@ -162,12 +162,12 @@ class DashboardController extends Controller
         for ($i = 0; $i < 6; $i++) {
             if ($i === 1 || $i === 2 || $i === 5) {
                 $a = DB::table('motels')
-                    ->selectRaw('COUNT(motels.id) as value')
-                    ->join('areas', 'motels.area_id', '=', 'areas.id')
-                    ->where('areas.user_id', $request->user_id)
-                    ->groupBy('motels.status')
-                    ->where('motels.status', $i)
-                    ->first() ?? 0;
+                        ->selectRaw('COUNT(motels.id) as value')
+                        ->join('areas', 'motels.area_id', '=', 'areas.id')
+                        ->where('areas.user_id', $request->user_id)
+                        ->groupBy('motels.status')
+                        ->where('motels.status', $i)
+                        ->first() ?? 0;
                 $query[] = $a;
             }
         }
@@ -186,12 +186,11 @@ class DashboardController extends Controller
         $vote = [];
         for ($i = 1; $i < 6; $i++) {
             $vote[] = DB::table('votes')
-                ->join('motel_vote', 'votes.id', '=', 'motel_vote.vote_id')
-                ->join('motels', 'motel_vote.motel_id', '=', 'motels.id')
-                ->join('areas', 'motels.area_id', '=', 'areas.id')
-                ->where('areas.user_id', $request->user_id)
-                ->where('score', $i)
-                ->count() ?? 0;
+                    ->join('motels', 'votes.motel_id', '=', 'motels.id')
+                    ->join('areas', 'motels.area_id', '=', 'areas.id')
+                    ->where('areas.user_id', $request->user_id)
+                    ->where('score', $i)
+                    ->count() ?? 0;
         }
         $bills = [
             'label' => [
@@ -202,11 +201,11 @@ class DashboardController extends Controller
         ];
         for ($i = 0; $i < 2; $i++) {
             $bills['data'][] = DB::table('bills')
-                ->join('motels', 'bills.motel_id', '=', 'motels.id')
-                ->join('areas', 'motels.area_id', '=', 'areas.id')
-                ->where('areas.user_id', $request->user_id)
-                ->whereRaw('MONTH(bills.created_at) = ' . now()->month - 1)
-                ->where('bills.status', $i)->count() ?? 0;
+                    ->join('motels', 'bills.motel_id', '=', 'motels.id')
+                    ->join('areas', 'motels.area_id', '=', 'areas.id')
+                    ->where('areas.user_id', $request->user_id)
+                    ->whereRaw('MONTH(bills.created_at) = ' . now()->month - 1)
+                    ->where('bills.status', $i)->count() ?? 0;
         }
 
 
