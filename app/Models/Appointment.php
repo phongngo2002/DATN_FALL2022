@@ -47,6 +47,7 @@ class Appointment extends Model
             ->join('appointments', 'users.id', '=', 'appointments.user_id')
             ->join('motels', 'appointments.motel_id', '=', 'motels.id')
             ->join('areas', 'motels.area_id', '=', 'areas.id')
+            ->orderBy('appointments.id', 'desc')
             ->where('areas.user_id', Auth::id())
             ->paginate(10);
     }

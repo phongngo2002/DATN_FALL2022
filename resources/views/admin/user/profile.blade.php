@@ -60,90 +60,29 @@
 
                     <h5 class="card-title mb-0">Hoạt động</h5>
                 </div>
-                <div class="card-body h-100">
+                <div class="card-body h-100" style="height: 779px !important;overflow: auto">
+                    @if(count(Auth::user()->notifications) > 0)
+                        @foreach(Auth::user()->notifications as $index =>$notification)
+                            <div class="d-flex align-items-start">
+                                <img
+                                    src="{{$notification->data['avatar'] ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg'}}"
+                                    width="36" height="36"
+                                    class="rounded-circle me-2"
+                                    alt="{{$notification->data['title']}}">
+                                <div class="flex-grow-1">
+                                    <small class="float-end text-navy">{{$notification->data['time']}}</small>
+                                    {!! $notification->data['message'] !!}<br/>
+                                    <small class="text-muted"><a href="{{$notification->data['href']}}">Chi
+                                            tiết</a></small><br/>
+                                </div>
+                            </div>
 
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar-5.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="Vanessa Tucker">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">5m ago</small>
-                            <strong>Phạm Thu Trang</strong> đã đăng ký ở ghép phòng P301 - <strong>Nhà trọ Quang
-                                Minh</strong><br/>
-                            <small class="text-muted">Today 7:51 pm</small><br/>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
+                            <hr/>
+                        @endforeach
+                    @else
+                        <p>Bạn chưa có thông báo nào gần đây.</p>
+                    @endif
 
-                    <hr/>
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="Charles Hall">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">30m ago</small>
-                            <strong>Nguyễn Quyết Tiến</strong> đã bật trạng thái tìm người ghép phòng P302 - <strong>Nhà
-                                trọ Vĩnh Hằng</strong><br/>
-                            <small class="text-muted">Today 7:21 pm</small><br/>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar-4.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="Christina Mason">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">1h ago</small>
-                            <strong>Nguyễn Quyết Tiến</strong> đã rời phòng P301 - <strong>Nhà trọ Vĩnh
-                                Hằng</strong><br/>
-                            <small class="text-muted">Today 6:35 pm</small><br/>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar-4.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="Christina Mason">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">1h ago</small>
-                            <strong>Nguyễn Quyết Tiến</strong> đã rời phòng P301 - <strong>Nhà trọ Vĩnh
-                                Hằng</strong><br/>
-                            <small class="text-muted">Today 6:35 pm</small><br/>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar-2.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="William Harris">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">3h ago</small>
-                            <strong>Hoàng Xuân Vũ</strong> đã đồng ý cho <strong>Ngô Văn Phong</strong> ở ghép phòng
-                            P301 - <strong>Nhà trọ Quang Minh</strong><br/>
-                            <small class="text-muted">Today 5:12 pm</small><br>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="d-flex align-items-start">
-                        <img src="{{asset('assets/admin/img/avatars/avatar-2.jpg')}}" width="36" height="36"
-                             class="rounded-circle me-2"
-                             alt="William Harris">
-                        <div class="flex-grow-1">
-                            <small class="float-end text-navy">3h ago</small>
-                            <strong>Hoàng Xuân Vũ</strong> đã đồng ý cho <strong>Ngô Văn Phong</strong> ở ghép phòng
-                            P301 - <strong>Nhà trọ Quang Minh</strong><br/>
-                            <small class="text-muted">Today 5:12 pm</small><br>
-                            <small class="text-muted"><a href="">Chi tiết</a></small><br/>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="d-grid">
-                        <a href="#" class="btn btn-primary">Xem thêm</a>
-                    </div>
                 </div>
             </div>
         </div>

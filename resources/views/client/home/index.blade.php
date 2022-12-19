@@ -485,7 +485,7 @@
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2" data-aos="fade-up" data-aos-delay="150">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/t-5.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -497,8 +497,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Carls Jhons</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Ngô Văn Phong</a></h3>
                         </div>
                     </div>
                 </div>
@@ -506,7 +505,7 @@
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2" data-aos="fade-up" data-aos-delay="250">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/t-6.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -518,8 +517,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Arling Tracy</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Phạm Thu Trang</a></h3>
                         </div>
                     </div>
                 </div>
@@ -527,7 +525,7 @@
                 <div class="team-block col-sm-6 col-md-4 col-lg-4 col-xl-2" data-aos="fade-up" data-aos-delay="350">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/t-7.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -539,8 +537,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Mark Web</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Nguyễn Quyết Tiến</a></h3>
                         </div>
                     </div>
                 </div>
@@ -549,7 +546,7 @@
                      data-aos-delay="450">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/t-8.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -561,8 +558,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Katy Grace</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Đoàn</a></h3>
                         </div>
                     </div>
                 </div>
@@ -570,7 +566,7 @@
                      data-aos-delay="550">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/team-image-2.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -582,8 +578,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Chris Melo</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Hoàng Xuân Vũ</a></h3>
                         </div>
                     </div>
                 </div>
@@ -591,7 +586,7 @@
                      data-aos-delay="650">
                     <div class="inner-box team-details">
                         <div class="image team-head">
-                            <a href="agents-listing-grid.html"><img
+                            <a href="#"><img
                                     src="{{ asset('assets/client/images/team/team-image-7.jpg') }}" alt=""/></a>
                             <div class="team-hover">
                                 <ul class="team-social">
@@ -603,8 +598,7 @@
                             </div>
                         </div>
                         <div class="lower-box">
-                            <h3><a href="agents-listing-grid.html">Nina Thomas</a></h3>
-                            <div class="designation">Real Estate Agent</div>
+                            <h3><a href="#">Phùng Thành Trà</a></h3>
                         </div>
                     </div>
                 </div>

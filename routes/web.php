@@ -90,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/quan-ly-tai-khoan/nap-tien', 'App\Http\Controllers\Client\AccountManagementController@getRecharge')->name('getRecharge');
     Route::get('/quan-ly-tai-khoan/lich-su-nap-tien', 'App\Http\Controllers\Client\AccountManagementController@historyRecharge')->name('get_history_recharge');
-    Route::get('/quan-ly-tai-khoan/roi-phong,{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
+    Route::get('/quan-ly-tai-khoan/roi-phong/{motelId}', 'App\Http\Controllers\Client\AccountManagementController@outMotel')->name('client_out_motel');
     Route::get('/quan-ly-tai-khoan/dang-ky-o-ghep', 'App\Http\Controllers\Client\AccountManagementController@history_contact_by_user')->name('get_history_contact_by_user');
     Route::post('/quan-ly-tai-khoan/gui-danh-gia', 'App\Http\Controllers\Client\VoteController@sendVote')->name('client_send_vote');
 

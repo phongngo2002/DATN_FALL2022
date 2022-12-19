@@ -80,6 +80,32 @@
                             @enderror
                         </div>
                     </div>
+                    <p>Nếu bạn chưa biết lấy latitude và longitude.
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Tại dây</a></p>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hướng dẫn cách lấy latitude và
+                                        longitude</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>B1. Truy cập vào địa chỉ: <a href="https://www.latlong.net/" target="_blank">www.latlong.net</a>
+                                    </p>
+                                    <p>B2. Thao tác như hình.</p>
+                                    <img width="100%" src="https://hwp.com.vn/wp-content/uploads/2017/10/huong-dan-lay-toa-google-map.jpg" alt="">
+                                    <p>Copy 2 thông số Latitude (Vĩ độ) & Longitude (Kinh độ) vào cấu hình bản đồ của website. Chúc bạn thực hiện thành công.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="my-2">
                         <label for="">Link google map</label>
                         <input type="text" class="form-control" value="{{old('link_gg_map')}}" name="link_gg_map"

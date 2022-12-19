@@ -205,10 +205,11 @@ class Motel extends Model
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
-        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi', 'motels.status', 'user_id'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
+        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi', 'motels.status', 'user_id', 'areas.id'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
         $query->money_deposit = DB::table('deposits')
-                ->select(['value', 'type'])
-                ->where('status', 1)
+                ->select(['value', 'type', 'name', 'email', 'phone_number', 'deposits.created_at'])
+                ->join('users', 'deposits.user_id', '=', 'users.id')
+                ->where('deposits.status', 1)
                 ->where('motel_id', $id)
                 ->first() ?? 0;
         return $query;

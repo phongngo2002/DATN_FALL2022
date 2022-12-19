@@ -83,12 +83,12 @@
                     <td>{{ $area->address }}</td>
                     <td>
                         <a href="{{ route('admin.motel.list', ['id' => $area->id]) }}" class="btn btn-info"><i
-                                class="fa-solid fa-circle-info"></i></a>
+                                class="fa-solid fa-circle-info"></i> Chi tiết</a>
                         <a href="{{ route('backend_get_edit_area', ['id' => $area->id]) }}" class="btn btn-warning"><i
-                                class="fa-solid fa-pen-to-square"></i></a>
+                                class="fa-solid fa-pen-to-square"></i> Sửa</a>
                         <button data-bs-toggle="modal" data-bs-target="#exampleModal{{$area->id}}"
                                 class="btn btn-danger"
-                                title="Gửi hóa đơn tiên phòng"><i class="fa-solid fa-paper-plane"></i></button>
+                                title="Gửi hóa đơn tiên phòng"><i class="fa-solid fa-paper-plane"></i> Gửi hóa đơn</button>
                         <div class="modal fade" id="exampleModal{{$area->id}}" tabindex="-1"
                              aria-labelledby="exampleModalLabel"
                              aria-hidden="true">

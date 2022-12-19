@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\ConfirmContactMotel;
 use App\Models\ContactMotelHistory;
 use App\Models\Motel;
+use App\Models\User;
 use App\Models\Vote;
+use App\Notifications\AppNotification;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class LiveTogetherController extends Controller
@@ -47,10 +51,45 @@ class LiveTogetherController extends Controller
         $model = new ContactMotelHistory();
 
         $res = $model->confirmContact($motel_id, $area_id, $status, $contact_id);
+
         try {
             if ($status === 4) {
                 return redirect()->route('get_history_contact_by_user');
             } else {
+                $motel = Motel::select('areas.id', 'user_id', 'room_number', 'name')->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $motel_id)->first();
+
+                $user = User::find($motel->user_id);
+                $userContact = ContactMotelHistory::select('name')->join('users', 'contact_motel_history.user_id', '=', 'users.id')->where('contact_motel_history.id', $contact_id)->first();
+                $userLogin = Auth::user();
+                if ($status === "1") {
+                    $data1 = [
+                        'title' => 'Bạn vừa có 1 thông báo mới',
+                        'message' =>
+                            Auth::user()->name . ' đã đồng ý cho ' . $userContact->name . ' ở ghép phòng ' . $motel->room_number . ' - ' . '<span class="font-weight-bold">' . $motel->name . '</span>',
+                        'time' => Carbon::now()->format('h:i A d/m/Y'),
+                        'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg',
+                        'href' => route('admin.motel.contact', ['id' => $area_id, 'idMotel' => $motel_id])];
+                    $user->notify(new AppNotification($data1));
+                } else if ($status === "2") {
+                    $data1 = [
+                        'title' => 'Bạn vừa có 1 thông báo mới',
+                        'message' =>
+                            Auth::user()->name . ' đã không đồng ý cho ' . $userContact->name . ' ở ghép phòng ' . $motel->room_number . ' - ' . '<span class="font-weight-bold">' . $motel->name . '</span>',
+                        'time' => Carbon::now()->format('h:i A d/m/Y'),
+                        'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg',
+                        'href' => route('admin.motel.contact', ['id' => $area_id, 'idMotel' => $motel_id])];
+                    $user->notify(new AppNotification($data1));
+                } else {
+                    $data1 = [
+                        'title' => 'Bạn vừa có 1 thông báo mới',
+                        'message' =>
+                            Auth::user()->name . ' đã thay đổi trạng thái đơn đăng ký ở ghép của ' . $userContact->name . ' phòng ' . $motel->room_number . ' - ' . '<span class="font-weight-bold">' . $motel->name . '</span>',
+                        'time' => Carbon::now()->format('h:i A d/m/Y'),
+                        'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg',
+                        'href' => route('admin.motel.contact', ['id' => $area_id, 'idMotel' => $motel_id])];
+                    $user->notify(new AppNotification($data1));
+                }
+
                 Mail::to($res['email'])->send(new ConfirmContactMotel($res['actor']));
                 return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
             }

@@ -72,6 +72,7 @@ class cronEmail extends Command
                 'title' => 'Bạn vừa có 1 thông báo mới',
                 'message' => 'Phòng ' . $item->room_number . 'đã hết hạn hợp đồng',
                 'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'avatar' => 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg',
                 'href' => '#'
             ];
             $user->notify(new AppNotification($data));

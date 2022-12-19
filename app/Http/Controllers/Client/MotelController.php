@@ -12,6 +12,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
 use App\Models\Vote;
+use App\Notifications\AppNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
@@ -219,6 +220,8 @@ class MotelController extends Controller
             $user->money += $tien;
 
             $user->save();
+
+
             return redirect()->back()->with('success', 'Thay đổi gói bài đăng thành công');
 
         } else {
@@ -275,6 +278,19 @@ class MotelController extends Controller
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
             $user->save();
+
+            $motel = Motel::select('areas.id', 'user_id', 'room_number', 'name')->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $request->motel_id)->first();
+
+            $user = User::find($motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'message' =>
+                    $userLogin->name . ' đã bật trạng thái tìm người ghép phòng ' . $motel->room_number . ' - ' . $motel->name,
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'avatar' => $userLogin->avatar,
+                'href' => route('admin.motel.list', ['id' => $motel->id])];
+            $user->notify(new AppNotification($data1));
         }
         return redirect()->back()->with('success', 'Đăng bài thành công');
 
@@ -341,24 +357,40 @@ class MotelController extends Controller
 
         $model2 = new ContactMotelHistory();
         $model = new Motel();
-        $data = [];
-        $people = $model->info_motel($id);
-        if ($people->motel->user_id === Auth::id()) {
-            return redirect()->back()->with('error', 'Bạn là chủ khu trọ.Bạn không thể đăng ký ở ghép phòng này');
-        }
-        if ($model2->create_history([
-            'id' => $id
-        ])) {
-
-            foreach ($people as $p) {
-                $data[] = $p->email;
+        try {
+            $people = $model->info_motel($id);
+            $user = User::find($people->motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'message' =>
+                    $userLogin->name . ' đã đăng ký ở ghép phòng ' . $people->motel->room_number . ' - <span class="font-weight-bold">' . $people->motel->name . '</span>',
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => route('admin.motel.contact', ['id' => $people->motel->id, 'idMotel' => $id]),
+                'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg'
+            ];
+            $user->notify(new AppNotification($data1));
+            if ($people->motel->user_id === Auth::id()) {
+                return redirect()->back()->with('error', 'Bạn là chủ khu trọ.Bạn không thể đăng ký ở ghép phòng này');
             }
-            if (!empty($data)) {
-                Mail::to($data)->send(new SendMailContact());
+            $data = [];
+            if ($model2->create_history([
+                'id' => $id
+            ])) {
+
+                foreach ($people as $p) {
+                    $data[] = $p->email;
+                }
+                if (!empty($data)) {
+                    Mail::to($data)->send(new SendMailContact());
+                }
             }
+
+            return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra.Vui lòng thử lại');
         }
 
-        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
     }
 
 
