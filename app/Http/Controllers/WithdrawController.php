@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WithdrawRequest;
 use App\Mail\ForgotOtp;
 use App\Models\User;
 use App\Models\Withdraw;
@@ -59,7 +60,7 @@ class WithdrawController extends Controller
         }
     }
 
-    public function withdraw(Request $request)
+    public function withdraw(WithdrawRequest $request)
     {
         if (User::where('confirmation_code', $request->code)->first()) {
             $uri = 'https://api.sandbox.paypal.com/v1/oauth2/token';

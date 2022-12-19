@@ -1,3 +1,4 @@
+
 <script src="{{asset('assets/client/js/jquery-3.5.1.min.js')}}"></script>
 <script src="{{asset('assets/client/js/rangeSlider.js')}}"></script>
 <script src="{{asset('assets/client/js/tether.min.js')}}"></script>

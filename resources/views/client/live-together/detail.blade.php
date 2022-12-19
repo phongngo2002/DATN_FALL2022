@@ -466,9 +466,18 @@
                             <div class="widget-boxed-header">
                                 <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Liên hệ ở ghép</h4>
                             </div>
-                            @if ( Session::has('success') )
+                            @if ( \Illuminate\Support\Facades\Session::has('success') )
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <strong>{{ Session::get('success') }}</strong>
+                                    <strong>{{ \Illuminate\Support\Facades\Session::get('success') }}</strong>
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Đóng</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if (\Illuminate\Support\Facades\Session::has('error'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <strong>{{ \Illuminate\Support\Facades\Session::get('error') }}</strong>
                                     <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         <span class="sr-only">Đóng</span>
@@ -495,50 +504,55 @@
                     <!-- End: Schedule a Tour -->
 
                     <!-- end author-verified-badge -->
-                    <div class="sidebar">
-                        <div class="widget-boxed mt-33 mt-5">
-                            <div class="widget-boxed-header">
-                                <h4>Thông tin chủ trọ</h4>
-                            </div>
-                            <div class="widget-boxed-body">
-                                <div class="sidebar-widget author-widget2">
-                                    <div class="author-box clearfix">
-                                        <img
-                                            src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
-                                            alt="author-image"
-                                            class="author__img w-full">
-                                        <h4 class="author__title">{{ $motel->user_name }}</h4>
-                                        <p class="author__meta">Chủ khu trọ</p>
-                                    </div>
-                                    <ul class="author__contact">
-                                        <li><span class="la la-map-marker"><i
-                                                    class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
-                                        </li>
-                                        <li><span class="la la-phone"><i class="fa fa-phone"
-                                                                         aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_phone }}</a></li>
-                                        <li><span class="la la-envelope-o"><i class="fa fa-envelope"
-                                                                              aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_email }}</a>
-                                        </li>
-                                    </ul>
-                                    {{--                                    <div class="agent-contact-form-sidebar">--}}
-                                    {{--                                        <p class="mt-2 text-danger">--}}
-                                    {{--                                            @if (Session::has('success'))--}}
-                                    {{--                                                {{ Session::get('success') }}--}}
-                                    {{--                                            @endif--}}
+                    @if(Illuminate\Support\Facades\DB::table('contact_motel_history')
+  ->where('user_id',\Illuminate\Support\Facades\Auth::id())
+  ->where('motel_id',$motel->motel_id)->where('status','!=',4)->first())
+                        <div class="sidebar">
+                            <div class="widget-boxed mt-33 mt-5">
+                                <div class="widget-boxed-header">
+                                    <h4>Thông tin chủ trọ</h4>
+                                </div>
+                                <div class="widget-boxed-body">
+                                    <div class="sidebar-widget author-widget2">
+                                        <div class="author-box clearfix">
+                                            <img
+                                                src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
+                                                alt="author-image"
+                                                class="author__img w-full">
+                                            <h4 class="author__title">{{ $motel->user_name }}</h4>
+                                            <p class="author__meta">Chủ khu trọ</p>
+                                        </div>
+                                        <ul class="author__contact">
+                                            <li><span class="la la-map-marker"><i
+                                                        class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
+                                            </li>
+                                            <li><span class="la la-phone"><i class="fa fa-phone"
+                                                                             aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_phone }}</a></li>
+                                            <li><span class="la la-envelope-o"><i class="fa fa-envelope"
+                                                                                  aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_email }}</a>
+                                            </li>
+                                        </ul>
+                                        {{--                                    <div class="agent-contact-form-sidebar">--}}
+                                        {{--                                        <p class="mt-2 text-danger">--}}
+                                        {{--                                            @if (Session::has('success'))--}}
+                                        {{--                                                {{ Session::get('success') }}--}}
+                                        {{--                                            @endif--}}
 
-                                    {{--                                            @if (Session::has('error'))--}}
-                                    {{--                                                {{ Session::get('error') }}--}}
-                                    {{--                                        </p>--}}
-                                    {{--                                        @endif--}}
-                                    {{--                                        --}}
-                                    {{--                                    </div>--}}
+                                        {{--                                            @if (Session::has('error'))--}}
+                                        {{--                                                {{ Session::get('error') }}--}}
+                                        {{--                                        </p>--}}
+                                        {{--                                        @endif--}}
+                                        {{--                                        --}}
+                                        {{--                                    </div>--}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    @endif
+
 
                     <div class="main-search-field-2">
                         <div class="widget-boxed mt-5">
@@ -547,22 +561,27 @@
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
-                                    @foreach ($liveTogetherByArea as $item)
-                                        <div class="recent-main mb-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img
-                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
-                                                        alt=""></a>
+                                    @if(count($liveTogetherByArea) > 0)
+
+                                        @foreach ($liveTogetherByArea as $item)
+                                            <div class="recent-main mb-4">
+                                                <div class="recent-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}"><img
+                                                            src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="info-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}">
+                                                        <h6>{{$item->room_number}}</h6>
+                                                    </a>
+                                                    <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                        vnđ</p>
+                                                </div>
                                             </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>{{$item->room_number}}</h6>
-                                                </a>
-                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
-                                                    vnđ</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>Không có phòng trọ phù hợp</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -573,22 +592,27 @@
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
-                                    @foreach ($liveTogethersHot as $item)
-                                        <div class="recent-main mb-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img
-                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
-                                                        alt=""></a>
+                                    @if(count($liveTogethersHot) > 0)
+                                        @foreach ($liveTogethersHot as $item)
+                                            <div class="recent-main mb-4">
+                                                <div class="recent-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}"><img
+                                                            src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="info-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}">
+                                                        <h6>{{$item->room_number}}</h6>
+                                                    </a>
+                                                    <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                        vnđ</p>
+                                                </div>
                                             </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>{{$item->room_number}}</h6>
-                                                </a>
-                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
-                                                    vnđ</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>Không có phòng trọ phù hợp</p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

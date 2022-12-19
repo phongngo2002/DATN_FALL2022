@@ -29,6 +29,10 @@
             }
 
         })
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        })
 
         function callAPi(gift) {
             $.ajax({
@@ -50,7 +54,7 @@
                         document.querySelector('.wheel__button').setAttribute('disabled', 'true');
                     }
                     currentMoney.forEach((item) => {
-                        item.innerText = item.innerText.replace(".","");
+                        item.innerText = item.innerText.replace(".", "");
                         item.innerText = (Number(item.innerText) + Number(data.history.gift)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                         ;
                     })
@@ -65,7 +69,13 @@
                         const td = item.querySelector('td');
                         td.innerText = index + 1;
                     })
+                    if (data.history.gift > 0) {
+                        document.querySelector('.current_money')[0].innerHTML = formatter.format(Number(document.querySelector('.current_money1').dataset.money) + data.history.gift);
+                        document.querySelector('.current_money')[1].innerHTML = formatter.format(Number(document.querySelector('.current_money1').dataset.money) + data.history.gift);
+                        document.querySelector('.current_money')[2].setAttribute('data-money', Number(document.querySelector('.current_money')[2].dataset.money) + data.history.gift);
+                        document.querySelector('.current_money')[2].innerHTML = formatter.format(Number(document.querySelector('.current_money')[2].dataset.money));
 
+                    }
 
                 }
             });

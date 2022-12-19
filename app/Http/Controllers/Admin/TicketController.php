@@ -78,7 +78,7 @@ class TicketController extends Controller
             $res = Ticket::insert($data);
 
             $user = User::find(Auth::id());
-            $user->money -= $request->number_ticket_buy * 20;
+            $user->money -= $request->number_ticket_buy * 30;
             $user->save();
 
             DB::commit();

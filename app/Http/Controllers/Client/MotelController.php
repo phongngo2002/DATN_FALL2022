@@ -284,10 +284,15 @@ class MotelController extends Controller
     {
         $model = new PlanHistory();
 
-        $this->v['motel'] = $model->list_live_together();
-        $this->v['template_search'] = DB::table('motels')->
-        selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
-        return view('client.account_management.list_live_together', $this->v);
+        try {
+            $this->v['motel'] = $model->list_live_together();
+            $this->v['template_search'] = DB::table('motels')->
+            selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
+            return view('client.account_management.list_live_together', $this->v);
+        } catch (\Exception $e) {
+            abort(404);
+        }
+
     }
 
     public function searchListLiveTogether(Request $request)
@@ -335,13 +340,16 @@ class MotelController extends Controller
 
 
         $model2 = new ContactMotelHistory();
-
+        $model = new Motel();
+        $data = [];
+        $people = $model->info_motel($id);
+        if ($people->motel->user_id === Auth::id()) {
+            return redirect()->back()->with('error', 'Bạn là chủ khu trọ.Bạn không thể đăng ký ở ghép phòng này');
+        }
         if ($model2->create_history([
             'id' => $id
         ])) {
-            $model = new Motel();
-            $data = [];
-            $people = $model->info_motel($id);
+
             foreach ($people as $p) {
                 $data[] = $p->email;
             }

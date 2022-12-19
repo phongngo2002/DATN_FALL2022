@@ -320,25 +320,12 @@
                                     </button>
                                 </div>
                             @endif
-                            @if ( Session::has('error') )
+                            @if (Session::has('error'))
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>{{ Session::get('error') }}</strong>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         <span class="sr-only">Đóng</span>
-                                    </button>
-                                </div>
-                            @endif
-                            @if ($errors->any())
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
                                     </button>
                                 </div>
                             @endif
@@ -359,10 +346,17 @@
                         </div>
                         <div class="widget-boxed-body">
                             @if(isset($appoint) && $appoint->status === 3 || !$appoint)
-                                <form action="{{route('client.post_appointment')}}" method="POST">
+                                <form action="{{route('client.post_appointment')}}" method="POST" id="app_form">
                                     @csrf
                                     <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
-                                    <input type="datetime-local" id="time" name="time" class="form-control">
+                                    @error('motel_id')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                    <input type="datetime-local" min="{{\Carbon\Carbon::now()}}" id="time" name="time"
+                                           class="form-control">
+                                    @error('time')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                     <button type="submit" onclick="return confirm('Bạn có chắc muốn đăt lịch hẹn ?')"
                                             class="btn reservation btn-radius theme-btn full-width mrg-top-10">Gửi
                                         yêu cầu
@@ -377,50 +371,54 @@
 
                     </div>
                     <!-- end author-verified-badge -->
-                    <div class="sidebar">
-                        <div class="widget-boxed mt-33 mt-5">
-                            <div class="widget-boxed-header">
-                                <h4>Thông tin chủ trọ</h4>
-                            </div>
-                            <div class="widget-boxed-body">
-                                <div class="sidebar-widget author-widget2">
-                                    <div class="author-box clearfix">
-                                        <img
-                                            src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
-                                            alt="author-image"
-                                            class="author__img w-full">
-                                        <h4 class="author__title">{{ $motel->user_name }}</h4>
-                                        <p class="author__meta">Chủ khu trọ</p>
+                    @if(isset($appoint) && $appoint->status === 3 || !$appoint)
+                    @else
+                        <div class="sidebar">
+                            <div class="widget-boxed mt-33 mt-5">
+                                <div class="widget-boxed-header">
+                                    <h4>Thông tin chủ trọ</h4>
+                                </div>
+                                <div class="widget-boxed-body">
+                                    <div class="sidebar-widget author-widget2">
+                                        <div class="author-box clearfix">
+                                            <img
+                                                src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
+                                                alt="author-image"
+                                                class="author__img w-full">
+                                            <h4 class="author__title">{{ $motel->user_name }}</h4>
+                                            <p class="author__meta">Chủ khu trọ</p>
+                                        </div>
+                                        <ul class="author__contact">
+                                            <li><span class="la la-map-marker"><i
+                                                        class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
+                                            </li>
+                                            <li><span class="la la-phone"><i class="fa fa-phone"
+                                                                             aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_phone }}</a></li>
+
+                                            <li><span class="la la-envelope-o"><i class="fa fa-envelope"
+                                                                                  aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_email }}</a>
+                                            </li>
+                                            <li>
+
+                                                <a style="background: white; Color:rgb(0, 149, 255); "
+                                                   class="btn btn-outline-info btn-rounded"
+                                                   href="https://zalo.me/{{$motel->user_phone}}">
+                                                    <img style="width:15%" class="img-fluid"
+                                                         src="{{asset('assets/client/images/icons/logo-zalo-02.jpg')}}"
+                                                         alt="">
+                                                    Liên hệ Zalo </a>
+                                            </li>
+                                        </ul>
+
                                     </div>
-                                    <ul class="author__contact">
-                                        <li><span class="la la-map-marker"><i
-                                                    class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
-                                        </li>
-                                        <li><span class="la la-phone"><i class="fa fa-phone"
-                                                                         aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_phone }}</a></li>
-
-                                        <li><span class="la la-envelope-o"><i class="fa fa-envelope"
-                                                                              aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_email }}</a>
-                                        </li>
-                                        <li>
-
-                                            <a style="background: white; Color:rgb(0, 149, 255); "
-                                               class="btn btn-outline-info btn-rounded"
-                                               href="https://zalo.me/{{$motel->user_phone}}">
-                                                <img style="width:15%" class="img-fluid"
-                                                     src="{{asset('assets/client/images/icons/logo-zalo-02.jpg')}}"
-                                                     alt="">
-                                                Liên hệ Zalo </a>
-                                        </li>
-                                    </ul>
-
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    @endif
+
                     <div class="property-location map mt-3">
                         <h5>Địa chỉ phòng trọ</h5>
                         <style>
@@ -444,12 +442,12 @@
                                     @foreach ($motelsByAreas as $item)
                                         <div class="recent-main mb-4">
                                             <div class="recent-img">
-                                                <a href="blog-details.html"><img
+                                                <a href="{{ route('client.motel.detail', ['id' => $item->id]) }}"><img
                                                         src="{{json_decode($motel->photo_gallery)[0]}}"
                                                         alt=""></a>
                                             </div>
                                             <div class="info-img">
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('client.motel.detail', ['id' => $item->id]) }}">
                                                     <h6>{{$item->room_number}}</h6>
                                                 </a>
                                                 <p>{{number_format($item->priceMotel, 0, ',', '.')}}
@@ -470,12 +468,12 @@
                                     @foreach ($motelsHot as $item)
                                         <div class="recent-main mb-4">
                                             <div class="recent-img">
-                                                <a href="blog-details.html"><img
+                                                <a href="{{ route('client.motel.detail', ['id' => $item->id]) }}"><img
                                                         src="{{json_decode($motel->photo_gallery)[0]}}"
                                                         alt=""></a>
                                             </div>
                                             <div class="info-img">
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('client.motel.detail', ['id' => $item->id]) }}">
                                                     <h6>{{$item->room_number}}</h6>
                                                 </a>
                                                 <p>{{number_format($item->priceMotel, 0, ',', '.')}} VNĐ</p>
@@ -506,6 +504,10 @@
     </section>
     <!-- Messenger Plugin chat Code -->
     {!! $motel->script_fb ?? ''!!}
+
+@endsection
+
+@section('custom_js')
     <script>
         document.querySelectorAll('.moreUlSchool').forEach((item, index) => {
             item.addEventListener('click', () => {
@@ -520,5 +522,31 @@
 
             })
         })
+    </script>
+    <script>
+        $("#app_form").validate({
+            rules: {
+                "motel_id": {
+                    required: true,
+                },
+                "time": {
+                    required: true,
+                    date: true
+                },
+
+            },
+            messages: {
+                "name": {
+                    required: 'Motel id là bắt buộc',
+                },
+                "time": {
+                    required: 'Ngày hẹn bắt buộc chọn',
+                    date: 'Ngày hẹn phải đúng định dạng'
+                },
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
     </script>
 @endsection

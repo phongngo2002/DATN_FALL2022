@@ -1,7 +1,4 @@
-@extends('layouts.admin.main')
-
-@section('title_page','Rút tiền')
-
+@extends('layouts.user.main')
 @section('content')
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
@@ -140,7 +137,7 @@
             </button>
         </div>
     @endif
-    <form action="" method="POST" id="withdraw_form">
+    <form action="{{route('postWithdraw')}}" method="POST" id="withdraw_form">
         <div class="row g-3">
 
             <div class="col-md-6">

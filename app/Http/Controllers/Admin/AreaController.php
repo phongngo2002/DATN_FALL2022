@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AreaRequest;
 use App\Imports\BillsImport;
 use App\Imports\MotelsImport;
 use App\Mail\ForgotOtp;
@@ -59,7 +60,7 @@ class AreaController extends Controller
         return view('admin.area.add', $this->v);
     }
 
-    public function saveAdd_areas(Request $request)
+    public function saveAdd_areas(AreaRequest $request)
     {
         $params = [];
 
@@ -112,7 +113,7 @@ class AreaController extends Controller
 
     }
 
-    public function saveUpdate_areas(Request $request, $id)
+    public function saveUpdate_areas(AreaRequest $request, $id)
     {
 
         $params = [];
@@ -171,7 +172,7 @@ class AreaController extends Controller
         return redirect()->route('backend_get_list_area');
     }
 
-    public function send_bill(Request $request)
+    public function send_bill(AreaRequest $request)
     {
         Excel::import(new BillsImport(), $request->file('file'));
 

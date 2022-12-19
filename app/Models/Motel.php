@@ -205,7 +205,7 @@ class Motel extends Model
             ->where('motel_id', $id)
             ->where('user_motel.status', 1)
             ->get();
-        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi', 'motels.status'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
+        $query->motel = DB::table('motels')->select(['max_people', 'room_number', 'start_time', 'end_time', 'areas.name', 'electric_money', 'warter_money', 'wifi', 'motels.status', 'user_id'])->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $id)->first();
         $query->money_deposit = DB::table('deposits')
                 ->select(['value', 'type'])
                 ->where('status', 1)
@@ -290,7 +290,6 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('type', 2)
             ->where('plan_history.status', 1)
-            ->where('motels.end_time', '>', Carbon::now())
             ->orderBy('priority_level', 'asc')
             ->get();
     }
@@ -485,6 +484,7 @@ class Motel extends Model
         $area = DB::table('motels')->where('id', $id)->first();
         $motelsByAreas = DB::table('motels')
             ->select([
+                'motels.id',
                 'photo_gallery',
                 'room_number',
                 'motels.price as priceMotel'
@@ -503,6 +503,7 @@ class Motel extends Model
     {
         return DB::table('areas')
             ->select([
+                'motels.id',
                 'photo_gallery',
                 'room_number',
                 'motels.price as priceMotel'
@@ -516,27 +517,34 @@ class Motel extends Model
             ->limit(5)->get();
     }
 
-    public function getLiveTogethersByAreas($id)
+    public function getLiveTogethersByAreas($id, $motel_id)
     {
-        $area = DB::table('motels')->where('id', $id)->first();
-        $liveTogethers = DB::table('motels')
-            ->select([
-                'photo_gallery',
-                'room_number',
-                'motels.price as priceMotel'
-            ])
-            ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
-            ->join('plans', 'plan_history.plan_id', 'plans.id')
-            ->where('plan_history.status', 1)
-            ->where('type', 2)
-            ->where('area_id', $area->area_id)->orderBy('priority_level', 'asc')->limit(5)->get();
-        return $liveTogethers;
+        try {
+            $area = DB::table('motels')->where('id', $id)->first();
+            $liveTogethers = DB::table('motels')
+                ->select([
+                    'motels.id',
+                    'photo_gallery',
+                    'room_number',
+                    'motels.price as priceMotel'
+                ])
+                ->join('plan_history', 'motels.id', '=', 'plan_history.motel_id')
+                ->join('plans', 'plan_history.plan_id', 'plans.id')
+                ->where('plan_history.status', 1)
+                ->where('type', 2)
+                ->where('motels.id', '!=', $motel_id)
+                ->where('area_id', $area->area_id)->orderBy('priority_level', 'asc')->limit(5)->get();
+            return $liveTogethers;
+        } catch (\Exception $e) {
+            abort(404);
+        }
     }
 
-    public function getLiveTogethersHot()
+    public function getLiveTogethersHot($motel_id)
     {
         return DB::table('areas')
             ->select([
+                'motels.id',
                 'photo_gallery',
                 'room_number',
                 'motels.price as priceMotel'
@@ -546,6 +554,7 @@ class Motel extends Model
             ->join('plans', 'plan_history.plan_id', 'plans.id')
             ->where('plan_history.status', 1)
             ->where('type', 2)
+            ->where('motels.id', '!=', $motel_id)
             ->orderBy('priority_level', 'asc')
             ->limit(5)->get();
     }

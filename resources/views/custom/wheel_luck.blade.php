@@ -7,6 +7,8 @@
  ->where('status',1)->where('user_id',\Illuminate\Support\Facades\Auth::id())->first()->quantity ?? 0}} <i
                 class="fa-solid fa-gift text-danger"></i> <a href="#" data-bs-toggle="modal"
                                                              data-bs-target="#exampleModal3000">Đổi ngay</a></p>
+        <p >Tài khoản gốc: <span class="current_money">{{\Illuminate\Support\Facades\Auth::user()->money ?? 0}}</span>    <i
+                class="fa-brands fa-bitcoin text-warning"></i></p>
         <div class="modal fade" id="exampleModal3000" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -27,7 +29,7 @@
                             <div class="row">
                                 <div class="col-5 form-group">
                                     <label for="">Số điểm muốn đổi</label>
-                                    <input type="number" step="10" name="gift" id="gift" class="form-control">
+                                    <input type="text" name="gift" id="gift" class="form-control">
                                 </div>
                                 <div class="col-2 text-center">
                                     <i class="fa-solid fa-right-left"></i>
@@ -43,7 +45,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
                             </button>
-                            <button type="submit" id="swapTicket" class="btn btn-primary">Đổi ngay</button>
+                            <button type="submit" disabled id="swapTicket" class="btn btn-primary">Đổi ngay</button>
                         </div>
                     </form>
                 </div>
@@ -193,19 +195,21 @@
                 <div class="modal-body">
                     @csrf
                     <p>Tài khoản gốc: <span
-                            class="current_money">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span>
+                            class="current_money1 current_money"
+                            data-money="{{\Illuminate\Support\Facades\Auth::user()->money}}">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span>
                         <i
                             class="fa-brands fa-bitcoin text-warning"></i></p>
                     <div>
                         <label for="">Nhập số lượt quay bạn muốn mua</label>
-                        <input type="number" min="1" name="number_ticket_buy" id="number_ticket_buy" class="form-control"
+                        <input type="text" name="number_ticket_buy" id="number_ticket_buy"
+                               class="form-control"
                                value="1">
                     </div>
-                    <p class="mt-2">Phí tạm tính: <span id="fee">20</span> <i
+                    <p class="mt-2">Phí tạm tính: <span id="fee">30</span> <i
                             class="fa-brands fa-bitcoin text-warning"></i></p>
-                    <p class="messageTicket mt-2"></p>
-                    <p class="mt-2">1 lượt quay = 20 <i
+                    <p class="mt-2">1 lượt quay = 30 <i
                             class="fa-brands fa-bitcoin text-warning"></i></p>
+                    <p class="messageBuyTicket"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -222,22 +226,30 @@
     const swapTicket = document.getElementById('swapTicket');
     const messageSwapTicket = document.getElementById('messageSwapTicket');
     // document.getElementById('btnBuyTicket').setAttribute('disabled', true);
-    gift.addEventListener('change', (e) => {
-        if (e.target.value > Number(point.innerText)) {
-            swapTicket.setAttribute('redo', 'true');
-            gift.style.border = '2px solid red';
-            messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Bạn không đủ điểm để thực hiện hành động này !`;
-        } else if (e.target.value < 0) {
-            swapTicket.setAttribute('disabled', 'true');
-            gift.style.border = '2px solid red';
-            messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Dữ liệu không hợp lệ !`;
-        } else {
-            gift.value = e.target.value - e.target.value % 10;
-            ticket1.value = e.target.value / 10;
-            gift.style.border = '1px solid #ced4da';
-            messageSwapTicket.innerText = '';
-            swapTicket.removeAttribute('disabled');
-        }
+    gift.addEventListener('keyup', (e) => {
+            if (e.target.value !== '-') {
+                if (+e.target.value > Number(point.innerText)) {
+                    swapTicket.setAttribute('redo', 'true');
+                    gift.style.border = '2px solid red';
+                    messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Bạn không đủ điểm để thực hiện hành động này !`;
+                    swapTicket.setAttribute('disabled', 'true');
 
-    })
+                } else if (+e.target.value <= 0) {
+                    swapTicket.setAttribute('disabled', 'true');
+                    gift.style.border = '2px solid red';
+                    messageSwapTicket.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-danger"></i> Dữ liệu không hợp lệ !`;
+                } else {
+                    gift.value = e.target.value - e.target.value % 10;
+                    ticket1.value = e.target.value / 10;
+                    gift.style.border = '1px solid #ced4da';
+                    messageSwapTicket.innerText = '';
+                    swapTicket.removeAttribute('disabled');
+                }
+
+            }
+
+        }
+    )
+
+
 </script>

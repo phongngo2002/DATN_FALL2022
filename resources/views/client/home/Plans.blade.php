@@ -31,7 +31,8 @@
         #header {
             background-color: #ffffff;
         }
-        li{
+
+        li {
             list-style: none;
         }
     </style>
@@ -59,7 +60,10 @@
 
     <!-- START SECTION PRICING -->
     <section class="pricing-table bg-white-2">
+
         <div class="container">
+            <p style="float: right;font-size: 18px;font-weight: bolder">Tỉ lệ quy đổi: 1 <i
+                    class="fa-brands fa-bitcoin text-warning"></i> = 1.000 VNĐ</p>
             <div class="section-title">
                 <h3>Gói</h3>
                 <h2>đăng tin thuê trọ</h2>
@@ -67,10 +71,12 @@
             <div class="row">
                 @foreach($plans as $plan)
                     @if($plan->type == 1)
-                        <div class="col-lg-3 col-md-6 col-xs-12">
-                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}">
+                        <div class="col-lg-3 col-md-6 col-xs-12 mt-4">
+                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}"
+                                 style="min-height: 488px !important;">
                                 <span class="plan-name ">{{$plan->name}} <small>Gói ngày</small></span>
-                                <p class="plan-price"><sup class="currency">$</sup><strong>{{$plan->price}}</strong></p>
+                                <p class="plan-price"><sup class="currency"><i
+                                            class="fa-brands fa-bitcoin"></i></sup><strong>{{$plan->price}}</strong></p>
                                 <div class="p-2">
                                     {!! $plan->desc !!}
                                 </div>
@@ -90,8 +96,9 @@
             <div class="row">
                 @foreach($plans as $plan)
                     @if($plan->type == 2)
-                        <div class="col-lg-3 col-md-6 col-xs-12">
-                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}">
+                        <div class="col-lg-3 col-md-6 col-xs-12 mt-4">
+                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}"
+                                 style="min-height: 488px !important;">
                                 <span class="plan-name ">{{$plan->name}} <small>Gói ngày</small></span>
                                 <p class="plan-price"><sup class="currency"><i
                                             class="fa-brands fa-bitcoin"></i></sup><strong>{{$plan->price}}</strong></p>

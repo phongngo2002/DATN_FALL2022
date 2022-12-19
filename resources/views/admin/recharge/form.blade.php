@@ -149,7 +149,7 @@
                 </button>
             </div>
         @endif
-        <form action="{{route('make.payment')}}">
+        <form action="{{route('make.payment')}}" id="recharge_form">
 
 
             <div class="row g-3">
@@ -179,7 +179,7 @@
                                 </div>
                                 <div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control my-4" name="amount"
+                                        <input type="text" value="0" class="form-control my-4" id="amount" name="amount"
                                                placeholder="Số tiền nạp">
                                     </div>
                                 </div>
@@ -206,9 +206,10 @@
 
                             <div class="d-flex flex-column">
 
-                                <span>Số tiền nạp</span>
+                                <span>Số xu nhận được (chưa kể phí)</span>
                             </div>
-                            <span id="total">0 $</span>
+                            <span id="total">0 <i
+                                    class="fa-brands fa-bitcoin text-warning"></i></span>
 
 
                         </div>
@@ -225,15 +226,40 @@
             </div>
         </form>
 
-        <script>
-            document.getElementsByName('amount')[0].addEventListener('keyup', (e) => {
-                if (e.target.value) {
-                    document.getElementById('total').innerText = e.target.value + ' $';
-                } else {
-                    document.getElementById('total').innerText = 0 + ' $';
-                }
+
+        @endsection
+
+        @section('custom_js')
+            <script>
+                $('#recharge_form').validate({
+                    rules: {
+                        "amount": {
+                            required: true,
+                            min: 1
+                        },
+                    },
+                    messages: {
+                        "amount": {
+                            min: 'Số tiền nạp phải lớn hơn 1 $',
+                            required:"Số tiền nạp bắt buộc nhập"
+                        }
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+                document.getElementsByName('amount')[0].addEventListener('keyup', (e) => {
+                    if (e.target.value) {
+                        document.getElementById('total').innerHTML = e.target.value * 24.855 + `<i
+                                class="fa-brands fa-bitcoin text-warning"></i>`;
+                    } else {
+                        document.getElementById('total').innerHTML = 0 + `<i
+                                class="fa-brands fa-bitcoin text-warning"></i>`;
+                    }
 
 
-            })
-        </script>
+                })
+            </script>
+
 @endsection

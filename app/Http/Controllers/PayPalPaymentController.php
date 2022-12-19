@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RechargeRequest;
 use Carbon\Carbon;
 use App\Models\User;
 use Omnipay\Omnipay;
@@ -32,7 +33,7 @@ class PayPalPaymentController extends Controller
         $this->gateway = $gateway1;
     }
 
-    public function pay(Request $request)
+    public function pay(RechargeRequest $request)
     {
         try {
             $payment = Recharge::insertGetId([

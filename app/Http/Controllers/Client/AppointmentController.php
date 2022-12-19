@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AppointmentRequest;
 use App\Mail\CancelAppoint;
 use App\Mail\NewAppoint;
 use App\Models\Appointment;
@@ -25,7 +26,7 @@ class AppointmentController extends Controller
         $this->v = [];
     }
 
-    public function post_appointment(Request $request)
+    public function post_appointment(AppointmentRequest $request)
     {
         $model = new Appointment();
 
@@ -58,7 +59,7 @@ class AppointmentController extends Controller
             $user->notify(new AppNotification($data));
 
         } catch (\Exception $e) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại');
         }
 
 

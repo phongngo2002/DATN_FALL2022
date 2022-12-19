@@ -19,7 +19,7 @@ class PlanController extends Controller
     public function index_plan()
     {
         $model = new Plans();
-        $this->v['plans'] = $model->list();
+        $this->v['plans'] = $model->list(1);
         return view('client.home.Plans', $this->v);
     }
 }

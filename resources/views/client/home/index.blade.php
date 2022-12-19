@@ -191,10 +191,6 @@
                                                                         <label for="check2-4">Gần bến xe</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
-                                                                    <input type="number" style="width: 400px" required
-                                                                           placeholder="Lựa chọn phạm vị muốn tìm kiếm"
-                                                                           name="dis" class="form-control"
-                                                                           max="10" id="dis">
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
@@ -310,13 +306,13 @@
                                             {{ $key->areaName . ' - ' . $key->room_number }}
                                         </a>
                                         <p class="text-warning" style="font-size: 12px">
-                                          @if($key->vote > 0)
+                                            @if($key->vote > 0)
                                                 @for ($i = 1; $i <= round($key->vote,0); $i++)
                                                     <i class="fa-solid fa-star"></i>
                                                 @endfor
-                                              <span>({{round($key->vote,0)}})</span>
+                                                <span>({{round($key->vote,0)}})</span>
                                             @else
-                                              <span>Chưa có lượt đánh giá nào</span>
+                                                <span>Chưa có lượt đánh giá nào</span>
                                             @endif
                                         </p>
                                     </h3>
@@ -648,7 +644,6 @@
                         services.push(item.value);
                     }
                 })
-                let dis = +document.getElementsByName('dis')[0].value;
 
                 $.ajax({
                     type: 'GET',
@@ -665,7 +660,7 @@
                         'price_max': price_max,
                         'location': location,
                         'services': services,
-                        'dis': dis,
+                        'dis': null,
                         'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                         'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                         'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -702,7 +697,7 @@
                                                 'price_max': price_max,
                                                 'location': location,
                                                 'services': services,
-                                                'dis': dis,
+                                                'dis': null,
                                                 'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                 'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                 'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -739,7 +734,7 @@
                                                                         'price_max': price_max,
                                                                         'location': location,
                                                                         'services': services,
-                                                                        'dis': dis,
+                                                                        'dis': null,
                                                                         'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                         'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                         'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -776,7 +771,7 @@
                                                                                                 'price_max': price_max,
                                                                                                 'location': location,
                                                                                                 'services': services,
-                                                                                                'dis': dis,
+                                                                                                'dis': null,
                                                                                                 'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                                                 'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                                                 'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -813,7 +808,7 @@
                                                                                                                         'price_max': price_max,
                                                                                                                         'location': location,
                                                                                                                         'services': services,
-                                                                                                                        'dis': dis,
+                                                                                                                        'dis': null,
                                                                                                                         'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                                                                         'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                                                                         'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -850,7 +845,7 @@
                                                                                                                                                 'price_max': price_max,
                                                                                                                                                 'location': location,
                                                                                                                                                 'services': services,
-                                                                                                                                                'dis': dis,
+                                                                                                                                                'dis': null,
                                                                                                                                                 'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                                                                                                 'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                                                                                                 'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -887,7 +882,7 @@
                                                                                                                                                                         'price_max': price_max,
                                                                                                                                                                         'location': location,
                                                                                                                                                                         'services': services,
-                                                                                                                                                                        'dis': dis,
+                                                                                                                                                                        'dis': null,
                                                                                                                                                                         'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                                                                                                                         'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                                                                                                                         'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
@@ -924,7 +919,7 @@
                                                                                                                                                                                                 'price_max': price_max,
                                                                                                                                                                                                 'location': location,
                                                                                                                                                                                                 'services': services,
-                                                                                                                                                                                                'dis': dis,
+                                                                                                                                                                                                'dis': null,
                                                                                                                                                                                                 'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                                                                                                                                                                                                 'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                                                                                                                                                                                                 'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null

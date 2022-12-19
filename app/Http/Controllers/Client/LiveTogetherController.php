@@ -21,17 +21,18 @@ class LiveTogetherController extends Controller
     public function detail($id)
     {
         $infoMotel = new Motel();
-        $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
-        $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id);
-        $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot();
+
 
         $vote = new Vote();
-        if ($this->v['motel']) {
+        try {
+            $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
+            $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id, $this->v['motel']->motel_id);
+            $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot($this->v['motel']->motel_id);
             $this->v['votes'] = $vote->client_get_list_vote_motel($id);
             return view('client.live-together.detail', $this->v);
+        } catch (\Exception $e) {
+            abort(404);
         }
-        abort(404);
-
     }
 
     public function historyContactMotel($motel_id, $area_id)

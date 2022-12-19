@@ -180,10 +180,6 @@
                                                                         <label for="check2-4">Gần bến xe</label>
                                                                     </div>
                                                                     <!-- Checkboxes / End -->
-                                                                    <input type="number" style="width: 400px" required
-                                                                           placeholder="Lựa chọn phạm vị muốn tìm kiếm"
-                                                                           name="dis" class="form-control"
-                                                                           max="10" id="dis">
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                                     <!-- Checkboxes -->
@@ -361,7 +357,7 @@
                         services.push(item.value);
                     }
                 })
-                let dis = document.getElementsByName('dis')[0].value;
+
 
                 $.ajax({
                     type: 'GET',
@@ -378,15 +374,18 @@
                         'price_max': price_max,
                         'location': location,
                         'services': services,
-                        'dis': dis,
+                        'dis': null,
                         'city': document.getElementsByName('city_id')[0].value ? JSON.parse(document.getElementsByName('city_id')[0].value).label : null,
                         'district': document.getElementById('district_id_value').value ? JSON.parse(document.getElementById('district_id_value').value).label : null,
                         'ward': document.getElementById('ward_id_value').value ? JSON.parse(document.getElementById('ward_id_value').value).label : null
                     },
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data.motel);
-                        document.getElementById("tin_dang").innerHTML = data.motel
+                        document.getElementById("tin_dang").innerHTML = data.motel;
+                        document.getElementById("tin_dang").style.visibility = 'visible';
+                        document.getElementById("tin_dang").style.display = 'block';
+                        document.getElementById("tin_dang").tabIndex = "-1";
+                        document.getElementById("tin_dang").focus();
                     }
                 })
                 $.ajaxSetup({

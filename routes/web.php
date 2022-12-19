@@ -47,7 +47,7 @@ Route::get('/xac-minh', 'App\Http\Controllers\Auth\LoginController@getFormConfir
 Route::post('/xac-minh', 'App\Http\Controllers\Auth\LoginController@postCodeConfirmAcc')->name('get_post_code_confirm_account');
 Route::get('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@passwordRetrieval')->name('password_retrieval');
 Route::post('/lay-lai-mat-khau', 'App\Http\Controllers\Auth\LoginController@changePassword')->name('change_password');
-Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class, 'detail'])->name('client.live-together.detail');
+
 //Chi tiết phòng trọ
 Route::get('/phong-tro/{id}', [ClientMotelController::class, 'detail'])->name('client.motel.detail');
 Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("admin.plan-history.list");
@@ -55,7 +55,6 @@ Route::get('/lich-su-nap-tien', [PlanHistoryController::class, "list"])->name("a
 Route::get('/test', [ClientMotelController::class, 'test'])->name('client.motel.detail');
 
 //Liên hệ
-Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
 
 //client các gói dịch vụ,đăng ký
 Route::get('/goi-dich-vu', [\App\Http\Controllers\Client\PlanController::class, 'index_plan'])->name('frontend_get_plans');
@@ -73,6 +72,8 @@ Route::get('/xac-minh-email/{code}', [registerController::class, 'get_change_ema
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/lien-he/{id}', [ClientMotelController::class, 'sendContact'])->name('client.contact.send');
+    Route::get('/tim-nguoi-o-ghep/{id}', [LiveTogetherController::class, 'detail'])->name('client.live-together.detail');
     Route::get('/quan-ly-tai-khoan/vong-quay', 'App\Http\Controllers\Client\AccountManagementController@wheel_luck')->name('client.get_rotation');
     Route::post('/dat-lich-hen', 'App\Http\Controllers\Client\AppointmentController@post_appointment')->name('client.post_appointment');
     Route::get('/quan-ly-tai-khoan/lich-su-dat', 'App\Http\Controllers\Client\AppointmentController@history_appointment')->name('client.history_appointment');
@@ -97,6 +98,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin_home');
 
     Route::get('/quan-ly-tai-khoan/lich-su-dat-coc', 'App\Http\Controllers\Client\DepositController@historyDeposit')->name('get_history_deposit');
+    Route::get('/quan-ly-tai-khoan/rut-tien', 'App\Http\Controllers\Client\AccountManagementController@getWithdraw')->name('getWithdraw');
+    Route::get('/quan-ly-tai-khoan/lich-su-rut-tien', 'App\Http\Controllers\Client\AccountManagementController@historyWithdraw')->name('historyWithdraw');
 
     Route::get('phong-tro-cua-toi/', 'App\Http\Controllers\Client\MotelController@currentMotel')->name('client_current_motel');
     Route::get('phong-o-ghep/tim-kiem', 'App\Http\Controllers\Client\MotelController@searchListLiveTogether')->name("client_search_list_live_together");
@@ -144,7 +147,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('rut-tien')->group(function () {
             Route::get('/', 'App\Http\Controllers\WithdrawController@get_form_withdraw')->name('backend_get_form_withdraw');
-            Route::post('/', 'App\Http\Controllers\WithdrawController@withdraw');
+            Route::post('/', 'App\Http\Controllers\WithdrawController@withdraw')->name('postWithdraw');
             Route::get('/lich-su-rut-tien', 'App\Http\Controllers\WithdrawController@list')->name('backend_get_history_withdraw');
         });
         Route::prefix('hoa-don')->group(function () {

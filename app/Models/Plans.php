@@ -26,10 +26,10 @@ class Plans extends Model
         'title_color'
     ];
 
-    public function list()
+    public function list($type = 0)
     {
         $plans = new Plans;
-        return $plans->select($this->fillable)->where('status', '!=', 0)->orderBy('id', 'desc')->get();
+        return !$type ? $plans->select($this->fillable)->where('status', '!=', 0)->orderBy('id', 'desc')->get() : $plans->select($this->fillable)->where('status', '!=', 0)->orderBy('price', 'desc')->get();
     }
 
     public function show_plans($id)

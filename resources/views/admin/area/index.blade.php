@@ -92,7 +92,8 @@
                         <div class="modal fade" id="exampleModal{{$area->id}}" tabindex="-1"
                              aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
-                            <form action="{{route('backend_send_bill')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('backend_send_bill')}}" class="bills" method="POST"
+                                  enctype="multipart/form-data">
                                 <div class="modal-dialog">
                                     @csrf
                                     <div class="modal-content">
@@ -127,4 +128,26 @@
         {{ $areas->links() }}
     </div>
 
+@endsection
+
+@section('custom_js')
+    <script>
+        $('.bills').each(function () {
+            $(this).validate({
+                rules: {
+                    "file": {
+                        required: true,
+                    },
+                },
+                messages: {
+                    "file": {
+                        required: 'File hóa đơn bắt buộc nhập'
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        })
+    </script>
 @endsection

@@ -11,55 +11,82 @@
         }
     </style>
 
-    <form action="" method="POST">
+    <form action="" method="POST" id="add_area">
         <div class="bg-white shadow-lg p-4">
             <div class="row">
                 @csrf
                 <div class="col-8">
                     <div class="my-2">
                         <label for="">Tên khu trọ</label>
-                        <input type="text" class="form-control" name="name" id="name">
+                        <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name">
+                        @error('name')
+                        <p class="text-danger">{{$message}}</p>
+                        @enderror
                     </div>
                     <label for="">Địa chỉ khu trọ</label>
                     <div class="form-group row">
                         <div class="col-4">
                             <select class="form-control" id="select_city"
                                     name="city_id">
-                                <option value="0">Lựa chọn thành phố</option>
+                                <option value="">Lựa chọn thành phố</option>
                             </select>
+                            @error('select_city')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="col-4">
 
                             <select class="form-control" id="district_id" name="district_id"
                             >
-                                <option value="0">Lựa chọn huyện</option>
+                                <option value="">Lựa chọn huyện</option>
                             </select>
+                            @error('district_id')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="col-4">
 
                             <select class="form-control" name="ward_id" id="ward_id"
                             >
-                                <option value="0">Lựa chọn phường, xã</option>
+                                <option value="">Lựa chọn phường, xã</option>
                             </select>
+                            @error('ward_id')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="my-2">
                         <label for="">Địa chỉ chính xác</label>
-                        <input type="text" class="form-control" name="address" id="address">
+                        <input type="text" class="form-control" value="{{old('address')}}" name="address" id="address">
+                        @error('address')
+                        <p class="text-danger">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="my-2 row">
                         <div class="col-6">
                             <label for="">Latitude</label>
-                            <input type="text" class="form-control" name="latitude" id="latitude">
+                            <input type="text" class="form-control" value="{{old('latitude')}}" name="latitude"
+                                   id="latitude">
+                            @error('latitude')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="col-6">
                             <label for="">Longitude</label>
-                            <input type="text" class="form-control" name="longitude" id="longitude">
+                            <input type="text" class="form-control" value="{{old('longitude')}}" name="longitude"
+                                   id="longitude">
+                            @error('longitude')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="my-2">
                         <label for="">Link google map</label>
-                        <input type="text" class="form-control" name="link_gg_map" id="link_gg_map">
+                        <input type="text" class="form-control" value="{{old('link_gg_map')}}" name="link_gg_map"
+                               id="link_gg_map">
+                        @error('link_gg_map')
+                        <p class="text-danger">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="my-2">
                         <label for="">Ảnh mô tả</label>
@@ -70,6 +97,9 @@
                         </div>
                         <input type="hidden" id="imgReal" name="imgReal">
                         <input type="file" name="img" class="form-control">
+                        @error('imgReal')
+                        <p class="text-danger">{{$message}}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4" id="preview">
@@ -87,6 +117,71 @@
         <a class="btn btn-success my-4" href="{{route('backend_get_list_area')}}">Quay lại</a>
     </form>
     @section('custom_js')
+        <script>
+            $("#add_area").validate({
+                rules: {
+                    "name": {
+                        required: true,
+                    },
+                    "city_id": {
+                        required: true,
+                    },
+                    "district_id": {
+                        required: true,
+                    },
+                    "ward_id": {
+                        required: true,
+                    },
+                    "address": {
+                        required: true,
+                    },
+                    "latitude": {
+                        required: true,
+                    },
+                    "longitude": {
+                        required: true,
+                    },
+                    "link_gg_map": {
+                        required: true,
+                    },
+                    "imgReal": {
+                        required: true,
+                    },
+                },
+                messages: {
+                    "name": {
+                        required: 'Tên khu trọ bắt buộc nhập',
+                    },
+                    "city_id": {
+                        required: 'Thành phố bắt buộc chọn',
+                    },
+                    "district_id": {
+                        required: 'Quận huyện bắt buộc chọn',
+                    },
+                    "ward_id": {
+                        required: 'Phường xã bắt buộc chọn',
+                    },
+                    "address": {
+                        required: 'Địa chỉ chính xác bắt buộc nhập',
+                    },
+                    "latitude": {
+                        required: 'Latitude bắt buộc nhập',
+                    },
+                    "longitude": {
+                        required: 'Longitude bắt buộc nhập',
+                    },
+                    "link_gg_map": {
+                        required: 'Link nhúng gg map bắt buộc nhập',
+                    },
+                    "imgReal": {
+                        required: 'Ảnh đại diện khu trọ bắt buộc chọn',
+                    },
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        </script>
         <script !src="">
             const divCity = document.getElementById('select_city');
             const divDistrict = document.getElementById('district_id');
@@ -125,12 +220,12 @@
                             url: `https://provinces.open-api.vn/api/p/${id}/?depth=2`,
                             type: 'GET',
                             success: function (result) {
-                                divDistrict.innerHTML = '<option value="0">Lựa chọn huyện</option>' + result.districts.map(districtitem => `<option value="${districtitem.code}">${districtitem.name}</option>`).join('');
+                                divDistrict.innerHTML = '<option value="">Lựa chọn huyện</option>' + result.districts.map(districtitem => `<option value="${districtitem.code}">${districtitem.name}</option>`).join('');
 
                             }
                         });
                     } else {
-                        divDistrict.innerHTML = '<option value="0">Bạn chưa chọn thành phố</option>';
+                        divDistrict.innerHTML = '<option value="">Bạn chưa chọn thành phố</option>';
                     }
 
                 })
@@ -141,11 +236,11 @@
                             url: `https://provinces.open-api.vn/api/d/${id}?depth=2`,
                             type: 'GET',
                             success: function (result) {
-                                divWard.innerHTML = '<option value="0">Lựa chọn phường xã</option>' + result.wards.map(wardItem => `<option value="${wardItem.code}">${wardItem.name}</option>`).join('');
+                                divWard.innerHTML = '<option value="">Lựa chọn phường xã</option>' + result.wards.map(wardItem => `<option value="${wardItem.code}">${wardItem.name}</option>`).join('');
                             }
                         });
                     } else {
-                        divWard.innerHTML = '<option value="0">Bạn chưa chọn quận huyện</option>';
+                        divWard.innerHTML = '<option value="">Bạn chưa chọn quận huyện</option>';
                     }
                 })
             });

@@ -148,7 +148,7 @@
                         <label>File exel</label>
                         @csrf
                         <input type="hidden" value="{{$id}}" name="area_id" id="area_id">
-                        <input type="file" class="form-control" name="file" id="file">
+                        <input type="file" class="form-control" accept=".xlsx" name="file" id="file">
                         <span class="text-sm text-danger ms-1">Bạn nên xem trước định dạng file trước khi nhập</span>
                     </div>
                     <div class="modal-footer">

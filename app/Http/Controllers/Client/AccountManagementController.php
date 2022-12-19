@@ -12,6 +12,7 @@ use App\Models\Recharge;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
+use App\Models\Withdraw;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,5 +141,16 @@ class AccountManagementController extends Controller
             ->get();
 
         return view('client.rotation.index', $this->v);
+    }
+
+    public function getWithdraw()
+    {
+        return view('client.account_management.withdraw', $this->v);
+    }
+
+    public function historyWithdraw()
+    {
+        $this->v['list'] = Withdraw::select('*')->where('user_id', Auth::id())->paginate(10);
+        return view('client.account_management.history_withdraw', $this->v);
     }
 }

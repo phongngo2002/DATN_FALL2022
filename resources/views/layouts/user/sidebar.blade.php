@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-md-12 col-xs-12 pl-0 pr-0 user-dash">
-    <div class="user-profile-box mb-0">
+    <div class="user-profile-box mb-0" style="height: 100%;overflow-y: auto">
         <div class="sidebar-header"><img src="{{asset('assets/client/images/logo-blue.svg')}}"
                                          alt="header-logo2.png"></div>
         <div class="header clearfix">
@@ -40,6 +40,11 @@
                 <li>
                     <a href="{{route('get_history_recharge')}}">
                         <i class="fas fa-paste"></i>Lịch sử nạp tiền
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('historyWithdraw')}}">
+                        <i class="fas fa-paste"></i>Lịch sử rút tiền
                     </a>
                 </li>
                 <li>
