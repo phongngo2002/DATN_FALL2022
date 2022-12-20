@@ -159,9 +159,11 @@
                 <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
                 </button>
             @endif
+            @if($info->motel->status === 1 || $info->motel->status === 5)
+                <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                   class="btn btn-primary my-2">Đăng tin</a>
+            @endif
 
-            <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-               class="btn btn-primary my-2">Đăng tin</a>
 
             <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
@@ -190,14 +192,18 @@
                     class="font-weight-bold">{{$info->money_deposit->email ?? 'phongnvph18006@fpt.edu.vn'}}</span></p>
             <p>Số tiền đặt cọc:
                 @if($info->money_deposit->type === 1)
+                    <span>{{number_format($info->money_deposit->value ?? 0)}} <i
+                            class="fa-brands fa-bitcoin text-warning"></i></span>
+            <p class="text-sm">Lưu ý: 1<i class="fa-brands fa-bitcoin text-warning"></i> =
+                24.555
+                VNĐ</p>
+        @else
+            <p>{{number_format($info->money_deposit->value ?? 0)}}</p>
+        @endif
 
-                @else
-
-                @endif
-            </p>
-            <p>Thời gian: <span
-                    class="font-weight-bold">{{\Carbon\Carbon::parse($info->money_deposit->created_at)->format('h:i:s A m-d-Y')}}</span>
-            </p>
+        <p>Thời gian: <span
+                class="font-weight-bold">{{\Carbon\Carbon::parse($info->money_deposit->created_at)->format('h:i:s A m-d-Y')}}</span>
+        </p>
         @endif
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">

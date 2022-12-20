@@ -530,7 +530,7 @@
                                                                 style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
                                                                 <h2
                                                                     style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#333333">
-                                                                    Mã lấy lại mật khẩu</h2>
+                                                                    Mã xác minh tài khoản của bạn là</h2>
                                                             </td>
                                                         </tr>
                                                         <tr>

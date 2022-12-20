@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\bill_pay_bank;
+use App\Mail\ConfirmpayBill;
 use App\Models\Area;
 use App\Models\Bill;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use function React\Promise\all;
 
 class BillController extends Controller
@@ -17,9 +22,18 @@ class BillController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'bills_index',
+                'confirm',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function index(Request $request)
+    public function bills_index(Request $request)
     {
         $model = new Bill();
 
@@ -41,10 +55,23 @@ class BillController extends Controller
     public function confirm(Request $request)
     {
         $res = Bill::find($request->bill_id);
-
         $res->status = 1;
 
         $res->save();
+
+        $user = DB::table('motels')
+            ->select(['email'])
+            ->join('user_motel', 'motels.id', '=', 'user_motel.motel_id')
+            ->join('users', 'user_motel.user_id', '=', 'users.id')
+            ->where('motels.id', $res->motel_id)
+            ->where('users.status', 1)
+            ->get();
+        $data = [];
+        foreach ($user as $u) {
+            $data[] = $u->email;
+        }
+
+        Mail::to($data)->send(new ConfirmpayBill());
 
         return redirect()->back()->with('success', 'Xác nhận tiền phòng thành công');
     }

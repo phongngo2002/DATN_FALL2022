@@ -345,7 +345,7 @@
                             <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Đăt lịch xem phòng</h4>
                         </div>
                         <div class="widget-boxed-body">
-                            @if(isset($appoint) && $appoint->status === 3 || !$appoint)
+                            @if($appoint && $appoint->status === 3 || !$appoint)
                                 <form action="{{route('client.post_appointment')}}" method="POST" id="app_form">
                                     @csrf
                                     <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">

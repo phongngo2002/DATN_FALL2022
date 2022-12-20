@@ -22,7 +22,7 @@ class Appointment extends Model
 
     public function currentAppoint($motel_id)
     {
-        return DB::table($this->table)->where('user_id', Auth::id())->where('motel_id', $motel_id)->first() ?? null;
+        return DB::table($this->table)->where('user_id', Auth::id())->where('motel_id', $motel_id)->where('status', '!=', 3)->first() ?? null;
     }
 
     public function client_get_history()
@@ -35,6 +35,7 @@ class Appointment extends Model
             ->join('areas', 'motels.area_id', '=', 'areas.id')
             ->join('users', 'areas.user_id', '=', 'users.id')
             ->where('appointments.user_id', Auth::id())
+            ->orderBy('appointments.id', 'desc')
             ->paginate(10);
     }
 

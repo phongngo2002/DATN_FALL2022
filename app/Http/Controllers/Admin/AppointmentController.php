@@ -16,6 +16,15 @@ class AppointmentController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'get_list_appoint',
+                'confirm_appoint',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function get_list_appoint()

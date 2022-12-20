@@ -102,6 +102,8 @@
                                 <span class="badge bg-danger p-2">Sắp hết hạn hợp đồng</span>
                             @elseif($motel->status == 5)
                                 <span class="badge bg-dark p-2">Đang đăng tin</span>
+                            @elseif($motel->status == 7)
+                                <span class="badge bg-dark p-2">Tìm ở ghép</span>
                             @elseif($motel->status == 6)
                                 <span class="badge bg-danger p-2">Đã hết hạn hợp đồng</span>
                             @else
@@ -124,7 +126,8 @@
                             {{--                                   class="text-white"><i class="fa-solid fa-trash"></i></a></button>--}}
                             <a href="{{route('admin.duplicate.motel',['id' => $motel->area_id, 'idMotel' => $motel->id])}}"
                                onclick="return confirm('Bạn có chắc muốn sao chép phòng trọ này ?')"
-                               title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i> Nhân đôi</a>
+                               title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i>
+                                Nhân đôi</a>
                         </td>
                     </tr>
                 @endforeach

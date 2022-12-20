@@ -35,7 +35,7 @@ class AreaController extends Controller
                 'saveAdd_areas',
                 'update_areas',
                 'saveUpdate_areas',
-                'delete_areas'
+                'send_bill',
             ]
         ];
         foreach ($arr['function'] as $item) {
@@ -163,29 +163,21 @@ class AreaController extends Controller
 
     }
 
-    public function delete_areas($id)
-    {
-        $model = new Area();
-
-        $model->adminDeteletArea($id);
-
-        return redirect()->route('backend_get_list_area');
-    }
 
     public function send_bill(AreaRequest $request)
     {
+        DB::beginTransaction();
         Excel::import(new BillsImport(), $request->file('file'));
 
         $motels = DB::table('users')
-            ->select(['motel_id', 'email'])
+            ->select(['motel_id', 'email', 'name'])
             ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
             ->join('motels', 'user_motel.motel_id', '=', 'motels.id')
             ->where('area_id', $request->area_id)
             ->where('user_motel.status', 1)
             ->get();
-
         foreach ($motels as $motel) {
-            $bill = Bill::selectRaw('name,room_number,
+            $bills = Bill::selectRaw('name,room_number,
             title,
             areas.address,
             price,
@@ -203,37 +195,35 @@ class AreaController extends Controller
                 ->where('motel_id', $motel->motel_id)
                 ->join('motels', 'bills.motel_id', '=', 'motels.id')
                 ->join('areas', 'motels.area_id', '=', 'areas.id')
-                ->where('bills.status', 0)->get();
-            $user_name = DB::table('users')
-                ->select(['name'])
-                ->join('user_motel', 'users.id', '=', 'user_motel.user_id')
-                ->where('user_motel.status', 1)
-                ->where('motel_id', $motel->motel_id)
-                ->orderBy('user_motel.start_time', 'asc')
-                ->first()->name;
-            if ($bill) {
+                ->where('bills.status', 2)->get();
+            if ($bills) {
                 try {
-                    Mail::to($motel->email)->send(new SendBillToCustomer([
-                        'ten_khu_tro' => $bill->name,
-                        'nguoi_thue' => $user_name,
-                        'ma_phong' => $bill->room_number,
-                        'dia_chi' => $bill->address,
-                        'ngay_lam_hd' => $bill->created_at,
-                        'tieu_de' => $bill->title,
-                        'tien_phong' => $bill->price,
-                        'so_dien_cu' => $bill->number_elec_old,
-                        'so_dien_moi' => $bill->number_elec,
-                        'so_nuoc_cu' => $bill->number_warter_old,
-                        'so_nuoc_moi' => $bill->number_warter,
-                        'wifi' => $bill->wifi,
-                        'gia_nuoc' => $bill->warter_money,
-                        'gia_dien' => $bill->electric_money,
-                        'tong_dien' => $bill->tien_dien,
-                        'tong_nuoc' => $bill->tien_nuoc,
-                        'tong_tien' => $bill->tong
-                    ]));
+                    foreach ($bills as $bill) {
+                        Mail::to($motel->email)->send(new SendBillToCustomer([
+                            'ten_khu_tro' => $bill->name,
+                            'nguoi_thue' => $motel->name,
+                            'ma_phong' => $bill->room_number,
+                            'dia_chi' => $bill->address,
+                            'ngay_lam_hd' => $bill->created_at,
+                            'tieu_de' => $bill->title,
+                            'tien_phong' => $bill->price,
+                            'so_dien_cu' => $bill->number_elec_old,
+                            'so_dien_moi' => $bill->number_elec,
+                            'so_nuoc_cu' => $bill->number_warter_old,
+                            'so_nuoc_moi' => $bill->number_warter,
+                            'wifi' => $bill->wifi,
+                            'gia_nuoc' => $bill->warter_money,
+                            'gia_dien' => $bill->electric_money,
+                            'tong_dien' => $bill->tien_dien,
+                            'tong_nuoc' => $bill->tien_nuoc,
+                            'tong_tien' => $bill->tong
+                        ]));
+                    }
+                    DB::commit();
                 } catch (\Exception $e) {
-                    return redirect()->back();
+                    DB::rollBack();
+//                    dd($e->getM essage());
+                    return redirect()->back()->with('error', 'Gửi hóa đơn thất bại');
                 }
             }
         }

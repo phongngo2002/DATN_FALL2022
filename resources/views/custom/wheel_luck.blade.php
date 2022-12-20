@@ -7,7 +7,7 @@
  ->where('status',1)->where('user_id',\Illuminate\Support\Facades\Auth::id())->first()->quantity ?? 0}} <i
                 class="fa-solid fa-gift text-danger"></i> <a href="#" data-bs-toggle="modal"
                                                              data-bs-target="#exampleModal3000">Đổi ngay</a></p>
-        <p >Tài khoản gốc: <span class="current_money">{{\Illuminate\Support\Facades\Auth::user()->money ?? 0}}</span>    <i
+        <p>Tài khoản gốc: <span class="current_money">{{\Illuminate\Support\Facades\Auth::user()->money ?? 0}}</span> <i
                 class="fa-brands fa-bitcoin text-warning"></i></p>
         <div class="modal fade" id="exampleModal3000" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -196,7 +196,8 @@
                     @csrf
                     <p>Tài khoản gốc: <span
                             class="current_money1 current_money"
-                            data-money="{{\Illuminate\Support\Facades\Auth::user()->money}}">{{number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.')}}</span>
+                            id="tien"
+                            data-money="{{\Illuminate\Support\Facades\Auth::user()->money}}">{{\Illuminate\Support\Facades\Auth::user()->money}}</span>
                         <i
                             class="fa-brands fa-bitcoin text-warning"></i></p>
                     <div>
@@ -226,6 +227,10 @@
     const swapTicket = document.getElementById('swapTicket');
     const messageSwapTicket = document.getElementById('messageSwapTicket');
     // document.getElementById('btnBuyTicket').setAttribute('disabled', true);
+    if (+document.getElementById('tien').dataset.money < 30) {
+        document.getElementById('btnBuyTicket').setAttribute('disabled', 'true');
+        document.querySelector('.messageBuyTicket').innerHTML = 'Bạn không đủ tiền. <a href="{{route('getRecharge')}}">Nạp ngay</>'
+    }
     gift.addEventListener('keyup', (e) => {
             if (e.target.value !== '-') {
                 if (+e.target.value > Number(point.innerText)) {

@@ -27,8 +27,8 @@ class UserController extends Controller
             'function' => [
                 'index_users',
                 'update_users',
-                'saveAdd_areas',
                 'saveUpdate_users',
+                'changePassword'
             ]
         ];
         foreach ($arr['function'] as $item) {
@@ -122,45 +122,6 @@ class UserController extends Controller
 
 
     }
-
-//    public function add(UserRequest $request)
-//    {
-//        $this->v['title'] = "Thêm mới tài khoản";
-//        $this->v['role'] = [
-//            '1' => "Admin",
-//            '2' => "Chủ trọ",
-//            '3' => "Thành viên",
-//        ];
-//        $method_route = 'backend_user_add';
-//        if ($request->isMethod('post')) {
-//            $params = array_map(function ($item) {
-//                if ($item == '') {
-//                    $item = null;
-//                }
-//                if (is_string($item)) {
-//                    $item = trim($item);
-//                }
-//                return $item;
-//            }, $request->post());
-//            unset($params['_token']);
-//            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-//                $uploadedFileUrl = Cloudinary::upload($request->file('avatar')->getRealPath(), ['folder' => 'DATN_FALL2022'])->getSecurePath();
-//                $params['avatar'] = $uploadedFileUrl;
-//            }
-//            $user = new User();
-//            $request = $user->saveNew($params);
-//            if ($request == null) {
-//                redirect()->route($method_route);
-//            } else if ($request > 0) {
-//                Session::flash('success', 'Thêm mới thành công');
-//            } else {
-//                Session::flash('error', 'Thêm mới thất bại');
-//                redirect()->route($method_route);
-//            }
-//        }
-//        return view('admin.user.add', $this->v);
-//    }
-
     public function saveUpdate_users(UserRequest $request, $id)
     {
         // dd($id);

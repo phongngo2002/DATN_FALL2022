@@ -325,9 +325,6 @@
                 "image_360": {
                     required: true,
                 },
-                "photo_gallery": {
-                    required: true,
-                },
                 "electric_money": {
                     required: true,
                     min: 1
@@ -383,9 +380,6 @@
                 },
                 "image_360": {
                     required: "Vui lòng nhúng ảnh !"
-                },
-                "photo_gallery": {
-                    required: "Vui lòng chọn ảnh",
                 },
                 "electric_money": {
                     required: 'Tiền điện bắt buộc nhập',

@@ -32,6 +32,16 @@ class MotelController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'currentMotel',
+                'postLiveTogether',
+                'sendContact'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function currentMotel()
@@ -59,11 +69,12 @@ class MotelController extends Controller
         $this->v['data_plan'] = json_encode($data);
 
         $this->v['current_plan_motel'] = DB::table('plan_history')
-            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
+            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level', 'plan_history.status', 'motel_id'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $motel_id)
             ->where('type', 2)
             ->where('plan_history.status', 1)
+            ->orWhere('plan_history.status', 10)
             ->first();
 
         // dd( $this->v['data_plan']);
@@ -292,6 +303,8 @@ class MotelController extends Controller
                 'href' => route('admin.motel.list', ['id' => $motel->id])];
             $user->notify(new AppNotification($data1));
         }
+        $motel = Motel::where('id', $request->motel_id)->update(['status' => 7]);
+
         return redirect()->back()->with('success', 'Đăng bài thành công');
 
     }
@@ -390,12 +403,6 @@ class MotelController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra.Vui lòng thử lại');
         }
-
-    }
-
-
-    public function search()
-    {
 
     }
 }

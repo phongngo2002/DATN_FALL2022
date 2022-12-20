@@ -38,6 +38,10 @@ class Bill extends Model
             $query = $query
                 ->where('motels.id', $params['room_number']);
         }
+        if (isset($params['status']) && $params['status']) {
+            $query = $query
+                ->where('bills.status', $params['status']);
+        }
         if (isset($params['year']) && $params['year']) {
             $query = $query->whereRaw('YEAR(bills.created_at) = ' . $params['year']);
         }
@@ -69,6 +73,7 @@ class Bill extends Model
             ->where('user_motel.user_id', Auth::id())
             ->where('user_motel.status', 1)
             ->paginate(10);
+
         foreach ($query as $a) {
             $a->area_name = DB::table('areas')->select('name')->where('id', $a->area_id)->first()->name;
         }

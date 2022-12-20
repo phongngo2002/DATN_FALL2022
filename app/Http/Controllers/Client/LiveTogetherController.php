@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmContactMotel;
+use App\Models\AreaLocation;
 use App\Models\ContactMotelHistory;
 use App\Models\Motel;
+use App\Models\PlanHistory;
 use App\Models\User;
 use App\Models\Vote;
 use App\Notifications\AppNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
 class LiveTogetherController extends Controller
 {
@@ -26,10 +29,13 @@ class LiveTogetherController extends Controller
     {
         $infoMotel = new Motel();
 
-
+        $areaLocation = new AreaLocation();
         $vote = new Vote();
         try {
+
             $this->v['motel'] = $infoMotel->infoMotelLiveTogether($id);
+            $this->v['locationNearMotel'] = $areaLocation->clientGetListLocationByAreaId($this->v['motel']->area_id);
+//            dd($this->v['locationNearMotel']);
             $this->v['liveTogetherByArea'] = $infoMotel->getLiveTogethersByAreas($id, $this->v['motel']->motel_id);
             $this->v['liveTogethersHot'] = $infoMotel->getLiveTogethersHot($this->v['motel']->motel_id);
             $this->v['votes'] = $vote->client_get_list_vote_motel($id);
@@ -99,5 +105,38 @@ class LiveTogetherController extends Controller
             dd($err->getMessage());
         }
 
+    }
+
+    public function removePost(Request $request)
+    {
+        $plan = PlanHistory::where('id', $request->ID)->first();
+
+        $motel = Motel::find($plan->motel_id);
+
+        if ($motel->status === 7) {
+            $motel->status = 2;
+            $motel->save();
+        }
+
+        $plan->status = 10;
+
+        $plan->save();
+
+        return redirect()->back()->with('success', 'Gỡ bài đăng thành công');
+    }
+
+    public function activePost(Request $request)
+    {
+        $plan = PlanHistory::where('id', $request->ID)->first();
+        $motel = Motel::find($plan->motel_id);
+        if ($motel->status === 2) {
+            $motel->status = 7;
+            $motel->save();
+        }
+
+        $plan->status = 1;
+
+        $plan->save();
+        return redirect()->back()->with('success', 'Đăng lại tin thành công');
     }
 }

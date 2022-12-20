@@ -53,7 +53,7 @@
                             <li><a href="{{ route('client.change_password') }}">Đổi mật khẩu</a></li>
                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                         @else
-                            <li><a href="{{ route('admin_home') }}">Quản lý khu trọ</a></li>
+                            <li><a href="{{ route('backend_get_dashboard') }}">Quản lý khu trọ</a></li>
                             <li><a href="{{ route('client.change_password') }}">Đổi mật khẩu</a></li>
                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                         @endif

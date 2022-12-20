@@ -8,6 +8,8 @@ use App\Models\Area;
 use App\Models\Deposit;
 use App\Models\Motel;
 use App\Models\User;
+use App\Notifications\AppNotification;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +23,16 @@ class DepositController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'deposit',
+                'post_deposit',
+                'historyDeposit'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function deposit($id)
@@ -73,6 +85,17 @@ class DepositController extends Controller
         ];
 
         if (gettype($dataPost) == 'integer') {
+            $userLogin = Auth::user();
+            $user = User::find($bossMotel->id);
+            $data = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg',
+                'message' =>
+                    $userLogin->name . ' đã đặt cọc phòng ' . $room_number . ' - ' . $area->name . ' của bạn.Thời gian ' . Carbon::now()->format('h:i A d/m/y'),
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => route('backend_get_list_deposit')
+            ];
+            $user->notify(new AppNotification($data));
             if ($params['type'] == 1) {
                 DB::beginTransaction();
                 try {

@@ -16,9 +16,17 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'dashboard'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function index()
+    public function dashboard()
     {
         $this->v['AdminCountMotel'] = DB::table('motels')->count();
         $this->v['AdminCountUser'] = DB::table('users')->whereNot('is_admin', 1)->count() ?? 0;

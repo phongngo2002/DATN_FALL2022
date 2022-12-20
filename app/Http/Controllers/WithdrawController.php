@@ -147,9 +147,17 @@ class WithdrawController extends Controller
 
     public function list()
     {
-        $withdraws = Withdraw::select('*')->where('user_id', Auth::id())->paginate(10);
-        return view('admin.withdraw.list', [
-            'withdraws' => $withdraws
-        ]);
+        if (Auth::user()->is_admin == 0) {
+            $withdraws = Withdraw::select('*')->where('user_id', Auth::id())->paginate(10);
+            return view('admin.withdraw.list', [
+                'withdraws' => $withdraws
+            ]);
+        } else {
+            $withdraws = Withdraw::select('*')->orderBy('id', 'desc')->paginate(10);
+            return view('admin.withdraw.list', [
+                'withdraws' => $withdraws
+            ]);
+        }
+
     }
 }

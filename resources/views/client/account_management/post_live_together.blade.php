@@ -268,29 +268,34 @@
                     </div>
                     <div class="single-add-property mb-1" style="height: 400px">
                         <h3 style="color:#FF385C;">Thông tin đẩy tin</h3>
-                        <div class="property-form-group row px-3">
-                            <div class="mb-3 col-6">
-                                <label for="address">Chọn gói đăng tin</label>
-                                <div class="nice-select form-control wide" style="margin-top: 2px !important;"
-                                     tabindex="0"><span class="current">Chọn gói đăng tin</span>
+                        @if($current_plan_motel->status === 1 || !$current_plan_motel)
+                            <div class="property-form-group row px-3">
+                                <div class="mb-3 col-6">
+                                    <label for="address">Chọn gói đăng tin</label>
+                                    <div class="nice-select form-control wide" style="margin-top: 2px !important;"
+                                         tabindex="0"><span class="current">Chọn gói đăng tin</span>
 
-                                    <ul class="list">
+                                        <ul class="list">
 
-                                        @foreach ($plans as $plan)
-                                            <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}"
-                                                data-price="{{$plan->price}}" class="option">{{$plan->name}}</li>
-                                        @endforeach
-                                    </ul>
+                                            @foreach ($plans as $plan)
+                                                <li id="post_plan" onclick="getData(event)" data-value="{{$plan->id}}"
+                                                    data-price="{{$plan->price}}" class="option">{{$plan->name}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <p class="no-mb">
+                                        <label for="" class="mb-2">Số ngày đăng bài</label>
+                                        <input type="number" placeholder="Số ngày đăng bài" id="post_day">
+                                    <p id="message" class="text-danger"></p>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="mb-3 col-6">
-                                <p class="no-mb">
-                                    <label for="" class="mb-2">Số ngày đăng bài</label>
-                                    <input type="number" placeholder="Số ngày đăng bài" id="post_day">
-                                    <p id="message" class="text-danger"></p>
-                                </p>
-                            </div>
-                        </div>
+                        @else
+                            <p>Đăng lại tin để có thể thay đổi gói</p>
+                        @endif
+
                     </div>
                 </div>
                 <div class="col-4">
@@ -315,6 +320,15 @@
                                             thêm tiền</a>
                                         <p id="notification" class="text-danger"></p>
                                     </div>
+                                    @if($current_plan_motel)
+                                        @if($current_plan_motel->status === 1)
+                                            <a href="{{route('client_remove_post_live_together',['ID' => $current_plan_motel->ID])}}"
+                                               class="btn btn-warning" style="width: 100%;">Gỡ bài</a>
+                                        @else
+                                            <a href="{{route('client_active_post_live_together',['ID' => $current_plan_motel->ID])}}"
+                                               class="btn btn-warning" style="width: 100%;">Đăng lại</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -345,24 +359,33 @@
                                                     <span>{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}</span>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Thành tiền</td>
-                                                <td class="text-danger font-weight-bold">
-                                                    <span id="money_more">0</span> <i
-                                                        class="fa-brands fa-bitcoin text-warning"></i>
-                                                </td>
-                                            <tr>
+                                            @if($current_plan_motel->status === 1)
+                                                <tr>
+                                                    <td>Thành tiền</td>
+                                                    <td class="text-danger font-weight-bold">
+                                                        <span id="money_more">0</span> <i
+                                                            class="fa-brands fa-bitcoin text-warning"></i>
+                                                    </td>
+                                                <tr>
+                                            @endif
+
                                         </table>
-                                        <input type="number" class="form-control my-2" id="date_more" name="date_more"
-                                               placeholder="Nhập số ngày muốn gia hạn" {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>
+
+                                        @if($current_plan_motel->status === 1)
+                                            <input type="number" class="form-control my-2" id="date_more"
+                                                   name="date_more"
+                                                   placeholder="Nhập số ngày muốn gia hạn" {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}>
 
 
-                                        <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
-                                        <button data-toggle="modal" data-target="#exampleModal2" type="button"
-                                                class="btn btn-success" id="btn_more" style="width: 100%"
-                                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}} disabled>Gia
-                                            hạn ngay
-                                        </button>
+                                            <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
+                                            <button data-toggle="modal" data-target="#exampleModal2" type="button"
+                                                    class="btn btn-success" id="btn_more" style="width: 100%"
+                                                    {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}} disabled>
+                                                Gia
+                                                hạn ngay
+                                            </button>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +408,7 @@
                                             <td class="text-success font-weight-bold"><span id="show_money"> 0</span>
                                                 <i class="fa-brands fa-bitcoin text-warning"></i></td>
                                         </tr>
-                                        @if($current_plan_motel)
+                                        @if($current_plan_motel === 1)
                                             <tr>
                                                 <td>Tiền thừa của gói trước</td>
                                                 <td class="text-success font-weight-bold"><span
@@ -400,7 +423,7 @@
                                         </tr>
                                     </table>
                                     <div class="text-center">
-                                        @if($current_plan_motel)
+                                        @if($current_plan_motel->status === 1)
                                             <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
 
                                             <input type="hidden" name="old_day" id="old_day"
@@ -565,10 +588,9 @@
             }
 
             function changeDisable(total) {
-                if(total == 0){
+                if (total == 0) {
                     document.getElementById('tt').setAttribute('disabled', 'true');
-                }
-                else if (Number(total) > Number(money_user.value)) {
+                } else if (Number(total) > Number(money_user.value)) {
                     document.getElementById('tt').setAttribute('disabled', 'true');
                     document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
                 } else {
@@ -576,11 +598,11 @@
                     document.getElementById('notification').innerText = '';
                 }
             }
+
             function changeDisable2(total) {
-                if(total == 0){
+                if (total == 0) {
                     document.getElementById('btn_more').setAttribute('disabled', 'true');
-                }
-                else if (Number(total) > Number(money_user.value)) {
+                } else if (Number(total) > Number(money_user.value)) {
                     document.getElementById('btn_more').setAttribute('disabled', 'true');
                     document.getElementById('notification').innerText = 'Tài khoàn của bạn không đủ để thực hiện giao dịch.Vui lòng nạp tiền để tiếp tục giao dịch';
                 } else {
@@ -596,7 +618,7 @@
                 data.forEach(e => {
                     if (post_plan_value != 0) {
                         if (post_plan_value == e.id) {
-                           
+
                             show_plan.innerText = post_plan_title;
                             show_money.innerText = post_plan_price
                             money_temp = post_plan_price;
@@ -620,7 +642,7 @@
                                     document.getElementById('tt').setAttribute('disabled', 'true');
                                     document.getElementById('post_day').setAttribute('disabled', 'true');
                                     document.getElementById('message').innerText = 'Hãy chọn gói đăng bài khác !'
-                                }else{
+                                } else {
                                     changeDisable(money_temp * post_day.value);
                                     document.getElementById('post_day').removeAttribute('disabled', 'true');
                                     document.getElementById('message').innerText = '';
@@ -645,7 +667,7 @@
                 show_day.innerText = post_day.value;
                 show_total.innerText = money_temp * post_day.value
                 document.getElementById('post_money1').setAttribute('value', money_temp * post_day.value);
-                changeDisable(money_temp * post_day.value,post_day.value);
+                changeDisable(money_temp * post_day.value, post_day.value);
             }
 
             if ((typeof (document.getElementById('plan_id_old')) != 'undefined' && document.getElementById('plan_id_old') != null) == true) {
@@ -660,7 +682,9 @@
                 }
             }
 
-
+            document.getElementById('title').addEventListener('change', (e) => {
+                document.getElementsByName('title')[0].value = e.target.value;
+            })
         </script>
 
 @endsection

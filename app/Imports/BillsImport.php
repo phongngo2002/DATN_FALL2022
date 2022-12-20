@@ -23,7 +23,7 @@ class BillsImport implements ToCollection
                     [
                         'motel_id' => $row[1],
                         'title' => 'Hóa đơn tiên phòng tháng ' . Carbon::now()->format('m'),
-                        'status' => 0,
+                        'status' => 2,
                         'number_elec_old' => $row[2],
                         'number_elec' => $row[3],
                         'number_warter_old' => $row[4],

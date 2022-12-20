@@ -12,7 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->v = [];
+        $arr = [
+            'function' => [
+                'sendVote',
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
+    }
 
     public function sendVote(Request $request)
     {

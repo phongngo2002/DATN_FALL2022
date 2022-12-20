@@ -17,7 +17,7 @@
     <div class="bg-white shadow-lg p-4 rounded-4">
         <form action="">
             <div class="row">
-                <div class="col-3 form-group">
+                <div class="col-2 form-group">
                     <select name="area_id" id="area_id" class="form-control">
                         <option value="">Lựa chọn khu trọ</option>
                         @foreach($areas as $area)
@@ -35,6 +35,20 @@
                                     value="{{$motel->id}}" {{isset($params['room_number']) &&   $params['room_number'] == $motel->id ? 'selected' : ''}} >{{$motel->room_number}}</option>
                             @endforeach
                         @endif
+                    </select>
+                </div>
+                <div class="col-2 form-group">
+                    <select name="status" id="status" class="form-control">
+                        <option value="">Tình trạng hóa đơn</option>
+                        <option value="1" {{isset($params['status']) &&   $params['status'] == 1 ? 'selected' : ''}}>Đã
+                            thu
+                        </option>
+                        <option value="2" {{isset($params['status']) &&   $params['status'] == 0 ? 'selected' : ''}}>
+                            Chưa thu
+                        </option>
+                        <option value="3" {{isset($params['status']) &&   $params['status'] == 3 ? 'selected' : ''}}>
+                            Chờ xác nhận
+                        </option>
                     </select>
                 </div>
                 <div class="col-2 form-group">
@@ -56,9 +70,10 @@
                         @endfor
                     </select>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <button class="btn btn-primary">Tìm kiếm</button>
-                    <button class="btn btn-danger" type="button" onclick="document.location.reload()">Bỏ chọn</button>
+                    <a class="btn btn-danger text-light" href="{{route('backend_get_list_bill')}}">Bỏ chọn
+                    </a>
                 </div>
             </div>
         </form>
@@ -90,7 +105,7 @@
                     <td>{{number_format($item->tong, 0, ',', '.')}} đ</td>
                     <td>{{\Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y')}}</td>
                     <td>
-                        @if($item->status)
+                        @if($item->status == 1)
                             <span class="badge bg-success p-2 text-xl">Đã thu</span>
                         @else
                             <button class="badge bg-danger p-2 text-xl border-0" data-bs-toggle="modal"

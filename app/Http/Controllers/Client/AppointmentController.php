@@ -24,6 +24,16 @@ class AppointmentController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'post_appointment',
+                'history_appointment',
+                'cancelAppoint'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function post_appointment(AppointmentRequest $request)

@@ -19,6 +19,7 @@ class DepositController extends Controller
         $arr = [
             'function' => [
                 'index_deposits',
+                'change_status_deposit'
             ]
         ];
         foreach ($arr['function'] as $item) {
