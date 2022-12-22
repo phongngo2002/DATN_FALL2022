@@ -69,15 +69,14 @@ class MotelController extends Controller
         $this->v['data_plan'] = json_encode($data);
 
         $this->v['current_plan_motel'] = DB::table('plan_history')
-            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level', 'plan_history.status', 'motel_id'])
+            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level', 'plan_history.status', 'motel_id', 'plan_history.user_id'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $motel_id)
+            ->where('plan_history.user_id', Auth::id())
             ->where('type', 2)
             ->where('plan_history.status', 1)
-            ->orWhere('plan_history.status', 10)
+            ->orWhere('plan_history.status', 7)
             ->first();
-
-        // dd( $this->v['data_plan']);
 
         $model = new UserMotel();
         $this->v['motels'] = $model->currentMotel1($motel_id);

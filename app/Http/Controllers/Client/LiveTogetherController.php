@@ -118,7 +118,7 @@ class LiveTogetherController extends Controller
             $motel->save();
         }
 
-        $plan->status = 10;
+        $plan->status = 7;
 
         $plan->save();
 

@@ -115,7 +115,7 @@
                 <div class="text-center">
                     <a href="" class="btn btn-link">Xem thêm</a>
                 </div>
-                @if($current_plan_motel->status !== 10)
+                @if(!isset($current_plan_motel->status) ||  $current_plan_motel->status !== 10)
                     <div class="my-4 row">
                         <div class="col-7">
                             <label for="">Lựa chọn gói đăng bài</label>

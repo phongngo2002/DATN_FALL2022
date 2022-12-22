@@ -262,7 +262,7 @@ class Motel extends Model
             ->where('type', 1)
             ->where('motels.status', 5)
             ->orderBy('priority_level', 'asc')
-            ->paginate(5);
+            ->paginate(8);
 
         foreach ($query as $item) {
             $sql = DB::table('locations')
@@ -423,7 +423,7 @@ class Motel extends Model
             ->whereBetween('motels.price', [$params['price_min'], $params['price_max']]);
         $query->orderBy('priority_level', 'asc');
         // dd($query->toSql());
-        $query = $query->paginate(5);
+        $query = $query->paginate(8);
         if (isset($params['location'])) {
             foreach ($query as $item) {
                 $sql2 = DB::table('votes')->selectRaw('AVG(score) as tb')->where('motel_id', $item->motel_id)->groupBy(['motel_id'])->first()->tb ?? 0;

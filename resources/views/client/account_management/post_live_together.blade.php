@@ -1,5 +1,6 @@
 @extends('layouts.user.main')
 @section('content')
+
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
@@ -268,7 +269,7 @@
                     </div>
                     <div class="single-add-property mb-1" style="height: 400px">
                         <h3 style="color:#FF385C;">Thông tin đẩy tin</h3>
-                        @if($current_plan_motel->status === 1 || !$current_plan_motel)
+                        @if(!isset($current_plan_motel))
                             <div class="property-form-group row px-3">
                                 <div class="mb-3 col-6">
                                     <label for="address">Chọn gói đăng tin</label>
@@ -293,7 +294,36 @@
                                 </div>
                             </div>
                         @else
-                            <p>Đăng lại tin để có thể thay đổi gói</p>
+                            @if($current_plan_motel->status === 1)
+                                <div class="property-form-group row px-3">
+                                    <div class="mb-3 col-6">
+                                        <label for="address">Chọn gói đăng tin</label>
+                                        <div class="nice-select form-control wide" style="margin-top: 2px !important;"
+                                             tabindex="0"><span class="current">Chọn gói đăng tin</span>
+
+                                            <ul class="list">
+
+                                                @foreach ($plans as $plan)
+                                                    <li id="post_plan" onclick="getData(event)"
+                                                        data-value="{{$plan->id}}"
+                                                        data-price="{{$plan->price}}"
+                                                        class="option">{{$plan->name}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-6">
+                                        <p class="no-mb">
+                                            <label for="" class="mb-2">Số ngày đăng bài</label>
+                                            <input type="number" placeholder="Số ngày đăng bài" id="post_day">
+                                        <p id="message" class="text-danger"></p>
+                                        </p>
+                                    </div>
+                                </div>
+                            @else
+                                <p>Đăng lại tin để có thể thay đổi gói</p>
+                            @endif
+
                         @endif
 
                     </div>
@@ -423,22 +453,26 @@
                                         </tr>
                                     </table>
                                     <div class="text-center">
-                                        @if($current_plan_motel->status === 1)
-                                            <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
+                                        @if($current_plan_motel)
+                                            @if($current_plan_motel->status === 1)
 
-                                            <input type="hidden" name="old_day" id="old_day"
-                                                   value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
-                                            <input type="hidden" id="money_plan_old" name="money_plan_old"
-                                                   value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
-                                            <button
-                                                type="button"
-                                                class="btn btn-success"
-                                                id="tt"
-                                                disabled style="width: 100%"
-                                                data-toggle="modal"
-                                                data-target="#exampleModal" {{$current_plan_motel->priority_level === 1 ? 'disabled' : '' }} >
-                                                Thay đổi gói
-                                            </button>
+                                                <p class="text-secondary text-sm my-2 text-danger"
+                                                   id="notification"></p>
+
+                                                <input type="hidden" name="old_day" id="old_day"
+                                                       value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
+                                                <input type="hidden" id="money_plan_old" name="money_plan_old"
+                                                       value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-success"
+                                                    id="tt"
+                                                    disabled style="width: 100%"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModal" {{$current_plan_motel->priority_level === 1 ? 'disabled' : '' }} >
+                                                    Thay đổi gói
+                                                </button>
+                                            @endif
                                         @else
                                             <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
                                             <button type="button" class="btn btn-success" id="tt" disabled
