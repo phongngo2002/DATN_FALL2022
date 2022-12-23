@@ -31,7 +31,9 @@
                                             <div class="text-muted small mt-1">{{$notification->data['time'] }}</div>
                                         </div>
                                     </div>
+                                    {{$notification->markAsRead()}}
                                 </a>
+
                         @endforeach
                     </div>
                 </div>
