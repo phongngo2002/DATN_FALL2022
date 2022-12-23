@@ -192,7 +192,11 @@
                                             <p class="">Tài khoản gốc: <span id="user_money"
                                                                              class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
                                                 <i class="fa-brands fa-bitcoin text-warning"></i>
+                                                @if(\Illuminate\Support\Facades\Auth::user()->money < $item->tong)
+                                                    <span class="text-danger">ban khong du tien.Hay lam them</span>
+                                                @endif
                                             </p>
+
                                         </li>
                                         <a href="{{route('getRecharge')}}" class="btn btn-primary">Nạp thêm tiền</a>
 
@@ -214,7 +218,7 @@
                                             @csrf
                                             <div>
                                                 <label for="">Tổng tiền thanh toán</label>
-                                                <input type="number" class="form-control" name="tong"
+                                                <input type="text" class="form-control" name="tong"
                                                        value="{{ number_format($item->tong, 0, ',', '.') }}" readonly>
                                                 <label for="">Quy đổi thành xu</label>
                                                 <input type="test" class="form-control" name="coin"
@@ -224,9 +228,16 @@
                                             <input type="text" hidden name="pay_type" value="1">
 
                                             <div class="my-4">
-                                                <button type="submit" id="button_submit" class="btn btn-success">
-                                                    Xác thanh toán
-                                                </button>
+                                                @if(\Illuminate\Support\Facades\Auth::user()->money >= $item->tong)
+                                                    <button type="submit" id="button_submit" class="btn btn-success">
+                                                        Xác thanh toán
+                                                    </button>
+                                                @else
+                                                    <button type="button" disabled id="button_submit"
+                                                            class="btn btn-success">
+                                                        Xác thanh toán
+                                                    </button>
+                                                @endif
                                             </div>
                                         </form>
                                     @endif
@@ -248,7 +259,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            @if ($item->status == 2)
+                                            @if ($item->status == 1)
                                                 <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
                                             @elseif($item->status == 3)
                                                 <div class="alert alert-success alert-dismissible mt-3" role="alert">
