@@ -108,6 +108,7 @@
                         @if($item->status == 1)
                             <span class="badge bg-success p-2 text-xl">Đã thu</span>
                         @else
+                            @if($item->status == )
                             <button class="badge bg-danger p-2 text-xl border-0" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal{{$item->room_number}}">Chưa thu
                             </button>

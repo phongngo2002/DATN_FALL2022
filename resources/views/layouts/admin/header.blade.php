@@ -1,24 +1,25 @@
+
 <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
     </a>
 
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse" >
         <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
                     <div class="position-relative">
                         <i class="align-middle" data-feather="bell"></i>
-                        <span class="indicator"> {{count(Auth::user()->notifications) ?? ''}}</span>
+                        <span class="indicator"> {{count(Auth::user()->unreadNotifications) ?? ''}}</span>
                     </div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-                    <div class="dropdown-menu-header">
-                        {{count(Auth::user()->notifications) .' thông báo mới' ?? 0 .' thông báo mới'}}
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown" style="width: 500px;height:600px;overflow-y: auto">
+                    <div class="dropdown-menu-header" >
+                        {{count(Auth::user()->unreadNotifications) .' thông báo mới' ?? 0 .' thông báo mới'}}
                     </div>
+
                     <div class="list-group" id="NOTI">
-                        @foreach (Auth::user()->notifications as $index =>$notification)
-                            @if($index < 2)
+                        @foreach (Auth::user()->unreadNotifications as $index =>$notification)
                                 <a href="{{$notification->data['href'] ?? '#' }}" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
@@ -30,9 +31,7 @@
                                             <div class="text-muted small mt-1">{{$notification->data['time'] }}</div>
                                         </div>
                                     </div>
-                                    {{ $notification->markAsRead()}}
                                 </a>
-                            @endif
                         @endforeach
                     </div>
                 </div>
