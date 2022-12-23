@@ -16,9 +16,17 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'dashboard'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
-    public function index()
+    public function dashboard()
     {
         $this->v['AdminCountMotel'] = DB::table('motels')->count();
         $this->v['AdminCountUser'] = DB::table('users')->whereNot('is_admin', 1)->count() ?? 0;
@@ -135,14 +143,14 @@ class DashboardController extends Controller
                 ->where('status', 1)
                 ->whereRaw('YEAR(created_at) = ' . now()->year)
                 ->first()->sum ?? 0;
-//        $new_user_in_motel = [];
-//        for ($i = 1; $i < now()->month + 1; $i++) {
-//            $new_user_in_motel['label'][] = 'Tháng ' . $i;
-//            $new_user_in_motel['value'][] = DB::table('user_motel')
-//                ->whereRaw('MONTH(start_time) = ' . $i)
-//                ->whereRaw('YEAR(start_time) = ' . now()->year)
-//                ->count();
-//        }
+        //        $new_user_in_motel = [];
+        //        for ($i = 1; $i < now()->month + 1; $i++) {
+        //            $new_user_in_motel['label'][] = 'Tháng ' . $i;
+        //            $new_user_in_motel['value'][] = DB::table('user_motel')
+        //                ->whereRaw('MONTH(start_time) = ' . $i)
+        //                ->whereRaw('YEAR(start_time) = ' . now()->year)
+        //                ->count();
+        //        }
 
         return response()->json([
             'people' => $people,
@@ -150,7 +158,7 @@ class DashboardController extends Controller
             'money_day' => $withdraw_recharge_day,
             'money_month' => $withdraw_recharge_month,
             'money_year' => $withdraw_recharge_year,
-//            'new_user' => $new_user_in_motel
+            //            'new_user' => $new_user_in_motel
         ]);
     }
 
@@ -170,7 +178,6 @@ class DashboardController extends Controller
                         ->first() ?? 0;
                 $query[] = $a;
             }
-
         }
 
         for ($i = 1; $i < Carbon::now()->month + 1; $i++) {
@@ -187,8 +194,7 @@ class DashboardController extends Controller
         $vote = [];
         for ($i = 1; $i < 6; $i++) {
             $vote[] = DB::table('votes')
-                    ->join('motel_vote', 'votes.id', '=', 'motel_vote.vote_id')
-                    ->join('motels', 'motel_vote.motel_id', '=', 'motels.id')
+                    ->join('motels', 'votes.motel_id', '=', 'motels.id')
                     ->join('areas', 'motels.area_id', '=', 'areas.id')
                     ->where('areas.user_id', $request->user_id)
                     ->where('score', $i)

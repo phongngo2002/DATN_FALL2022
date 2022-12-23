@@ -145,59 +145,60 @@
                 </button>
             </div>
         @endif
-        <h4>Lịch sử đặt cọc</h4>
+        <h4>Hóa đơn tiền phòng</h4>
         <div class="my-properties shadow-lg">
             <table class="table-responsive text-center shadow p-3 mb-5 bg-body rounded">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Khu trọ</th>
-                        <th>Mã phòng</th>
-                        <th>Tiền phòng</th>
-                        <th>Tiền điện</th>
-                        <th>Tiền nước</th>
-                        <th>Tiền mạng</th>
-                        <th>Tổng thu</th>
-                        <th>Ngày làm hóa đơn</th>
-                        <th>Trạng thái</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Khu trọ</th>
+                    <th>Mã phòng</th>
+                    <th>Tiền phòng</th>
+                    <th>Tiền điện</th>
+                    <th>Tiền nước</th>
+                    <th>Tiền mạng</th>
+                    <th>Tổng thu</th>
+                    <th>Ngày làm hóa đơn</th>
+                    <th>Trạng thái</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($list as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->area_name }}</td>
-                            <td>{{ $item->room_number }}</td>
-                            <td>{{ number_format($item->price, 0, ',', '.') }} đ</td>
-                            <td>{{ number_format($item->tien_dien, 0, ',', '.') }} đ</td>
-                            <td>{{ number_format($item->tien_nuoc, 0, ',', '.') }} đ</td>
-                            <td>{{ number_format($item->wifi, 0, ',', '.') }} đ</td>
-                            <td>{{ number_format($item->tong, 0, ',', '.') }} đ</td>
-                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y') }}</td>
-                            <td>
-                                @if ($item->status == 2)
-                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
-                                        class="btn badge bg-success p-2 white">Đã thu</a>
-                                @elseif($item->status == 3)
-                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
-                                        class="btn badge bg-primary p-2 white">chờ xác nhận</a>
-                                @else
-                                    <span class="badge bg-danger p-2 text-xl">Chưa thu</span>
-                                    <a href="{{ route('client_get_pay_bill', $item->id) }}"
-                                        class=" btn badge bg-success text-white p-2">thanh toán</a>
-                                @endif
+                @foreach ($list as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->area_name }}</td>
+                        <td>{{ $item->room_number }}</td>
+                        <td>{{ number_format($item->price, 0, ',', '.') }} đ</td>
+                        <td>{{ number_format($item->tien_dien, 0, ',', '.') }} đ</td>
+                        <td>{{ number_format($item->tien_nuoc, 0, ',', '.') }} đ</td>
+                        <td>{{ number_format($item->wifi, 0, ',', '.') }} đ</td>
+                        <td>{{ number_format($item->tong, 0, ',', '.') }} đ</td>
+                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('h:i d/m/Y') }}</td>
+                        <td>
+                            @if ($item->status == 1)
+                                <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                   class="btn badge bg-success p-2 white">Đã thanh toán</a>
+                            @elseif($item->status == 3)
+                                <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                   class="btn badge bg-primary p-2 white">Chờ xác nhận</a>
+                            @else
+                                <span class="badge bg-danger p-2 text-xl">Chưa thanh toán</span>
+                                <a href="{{ route('client_get_pay_bill', $item->id) }}"
+                                   class=" btn badge bg-success text-white p-2">Thanh toán ngay</a>
+                            @endif
 
 
-                            </td>
+                        </td>
 
 
-                        </tr>
-                    @endforeach
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
         </div>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    @endsection
+              integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+              crossorigin="anonymous">
+@endsection

@@ -31,7 +31,7 @@ class registerController extends Controller
             $users->token = Str::random('16');
             $users->save();
             Mail::to($request->email)->send(new RegisterOtp($users));
-            return redirect()->route('get_login')->with('success_register', 'đăng ký thành công');
+            return view('custom.thankyou_page', []);
         } else {
             return redirect()->route('get_register')->with('email_fall', 'email đã tồn tại');
         }

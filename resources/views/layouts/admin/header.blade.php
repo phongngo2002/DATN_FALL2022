@@ -35,9 +35,6 @@
                             @endif
                         @endforeach
                     </div>
-                    <div class="dropdown-menu-footer">
-                        <a href="#" class="text-muted">Xem tất cả thông báo</a>
-                    </div>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -46,9 +43,10 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}"
-                         class="avatar img-fluid rounded me-1"
-                         alt="Charles Hall"/> <span
+                    <img
+                        src="{{\Illuminate\Support\Facades\Auth::user()->avatar ?? 'https://shopgarena.net/wp-content/uploads/2022/08/Hinh-anime-FF-chibi.jpg'}}"
+                        class="avatar img-fluid rounded me-1"
+                        alt="Charles Hall"/> <span
                         class="text-dark">{{\Illuminate\Support\Facades\Auth::user()->name ?? 'Tài khoản ảo'}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -61,6 +59,9 @@
                                                                                         data-feather="user"></i> Thông
                         tin tài khoản</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('backend_user_change_password')}}"><i
+                            class="fa-solid fa-money-check"></i>
+                        Đổi mật khẩu</a>
                     <a class="dropdown-item" href="{{route('backend_get_form_recharge')}}"><i
                             class="fa-solid fa-money-check"></i>
                         Nạp tiền</a>

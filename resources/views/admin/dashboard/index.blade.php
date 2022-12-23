@@ -204,7 +204,6 @@
                     const ctx2 = document.getElementById('myChart2');
                     const ctx3 = document.getElementById('myChart3');
                     const ctx4 = document.getElementById('myChart4');
-
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -333,7 +332,6 @@
                             });
                         }
                     });
-
                 </script>
             @endsection
         @else

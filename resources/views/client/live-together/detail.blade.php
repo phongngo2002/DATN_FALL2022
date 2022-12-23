@@ -1,6 +1,11 @@
 @extends('layouts.client.main')
 
 @section('content')
+    <style>
+        .responsive ul li a {
+            color: white !important;
+        }
+    </style>
     <section class="single-proper blog details">
         <div class="container">
             <div class="row">
@@ -67,6 +72,100 @@
 
                         </ul>
                         <!-- main slider carousel items -->
+                    </div>
+                    <div class="floor-plan property wprt-image-video w50 pro">
+                        <h5>Cái gì ở gần</h5>
+                        <div class="property-nearby">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="nearby-info mb-4">
+                                        <span class="nearby-title mb-3 d-block text-info">
+                                            <i class="fas fa-graduation-cap mr-2"></i><b class="title">Giáo
+                                                dục</b>
+                                        </span>
+                                        <div class="nearby-list">
+                                            <ul class="property-list list-unstyled mb-0 locationMotel"
+                                                style="max-height: 177px;overflow: hidden">
+                                                @foreach($locationNearMotel as $location)
+
+                                                    @if($location->type == 1)
+
+                                                        <li class="d-flex">
+                                                            <h6 class="mb-3 mr-2">{{$location->name}}</h6>
+                                                            <span>{{round($location->distance,2)}} km</span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+
+                                            </ul>
+                                            <a style="cursor: pointer" class="moreUlSchool">Xem thêm</a>
+                                            <a style="cursor: pointer;display: none" class="cancelUlSchool">Thu gọn</a>
+                                        </div>
+                                    </div>
+                                    <div class="nearby-info mb-4">
+                                        <span class="nearby-title mb-3 d-block text-success">
+                                            <i class="fas fa-user-md mr-2"></i><b class="title">Sức khỏe va y
+                                                tế</b>
+                                        </span>
+                                        <div class="nearby-list">
+                                            <ul class="property-li  st list-unstyled mb-0 locationMotel"
+                                                style="max-height: 177px;overflow: hidden">
+                                                @foreach($locationNearMotel as $location)
+
+                                                    @if($location->type == 2)
+
+                                                        <li class="d-flex">
+                                                            <h6 class="mb-3 mr-2">{{$location->name}}</h6>
+                                                            <span>{{round($location->distance,2)}} km</span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="nearby-info">
+                                        <span class="nearby-title mb-3 d-block text-danger">
+                                            <i class="fas fa-car mr-2"></i><b class="title">Di chuyển</b>
+                                        </span>
+                                        <div class="nearby-list">
+                                            <ul class="property-li  st list-unstyled mb-0 locationMotel"
+                                                style="max-height: 177px;overflow: hidden">
+                                                @foreach($locationNearMotel as $location)
+
+                                                    @if($location->type == 4)
+
+                                                        <li class="d-flex">
+                                                            <h6 class="mb-3 mr-2">{{$location->name}}</h6>
+                                                            <span>{{round($location->distance,2)}} km</span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="nearby-info mt-4">
+                                        <span class="nearby-title mb-3 d-block text-danger">
+                                          <i class="fa-solid fa-shop mr-2"></i><b class="title">Mua sắm</b>
+                                        </span>
+                                        <div class="nearby-list">
+                                            <ul class="property-li  st list-unstyled mb-0 locationMotel"
+                                                style="max-height: 177px;overflow: hidden">
+                                                @foreach($locationNearMotel as $location)
+
+                                                    @if($location->type == 3)
+
+                                                        <li class="d-flex">
+                                                            <h6 class="mb-3 mr-2">{{$location->name}}</h6>
+                                                            <span>{{round($location->distance,2)}} km</span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="blog-info homes-content details mb-30">
                         <h5 class="mb-4">Thông tin mô tả</h5>
@@ -144,190 +243,6 @@
                             </li>
                         </ul>
                     </div>
-
-                    <div class="floor-plan property wprt-image-video w50 pro">
-                        <h5>Cái gì ở gần</h5>
-                        <div class="property-nearby">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="nearby-info mb-4">
-                                        <span class="nearby-title mb-3 d-block text-info">
-                                            <i class="fas fa-graduation-cap mr-2"></i><b class="title">Giáo
-                                                dục</b>
-                                        </span>
-                                        <div class="nearby-list">
-                                            <ul class="property-list list-unstyled mb-0">
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Giáo dục</h6>
-                                                    <span>(15.61 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Sức khỏe và Y tế</h6>
-                                                    <span>(15.23 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">The Kaplan</h6>
-                                                    <span>(15.16 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="nearby-info mb-4">
-                                        <span class="nearby-title mb-3 d-block text-success">
-                                            <i class="fas fa-user-md mr-2"></i><b class="title">Sức khỏe va y
-                                                tế</b>
-                                        </span>
-                                        <div class="nearby-list">
-                                            <ul class="property-list list-unstyled mb-0">
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Natural Market</h6>
-                                                    <span>(13.20 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Food For Health</h6>
-                                                    <span>(13.22 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">A Matter of Health</h6>
-                                                    <span>(13.34 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="nearby-info">
-                                        <span class="nearby-title mb-3 d-block text-danger">
-                                            <i class="fas fa-car mr-2"></i><b class="title">Di chuyển</b>
-                                        </span>
-                                        <div class="nearby-list">
-                                            <ul class="property-list list-unstyled mb-0">
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Airport Transportation</h6>
-                                                    <span>(11.36 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">NYC Executive Limo</h6>
-                                                    <span>(11.87 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="d-flex">
-                                                    <h6 class="mb-3 mr-2">Empire Limousine</h6>
-                                                    <span>(11.52 miles)</span>
-                                                    <ul class="list-unstyled list-inline ml-auto">
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="fas fa-star-half fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                        <li class="list-inline-item m-0 text-warning"><i
-                                                                class="far fa-star fa-xs"></i></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="property wprt-image-video w50 pro">
                         <h5>Video Phòng trọ</h5>
                         <style>
@@ -380,76 +295,6 @@
 
                     </section>
                     <!-- Star Add Review -->
-
-
-                    <section class="single reviews leve-comments details mt-3">
-                        <div id="add-review" class="add-review-box">
-                            <!-- Add Review -->
-                            <h3 class="listing-desc-headline margin-bottom-20 mb-4">Thêm đánh giá</h3>
-                            <span class="leave-rating-title">Xếp hạng của bạn cho danh sách này</span>
-                            <!-- Rating / Upload Button -->
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <!-- Leave Rating -->
-                                    <div class="clearfix"></div>
-                                    <div class="leave-rating margin-bottom-30">
-                                        <input type="radio" name="rating" id="rating-1" value="1"/>
-                                        <label for="rating-1" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-2" value="2"/>
-                                        <label for="rating-2" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-3" value="3"/>
-                                        <label for="rating-3" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-4" value="4"/>
-                                        <label for="rating-4" class="fa fa-star"></label>
-                                        <input type="radio" name="rating" id="rating-5" value="5"/>
-                                        <label for="rating-5" class="fa fa-star"></label>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- Uplaod Photos -->
-                                    <div class="add-review-photos margin-bottom-30">
-                                        <div class="photoUpload">
-                                            <span><i class="sl sl-icon-arrow-up-circle"></i> Upload Photos</span>
-                                            <input type="file" class="upload"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 data">
-                                    <form action="#">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="text" name="name" class="form-control"
-                                                       placeholder="First Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="text" name="name" class="form-control"
-                                                       placeholder="Last Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="email" name="email" class="form-control"
-                                                       placeholder="Email" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 form-group">
-                                            <textarea class="form-control" id="exampleTextarea" rows="8"
-                                                      placeholder="Review" required></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-lg mt-2">Submit
-                                            Review
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
                     <!-- End Add Review -->
                     <!-- End Reviews -->
 
@@ -466,9 +311,18 @@
                             <div class="widget-boxed-header">
                                 <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Liên hệ ở ghép</h4>
                             </div>
-                            @if ( Session::has('success') )
+                            @if ( \Illuminate\Support\Facades\Session::has('success') )
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <strong>{{ Session::get('success') }}</strong>
+                                    <strong>{{ \Illuminate\Support\Facades\Session::get('success') }}</strong>
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Đóng</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if (\Illuminate\Support\Facades\Session::has('error'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <strong>{{ \Illuminate\Support\Facades\Session::get('error') }}</strong>
                                     <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         <span class="sr-only">Đóng</span>
@@ -495,50 +349,55 @@
                     <!-- End: Schedule a Tour -->
 
                     <!-- end author-verified-badge -->
-                    <div class="sidebar">
-                        <div class="widget-boxed mt-33 mt-5">
-                            <div class="widget-boxed-header">
-                                <h4>Thông tin chủ trọ</h4>
-                            </div>
-                            <div class="widget-boxed-body">
-                                <div class="sidebar-widget author-widget2">
-                                    <div class="author-box clearfix">
-                                        <img
-                                            src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
-                                            alt="author-image"
-                                            class="author__img w-full">
-                                        <h4 class="author__title">{{ $motel->user_name }}</h4>
-                                        <p class="author__meta">Chủ khu trọ</p>
-                                    </div>
-                                    <ul class="author__contact">
-                                        <li><span class="la la-map-marker"><i
-                                                    class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
-                                        </li>
-                                        <li><span class="la la-phone"><i class="fa fa-phone"
-                                                                         aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_phone }}</a></li>
-                                        <li><span class="la la-envelope-o"><i class="fa fa-envelope"
-                                                                              aria-hidden="true"></i></span><a
-                                                href="#">{{ $motel->user_email }}</a>
-                                        </li>
-                                    </ul>
-                                    {{--                                    <div class="agent-contact-form-sidebar">--}}
-                                    {{--                                        <p class="mt-2 text-danger">--}}
-                                    {{--                                            @if (Session::has('success'))--}}
-                                    {{--                                                {{ Session::get('success') }}--}}
-                                    {{--                                            @endif--}}
+                    @if(Illuminate\Support\Facades\DB::table('contact_motel_history')
+  ->where('user_id',\Illuminate\Support\Facades\Auth::id())
+  ->where('motel_id',$motel->motel_id)->where('status','!=',4)->first())
+                        <div class="sidebar">
+                            <div class="widget-boxed mt-33 mt-5">
+                                <div class="widget-boxed-header">
+                                    <h4>Thông tin chủ trọ</h4>
+                                </div>
+                                <div class="widget-boxed-body">
+                                    <div class="sidebar-widget author-widget2">
+                                        <div class="author-box clearfix">
+                                            <img
+                                                src="https://mondaycareer.com/wp-content/uploads/2020/11/anime-l%C3%A0-g%C3%AC-v%C3%A0-kh%C3%A1i-ni%E1%BB%87m.jpg"
+                                                alt="author-image"
+                                                class="author__img w-full">
+                                            <h4 class="author__title">{{ $motel->user_name }}</h4>
+                                            <p class="author__meta">Chủ khu trọ</p>
+                                        </div>
+                                        <ul class="author__contact">
+                                            <li><span class="la la-map-marker"><i
+                                                        class="fa fa-map-marker"></i></span>{{ $motel->user_address }}
+                                            </li>
+                                            <li><span class="la la-phone"><i class="fa fa-phone"
+                                                                             aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_phone }}</a></li>
+                                            <li><span class="la la-envelope-o"><i class="fa fa-envelope"
+                                                                                  aria-hidden="true"></i></span><a
+                                                    href="#">{{ $motel->user_email }}</a>
+                                            </li>
+                                        </ul>
+                                        {{--                                    <div class="agent-contact-form-sidebar">--}}
+                                        {{--                                        <p class="mt-2 text-danger">--}}
+                                        {{--                                            @if (Session::has('success'))--}}
+                                        {{--                                                {{ Session::get('success') }}--}}
+                                        {{--                                            @endif--}}
 
-                                    {{--                                            @if (Session::has('error'))--}}
-                                    {{--                                                {{ Session::get('error') }}--}}
-                                    {{--                                        </p>--}}
-                                    {{--                                        @endif--}}
-                                    {{--                                        --}}
-                                    {{--                                    </div>--}}
+                                        {{--                                            @if (Session::has('error'))--}}
+                                        {{--                                                {{ Session::get('error') }}--}}
+                                        {{--                                        </p>--}}
+                                        {{--                                        @endif--}}
+                                        {{--                                        --}}
+                                        {{--                                    </div>--}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    @endif
+
 
                     <div class="main-search-field-2">
                         <div class="widget-boxed mt-5">
@@ -547,22 +406,27 @@
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
-                                    @foreach ($liveTogetherByArea as $item)
-                                        <div class="recent-main mb-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img
-                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
-                                                        alt=""></a>
+                                    @if(count($liveTogetherByArea) > 0)
+
+                                        @foreach ($liveTogetherByArea as $item)
+                                            <div class="recent-main mb-4">
+                                                <div class="recent-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}"><img
+                                                            src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="info-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}">
+                                                        <h6>{{$item->room_number}}</h6>
+                                                    </a>
+                                                    <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                        vnđ</p>
+                                                </div>
                                             </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>{{$item->room_number}}</h6>
-                                                </a>
-                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
-                                                    vnđ</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>Không có phòng trọ phù hợp</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -573,22 +437,27 @@
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="recent-post">
-                                    @foreach ($liveTogethersHot as $item)
-                                        <div class="recent-main mb-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img
-                                                        src="{{json_decode($motel->photo_gallery)[0]}}"
-                                                        alt=""></a>
+                                    @if(count($liveTogethersHot) > 0)
+                                        @foreach ($liveTogethersHot as $item)
+                                            <div class="recent-main mb-4">
+                                                <div class="recent-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}"><img
+                                                            src="{{json_decode($motel->photo_gallery)[0]}}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="info-img">
+                                                    <a href="{{route('client.live-together.detail',['id' => $item->id])}}">
+                                                        <h6>{{$item->room_number}}</h6>
+                                                    </a>
+                                                    <p>{{number_format($item->priceMotel, 0, ',', '.')}}
+                                                        vnđ</p>
+                                                </div>
                                             </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html">
-                                                    <h6>{{$item->room_number}}</h6>
-                                                </a>
-                                                <p>{{number_format($item->priceMotel, 0, ',', '.')}}
-                                                    vnđ</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>Không có phòng trọ phù hợp</p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -613,4 +482,22 @@
         <!-- START SIMILAR PROPERTIES -->
         <!-- END SIMILAR PROPERTIES -->
     </section>
+@endsection
+
+@section('custom_js')
+    <script>
+        document.querySelectorAll('.moreUlSchool').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.locationMotel')[index].setAttribute('style', 'max-height: auto;overflow: hidden;')
+                item.style.display = 'none';
+                document.querySelectorAll('.cancelUlSchool')[index].style.display = 'block';
+                document.querySelectorAll('.cancelUlSchool')[index].addEventListener('click', () => {
+                    item.style.display = 'block';
+                    document.querySelectorAll('.locationMotel')[index].setAttribute('style', 'max-height: 177px;overflow: hidden;')
+                    document.querySelectorAll('.cancelUlSchool')[index].style.display = 'none';
+                })
+
+            })
+        })
+    </script>
 @endsection

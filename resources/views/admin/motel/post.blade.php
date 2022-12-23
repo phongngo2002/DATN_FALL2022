@@ -115,25 +115,27 @@
                 <div class="text-center">
                     <a href="" class="btn btn-link">Xem thêm</a>
                 </div>
-                <div class="my-4 row">
-                    <div class="col-7">
-                        <label for="">Lựa chọn gói đăng bài</label>
-                        <select class="form-control" name="plan" id="plan">
-                            <option value="0">Lựa chọn gói bài đăng</option>
-                            @foreach($plans as $plan)
-                                <option value="{{$plan->id}}" data-title="{{$plan->name}}"
-                                        data-price="{{$plan->price}}">{{$plan->name}}</option>
-                            @endforeach
-                        </select>
-                        <p class="my-2 ms-2 text-sm">Xem chi tiết các gói dịch vụ.Click vào <a
-                                href="https://www.facebook.com/" target="_blank" class="text-danger">đây</a></p>
+                @if(!isset($current_plan_motel->status) ||  $current_plan_motel->status !== 10)
+                    <div class="my-4 row">
+                        <div class="col-7">
+                            <label for="">Lựa chọn gói đăng bài</label>
+                            <select class="form-control" name="plan" id="plan">
+                                <option value="0">Lựa chọn gói bài đăng</option>
+                                @foreach($plans as $plan)
+                                    <option value="{{$plan->id}}" data-title="{{$plan->name}}"
+                                            data-price="{{$plan->price}}">{{$plan->name}}</option>
+                                @endforeach
+                            </select>
+                            <p class="my-2 ms-2 text-sm">Xem chi tiết các gói dịch vụ.Click vào <a
+                                    href="https://www.facebook.com/" target="_blank" class="text-danger">đây</a></p>
+                        </div>
+                        <div class="col-5">
+                            <label for="">Nhập số ngày đăng bài</label>
+                            <input type="number" id="day" name="day" placeholder="Nhập số ngày đăng bài.VD: 1"
+                                   class="form-control">
+                        </div>
                     </div>
-                    <div class="col-5">
-                        <label for="">Nhập số ngày đăng bài</label>
-                        <input type="number" id="day" name="day" placeholder="Nhập số ngày đăng bài.VD: 1"
-                               class="form-control">
-                    </div>
-                </div>
+                @endif
             </form>
         </div>
         <div class="" style="display: grid;grid-template-rows: 0.25fr 0.25fr 0.5fr;gap: 12px;">
@@ -194,6 +196,17 @@
                 <div class="text-center">
                     <button class="btn btn-info" style="width: 100%">Nạp tiền ngay</button>
                 </div>
+                @if($current_plan_motel)
+                    @if($current_plan_motel->status == 1)
+                        <a style="width: 100%;" href="{{route('admin.remove_post',['ID' => $current_plan_motel->ID])}}"
+                           class="btn btn-warning mt-2">Gỡ
+                            bài</a>
+                    @else
+                        <a style="width: 100%;" href="{{route('admin.active_post',['ID' => $current_plan_motel->ID])}}"
+                           class="btn btn-warning mt-2">Đăng
+                            lại</a>
+                    @endif
+                @endif
             </div>
             @if($current_plan_motel)
                 <div class="bg-white p-4 shadow-lg rounded-4">
@@ -219,27 +232,33 @@
                                 <span>{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Thành tiền</td>
-                            <td class="text-danger font-weight-bold">
-                                <span id="money_more">0</span> <i
-                                    class="fa-brands fa-bitcoin text-warning"></i>
-                            </td>
+                        @if($current_plan_motel->status === 1)
+                            <tr>
+                                <td>Thành tiền</td>
+                                <td class="text-danger font-weight-bold">
+                                    <span id="money_more">0</span> <i
+                                        class="fa-brands fa-bitcoin text-warning"></i>
+                                </td>
+                        @endif
                     </table>
-                    <input type="text" class="form-control my-2"
-                           {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}  id="date_more"
-                           name="date_more"
-                           placeholder="Nhập số ngày muốn gia hạn">
-                    <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
-                    <button
-                        data-toggle="modal"
-                        data-target="#exampleModal2"
-                        type="button"
-                        class="btn btn-success"
-                        {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}} id="btn_more"
-                        style="width: 100%"
-                    >Gia hạn ngay
-                    </button>
+
+                    @if($current_plan_motel->status === 1)
+                        <input type="text" class="form-control my-2"
+                               {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}}  id="date_more"
+                               name="date_more"
+                               placeholder="Nhập số ngày muốn gia hạn">
+                        <p class="text-secondary text-sm my-2 text-danger" id="notification2"></p>
+                        <button
+                            data-toggle="modal"
+                            data-target="#exampleModal2"
+                            type="button"
+                            class="btn btn-success"
+                            {{\Illuminate\Support\Facades\Auth::user()->money ? '' : 'disabled'}} id="btn_more"
+                            style="width: 100%"
+                        >Gia hạn ngay
+                        </button>
+                    @endif
+
                 </div>
             @endif
             <div class="bg-white p-4 shadow-lg rounded-4">
@@ -277,55 +296,60 @@
 
                     <div class="text-center">
                         @if($current_plan_motel)
+                            @if($current_plan_motel->status !== 10)
+                                <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
+                                <button type="button" class="btn btn-success" id="tt" disabled style="width: 100%"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal50000" {{$current_plan_motel->priority_level === 1 ? 'disabled' : '' }} >
+                                    Thay đổi gói
+                                </button>
+                            @endif
+                        @else
                             <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
                             <button type="button" class="btn btn-success" id="tt" disabled style="width: 100%"
                                     data-toggle="modal"
-                                    data-target="#exampleModal50000" {{$current_plan_motel->priority_level === 1 ? 'disabled' : '' }} >
-                                Thay đổi gói
-                            </button>
-                        @else
-                            <p class="text-secondary text-sm my-2 text-danger" id="notification"></p>
-                            <button type="button" class="btn btn-success" id="tt" disabled  style="width: 100%"
-                                    data-toggle="modal"
                                     data-target="#exampleModal50000">Thanh toán
                             </button>
+
                         @endif
-                            <div class="modal fade" id="exampleModal50000" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal50000" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
 
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form action="" method="POST">
-                                            @csrf
-                                            <input type="hidden" id="post_plan_id" name="post_plan_id">
-                                            <input type="hidden" id="post_money" name="post_money">
-                                            @if($current_plan_motel)
-                                                <input type="hidden" id="ID" name="ID" value="{{$current_plan_motel->ID}}">
-                                                <input type="hidden" id="plan_id_o" name="plan_id_o" value="{{$current_plan_motel->plan_id}}">
-                                                <input type="hidden" name="old_day" id="old_day"
-                                                       value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
-                                                <input type="hidden" id="money_plan_old" name="money_plan_old"
-                                                       value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
-                                                <input type="hidden" id="change_plan" name="change_plan" value="123132">
-                                            @endif
-                                            <input type="hidden" id="post_day" name="post_day">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận thanh toán</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Bạn có chắc muốn đăng phòng trọ này lên mục tìm kiếm ở website chúng tôi ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                <button type="submit" class="btn btn-primary">Đồng ý</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="" method="POST">
+                                        @csrf
+                                        <input type="hidden" id="post_plan_id" name="post_plan_id">
+                                        <input type="hidden" id="post_money" name="post_money">
+                                        @if($current_plan_motel)
+                                            <input type="hidden" id="ID" name="ID" value="{{$current_plan_motel->ID}}">
+                                            <input type="hidden" id="plan_id_o" name="plan_id_o"
+                                                   value="{{$current_plan_motel->plan_id}}">
+                                            <input type="hidden" name="old_day" id="old_day"
+                                                   value="{{\Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1}}">
+                                            <input type="hidden" id="money_plan_old" name="money_plan_old"
+                                                   value="{{$current_plan_motel->price * ( \Carbon\Carbon::parse($current_plan_motel->created_at_his)->addDays($current_plan_motel->day)->diffInDays(\Carbon\Carbon::now()) + 1)}}">
+                                            <input type="hidden" id="change_plan" name="change_plan" value="123132">
+                                        @endif
+                                        <input type="hidden" id="post_day" name="post_day">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận thanh toán</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có chắc muốn đăng phòng trọ này lên mục tìm kiếm ở website chúng tôi ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                            <button type="submit" class="btn btn-primary">Đồng ý</button>
+                                        </div>
+                                    </form>
                                 </div>
-
                             </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

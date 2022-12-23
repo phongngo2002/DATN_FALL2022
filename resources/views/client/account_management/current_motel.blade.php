@@ -189,7 +189,7 @@
                                    href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id]) }}">Rời phòng</a>
                             @else
                                 <a class="btn btn-primary text-white" href="">Thông tin phòng</a>
-                                @if($motel->tt === 0)
+                                @if($motel->tt === 0 && $motel->is_vote === 0)
                                     <button class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal{{$motel->motel_id}}">
                                         Gửi đánh giá
@@ -212,6 +212,7 @@
                                                 </div>
                                                 <form action="{{route('client_send_vote')}}" method="POST">
                                                     @csrf
+                                                    <input type="hidden" name="user_motel_id" value="{{$motel->id}}">
                                                     <input type="hidden" name="motel_id" value="{{$motel->motel_id}}">
                                                     <div class="modal-body">
                                                         <div class="form-group text-left">
@@ -277,7 +278,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                @else
+                                @endif
+                                @if($motel->tt === 2)
                                     <a href="{{ route('client_out_motel', ['motelId'=>$motel->motel_id,'status' => 1]) }}"
                                        class="btn btn-danger">Hủy</a>
                                 @endif

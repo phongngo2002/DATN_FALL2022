@@ -31,7 +31,8 @@
         #header {
             background-color: #ffffff;
         }
-        li{
+
+        li {
             list-style: none;
         }
     </style>
@@ -59,7 +60,10 @@
 
     <!-- START SECTION PRICING -->
     <section class="pricing-table bg-white-2">
+
         <div class="container">
+            <p style="float: right;font-size: 18px;font-weight: bolder">Tỉ lệ quy đổi: 1 <i
+                    class="fa-brands fa-bitcoin text-warning"></i> = 1.000 VNĐ</p>
             <div class="section-title">
                 <h3>Gói</h3>
                 <h2>đăng tin thuê trọ</h2>
@@ -67,10 +71,12 @@
             <div class="row">
                 @foreach($plans as $plan)
                     @if($plan->type == 1)
-                        <div class="col-lg-3 col-md-6 col-xs-12">
-                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}">
+                        <div class="col-lg-3 col-md-6 col-xs-12 mt-4">
+                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}"
+                                 style="min-height: 488px !important;">
                                 <span class="plan-name ">{{$plan->name}} <small>Gói ngày</small></span>
-                                <p class="plan-price"><sup class="currency">$</sup><strong>{{$plan->price}}</strong></p>
+                                <p class="plan-price"><sup class="currency"><i
+                                            class="fa-brands fa-bitcoin"></i></sup><strong>{{$plan->price}}</strong></p>
                                 <div class="p-2">
                                     {!! $plan->desc !!}
                                 </div>
@@ -90,8 +96,9 @@
             <div class="row">
                 @foreach($plans as $plan)
                     @if($plan->type == 2)
-                        <div class="col-lg-3 col-md-6 col-xs-12">
-                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}">
+                        <div class="col-lg-3 col-md-6 col-xs-12 mt-4">
+                            <div class="plan text-center {{ $plan->price >= 50 ? 'featured no-mgb yes-mgb' : '' }}"
+                                 style="min-height: 488px !important;">
                                 <span class="plan-name ">{{$plan->name}} <small>Gói ngày</small></span>
                                 <p class="plan-price"><sup class="currency"><i
                                             class="fa-brands fa-bitcoin"></i></sup><strong>{{$plan->price}}</strong></p>
@@ -108,17 +115,17 @@
     <!-- END SECTION PRICING -->
 
     <!-- START FOOTER -->
-    <footer class="first-footer">
+    <footer class="first-footer rec-pro">
         <div class="top-footer">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="netabout">
                             <a href="index.html" class="logo">
                                 <img src="{{asset('assets/client/images/logo-footer.svg')}}" alt="netcom">
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum incidunt architecto soluta
-                                laboriosam, perspiciatis, aspernatur officiis esse.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum incidunt architecto
+                                soluta laboriosam, perspiciatis, aspernatur officiis esse.</p>
                         </div>
                         <div class="contactus">
                             <ul>
@@ -206,8 +213,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="newsletters">
                             <h3>Newsletters</h3>
-                            <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive news in
-                                your inbox.</p>
+                            <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive
+                                news in your inbox.</p>
                         </div>
                         <form class="bloq-email mailchimp form-inline" method="post">
                             <label for="subscribeEmail" class="error"></label>
@@ -217,19 +224,14 @@
                                 <p class="subscription-success"></p>
                             </div>
                         </form>
+                        <iframe class="my-4"  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100087572812572&tabs=timeline&width=400&height=120&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="400" height="120" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="second-footer">
-            <div class="container">
-                <p>2021 © Copyright - All Rights Reserved.</p>
-                <ul class="netsocials">
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                </ul>
+        <div class="second-footer rec-pro">
+            <div class="container-fluid sd-f">
+                <p>2022 © Chợ phòng trọ - Website tìm kiếm và quản lý phòng trọ hàng đầu Việt Nam</p>
             </div>
         </div>
     </footer>
@@ -238,66 +240,6 @@
     <!-- END FOOTER -->
 
     <!--register form -->
-    <div class="login-and-register-form modal">
-        <div class="main-overlay"></div>
-        <div class="main-register-holder">
-            <div class="main-register fl-wrap">
-                <div class="close-reg"><i class="fa fa-times"></i></div>
-                <h3>Welcome to <span>Find<strong>Houses</strong></span></h3>
-                <div class="soc-log fl-wrap">
-                    <p>Login</p>
-                    <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-                    <a href="#" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
-                </div>
-                <div class="log-separator fl-wrap"><span>Or</span></div>
-                <div id="tabs-container">
-                    <ul class="tabs-menu">
-                        <li class="current"><a href="#tab-1">Login</a></li>
-                        <li><a href="#tab-2">Register</a></li>
-                    </ul>
-                    <div class="tab">
-                        <div id="tab-1" class="tab-contents">
-                            <div class="custom-form">
-                                <form method="post" name="registerform">
-                                    <label>Username or Email Address * </label>
-                                    <input name="email" type="text" onClick="this.select()" value="">
-                                    <label>Password * </label>
-                                    <input name="password" type="password" onClick="this.select()" value="">
-                                    <button type="submit" class="log-submit-btn"><span>Log In</span></button>
-                                    <div class="clearfix"></div>
-                                    <div class="filter-tags">
-                                        <input id="check-a" type="checkbox" name="check">
-                                        <label for="check-a">Remember me</label>
-                                    </div>
-                                </form>
-                                <div class="lost_password">
-                                    <a href="#">Lost Your Password?</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab">
-                            <div id="tab-2" class="tab-contents">
-                                <div class="custom-form">
-                                    <form method="post" name="registerform" class="main-register-form"
-                                          id="main-register-form2">
-                                        <label>First Name * </label>
-                                        <input name="name" type="text" onClick="this.select()" value="">
-                                        <label>Second Name *</label>
-                                        <input name="name2" type="text" onClick="this.select()" value="">
-                                        <label>Email Address *</label>
-                                        <input name="email" type="text" onClick="this.select()" value="">
-                                        <label>Password *</label>
-                                        <input name="password" type="password" onClick="this.select()" value="">
-                                        <button type="submit" class="log-submit-btn"><span>Register</span></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--register form end -->
 
     <!-- ARCHIVES JS -->

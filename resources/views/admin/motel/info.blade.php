@@ -2,6 +2,7 @@
 
 @section('title_page', 'Thành viên phòng - ' . $info->motel->room_number . ' ' . $info->motel->name)
 @section('content')
+
     <style>
         .select-box {
             position: relative;
@@ -158,9 +159,11 @@
                 <button class="btn btn-success my-2" data-toggle="modal" data-target="#exampleModal">Thêm thành viên
                 </button>
             @endif
+            @if($info->motel->status === 1 || $info->motel->status === 5)
+                <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
+                   class="btn btn-primary my-2">Đăng tin</a>
+            @endif
 
-            <a href="{{ route('admin.motel.post', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
-               class="btn btn-primary my-2">Đăng tin</a>
 
             <a href="{{ route('admin.motel.contact', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-info my-2">Danh sách người đăng ký ở ghép</a>
@@ -177,12 +180,31 @@
             @endif
             <a href="{{ route('admin.motel.list_out_motel', ['id' => $params['area_id'], 'idMotel' => $params['motel_id']]) }}"
                class="btn btn-danger position-relative">Yều cầu rời phòng
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-        </span>
+                </span>
             </a>
         </div>
+        @if($info->motel->status === 3)
+            <p>Phòng đã được đặt cọc trước.Thông tin người đặt :</p>
+            <p>Họ tên: <span class="font-weight-bold">{{$info->money_deposit->name}}</span></p>
+            <p>Số điện thoại: <span
+                    class="font-weight-bold">{{$info->money_deposit->phone_number ?? '0325500080'}}</span></p>
+            <p>Email: <span
+                    class="font-weight-bold">{{$info->money_deposit->email ?? 'phongnvph18006@fpt.edu.vn'}}</span></p>
+            <p>Số tiền đặt cọc:
+                @if($info->money_deposit->type === 1)
+                    <span>{{number_format($info->money_deposit->value ?? 0)}} <i
+                            class="fa-brands fa-bitcoin text-warning"></i></span>
+            <p class="text-sm">Lưu ý: 1<i class="fa-brands fa-bitcoin text-warning"></i> =
+                24.555
+                VNĐ</p>
+        @else
+            <p>{{number_format($info->money_deposit->value ?? 0)}}</p>
+        @endif
+
+        <p>Thời gian: <span
+                class="font-weight-bold">{{\Carbon\Carbon::parse($info->money_deposit->created_at)->format('h:i:s A m-d-Y')}}</span>
+        </p>
+        @endif
         <input type="hidden" value="{{ $data }}" id="data">
         <table class="table text-center">
             <div>
@@ -325,12 +347,11 @@
                                    class="form-control" placeholder="Số tiền mạng đóng 1 tháng">
                         </div>
                         <div>
-                            <label>Số tiền đã cọc</label>
-                            <input type="number" name="money_deposit" class="form-control"
-                                   value="{{ $info->money_deposit->value ?? 0 }}" disabled>
-
                             @if ($info->money_deposit)
                                 @if ($info->money_deposit->type == 1)
+                                    <label>Số tiền đã cọc</label>
+                                    <input type="number" name="money_deposit" class="form-control"
+                                           value="{{ $info->money_deposit->value ?? 0 }}" disabled>
                                     <p class="">
                                         Loại đặt cọc: <span class="font-weight-bold">Chuyển xu</span>
                                     <p class="text-sm">Lưu ý: 1<i class="fa-brands fa-bitcoin text-warning"></i> =
@@ -338,11 +359,15 @@
                                         VNĐ</p>
                                     </p>
                                 @else
+                                    <label>Số tiền đã cọc</label>
+                                    <input type="number" name="money_deposit" class="form-control"
+                                           value="{{ $info->money_deposit->value ?? 0 }}" disabled>
                                     <p class="">
                                         Loại đặt cọc: <span class="font-weight-bold">Tiền mặt</span>
                                     </p>
                                 @endif
                             @endif
+
 
                         </div>
                         @if (isset($info[0]->motel_status) && $info[0]->motel_status === 4)

@@ -17,7 +17,16 @@
         #header.cloned {
             background-color: black;
         }
+
+        #header .responsive .cloned a {
+            color: white !important;
+        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
 </head>
 
 <body class="homepage-9 hp-6 homepage-1 mh inner-pages sin-1 homepage-4 hd-white">

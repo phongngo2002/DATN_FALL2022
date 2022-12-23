@@ -194,11 +194,11 @@
                                                 <i class="fa-brands fa-bitcoin text-warning"></i>
                                             </p>
                                         </li>
-                                        <button class="btn btn-primary">Nạp thêm tiền</button>
+                                        <a href="{{route('getRecharge')}}" class="btn btn-primary">Nạp thêm tiền</a>
 
                                     </div>
 
-                                    @if ($item->status == 2)
+                                    @if ($item->status == 1)
                                         <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
                                     @elseif($item->status == 3)
                                         <div class="alert alert-success alert-dismissible mt-3" role="alert">
@@ -249,7 +249,7 @@
                                         </div>
                                         <div>
                                             @if ($item->status == 2)
-                                               <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
+                                                <p class="text-success my-4">Hóa đơn đã được thanh toán</p>
                                             @elseif($item->status == 3)
                                                 <div class="alert alert-success alert-dismissible mt-3" role="alert">
                                                     <strong>Hóa đơn đang được xác nhận thanh toán</strong>
@@ -285,7 +285,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{route('client_get_list_bill')}}" class="btn btn-success">Quay lại</a>
+                    <a href="{{route('client_get_list_bill')}}" class="btn btn-success mt-4">Quay lại</a>
                 </div>
 
 

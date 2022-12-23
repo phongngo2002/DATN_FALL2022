@@ -140,20 +140,7 @@
             </button>
         </div>
     @endif
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
-    <form action="" method="POST">
+    <form action="" method="POST" id="withdraw_form">
         <div class="row g-3">
 
             <div class="col-md-6">
@@ -184,14 +171,28 @@
                                 <div class="card-body">
                                     <input type="text"
                                            name="email"
+                                           id="email"
                                            class="form-control" placeholder="Paypal email">
-                                    <input type="text" class="form-control my-4" name="money"
+                                    @error('email')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                    <input type="text" class="form-control my-4" id="money" name="money"
                                            placeholder="Số tiền muốn rút">
+                                    @error('money')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                     <input type="text" class="form-control mt-4"
                                            name="code"
+                                           id="code"
                                            placeholder="Mã xác minh">
-                                    <span><button type="button" id="buttonCode"
-                                                  class="btn btn-link text-sm">Lấy mã xác minh</button></span>
+                                    @error('code')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                    <p>
+                                        <button type="button" id="buttonCode"
+                                                class="btn btn-link text-sm">Lấy mã xác minh
+                                        </button>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +255,7 @@
                             <span>Số tiền thực nhận</span>
 
                         </div>
-                        <span id="money">$0</span>
+                        <span id="money1">$0</span>
 
 
                     </div>
@@ -273,7 +274,44 @@
         </div>
     </form>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@endsection
+@section('custom_js')
     <script>
+        $('#withdraw_form').validate({
+            rules: {
+                "email": {
+                    required: true,
+                    email: true
+                },
+                "code": {
+                    required: true,
+                    length: 6
+                },
+                "money": {
+                    required: true,
+                    min: 24.855
+                },
+            },
+            messages: {
+                "email": {
+                    required: 'Email tài khoản ví bắt buộc nhập',
+                    email: 'Email không đúng định dạng'
+                },
+                "code": {
+                    required: 'Mã xác minh bắt buộc nhập',
+                    length: 'Mã xác minh không hợp lệ'
+                },
+                "money": {
+                    required: 'Số xu rút bắt buộc nhập',
+                    min: 'Số xu rút phải lớn hơn 24.855 xu'
+                },
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+        document.querySelector('.free-button').setAttribute('disabled', 'true');
         document.getElementById('buttonCode').addEventListener('click', () => {
             $.ajax({
                 headers: {
@@ -296,13 +334,19 @@
             });
         })
         document.getElementsByName('money')[0].addEventListener('keyup', (e) => {
-            if (e.target.value) {
-                document.getElementById('money').innerText = `$ ${e.target.value * 24.855}`;
+            console.log(+e.target.value)
+            if (e.target.value > 0) {
+                document.getElementById('money1').innerText = `$ ${e.target.value / 24.855}`;
+                document.querySelector('.free-button').removeAttribute('disabled');
             } else {
-                document.getElementById('money').innerText = `$ ${0}`;
+                document.getElementById('money1').innerText = `$ ${0}`;
+                document.querySelector('.free-button').setAttribute('disabled', 'true');
             }
 
         })
-    </script>
 
+        if (+document.querySelector('.super-price').innerHTML === 0) {
+            document.querySelector('.free-button').setAttribute('disabled', 'true');
+        }
+    </script>
 @endsection

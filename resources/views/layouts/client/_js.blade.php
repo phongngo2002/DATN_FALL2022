@@ -1,3 +1,4 @@
+
 <script src="{{asset('assets/client/js/jquery-3.5.1.min.js')}}"></script>
 <script src="{{asset('assets/client/js/rangeSlider.js')}}"></script>
 <script src="{{asset('assets/client/js/tether.min.js')}}"></script>
@@ -7,7 +8,6 @@
 <script src="{{asset('assets/client/js/mmenu.js')}}"></script>
 <script src="{{asset('assets/client/js/aos.js')}}"></script>
 <script src="{{asset('assets/client/js/aos2.js')}}"></script>
-<script src="{{asset('assets/client/js/animate.js')}}"></script>
 <script src="{{asset('assets/client/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/client/js/fitvids.js')}}"></script>
 <script src="{{asset('assets/client/js/jquery.waypoints.min.js')}}"></script>

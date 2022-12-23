@@ -17,6 +17,7 @@ class RechargeController extends Controller
         $arr = [
             'function' => [
                 'index_recharges',
+                'get_form_recharge'
             ]
         ];
         foreach ($arr['function'] as $item) {

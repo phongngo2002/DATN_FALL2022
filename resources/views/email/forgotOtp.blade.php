@@ -1,7 +1,7 @@
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
-    style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
+      style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
 
 <head>
     <meta charset="UTF-8">
@@ -11,19 +11,24 @@
     <meta content="telephone=no" name="format-detection">
     <title>New Template 6</title>
     <!--[if (mso 16)]>
-<style type="text/css">
-a {text-decoration: none;}
-</style>
-<![endif]-->
-    <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
+    <style type="text/css">
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <![endif]-->
     <!--[if gte mso 9]>
-<xml>
-<o:OfficeDocumentSettings>
-<o:AllowPNG></o:AllowPNG>
-<o:PixelsPerInch>96</o:PixelsPerInch>
-</o:OfficeDocumentSettings>
-</xml>
-<![endif]-->
+    <style>sup {
+        font-size: 100% !important;
+    }</style><![endif]-->
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG></o:AllowPNG>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
     <style type="text/css">
         #outlook a {
             padding: 0;
@@ -58,7 +63,7 @@ a {text-decoration: none;}
             padding: 10px 30px 10px 30px !important;
         }
 
-        @media only screen and (max-width:600px) {
+        @media only screen and (max-width: 600px) {
 
             p,
             ul li,
@@ -447,211 +452,212 @@ a {text-decoration: none;}
 
 <body
     style="width:100%;font-family:arial, 'helvetica neue', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
-    <div class="es-wrapper-color" style="background-color:#FAFAFA">
-        <!--[if gte mso 9]>
-<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
-<v:fill type="tile" color="#fafafa"></v:fill>
-</v:background>
-<![endif]-->
-        <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
-            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">
-            <tr>
-                <td valign="top" style="padding:0;Margin:0">
-                    <table cellpadding="0" cellspacing="0" class="es-content" align="center"
-                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
-                        <tr>
-                            <td align="center" style="padding:0;Margin:0">
-                                <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
-                                    cellspacing="0"
-                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
-                                    <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:30px">
-                                            <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                <tr>
-                                                    <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:560px">
-                                                        <table cellpadding="0" cellspacing="0" width="100%"
-                                                            role="presentation"
-                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                            <tr>
-                                                                <td align="center"
-                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px">
-                                                                    <img src="https://zigoyu.stripocdn.email/content/guids/CABINET_a3448362093fd4087f87ff42df4565c1/images/78501618239341906.png"
-                                                                        alt
-                                                                        style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                        width="100">
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" class="es-m-txt-c"
-                                                                    style="padding:0;Margin:0;padding-bottom:10px">
-                                                                    <h1
-                                                                        style="Margin:0;line-height:46px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333">
-                                                                        Email của bạn đã được xác minh</h1>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" class="es-m-p0r es-m-p0l"
-                                                                    style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        Chúng tôi sẽ cập nhật cho bạn những thông tin
-                                                                        mới nhất, giảm giá, giảm giá,cũng như các sự
-                                                                        kiện và tin tức!</p>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px">
-                                            <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                <tr>
-                                                    <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:560px">
-                                                        <table cellpadding="0" cellspacing="0" width="100%"
-                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:2px dashed #cccccc;border-right:2px dashed #cccccc;border-top:2px dashed #cccccc;border-bottom:2px dashed #cccccc;border-radius:5px"
-                                                            role="presentation">
-                                                            <tr>
-                                                                <td align="center" class="es-m-txt-c"
-                                                                    style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
-                                                                    <h2
-                                                                        style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#333333">
-                                                                        Your otp&nbsp;code</h2>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" class="es-m-txt-c"
-                                                                    style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px">
-                                                                    <h1
-                                                                        style="Margin:0;line-height:55px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#5c68e2">
-                                                                        <strong>FGH-123-VBN</strong>
-                                                                    </h1>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"
-                                            style="padding:0;Margin:0;padding-left:20px;padding-right:20px;padding-bottom:30px">
-                                            <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                <tr>
-                                                    <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:560px">
-                                                        <table cellpadding="0" cellspacing="0" width="100%"
-                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:5px"
-                                                            role="presentation">
-                                                            <tr>
-                                                                <td align="center"
-                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
+<div class="es-wrapper-color" style="background-color:#FAFAFA">
+    <!--[if gte mso 9]>
+    <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+        <v:fill type="tile" color="#fafafa"></v:fill>
+    </v:background>
+    <![endif]-->
+    <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
+           style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">
+        <tr>
+            <td valign="top" style="padding:0;Margin:0">
+                <table cellpadding="0" cellspacing="0" class="es-content" align="center"
+                       style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+                    <tr>
+                        <td align="center" style="padding:0;Margin:0">
+                            <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
+                                   cellspacing="0"
+                                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
+                                <tr>
+                                    <td align="left"
+                                        style="Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:30px">
+                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style="padding:0;Margin:0;width:560px">
+                                                    <table cellpadding="0" cellspacing="0" width="100%"
+                                                           role="presentation"
+                                                           style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                        <tr>
+                                                            <td align="center"
+                                                                style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px">
+                                                                <img
+                                                                    src="https://zigoyu.stripocdn.email/content/guids/CABINET_a3448362093fd4087f87ff42df4565c1/images/78501618239341906.png"
+                                                                    alt
+                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                                                    width="100">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center" class="es-m-txt-c"
+                                                                style="padding:0;Margin:0;padding-bottom:10px">
+                                                                <h1
+                                                                    style="Margin:0;line-height:46px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333">
+                                                                    Email của bạn đã được xác minh</h1>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center" class="es-m-p0r es-m-p0l"
+                                                                style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px">
+                                                                <p
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
+                                                                    Chúng tôi sẽ cập nhật cho bạn những thông tin
+                                                                    mới nhất, giảm giá, giảm giá,cũng như các sự
+                                                                    kiện và tin tức!</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left"
+                                        style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px">
+                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style="padding:0;Margin:0;width:560px">
+                                                    <table cellpadding="0" cellspacing="0" width="100%"
+                                                           style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:2px dashed #cccccc;border-right:2px dashed #cccccc;border-top:2px dashed #cccccc;border-bottom:2px dashed #cccccc;border-radius:5px"
+                                                           role="presentation">
+                                                        <tr>
+                                                            <td align="center" class="es-m-txt-c"
+                                                                style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+                                                                <h2
+                                                                    style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#333333">
+                                                                    Mã xác minh tài khoản của bạn là</h2>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center" class="es-m-txt-c"
+                                                                style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                                                <h1
+                                                                    style="Margin:0;line-height:55px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#5c68e2">
+                                                                    <strong>{{$code}}</strong>
+                                                                </h1>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left"
+                                        style="padding:0;Margin:0;padding-left:20px;padding-right:20px;padding-bottom:30px">
+                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style="padding:0;Margin:0;width:560px">
+                                                    <table cellpadding="0" cellspacing="0" width="100%"
+                                                           style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:5px"
+                                                           role="presentation">
+                                                        <tr>
+                                                            <td align="center"
+                                                                style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
 
                                                                     <span class="msohide es-button-border"
-                                                                        style="border-style:solid;border-color:#2CB543;background:#5C68E2;border-width:0px;display:inline-block;border-radius:6px;width:auto;mso-hide:all"><a
+                                                                          style="border-style:solid;border-color:#2CB543;background:#5C68E2;border-width:0px;display:inline-block;border-radius:6px;width:auto;mso-hide:all"><a
                                                                             href="{{ route('home') }}"
                                                                             class="es-button" target="_blank"
                                                                             style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#5C68E2;border-width:10px 30px 10px 30px;display:inline-block;background:#5C68E2;border-radius:6px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;border-left-width:30px;border-right-width:30px">GO
                                                                             HOME</a></span>
 
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0" class="es-footer" align="center"
-                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
-                        <tr>
-                            <td align="center" style="padding:0;Margin:0">
-                                <table class="es-footer-body" align="center" cellpadding="0" cellspacing="0"
-                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:640px">
-                                    <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px">
-                                            <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                <tr>
-                                                    <td align="left" style="padding:0;Margin:0;width:600px">
-                                                        <table cellpadding="0" cellspacing="0" width="100%"
-                                                            role="presentation"
-                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                            <tr>
-                                                                <td align="center"
-                                                                    style="padding:0;Margin:0;padding-bottom:35px">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
-                                                                        Liên hệ hỗ trợ :&nbsp;hotro@gmail.com
-                                                                        hoặc&nbsp;0866985630</p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
-                                                                        FPT Polytechnic Hanoi, Tòa nhà FPT Polytechnic,
-                                                                        P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà
-                                                                        Nội</p>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="padding:0;Margin:0">
-                                                                    <table cellpadding="0" cellspacing="0"
-                                                                        width="100%" class="es-menu"
-                                                                        role="presentation"
-                                                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                                        <tr class="links">
-                                                                            <td align="center" valign="top"
-                                                                                width="33.33%"
-                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0">
-                                                                                <a target="_blank" href=""
-                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Visit
-                                                                                    Us </a>
-                                                                            </td>
-                                                                            <td align="center" valign="top"
-                                                                                width="33.33%"
-                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
-                                                                                <a target="_blank" href=""
-                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Privacy
-                                                                                    Policy</a>
-                                                                            </td>
-                                                                            <td align="center" valign="top"
-                                                                                width="33.33%"
-                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
-                                                                                <a target="_blank" href=""
-                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Terms
-                                                                                    of Use</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="0" cellspacing="0" class="es-footer" align="center"
+                       style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
+                    <tr>
+                        <td align="center" style="padding:0;Margin:0">
+                            <table class="es-footer-body" align="center" cellpadding="0" cellspacing="0"
+                                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:640px">
+                                <tr>
+                                    <td align="left"
+                                        style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                               style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                            <tr>
+                                                <td align="left" style="padding:0;Margin:0;width:600px">
+                                                    <table cellpadding="0" cellspacing="0" width="100%"
+                                                           role="presentation"
+                                                           style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                        <tr>
+                                                            <td align="center"
+                                                                style="padding:0;Margin:0;padding-bottom:35px">
+                                                                <p
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
+                                                                    Liên hệ hỗ trợ :&nbsp;hotro@gmail.com
+                                                                    hoặc&nbsp;0866985630</p>
+                                                                <p
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
+                                                                    FPT Polytechnic Hanoi, Tòa nhà FPT Polytechnic,
+                                                                    P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà
+                                                                    Nội</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding:0;Margin:0">
+                                                                <table cellpadding="0" cellspacing="0"
+                                                                       width="100%" class="es-menu"
+                                                                       role="presentation"
+                                                                       style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                                    <tr class="links">
+                                                                        <td align="center" valign="top"
+                                                                            width="33.33%"
+                                                                            style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0">
+                                                                            <a target="_blank" href=""
+                                                                               style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Visit
+                                                                                Us </a>
+                                                                        </td>
+                                                                        <td align="center" valign="top"
+                                                                            width="33.33%"
+                                                                            style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
+                                                                            <a target="_blank" href=""
+                                                                               style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Privacy
+                                                                                Policy</a>
+                                                                        </td>
+                                                                        <td align="center" valign="top"
+                                                                            width="33.33%"
+                                                                            style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
+                                                                            <a target="_blank" href=""
+                                                                               style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Terms
+                                                                                of Use</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 
 </html>

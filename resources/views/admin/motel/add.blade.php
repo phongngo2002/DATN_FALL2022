@@ -14,7 +14,7 @@
             height: 380
         });
     </script>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="content">
         <div class="row">
             <div class="col-6 bg-white p-4 shadow-sm rounded-4">
                 <div class="mt-4">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-4">
                             <label for="">Tiền mạng</label>
-                            <input type="text" name="wifi" class="form-control">
+                            <input type="text" id="wifi" name="wifi" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,8 @@
                     <label for="">Dịch vụ phòng</label>
                     <div class="row">
                         <div class="col-6">
-                            <input type="number" name="service[bedroom]" placeholder="Số phòng ngủ" class="form-control">
+                            <input type="number" name="service[bedroom]" placeholder="Số phòng ngủ"
+                                   class="form-control">
                         </div>
                         <div class="col-6">
                             <input type="number" name="service[toilet]" id="toilet" placeholder="Nhà vệ sinh"
@@ -81,13 +82,15 @@
                     <div class="d-flex flex-row">
                         <div class="ml-2 mr-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[cho_de_xe]" id="flexCheckDefault">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[cho_de_xe]" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Chỗ để xe
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[dieu_hoa]" id="flexCheckChecked">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[dieu_hoa]" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Điều hoà
                                 </label>
@@ -95,13 +98,15 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[thang_may]" id="flexCheckDefault">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[thang_may]" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Thang máy
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[may_giat]" id="flexCheckChecked">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[may_giat]" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Máy giặt
                                 </label>
@@ -109,13 +114,15 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[nong_lanh]" id="flexCheckDefault">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[nong_lanh]" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Nóng lạnh
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_lanh]" id="flexCheckChecked">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[tu_lanh]" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Tủ lạnh
                                 </label>
@@ -123,13 +130,15 @@
                         </div>
                         <div class="mx-5">
                             <div class="form-check mb-3">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[giuong_ngu]" id="flexCheckDefault">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[giuong_ngu]" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Giường ngủ
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" style="padding: 9px" type="checkbox" name="service[tu_quan_ao]" id="flexCheckChecked">
+                                <input class="form-check-input" style="padding: 9px" type="checkbox"
+                                       name="service[tu_quan_ao]" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked">
                                     Tủ quần áo
                                 </label>
@@ -185,16 +194,17 @@
                         <div class="row">
                             <div class="col-7">
                                 <label>Số tiền đặt cọc giữ phòng</label>
-                                <input type="number" name="money_deposit" class="form-control">
+                                <input type="number" id="money_deposit" name="money_deposit" class="form-control">
                             </div>
                             <div class="col-5">
                                 <label>Số ngày giữ phòng tối đa</label>
-                                <input type="number" name="day_deposit" class="form-control">
+                                <input type="number" name="day_deposit" id="day_deposit" class="form-control">
                             </div>
                         </div>
                         <div class="mt-4">
                             <label for="">Thông tin chuyển khoản</label>
-                            <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20" class="form-control">
+                            <textarea name="transfer_infor" id="transfer_infor" cols="30" rows="20"
+                                      class="form-control">
                                 <p>Số tài khoản: <span style="font-weight: bold;">00000000 - Techcombank</span></p>
                                 <p>Cú pháp chuyển khoản: <span style="font-weight: bold;">email_mã nhà trọ_mã phòng trọ_datcoc</span></p>
                             </textarea>
@@ -216,6 +226,137 @@
         <a href="{{route('admin.motel.list',['id' => $area_id])}}"
            class="btn btn-success mt-4">Quay lại</a>
     </form>
+
+@endsection
+
+@section('custom_js')
+    <script>
+        $("#content").validate({
+            rules: {
+                "room_number": {
+                    required: true,
+                },
+                "price": {
+                    required: true,
+                },
+                "area": {
+                    required: true,
+                },
+                "actor": {
+                    required: true,
+                },
+                "max_people": {
+                    required: true,
+                },
+                "toilet": {
+                    required: true,
+                },
+                "bedroom": {
+                    required: true,
+                },
+                "bed": {
+                    required: true,
+                },
+                "desc": {
+                    required: true,
+                    minlength: 20,
+                },
+                "video": {
+                    required: true,
+                },
+                "image_360": {
+                    required: true,
+                },
+                "photo_gallery": {
+                    required: true,
+                },
+                "electric_money": {
+                    required: true,
+                    min: 1
+                },
+                "warter_money": {
+                    required: true,
+                    min: 1
+                },
+                "wifi": {
+                    required: true,
+                    min: 1
+                },
+                "money_deposit": {
+                    required: true,
+                    min: 1
+                },
+                "day_deposit": {
+                    required: true,
+                    min: 1
+                }
+            },
+            messages: {
+                "room_number": {
+                    required: 'Vui lòng chọn mã phòng !',
+                },
+                "price": {
+                    required: 'Vui lòng chọn giá !',
+                },
+                "area": {
+                    required: 'Vui lòng chọn diện tích !',
+                },
+                "actor": {
+                    required: 'Vui lòng chọn đối tượng thuê nhà !',
+                },
+                "max_people": {
+                    required: "Vui lòng chọn số người ở !"
+                },
+                "video": {
+                    required: "Vui lòng chọn video !"
+                },
+                "bedroom": {
+                    required: "Vui lòng chọn số phòng ngủ !",
+                },
+                "toilet": {
+                    required: "Vui lòng chọn số nhà vệ sinh !",
+                },
+                "bed": {
+                    required: "Vui lòng chọn số giường !",
+                },
+                "desc": {
+                    required: "Vui lòng chọn mô tả !",
+                    minlength: "Mô tả phải trên 20 kí tự !"
+                },
+                "image_360": {
+                    required: "Vui lòng nhúng ảnh !"
+                },
+                "photo_gallery": {
+                    required: "Vui lòng chọn ảnh",
+                },
+                "electric_money": {
+                    required: 'Tiền điện bắt buộc nhập',
+                    min: 'Tiền điện phải lớn hơn 1'
+                },
+                "warter_money": {
+                    required: 'Tiền nước bắt buộc nhập',
+                    min: 'Tiền nước phải lớn hơn 1'
+                },
+                "wifi": {
+                    required: 'Tiền mạng bắt buộc nhập',
+                    min: 'Tiền mạng phải lớn hơn 1'
+                },
+                "money_deposit": {
+                    required: 'Tiền đặt cọc bắt buộc nhập',
+                    min: 'Tiền đặt cọc phải lớn hơn 1'
+                },
+                "day_deposit": {
+                    required: 'Số ngày giữ phòng bắt buộc nhập',
+                    min: 'Số ngày giữ phòng phải lớn hơn 1'
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    </script>
+
+
     <script>
         let arr = [];
         document.getElementById('photo_gallery').addEventListener('change', (e) => {
@@ -254,9 +395,13 @@
 
         }
     </script>
-      <!-- CSS only -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-      <!-- JavaScript Bundle with Popper -->
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+
 @endsection
 

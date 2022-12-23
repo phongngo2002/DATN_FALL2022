@@ -19,6 +19,16 @@ class TicketController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'admin_swap_gift_to_ticket',
+                'get_view_whell_luck',
+                'buy_ticket'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function admin_swap_gift_to_ticket(Request $request)
@@ -78,7 +88,7 @@ class TicketController extends Controller
             $res = Ticket::insert($data);
 
             $user = User::find(Auth::id());
-            $user->money -= $request->number_ticket_buy * 20;
+            $user->money -= $request->number_ticket_buy * 30;
             $user->save();
 
             DB::commit();
@@ -92,10 +102,5 @@ class TicketController extends Controller
 
     }
 
-//    public function get_history_wheel_luck(Request $request)
-//    {
-//
-//        return response()->json($history_wheel_luck, 200);
-//    }
 
 }

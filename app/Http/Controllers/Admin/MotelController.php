@@ -40,10 +40,18 @@ class MotelController extends Controller
                 'add_motels',
                 'saveAdd_motels',
                 'info_user_motels',
-                'add_people_of_motels',
+                'add_peolpe_of_motels',
                 'create_post_motels',
-                'save_create_post_motels',
-                'contact_motel'
+                'contact_motel',
+                'edit_motels',
+                'confirm_out_motel',
+                'list_out_motel',
+                'duplicate',
+                'import',
+                'print',
+                'history_motel',
+                'saveUpdate_motels',
+                'deleteUserFormMotel'
             ]
         ];
         foreach ($arr['function'] as $item) {
@@ -171,11 +179,12 @@ class MotelController extends Controller
 
         $this->v['data'] = json_encode($data);
         $this->v['current_plan_motel'] = DB::table('plan_history')
-            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
+            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level', 'plan_history.status'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $idMotel)
             ->where('type', 1)
             ->where('plan_history.status', 1)
+            ->orWhere('plan_history.status', 10)
             ->first();
         $model = new Motel();
         $this->v['motel'] = $model->detailMotel($idMotel);
@@ -494,6 +503,8 @@ class MotelController extends Controller
         $newMotel = $motel->replicate();
         $newMotel->created_at = Carbon::now();
         $newMotel->status = 1;
+        $newMotel->start_time = null;
+        $newMotel->end_time = null;
         $newMotel->save();
 
         return redirect()->back()->with('success', 'Sao chép dữ liệu phòng ' . $motel->room_number . ' thành công');
@@ -571,5 +582,38 @@ class MotelController extends Controller
 
 
         return redirect()->back()->with('success', 'Xóa thành công thành viên!');
+    }
+
+    public function removePost(Request $request)
+    {
+        $plan = PlanHistory::where('id', $request->ID)->first();
+
+        $motel = Motel::find($plan->motel_id);
+
+        if ($motel->status === 5) {
+            $motel->status = 1;
+            $motel->save();
+        }
+
+        $plan->status = 10;
+
+        $plan->save();
+
+        return redirect()->back()->with('success', 'Gỡ bài đăng thành công');
+    }
+
+    public function activePost(Request $request)
+    {
+        $plan = PlanHistory::where('id', $request->ID)->first();
+        $motel = Motel::find($plan->motel_id);
+        if ($motel->status === 1) {
+            $motel->status = 5;
+            $motel->save();
+        }
+
+        $plan->status = 1;
+
+        $plan->save();
+        return redirect()->back()->with('success', 'Đăng lại tin thành công');
     }
 }

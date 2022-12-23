@@ -14,7 +14,8 @@
             height: 250
         });
     </script>
-    <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" method="POST"
+    <form action="{{route('saveUpdate_motel',['id' => $motel->motel_id,'area_id' => $motel->area_id])}}" id="content"
+          method="POST"
           enctype="multipart/form-data">
         <div class="row">
             <div class="bg-white p-4 shadow-lg rounded-4 col-6">
@@ -283,6 +284,129 @@
         <button class="btn btn-primary mt-4">Lưu</button>
         <a href="{{route('admin.motel.list',['id' => $motel->area_id])}}" class="btn btn-success mt-4">Quay lại</a>
     </form>
+
+@endsection
+
+@section('custom_js')
+    <script>
+        $("#content").validate({
+            rules: {
+                "room_number": {
+                    required: true,
+                },
+                "price": {
+                    required: true,
+                },
+                "area": {
+                    required: true,
+                },
+                "actor": {
+                    required: true,
+                },
+                "max_people": {
+                    required: true,
+                },
+                "toilet": {
+                    required: true,
+                },
+                "bedroom": {
+                    required: true,
+                },
+                "bed": {
+                    required: true,
+                },
+                "desc": {
+                    required: true,
+                    minlength: 20,
+                },
+                "video": {
+                    required: true,
+                },
+                "image_360": {
+                    required: true,
+                },
+                "electric_money": {
+                    required: true,
+                    min: 1
+                },
+                "warter_money": {
+                    required: true,
+                    min: 1
+                },
+                "wifi": {
+                    required: true,
+                    min: 1
+                },
+                "money_deposit": {
+                    required: true,
+                    min: 1
+                },
+                "day_deposit": {
+                    required: true,
+                    min: 1
+                }
+            },
+            messages: {
+                "room_number": {
+                    required: 'Vui lòng chọn mã phòng !',
+                },
+                "price": {
+                    required: 'Vui lòng chọn giá !',
+                },
+                "area": {
+                    required: 'Vui lòng chọn diện tích !',
+                },
+                "actor": {
+                    required: 'Vui lòng chọn đối tượng thuê nhà !',
+                },
+                "max_people": {
+                    required: "Vui lòng chọn số người ở !"
+                },
+                "video": {
+                    required: "Vui lòng chọn video !"
+                },
+                "bedroom": {
+                    required: "Vui lòng chọn số phòng ngủ !",
+                },
+                "toilet": {
+                    required: "Vui lòng chọn số nhà vệ sinh !",
+                },
+                "bed": {
+                    required: "Vui lòng chọn số giường !",
+                },
+                "desc": {
+                    required: "Vui lòng chọn mô tả !",
+                    minlength: "Mô tả phải trên 20 kí tự !"
+                },
+                "image_360": {
+                    required: "Vui lòng nhúng ảnh !"
+                },
+                "electric_money": {
+                    required: 'Tiền điện bắt buộc nhập',
+                    min: 'Tiền điện phải lớn hơn 1'
+                },
+                "warter_money": {
+                    required: 'Tiền nước bắt buộc nhập',
+                    min: 'Tiền nước phải lớn hơn 1'
+                },
+                "wifi": {
+                    required: 'Tiền mạng bắt buộc nhập',
+                    min: 'Tiền mạng phải lớn hơn 1'
+                },
+                "money_deposit": {
+                    required: 'Tiền đặt cọc bắt buộc nhập',
+                    min: 'Tiền đặt cọc phải lớn hơn 1'
+                },
+                "day_deposit": {
+                    required: 'Số ngày giữ phòng bắt buộc nhập',
+                    min: 'Số ngày giữ phòng phải lớn hơn 1'
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    </script>
     <script>
         let arr = JSON.parse(document.getElementsByName('img')[0].value);
         render(arr);

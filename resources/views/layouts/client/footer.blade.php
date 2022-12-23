@@ -114,13 +114,7 @@
     </div>
     <div class="second-footer rec-pro">
         <div class="container-fluid sd-f">
-            <p>2021 © Copyright - All Rights Reserved.</p>
-            <ul class="netsocials">
-                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-            </ul>
+            <p>2022 © Chợ phòng trọ - Website tìm kiếm và quản lý phòng trọ hàng đầu Việt Nam</p>
         </div>
     </div>
 </footer>

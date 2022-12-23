@@ -12,6 +12,8 @@ use App\Models\Recharge;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
+use App\Models\Withdraw;
+use App\Notifications\AppNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,12 +54,27 @@ class AccountManagementController extends Controller
 
     public function outMotel($motelId, Request $request)
     {
+//        client_out_motel
+
+
         if (!isset($request->status)) {
             $userMotel = DB::table('user_motel')
                 ->where('motel_id', $motelId)
                 ->where('user_id', Auth::id())
                 ->where('status', 1)
                 ->update(['status' => 2]);
+            $motel = Motel::select('areas.id', 'user_id', 'room_number', 'name')->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $motelId)->first();
+            $user = User::find($motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'avatar' => $userLogin->avatar ?? '',
+                'message' =>
+                    $userLogin->name . ' đã yêu cầu rời phòng ' . $motel->room_number . ' - ' . $motel->name,
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => route('admin.motel.list_out_motel', ['id' => $motel->id, 'idMotel' => $motelId])];
+
+            $user->notify(new AppNotification($data1));
             return redirect()->back()->with('success', 'Gửi yêu cầu rời trọ thành công');
         } else {
             $userMotel = DB::table('user_motel')
@@ -65,10 +82,21 @@ class AccountManagementController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('status', 2)
                 ->update(['status' => 1]);
+            $motel = Motel::select('areas.id', 'user_id', 'room_number', 'name')->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $motelId)->first();
+            $user = User::find($motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'avatar' => $userLogin->avatar ?? '',
+                'message' =>
+                    Auth::user()->name . ' đã hủy yêu cầu rời phòng ' . $motel->room_number . ' - ' . $motel->name,
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => route('admin.motel.info', ['id' => $motel->id, 'idMotel' => $motelId])];
+            $user->notify(new AppNotification($data1));
             return redirect()->back()->with('success', 'Hủy yêu cầu rời trọ thành công');
         }
 
-//        Mail::to(Auth::user()->email)->send(new ForgotOtp(Auth::user()->name) . ' đã gửi yêu cầu rời trọ');
+//        Mail::to(Auth::user()->email)->send(new ForgotOtp(Auth::user()->name).' đã gửi yêu cầu rời trọ');
 
     }
 
@@ -140,5 +168,16 @@ class AccountManagementController extends Controller
             ->get();
 
         return view('client.rotation.index', $this->v);
+    }
+
+    public function getWithdraw()
+    {
+        return view('client.account_management.withdraw', $this->v);
+    }
+
+    public function historyWithdraw()
+    {
+        $this->v['list'] = Withdraw::select(' * ')->where('user_id', Auth::id())->paginate(10);
+        return view('client.account_management.history_withdraw', $this->v);
     }
 }

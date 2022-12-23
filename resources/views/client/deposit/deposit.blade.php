@@ -177,7 +177,7 @@
                                                                              class="font-weight-bold">{{ number_format(\Illuminate\Support\Facades\Auth::user()->money, 0, ',', '.') }}</span>
                                                 <i class="fa-brands fa-bitcoin text-warning"></i></p>
                                         </li>
-                                        <button class="btn btn-primary">Nạp thêm tiền</button>
+                                        <a href="{{route('getRecharge')}}" class="btn btn-primary">Nạp thêm tiền</a>
                                     </div>
                                     <form action="{{ route('client_post_deposit', ['id'=>$motel->motel_id]) }}"
                                           method="POST">@csrf

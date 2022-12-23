@@ -14,23 +14,35 @@
         if (+number_ticket.innerText === 0) {
             document.querySelector('.wheel__button').setAttribute('disabled', 'true');
         }
-        number_ticket_buy.addEventListener('change', (e) => {
-            if (e.target.value * 20 >= Number(currentMoney[0].innerText)) {
-                console.log(currentMoney[0].innerText)
-                document.querySelector('.messageTicket').innerHTML =
-                    '<i class="fa-solid fa-triangle-exclamation text-danger"></i> Bạn không đủ xu để thực hiện hành động này';
-                btnBuyTicket.setAttribute('disabled', 'true');
-            } else {
-                document.querySelector('.messageTicket').innerHTML = '';
-                btnBuyTicket.removeAttribute('disabled');
-            }
+        document.getElementById('number_ticket_buy').addEventListener('keyup', (e) => {
+            if (e.target.value < 0 && e.target.value) {
+                document.getElementById('btnBuyTicket').setAttribute('disabled', 'true');
+                const fee = 0;
+                document.getElementById('fee').innerText = fee.toString();
+                document.querySelector('.messageBuyTicket').innerHTML = '<span class="text-danger">Số vé mua phải lớn hơn 0</span>';
 
-            if (e.target.value) {
-                document.getElementById('fee').innerText = e.target.value * 20;
-            } else {
-                document.getElementById('fee').innerText = 0;
             }
+            if (e.target.value > 0 && e.target.value * 30 <= Number(document.querySelector('.current_money1').dataset.money)) {
+                const fee = e.target.value * 30;
+                document.getElementById('fee').innerText = fee.toString();
+                document.querySelector('.messageBuyTicket').innerHTML = '';
 
+                document.getElementById('btnBuyTicket').removeAttribute('disabled');
+            }
+            if (e.target.value && e.target.value * 30 > Number(document.querySelector('.current_money1').dataset.money)) {
+                const fee = e.target.value * 30;
+                document.getElementById('fee').innerText = fee.toString();
+                document.querySelector('.messageBuyTicket').innerHTML = '<span class="text-danger">Bạn không đủ xu để thực hiện giao dịch này</span>';
+
+                document.getElementById('btnBuyTicket').setAttribute('disabled', 'true');
+            }
+            if (!e.target.value) {
+                document.getElementById('btnBuyTicket').setAttribute('disabled', 'true');
+                document.querySelector('.messageBuyTicket').innerHTML = '<span class="text-danger">Số vé mua bắt buộc nhập</span>';
+
+                const fee = 0;
+                document.getElementById('fee').innerText = fee.toString();
+            }
         })
 
         function callAPi(gift) {

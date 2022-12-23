@@ -49,6 +49,7 @@ class GoogleController extends Controller
                 $user->email = $googleUser->email;
                 $user->name = $googleUser->name;
                 $user->google_id = $googleUser->id;
+                $user->phone_number = '0325500080';
                 $user->password = '$2y$10$x58PIeez7REKWe0WvncaMenUMkXlMBVDXBgKn2yUiOrfnkto84COO';
                 $user->status = 1;
                 $user->money = 0;

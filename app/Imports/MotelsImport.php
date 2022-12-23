@@ -31,10 +31,16 @@ class MotelsImport implements ToCollection
                     'photo_gallery' => $row[7],
                     'status' => 1,
                     'max_people' => $row[9],
-                    'video' => $row[17],
+                    'video' => $row[14],
                     'services' => $row[12],
                     'category_id' => $row[13]
-                    , 'data_post' => ''
+                    , 'data_post' => '',
+                    'electric_money' => $row[16],
+                    'warter_money' => $row[17],
+                    'wifi' => $row[18],
+                    'money_deposit' => $row[19],
+                    'day_deposit' => $row[20],
+                    'transfer_infor' => $row[21]
                 ]);
             }
         }

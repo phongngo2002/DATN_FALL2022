@@ -1,4 +1,6 @@
 <script src="{{asset('assets/client/js/jquery-3.5.1.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
 <script src="{{asset('assets/client/js/popper.min.js')}}"></script>
 <script src="{{asset('assets/client/js/jquery-ui.js')}}"></script>
 <script src="{{asset('assets/client/js/tether.min.js')}}"></script>

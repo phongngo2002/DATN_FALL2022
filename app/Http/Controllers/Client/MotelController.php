@@ -12,6 +12,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserMotel;
 use App\Models\Vote;
+use App\Notifications\AppNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendMailContact;
@@ -31,6 +32,16 @@ class MotelController extends Controller
     public function __construct()
     {
         $this->v = [];
+        $arr = [
+            'function' => [
+                'currentMotel',
+                'postLiveTogether',
+                'sendContact'
+            ]
+        ];
+        foreach ($arr['function'] as $item) {
+            $this->middleware('check_permission:' . $item)->only($item);
+        }
     }
 
     public function currentMotel()
@@ -58,14 +69,14 @@ class MotelController extends Controller
         $this->v['data_plan'] = json_encode($data);
 
         $this->v['current_plan_motel'] = DB::table('plan_history')
-            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level'])
+            ->select(['name', 'day', 'price', 'plan_history.created_at as created_at_his', 'plan_id', 'plan_history.id as ID', 'priority_level', 'plan_history.status', 'motel_id', 'plan_history.user_id'])
             ->join('plans', 'plan_history.plan_id', '=', 'plans.id')
             ->where('motel_id', $motel_id)
+            ->where('plan_history.user_id', Auth::id())
             ->where('type', 2)
             ->where('plan_history.status', 1)
+            ->orWhere('plan_history.status', 7)
             ->first();
-
-        // dd( $this->v['data_plan']);
 
         $model = new UserMotel();
         $this->v['motels'] = $model->currentMotel1($motel_id);
@@ -219,6 +230,8 @@ class MotelController extends Controller
             $user->money += $tien;
 
             $user->save();
+
+
             return redirect()->back()->with('success', 'Thay đổi gói bài đăng thành công');
 
         } else {
@@ -275,7 +288,22 @@ class MotelController extends Controller
             $user = User::find(Auth::id());
             $user->money -= $request->post_money;
             $user->save();
+
+            $motel = Motel::select('areas.id', 'user_id', 'room_number', 'name')->join('areas', 'motels.area_id', '=', 'areas.id')->where('motels.id', $request->motel_id)->first();
+
+            $user = User::find($motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'message' =>
+                    $userLogin->name . ' đã bật trạng thái tìm người ghép phòng ' . $motel->room_number . ' - ' . $motel->name,
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'avatar' => $userLogin->avatar,
+                'href' => route('admin.motel.list', ['id' => $motel->id])];
+            $user->notify(new AppNotification($data1));
         }
+        $motel = Motel::where('id', $request->motel_id)->update(['status' => 7]);
+
         return redirect()->back()->with('success', 'Đăng bài thành công');
 
     }
@@ -284,17 +312,30 @@ class MotelController extends Controller
     {
         $model = new PlanHistory();
 
-        $this->v['motel'] = $model->list_live_together();
+        try {
+            $this->v['motel'] = $model->list_live_together();
+            $this->v['template_search'] = DB::table('motels')->
+            selectRaw('MAX(area) as max_area,MIN(area) as min_area,MAX(price) as max_price,MIN(price) as min_price')->first();
+            return view('client.account_management.list_live_together', $this->v);
+        } catch (\Exception $e) {
+            abort(404);
+        }
 
-        return view('client.account_management.list_live_together', $this->v);
     }
 
     public function searchListLiveTogether(Request $request)
     {
         $model = new Motel();
         $this->v['motel'] = $model->search($request->all(), 2);
-
-        return view('client.account_management.list_live_together', $this->v);
+        $res = DB::table('history_area_search')->insert([
+            'city' => $request->all()['city'],
+            'ward' => $request->all()['ward'],
+            'district' => $request->all()['district']
+        ]);
+        // return view('client.account_management.list_live_together', $this->v);
+        return response()->json([
+            'motel' => view('custom.js.resultSearchLiveTogether', ["motel" => $this->v['motel']])->render(),
+        ]);
     }
 
     public function detail($id)
@@ -327,27 +368,40 @@ class MotelController extends Controller
 
 
         $model2 = new ContactMotelHistory();
-
-        if ($model2->create_history([
-            'id' => $id
-        ])) {
-            $model = new Motel();
-            $data = [];
+        $model = new Motel();
+        try {
             $people = $model->info_motel($id);
-            foreach ($people as $p) {
-                $data[] = $p->email;
+            $user = User::find($people->motel->user_id);
+            $userLogin = Auth::user();
+            $data1 = [
+                'title' => 'Bạn vừa có 1 thông báo mới',
+                'message' =>
+                    $userLogin->name . ' đã đăng ký ở ghép phòng ' . $people->motel->room_number . ' - <span class="font-weight-bold">' . $people->motel->name . '</span>',
+                'time' => Carbon::now()->format('h:i A d/m/Y'),
+                'href' => route('admin.motel.contact', ['id' => $people->motel->id, 'idMotel' => $id]),
+                'avatar' => $userLogin->avatar ?? 'https://phunugioi.com/wp-content/uploads/2022/03/Avatar-Tet-ngau.jpg'
+            ];
+            $user->notify(new AppNotification($data1));
+            if ($people->motel->user_id === Auth::id()) {
+                return redirect()->back()->with('error', 'Bạn là chủ khu trọ.Bạn không thể đăng ký ở ghép phòng này');
             }
-            if (!empty($data)) {
-                Mail::to($data)->send(new SendMailContact());
+            $data = [];
+            if ($model2->create_history([
+                'id' => $id
+            ])) {
+
+                foreach ($people as $p) {
+                    $data[] = $p->email;
+                }
+                if (!empty($data)) {
+                    Mail::to($data)->send(new SendMailContact());
+                }
             }
+
+            return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra.Vui lòng thử lại');
         }
-
-        return redirect()->back()->with('success', 'Đăng ký ở ghép thành công');
-    }
-
-
-    public function search()
-    {
 
     }
 }

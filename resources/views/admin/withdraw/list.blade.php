@@ -22,9 +22,9 @@
                 <tr>
                     <td>#{{  1}}</td>
                     <td>{{ $item->address_balance }}</td>
-                    <td><span class="text-danger font-weight-bold">-{{ $item->money * 24.855 }}</span> <i
+                    <td><span class="text-danger font-weight-bold">-{{ floor($item->money * 24.855) }}</span> <i
                             class="fa-brands fa-bitcoin text-warning"></i></td>
-                    <td><span class="text-danger font-weight-bold">-{{$item->fee * 24.855 }}</span> <i
+                    <td><span class="text-danger font-weight-bold">-{{floor($item->fee * 24.855) }}</span> <i
                             class="fa-brands fa-bitcoin text-warning"></i></td>
                     <td>+<span class="text-success font-weight-bold">{{$item->money}} $</span></td>
                     <td>

@@ -147,7 +147,6 @@
                 </button>
             </div>
         @endif
-        <h4>Nạp tiền</h4>
         <div class="bg-white p-4 rounded-4 shadow-lg" style="min-height: 700px">
             <form action="{{route('make.payment')}}">
 

@@ -102,6 +102,8 @@
                                 <span class="badge bg-danger p-2">Sắp hết hạn hợp đồng</span>
                             @elseif($motel->status == 5)
                                 <span class="badge bg-dark p-2">Đang đăng tin</span>
+                            @elseif($motel->status == 7)
+                                <span class="badge bg-dark p-2">Tìm ở ghép</span>
                             @elseif($motel->status == 6)
                                 <span class="badge bg-danger p-2">Đã hết hạn hợp đồng</span>
                             @else
@@ -112,11 +114,11 @@
                             <a title="Cập nhật phòng trọ"
                                href="{{ route('admin.motel.edit', ['id' => $motel->area_id, 'idMotel' => $motel->id]) }}"
                                class="btn btn-warning">
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i class="fa-solid fa-pen-to-square"></i> Sửa
                             </a>
                             <a title="Thông tin phòng trọ" class="btn btn-info"
                                href="{{route('admin.motel.info',['id' => $motel->area_id,'idMotel' => $motel->id])}}"><i
-                                    class="fa-solid fa-circle-info"></i></a>
+                                    class="fa-solid fa-circle-info"></i> Chi tiết</a>
                             {{--                            <button class="btn btn-danger "--}}
                             {{--                                {{$motel->status == 2 ? 'disabled' : ''}}>--}}
                             {{--                                <a title="Xóa phòng trọ"--}}
@@ -124,7 +126,8 @@
                             {{--                                   class="text-white"><i class="fa-solid fa-trash"></i></a></button>--}}
                             <a href="{{route('admin.duplicate.motel',['id' => $motel->area_id, 'idMotel' => $motel->id])}}"
                                onclick="return confirm('Bạn có chắc muốn sao chép phòng trọ này ?')"
-                               title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i></a>
+                               title="Sao chép phòng trọ" class="btn btn-secondary"><i class="fa-solid fa-copy"></i>
+                                Nhân đôi</a>
                         </td>
                     </tr>
                 @endforeach
@@ -148,7 +151,7 @@
                         <label>File exel</label>
                         @csrf
                         <input type="hidden" value="{{$id}}" name="area_id" id="area_id">
-                        <input type="file" class="form-control" name="file" id="file">
+                        <input type="file" class="form-control" accept=".xlsx" name="file" id="file">
                         <span class="text-sm text-danger ms-1">Bạn nên xem trước định dạng file trước khi nhập</span>
                     </div>
                     <div class="modal-footer">

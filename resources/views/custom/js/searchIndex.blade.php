@@ -94,7 +94,10 @@
             const {value} = element.dataset;
             if (+value > 0) {
                 if (element.classList.contains('selected')) {
-                    document.getElementsByName('city_id')[0].value = value;
+                    document.getElementsByName('city_id')[0].value = JSON.stringify({
+                        id: value,
+                        label: element.innerHTML
+                    });
                 }
             }
 
@@ -106,7 +109,10 @@
                 const {value} = element.dataset;
                 if (+value > 0) {
                     if (element.classList.contains('selected')) {
-                        document.getElementsByName('district_id')[0].value = value;
+                        document.getElementsByName('district_id')[0].value = JSON.stringify({
+                            id: value,
+                            label: element.innerHTML
+                        });
                     }
                 }
             })
@@ -118,7 +124,10 @@
                 const {value} = element.dataset;
                 if (+value > 0) {
                     if (element.classList.contains('selected')) {
-                        document.getElementsByName('ward_id')[0].value = value;
+                        document.getElementsByName('ward_id')[0].value = JSON.stringify({
+                            id: value,
+                            label: element.innerHTML
+                        });
                     }
                 }
             })
@@ -129,7 +138,8 @@
         selectBedroom.querySelectorAll('li').forEach(element => {
             const {value} = element.dataset;
             if (element.classList.contains('selected')) {
-                document.getElementsByName('bedroom').value = value;
+                console.log(value);
+                document.getElementsByName('bedroom')[0].value = value;
             }
 
         })
@@ -138,7 +148,7 @@
         selectToilet.querySelectorAll('li').forEach(element => {
             const {value} = element.dataset;
             if (element.classList.contains('selected')) {
-                document.getElementsByName('toilet').value = value;
+                document.getElementsByName('toilet')[0].value = value;
             }
 
         })
@@ -155,7 +165,5 @@
 
         document.getElementsByName('price_min')[0].value = priceMin.value.split(" ")[1].replaceAll(",", "");
         document.getElementsByName('price_max')[0].value = priceMax.value.split(" ")[1].replaceAll(",", "");
-
-        document.getElementById('formSearch').submit();
     });
 </script>
